@@ -1,0 +1,18 @@
+<section class="container">
+
+	<h1>Equipment</h1>
+
+	<div class="row">
+
+		<% @sporting_goods.each do |sporting_good| %>
+			
+			<li class="col-lg-3 col-md-6 col-xs-12">
+				<%= sporting_good[:title] %>
+			</li>
+
+		<% end %>
+
+	</div>
+
+</section>
+
