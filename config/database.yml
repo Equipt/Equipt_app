@@ -21,6 +21,14 @@ test:
   database: db/test.sqlite3
 
 production:
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+  <<: *default
+=======
+  host: ENV['PG_HOST']
+>>>>>>> Stashed changes
+>>>>>>> develop
   adapter: postgresql
   encoding: unicode
   database: ENV['PG_DATABASE']
