@@ -21,6 +21,7 @@ test:
   database: db/test.sqlite3
 
 production:
+  host: ENV['PG_HOST']
   adapter: postgresql
   encoding: unicode
   database: ENV['PG_DATABASE']
