@@ -1,22 +1,11 @@
 class SportingGoodsController < ApplicationController
 
 	def index
+		@sporting_goods = SportingGood.all
+	end
 
-		@sporting_goods = [
-			{
-				title: 'first sporting good'
-			},
-			{
-				title: 'second sporting good'
-			},
-			{
-				title: 'third sporting good'
-			},
-			{
-				title: 'fourth sporting good'
-			}
-		]
-
+	def show
+		@sporting_good = SportingGood.find_by_slug params[:slug] 
 	end
 
 end
