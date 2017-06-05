@@ -62,7 +62,11 @@ GEM
     connection_pool (2.2.1)
     erubis (2.7.0)
     execjs (2.7.0)
+    faker (1.7.3)
+      i18n (~> 0.5)
     ffi (1.9.18)
+    friendly_id (5.0.5)
+      activerecord (>= 4.0.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     i18n (0.8.4)
@@ -190,6 +194,8 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.6)
   byebug
   coffee-rails (~> 4.2)
+  faker
+  friendly_id (~> 5.0.0)
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)

@@ -21,13 +21,13 @@ const config = {
       'es5-shim/es5-shim',
       'es5-shim/es5-sham',
       'babel-polyfill',
-      './app/bundles/HelloWorld/startup/registration',
+      './app/bundles/web/startup/registration',
     ],
   },
 
   output: {
     // Name comes from the entry section.
-    filename: '[name]-[hash].js',
+    filename: '[name].js',
 
     // Leading slash is necessary
     publicPath: `/${webpackPublicOutputDir}`,

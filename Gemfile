@@ -32,6 +32,8 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'friendly_id', '~> 5.0.0'
+
 # Front-end libraries
 gem "react_on_rails", "8.0.0"
 gem 'bootstrap-sass', '~> 3.3.6'
@@ -43,6 +45,9 @@ group :development, :test do
 
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+
+  # Faker for seeding
+  gem 'faker'
 
 end
 

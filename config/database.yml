@@ -20,6 +20,18 @@ test:
   <<: *default
   database: db/test.sqlite3
 
+staging: 
+  adapter: postgresql
+  encoding: unicode
+  database: d5bq5s9nieg2mq
+  pool: 5432
+  username: nfpovrxkubkkvj
+  password: 2e9715250e1e54d09f4d4188bbb5f7f7169ca5adfe83541922bbbc1e30f0f1e2
+
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: d25jr57sg1c716
+  pool: 5432
+  username: aiwovrloqbbhag
+  password: 6d5c93b811dd61fa8a5dca3632c7f47a319bbf743df0b82bfb4f9d8c97fe3889
