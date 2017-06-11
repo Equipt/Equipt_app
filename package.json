@@ -1,12 +1,21 @@
 {
   "name": "equipt_app",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "react-router-dom": "^4.1.1"
+  },
   "scripts": {
     "postinstall": "cd client && yarn install"
   },
-   "engines": {
+  "engines": {
     "node": "^6.9",
     "yarn": "^0.21"
+  },
+  "devDependencies": {
+    "react": "^15.5.4",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.1.1",
+    "react-router-redux": "^4.0.8",
+    "redux": "^3.6.0"
   }
 }

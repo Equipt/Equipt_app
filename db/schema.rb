@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170605061612) do
+ActiveRecord::Schema.define(version: 20170607043948) do
+
+  create_table "api_keys", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "access_token"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["user_id"], name: "index_api_keys_on_user_id"
+  end
 
   create_table "sporting_goods", force: :cascade do |t|
     t.string   "category"

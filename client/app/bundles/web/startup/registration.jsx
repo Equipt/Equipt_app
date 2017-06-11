@@ -1,9 +1,5 @@
 import ReactOnRails from 'react-on-rails';
 
-import SportingGoodsIndex from '../components/SportingGoodsIndex';
-import SportingGoodsShow from '../components/SportingGoodsShow';
+import Root from 'containers/Root';
 
-ReactOnRails.register({
-	SportingGoodsIndex,
-	SportingGoodsShow
-});
+ReactOnRails.register({Root});

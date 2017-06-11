@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default class SportingGoodsIndex extends React.Component {
+import SportingGoodItem from './SportingGoodItem.jsx';
+
+export class SportingGoodsIndex extends React.Component {
   
     static propTypes = {
         sportingGoods: PropTypes.array.isRequired, // this is passed from the Rails view
@@ -9,11 +11,6 @@ export default class SportingGoodsIndex extends React.Component {
 
     constructor(props, _railsContext) {
         super(props);
-
-        this.state = { 
-            
-        };
-
     }
 
     render() {
@@ -23,17 +20,12 @@ export default class SportingGoodsIndex extends React.Component {
         return (
             <section className="container">
 
-                <h1>Equiptment</h1>
+                <h2>Equipment</h2>
 
                 <div className="row">
                 {
                     sportingGoods.map(item => {
-                        return  <li  className="col-lg-3 col-md-6 col-xs-12"
-                                     key={ item.slug }>
-                                    <a href={ `/sporting_goods/${ item.slug } `}>
-                                        { item.title }
-                                    </a>
-                                </li>;
+                        return <SportingGoodItem key={ item.slug } sportingGood={ item }/>
                     })
                 }
                 </div>

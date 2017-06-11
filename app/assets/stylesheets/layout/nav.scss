@@ -1,0 +1,12 @@
+$camping_green: #8FC485;
+
+nav {
+	background: $camping_green;
+	padding: 5px 0;
+	.session-container {
+		padding: 10px 0;
+		a {
+			margin: 0 0 0 5px;
+		}
+	}
+}

@@ -36,6 +36,10 @@ const config = {
 
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      containers: resolve(__dirname, './app/bundles/web/containers'),
+      components: resolve(__dirname, './app/bundles/web/components'),
+    }
   },
 
   plugins: [
