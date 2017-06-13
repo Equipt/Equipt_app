@@ -32,6 +32,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# JSON Serializers
+gem 'active_model_serializers'
+
 gem 'friendly_id', '~> 5.0.0'
 
 # Front-end libraries

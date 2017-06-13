@@ -52,35 +52,31 @@ export default {
 
 		return new Promise((resolve, reject) => {
 
-			let ApiKey = Equipt.stores.AuthStore.getApiKey();
+			let ApiKey = '111111';
+
+			let path = this.path;
 
 			var ajaxObj = {
-				url: Equipt.API.path + url,
-				type: method,
-				contentType: options.isMultipart ? false : 'application/json',
+				url: path + url,
+				method: method,
+				responseType: options.isMultipart ? false : 'application/json',
  				cache: false,
-  				processData: false,
-				data: options.data ? options.data : JSON.stringify(data),
+				data: options.data ? options.data : data,
 				beforeSend: (request) => {
 	            	request.setRequestHeader('AUTHORIZATION', ApiKey);
 	        	}
 			};
 
 			axios(ajaxObj)
-			.success((res, status, xhr) => {
-				if (res.errors) return hasErrors(res.errors);
-				else if (res.notice) hasNotice(res.notice);
-				resolve(res);
+			.then((res, status, xhr) => {
+				resolve(res.data);
 			})
-			.error((err) => {
+			.catch(err => {
 				if (err.status === 500 || err.status === 401) {
-					Equipt.API.apiKey = null;
-					Equipt.actions.unauthorizedUser();
+					// Equipt.API.apiKey = null;
+					// Equipt.actions.unauthorizedUser();
 				}
 				reject(err);
-			})
-			.done(() => {
-				Equipt.actions.hideLoader();
 			});
 
 		});

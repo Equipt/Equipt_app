@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export class Login extends React.Component {
@@ -7,6 +8,11 @@ export class Login extends React.Component {
 
 		let email = this.refs.email.value;
 		let password = this.refs.password.value;
+
+		this.props.fetchCurrentUser({
+			email: email,
+			password: password
+		});
 
 	}
 

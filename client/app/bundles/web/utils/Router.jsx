@@ -1,19 +1,19 @@
 import React from 'react';
-import { Router, Route, IndexRoute, Switch } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 
-import { App } from 'containers/App';
+import NavContainer from 'containers/Nav';
+import Login from 'containers/Login';
+
 import { Signup } from 'components/Signup';
-import { Login } from 'components/Login';
 
-import { createBrowserHistory } from 'history';
+export default (props) => {
 
-const history = createBrowserHistory();
-
-export default (
-	<Router history={ history }>
-		<App>
+	return (
+		<div>
+			<NavContainer initialCurrentUser={ props.currentUser }/>
 			<Route path="/signup" component={ Signup }/>
 			<Route path="/login" component={ Login }/>
-		</App>
-	</Router>
-);
+		</div>
+	);
+	
+};

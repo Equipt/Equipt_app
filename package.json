@@ -2,7 +2,8 @@
   "name": "equipt_app",
   "private": true,
   "dependencies": {
-    "react-router-dom": "^4.1.1"
+    "react-router-dom": "^4.1.1",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "postinstall": "cd client && yarn install"
@@ -12,6 +13,7 @@
     "yarn": "^0.21"
   },
   "devDependencies": {
+    "babel-plugin-dynamic-import-webpack": "^1.0.1",
     "react": "^15.5.4",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
