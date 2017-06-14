@@ -7,7 +7,7 @@ class Api::SessionController < ApplicationController
 		if user && user.authenticate(params[:password])
 			render json: user, session_notice: true, send_api_token: true, status: 200
 		else 
-			render json: {notice: { error: "Incorrect credentials, try again!" } }, status: 200
+			render json: [{ error: "Incorrect credentials, try again!" }], status: 400
 		end
 	end
 
