@@ -10,7 +10,7 @@ import * as currentUserActions from 'actions/currentUser';
 
 import Nav from 'components/Nav';
 
-class NavContainer extends React.Component {
+class Session extends React.Component {
 
 	static PropTypes = {
 		initialCurrentUser: PropTypes.object
@@ -34,12 +34,15 @@ class NavContainer extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	return {currentUser: state.currentUser}
+	return {
+		currentUser: state.currentUser,
+		token: state.token
+	}
 }
 
 function matchDispatchToProps(dispatch) {  
 	return {actions: bindActionCreators(currentUserActions, dispatch)}
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(NavContainer);
+export default connect(mapStateToProps, matchDispatchToProps)(Session);
 

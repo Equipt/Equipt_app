@@ -3,15 +3,24 @@ import React from 'react';
 
 export class Login extends React.Component {
 
+	static contextTypes = {
+  		router: PropTypes.shape({
+    		history: PropTypes.object.isRequired,
+  		})
+	};
+
 	submit(e) {
 		e.preventDefault();
 
 		let email = this.refs.email.value;
 		let password = this.refs.password.value;
 
+		// Fetch Current User
 		this.props.fetchCurrentUser({
 			email: email,
 			password: password
+		}, () => {
+			this.context.router.history.push('/sporting_goods');
 		});
 
 	}

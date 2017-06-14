@@ -1,16 +1,16 @@
 import types from 'actions/types';
  
-const currentUser = (state = null, action) => {
+const alerts = (state = [], action) => {
     switch (action.type) {
-        case types.FETCH_CURRENT_USER:
+        case types.ERROR_ALERT:
             return action.payload;
-        case types.SET_CURRENT_USER:
+        case types.SUCCESS_ALERT:
             return action.payload;
-        case types.FETCHING_CURRENT_USER: 
+        case types.INFO_ALERT: 
         	return action.payload;    
         default: 
             return state;
     }
 };
 
-export default currentUser;
+export default alerts;

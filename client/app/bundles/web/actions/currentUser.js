@@ -2,10 +2,11 @@ import types from './types';
 
 import API from 'utils/Api';
 
-import Auth from 'utils/Auth';
+import * as alertActions from './alerts';
+
 
 // Fetch Current User 
-export const fetchCurrentUser = (data) => {
+export const fetchCurrentUser = (data, callback) => {
 
 	return function(dispatch) {
 
@@ -13,17 +14,25 @@ export const fetchCurrentUser = (data) => {
 			fetching: true
 		}));
 
-		API.post('/session', data).then(data => {
-
-			// Set Api Key
-			Auth.setSession(data.api_key);
+		API.post('/session', data).then(user => {
 
 			// Remove Loader
 			dispatch(fetchingCurrentUser({fetching: false}));
 
 			// Set Current User
-			dispatch(setCurrentUser(data));	
+			dispatch(setCurrentUser(user));	
 
+			// run success
+			callback();
+
+		}).catch(err => {
+
+			// Remove Loader
+			dispatch(fetchingCurrentUser({fetching: false}));
+
+			// Problem Fetching Current User
+			dispatch(alertActions.showErrorAlert(err));
+				
 		});
 
 	}

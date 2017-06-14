@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { SportingGoodsIndex } from 'components/SportingGoodsIndex';
-
 import { Router } from 'react-router';
-import createHistory from 'history/createBrowserHistory'
+import createHistory from 'history/createBrowserHistory';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
+import thunk from 'redux-thunk'; // Middleware for handling async redux events
+import { createSession } from 'redux-session';
 import routes from './../utils/Router';
 
 import reducers from '../reducers';
@@ -16,15 +15,28 @@ import reducers from '../reducers';
 // Create a browser history
 const history = createHistory();
 
-// Build the middleware for intercepting and dispatching navigation actions
+// Middleware for intercepting and dispatching navigation actions
 const middleware = routerMiddleware(history);
+
+// Middleware for presistent store data
+const session = createSession({
+  ns: 'equipt_app',
+  adapter: 'localStorage',
+  selectState (state) {
+    return {
+      token: state.currentUser && state.currentUser.api_key,
+      currentUser: state.currentUser
+    };
+  }
+});
 
 // Create Redux Store
 const store = createStore(
 	reducers,
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-	applyMiddleware(middleware, thunk)
+	applyMiddleware(middleware, thunk, session)
 );
+
 
 // Root Template
 const Root = (props, railsContext) => {
@@ -35,7 +47,6 @@ const Root = (props, railsContext) => {
 			</ConnectedRouter>
 		</Provider>
 	)
-
 }
 
 export default Root;

@@ -62,9 +62,6 @@ export default {
 				responseType: options.isMultipart ? false : 'application/json',
  				cache: false,
 				data: options.data ? options.data : data,
-				beforeSend: (request) => {
-	            	request.setRequestHeader('AUTHORIZATION', ApiKey);
-	        	}
 			};
 
 			axios(ajaxObj)
@@ -76,7 +73,8 @@ export default {
 					// Equipt.API.apiKey = null;
 					// Equipt.actions.unauthorizedUser();
 				}
-				reject(err);
+
+				reject(err.response.data);
 			});
 
 		});

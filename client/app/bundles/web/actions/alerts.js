@@ -1,0 +1,9 @@
+import types from './types';
+
+// Show Alert
+export const showErrorAlert = (data) => {
+	return {
+		type: types.ERROR_ALERT,
+		payload: data  		
+	}
+};
