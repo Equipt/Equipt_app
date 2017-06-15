@@ -52,7 +52,7 @@ export default {
 
 		return new Promise((resolve, reject) => {
 
-			let ApiKey = '111111';
+			let Session = JSON.parse(window.localStorage.getItem('equipt_app.root')).session;
 
 			let path = this.path;
 
@@ -62,6 +62,9 @@ export default {
 				responseType: options.isMultipart ? false : 'application/json',
  				cache: false,
 				data: options.data ? options.data : data,
+				headers: {
+        			'Authorization': `Basic ${ Session.token }`
+    			}
 			};
 
 			axios(ajaxObj)

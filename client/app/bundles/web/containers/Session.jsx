@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 
 import { Link } from 'react-router-dom';
 
-import * as currentUserActions from 'actions/currentUser'; 
+import * as sessionActions from 'actions/session'; 
 
 import Nav from 'components/Nav';
 
@@ -16,18 +16,25 @@ class Session extends React.Component {
 		initialCurrentUser: PropTypes.object
 	}
 
-	componentWillMount() {
-		const { currentUser } = this.props;
-		const { setCurrentUser } = this.props.actions;
+	static contextTypes = {
+  		router: PropTypes.shape({
+    		history: PropTypes.object.isRequired,
+  		})
+	};
 
-		if (this.props.initialCurrentUser) {
-			setCurrentUser(this.props.initialCurrentUser);
-		}
+	clearSession() {
+		const { actions } = this.props;
+		actions.clearStoredData();
+		actions.clearSession();
+		this.context.router.history.push('/login');
 	}
 
 	render() {
+
+		const session = this.props.session || {};
+
 		return (
-			<Nav currentUser={ this.props.currentUser }/>
+			<Nav currentUser={ session.currentUser } clearSession={ this.clearSession.bind(this) }/>
 		)
 	}
 
@@ -35,13 +42,12 @@ class Session extends React.Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		currentUser: state.currentUser,
-		token: state.token
+		session: state.session
 	}
 }
 
 function matchDispatchToProps(dispatch) {  
-	return {actions: bindActionCreators(currentUserActions, dispatch)}
+	return {actions: bindActionCreators(sessionActions, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Session);

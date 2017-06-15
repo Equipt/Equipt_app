@@ -7,3 +7,11 @@ export const showErrorAlert = (data) => {
 		payload: data  		
 	}
 };
+
+// Show Alert
+export const clearAlerts = (data) => {
+	return {
+		type: types.CLEAR_ALERTS,
+		payload: {}
+	}
+};

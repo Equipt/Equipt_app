@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Nav = (props) => {
 
-	let currentUser = props.currentUser;
+	const currentUser = props.currentUser;
 		
 	let sessionHtml = (<div className="pull-right session-container">
     	<Link className="btn btn-success" to="/login">Login</Link>
@@ -14,7 +14,8 @@ const Nav = (props) => {
 	// Set logged in html
 	if (currentUser) {
 		sessionHtml = (<div className="pull-right session-container">
-			<p>{ currentUser.firstname }</p>
+			<span>{ currentUser.firstname }</span>
+			<button className="btn btn-success" onClick={ props.clearSession }>Logout</button>
 		</div>)
 	}
 

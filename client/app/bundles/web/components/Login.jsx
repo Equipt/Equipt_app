@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import * as alertActions from 'actions/alerts'; 
+
 export class Login extends React.Component {
 
 	static contextTypes = {

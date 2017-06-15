@@ -20,14 +20,19 @@ const middleware = routerMiddleware(history);
 
 // Middleware for presistent store data
 const session = createSession({
-  ns: 'equipt_app',
-  adapter: 'localStorage',
-  selectState (state) {
-    return {
-      token: state.currentUser && state.currentUser.api_key,
-      currentUser: state.currentUser
-    };
-  }
+	ns: 'equipt_app',
+	adapter: 'localStorage',
+	selectState (state) {
+		return {
+	  		session: state.session
+		};
+  	},
+  	onLoad(storedState, dispatch) {
+		dispatch({ type: 'HYDRATE_STATE', storedState })
+  	},
+  	clearStorage (action) {
+    	return action.type === 'DROP_SESSION_DATA';
+  	}
 });
 
 // Create Redux Store
@@ -43,7 +48,7 @@ const Root = (props, railsContext) => {
 	return (
 		<Provider store={store}>
 			<ConnectedRouter history={ history }>
-				{ routes(props) }
+				{ routes(props, store) }
 			</ConnectedRouter>
 		</Provider>
 	)

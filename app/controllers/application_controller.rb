@@ -24,5 +24,10 @@ class ApplicationController < ActionController::Base
 			return nil
 		end
 	end
+
+	#render 401 status if user is not authorized
+	def ensure_authenticated_user
+		head :unauthorized unless current_user
+	end
   
 end

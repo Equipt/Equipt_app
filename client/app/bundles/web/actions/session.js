@@ -4,7 +4,6 @@ import API from 'utils/Api';
 
 import * as alertActions from './alerts';
 
-
 // Fetch Current User 
 export const fetchCurrentUser = (data, callback) => {
 
@@ -20,7 +19,10 @@ export const fetchCurrentUser = (data, callback) => {
 			dispatch(fetchingCurrentUser({fetching: false}));
 
 			// Set Current User
-			dispatch(setCurrentUser(user));	
+			dispatch(setCurrentUser({ 
+				currentUser: user,
+				token:user.api_key
+			}));	
 
 			// run success
 			callback();
@@ -44,6 +46,21 @@ export const setCurrentUser = (data) => {
 	return {	
 		type: types.SET_CURRENT_USER,
 		payload: data  
+	}
+};
+
+// Logout
+export const clearSession = () => {
+	return {	
+		type: types.CLEAR_SESSION,
+		payload: {}
+	}
+};
+
+// Clear session
+export const clearStoredData = (data) => {
+	return {	
+		type: types.DROP_SESSION_DATA
 	}
 };
 

@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 
 import { Link } from 'react-router-dom';
 
-import * as currentUserActions from 'actions/currentUser'; 
+import * as sessionActions from 'actions/session'; 
 
 import { Login } from 'components/Login';
 
@@ -25,11 +25,11 @@ class LoginContainer extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	return {currentUser: state.currentUser}
+	return {session: state.session}
 }
 
 function matchDispatchToProps(dispatch) {  
-	return {actions: bindActionCreators(currentUserActions, dispatch)}
+	return {actions: bindActionCreators(sessionActions, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(LoginContainer);

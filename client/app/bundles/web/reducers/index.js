@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 
-import currentUser from './currentUser';
-import storedState from './storedState';
+import session from './session';
 import alerts from './alerts';
+import sportingGoods from './sportingGoods';
  
 export default combineReducers({
-	storedState,
 	alerts,
-	currentUser,
+	session,
+	sportingGoods,
 	routing
 });
