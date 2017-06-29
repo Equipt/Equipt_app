@@ -1,12 +1,12 @@
 class UserSerializer < ActiveModel::Serializer
   	
-  attributes 	:id, 
+  	attributes 	:id, 
 				:firstname, 
 				:lastname, 
 				:email, 
 				:username, 
 				:street_number, 
-        :street,
+        		:street,
 				:city, 
 				:state, 
 				:zip, 
@@ -25,16 +25,17 @@ class UserSerializer < ActiveModel::Serializer
 				# :password_reset_token, 
 				# :password_reset_sent_at,
 				:notice,
-        :api_key
+        		:api_key,
+        		:errors
 
 	def notice
 		{ info: "Welcome, #{ @object.firstname.capitalize }" } if @instance_options[:create_notice]
-    { info: "Welcome back, #{ @object.firstname.capitalize }"} if @instance_options[:session_notice]
+    	{ info: "Welcome back, #{ @object.firstname.capitalize }"} if @instance_options[:session_notice]
 	end
 
-  def api_key
-    @object.api_keys.first.access_token if @instance_options[:send_api_token]
-  end
+  	def api_key
+    	@object.api_keys.first.access_token if @instance_options[:send_api_token]
+  	end
 
 	private
 

@@ -12,10 +12,6 @@ import Nav from 'components/Nav';
 
 class Session extends React.Component {
 
-	static PropTypes = {
-		initialCurrentUser: PropTypes.object
-	}
-
 	static contextTypes = {
   		router: PropTypes.shape({
     		history: PropTypes.object.isRequired,
@@ -34,7 +30,8 @@ class Session extends React.Component {
 		const session = this.props.session || {};
 
 		return (
-			<Nav currentUser={ session.currentUser } clearSession={ this.clearSession.bind(this) }/>
+			<Nav currentUser={ session.currentUser } 
+				 clearSession={ this.clearSession.bind(this) }/>
 		)
 	}
 

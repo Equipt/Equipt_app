@@ -22,9 +22,9 @@ const Nav = (props) => {
 	return (
 		<nav className="navbar">
 				<div className="container">
-					<a href="/">
+					<Link to="/sporting_goods">
 						<img className="pull-left" src="/assets/logo.png" width="60"/>
-					</a>
+					</Link>
 					{ sessionHtml }
 				</div>
 		</nav>

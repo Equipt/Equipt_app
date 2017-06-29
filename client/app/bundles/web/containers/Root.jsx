@@ -8,7 +8,9 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk'; // Middleware for handling async redux events
 import { createSession } from 'redux-session';
-import routes from './../utils/Router';
+import routes from 'utils/Router';
+
+import Api from 'utils/Api';
 
 import reducers from '../reducers';
 
@@ -35,13 +37,15 @@ const session = createSession({
   	}
 });
 
+// Thunk setup
+const thunkMiddleware = thunk.withExtraArgument(Api);
+
 // Create Redux Store
 const store = createStore(
 	reducers,
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-	applyMiddleware(middleware, thunk, session)
+	applyMiddleware(middleware, thunkMiddleware, session)
 );
-
 
 // Root Template
 const Root = (props, railsContext) => {

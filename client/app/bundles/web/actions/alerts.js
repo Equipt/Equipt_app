@@ -9,9 +9,9 @@ export const showErrorAlert = (data) => {
 };
 
 // Show Alert
-export const clearAlerts = (data) => {
+export const clearAlerts = () => {
 	return {
 		type: types.CLEAR_ALERTS,
-		payload: {}
+		payload: []
 	}
 };

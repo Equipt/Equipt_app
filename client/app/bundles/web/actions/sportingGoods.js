@@ -1,15 +1,15 @@
 import types from './types';
 
-import API from 'utils/Api';
-
 import * as alertActions from './alerts';
 
 // Get all sporting goods
 export const fetchSportingGoods = () => {
 
-	return function(dispatch) {
+	return function(dispatch, getState, Api) {
 
-		API.get('/sporting_goods')
+		const api = new Api(getState().session);
+
+		api.get('/sporting_goods')
 		.then(sportingGoods => {
 			dispatch(setSportingGoods(sportingGoods));
 		})

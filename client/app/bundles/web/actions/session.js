@@ -1,19 +1,19 @@
 import types from './types';
 
-import API from 'utils/Api';
-
 import * as alertActions from './alerts';
 
 // Fetch Current User 
 export const fetchCurrentUser = (data, callback) => {
 
-	return function(dispatch) {
+	return function(dispatch, getState, Api) {
+
+		const api = new Api(getState().session);
 
 		dispatch(fetchingCurrentUser({
 			fetching: true
 		}));
 
-		API.post('/session', data).then(user => {
+		api.post('/session', data).then(user => {
 
 			// Remove Loader
 			dispatch(fetchingCurrentUser({fetching: false}));
@@ -22,7 +22,10 @@ export const fetchCurrentUser = (data, callback) => {
 			dispatch(setCurrentUser({ 
 				currentUser: user,
 				token:user.api_key
-			}));	
+			}));
+
+			// Clear Alerts
+			dispatch(alertActions.clearAlerts());	
 
 			// run success
 			callback();

@@ -37,9 +37,12 @@ gem 'active_model_serializers'
 
 gem 'friendly_id', '~> 5.0.0'
 
+gem 'validates_email_format_of'
+
 # Front-end libraries
 gem "react_on_rails", "8.0.0"
 gem 'bootstrap-sass', '~> 3.3.6'
+gem "font-awesome-rails"
 
 # Faker for seeding
 gem 'faker'

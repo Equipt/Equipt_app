@@ -3,7 +3,7 @@ import React from 'react';
 
 import * as alertActions from 'actions/alerts'; 
 
-export class Login extends React.Component {
+export class LoginForm extends React.Component {
 
 	static contextTypes = {
   		router: PropTypes.shape({
@@ -12,6 +12,7 @@ export class Login extends React.Component {
 	};
 
 	submit(e) {
+
 		e.preventDefault();
 
 		let email = this.refs.email.value;

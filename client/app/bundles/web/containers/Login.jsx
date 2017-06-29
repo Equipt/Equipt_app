@@ -8,16 +8,16 @@ import { Link } from 'react-router-dom';
 
 import * as sessionActions from 'actions/session'; 
 
-import { Login } from 'components/Login';
+import { LoginForm } from 'components/LoginForm';
 
-class LoginContainer extends React.Component {
+class Login extends React.Component {
 
 	render() {
 		
 		const { fetchCurrentUser } = this.props.actions;
 
 		return (
-			<Login fetchCurrentUser={ fetchCurrentUser }/>
+			<LoginForm fetchCurrentUser={ fetchCurrentUser }/>
 		)
 
 	}
@@ -32,4 +32,4 @@ function matchDispatchToProps(dispatch) {
 	return {actions: bindActionCreators(sessionActions, dispatch)}
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(LoginContainer);
+export default connect(mapStateToProps, matchDispatchToProps)(Login);

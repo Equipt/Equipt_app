@@ -32,6 +32,8 @@ const Alert = (props) => {
 						let message = alert[key];
 						return 	<div className={ `alert ${ alertClass(key) }` }
 									 key={ `alert_${index}` }>
+									 <i className="fa fa-times pull-right" 
+									 	aria-hidden="true"></i>
 									{ message }
 								</div>;	
 					}

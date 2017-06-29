@@ -7,4 +7,9 @@ class Api::SportingGoodsController < ApplicationController
 		render json: sporting_goods, status: 200
 	end
 
+	def show 
+		sporting_good = SportingGood.find_by_slug(params[:slug]);
+		render json: sporting_good, status: 200
+	end
+
 end

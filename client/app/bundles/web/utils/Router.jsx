@@ -1,12 +1,17 @@
 import React from 'react';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, Redirect, browserHistory, Switch } from 'react-router';
 
+// Components
+import Home from 'components/Home';
+
+// Containers
 import Session from 'containers/Session';
 import Login from 'containers/Login';
+import Signup from 'containers/Signup';
 import Alert from 'containers/Alert';
 import SportingGoodsIndex from 'containers/SportingGoodsIndex';
+import SportingGoodsShow from 'containers/SportingGoodsShow';
 
-import { Signup } from 'components/Signup';
 
 export default (props, store) => {
 
@@ -26,13 +31,18 @@ export default (props, store) => {
 
 	return (
 		<div>
-			<Session initialCurrentUser={ props.currentUser }/>
+			<Session/>
 			<Alert/>
 			<Route path="/signup" component={ Signup }/>
 			<Route path="/login" component={ Login }/>
-			<Route path="/sporting_goods" render={ () => {
-				return protectedRoute(SportingGoodsIndex);
-			}} />
+			<Switch>
+				<Route path="/sporting_goods/:slug" render={ () => {
+					return protectedRoute(SportingGoodsShow);
+				}}/>
+				<Route path="/sporting_goods" render={ () => {
+					return protectedRoute(SportingGoodsIndex);
+				}}/>
+			</Switch>
 		</div>
 	);
 	

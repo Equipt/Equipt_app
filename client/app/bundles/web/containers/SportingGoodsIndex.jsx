@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 
 import * as sportingGoodsActions from 'actions/sportingGoods';
 
-import SportingGood from 'components/SportingGood';
+import SportingGoodsList from 'components/SportingGoodsList';
 
 class SportingGoodsIndex extends React.Component {
 
-	componentWillMount() {
+	componentDidMount() {
 		const { actions } = this.props;
 		actions.fetchSportingGoods();
 	}
@@ -22,13 +22,7 @@ class SportingGoodsIndex extends React.Component {
 		const { sportingGoods } = this.props;
 
 		return (
-			<section className="container">
-			{
-				sportingGoods.map(sportingGood => {
-					return <SportingGood key={ sportingGood.title } sportingGood={sportingGood}/>
-				})	
-			}
-			</section>
+			<SportingGoodsList sportingGoods={ sportingGoods }/>
 		)
 	}
 
