@@ -2,9 +2,9 @@ import types from './types';
 
 export const fetchSportingGood = (pathname) => {
 
-	return function(dispatch, getState, Api) {
+	return function(dispatch, getState, api) {
 
-		const api = new Api(getState().session);
+		api.token = getState().session.token;
 
 		api.get(pathname).then(data => {
 			dispatch(setSportingGood(data));

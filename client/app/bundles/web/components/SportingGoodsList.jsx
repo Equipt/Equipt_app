@@ -3,9 +3,9 @@ import React from 'react';
 
 import SportingGood from 'components/SportingGood';
 
-const SportingGoodsList = (props) => {
-
-	const { sportingGoods } = props;
+const SportingGoodsList = ({
+	sportingGoods
+}) => {
 
 	return (
 		<section className="container">

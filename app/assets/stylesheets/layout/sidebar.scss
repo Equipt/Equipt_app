@@ -1,0 +1,11 @@
+$primary_color: #8FC485;
+$secondary_color: #D3D3D3;
+
+.sidebar-wrapper {
+	position: absolute;
+	left: 0;
+	top: 70px;
+	width: 50px;
+	height: 100vh;
+	background: $secondary_color;
+}

@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Alert = (props) => {
-
-	const { alerts } = props;
+const Alert = ({
+	alerts = []
+}) => {
 
 	function alertClass(alertType) {
 

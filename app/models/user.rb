@@ -12,10 +12,7 @@ class User < ActiveRecord::Base
 
 	validates_uniqueness_of :email
 
-	validates :password,:presence=>true,:length=>{:minimum=>6},:on=>:create
-
-	validates :password_confirmation, 
-            :presence=>true, :if => :password_digest_changed?
+	validates :password, :length=>{ :minimum => 6 }
 
 	after_create :session_api_key
 
@@ -28,5 +25,32 @@ class User < ActiveRecord::Base
 	def session_api_key
   		api_keys.first_or_create
 	end
+
+	# oAuth
+	def self.from_facebook(auth)
+		
+		password = SecureRandom.hex(9)
+
+    	where(provider: 'facebook', uid: auth['userID']).first_or_initialize.tap do |user|
+  			user.provider           	= 'facebook'
+  			user.uid                	= auth['userID']
+  			user.firstname          	= auth['name']
+  			user.lastname          		= auth['name']
+      		user.email              	= auth['email']
+  			user.oauth_token        	= auth['accessToken']
+  			user.oauth_expires_at   	= Time.at(auth['expiresIn'])
+      		user.password              ||=  password
+      		user.password_confirmation ||=  password
+	  		user.save!
+		end
+	end
+
+	 # forgot password
+  	def send_password_reset
+    	generate_token(:password_reset_token)
+    	self.password_reset_sent_at = Time.zone.now
+    	save! validate: false
+    	UserMailer.password_reset(self).deliver
+  	end
 
 end

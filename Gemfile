@@ -39,6 +39,9 @@ gem 'friendly_id', '~> 5.0.0'
 
 gem 'validates_email_format_of'
 
+# o-auth 
+gem 'omniauth-facebook'
+
 # Front-end libraries
 gem "react_on_rails", "8.0.0"
 gem 'bootstrap-sass', '~> 3.3.6'
@@ -46,6 +49,8 @@ gem "font-awesome-rails"
 
 # Faker for seeding
 gem 'faker'
+
+gem "figaro"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

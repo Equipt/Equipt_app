@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import * as alertActions from 'actions/alerts'; 
 
 export class LoginForm extends React.Component {
@@ -22,9 +24,7 @@ export class LoginForm extends React.Component {
 		this.props.fetchCurrentUser({
 			email: email,
 			password: password
-		}, () => {
-			this.context.router.history.push('/sporting_goods');
-		});
+		}, () => this.context.router.history.push('/sporting_goods'));
 
 	}
 
@@ -53,6 +53,8 @@ export class LoginForm extends React.Component {
 					<input type="submit" value="login" className="btn btn-success"/>
 
 				</form>
+
+				<Link to="/forgot_password" className="pull-right">Need help logging in?</Link>
 
 			</section>
 		)

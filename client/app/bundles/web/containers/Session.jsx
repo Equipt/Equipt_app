@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import * as sessionActions from 'actions/session'; 
 
 import Nav from 'components/Nav';
+import SideBar from 'components/SideBar';
 
 class Session extends React.Component {
 
@@ -20,18 +21,25 @@ class Session extends React.Component {
 
 	clearSession() {
 		const { actions } = this.props;
+
+		// Clear all session data
 		actions.clearStoredData();
 		actions.clearSession();
+
+		// redirect back to login
 		this.context.router.history.push('/login');
 	}
 
 	render() {
 
-		const session = this.props.session || {};
+		const session = this.props.session || {}; 
 
 		return (
-			<Nav currentUser={ session.currentUser } 
-				 clearSession={ this.clearSession.bind(this) }/>
+			<div>
+				<Nav currentUser={ session.currentUser } 
+					 clearSession={ this.clearSession.bind(this) }/>
+				{ session.token ? <SideBar/> : null }
+			</div>
 		)
 	}
 

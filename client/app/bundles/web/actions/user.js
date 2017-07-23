@@ -4,9 +4,9 @@ import * as sessionActions from 'actions/session';
 
 export const signup = (formData, callback) => {
 
-	return function(dispatch, getState, Api) {
+	return function(dispatch, getState, api) {
 
-		const api = new Api(getState().session);
+		api.token = getState().session.token;
 
 		api.post('/user', formData)
 		.then(user => {

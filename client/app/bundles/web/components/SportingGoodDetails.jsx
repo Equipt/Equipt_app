@@ -3,9 +3,9 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-const SportingGoodDetails = (props) => {
-
-    const { sportingGood } = props;
+const SportingGoodDetails = ({
+	sportingGood
+}) => {
 
     return (
         <section className="container">

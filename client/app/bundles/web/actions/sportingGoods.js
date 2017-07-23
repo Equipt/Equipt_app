@@ -5,9 +5,9 @@ import * as alertActions from './alerts';
 // Get all sporting goods
 export const fetchSportingGoods = () => {
 
-	return function(dispatch, getState, Api) {
+	return function(dispatch, getState, api) {
 
-		const api = new Api(getState().session);
+		api.token = getState().session.token;
 
 		api.get('/sporting_goods')
 		.then(sportingGoods => {

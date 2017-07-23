@@ -1,8 +1,11 @@
-$camping_green: #8FC485;
+$primary_color: #8FC485;
+$secondary_color: #D3D3D3;
 
 nav {
-	background: $camping_green;
+	position: relative;
+	background: $primary_color;
 	padding: 5px 0;
+	z-index: 1;
 	.session-container {
 		padding: 10px 0;
 		a {
