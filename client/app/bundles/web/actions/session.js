@@ -111,7 +111,11 @@ export const resetPassword = (resetToken, data, callback) => {
 		})
 		.catch(errors => {
 
-			dispatch(resetErrors(errors));
+			if (errors.error) {
+				dispatch(alertActions.showErrorAlert(errors));
+			} else {
+				dispatch(resetErrors(errors));
+			}
 			
 		});
 

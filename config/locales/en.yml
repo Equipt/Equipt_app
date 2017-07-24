@@ -20,4 +20,45 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  session:
+    incorrect_credentials: Incorrect credentials, try again!
+    sent_password_reset: A password reset link has been sent your email!
+    reset_expired: Password reset has expired
+    password_reset: Your password has been reset!
+  frontend:
+    login:
+      title: Login
+      password_reset: Need help logging in?
+      formFields:
+        - name: email
+          label: Email address
+          tag: input
+          type: email
+        - name: password
+          label: password
+          tag: input
+          type: password
+    signup: 
+      title: Signup
+      formFields:
+        - name: firstname
+          label: First Name
+          tag: input
+          type: text
+        - name: lastname
+          label: Last Name
+          tag: input
+          type: text
+        - name: email
+          label: Email
+          tag: input
+          type: email
+        - name: password
+          label: Password
+          tag: input
+          type: password
+        - name: password_confirmation
+          label: Password Confirmation
+          tag: input
+          type: password
+      

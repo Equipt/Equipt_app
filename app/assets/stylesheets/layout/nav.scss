@@ -2,7 +2,7 @@ $primary_color: #8FC485;
 $secondary_color: #D3D3D3;
 
 nav {
-	position: relative;
+	position: fixed;
 	background: $primary_color;
 	padding: 5px 0;
 	z-index: 1;

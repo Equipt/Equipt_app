@@ -49,6 +49,9 @@ const store = createStore(
 
 // Root Template
 const Root = (props, railsContext) => {
+
+	console.log(props);
+	
 	return (
 		<Provider store={store}>
 			<ConnectedRouter history={ history }>

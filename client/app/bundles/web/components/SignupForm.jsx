@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import content from 'utils/Content';
-
 export class SignupForm extends React.Component {
 
 	static contextTypes = {
@@ -39,7 +37,8 @@ export class SignupForm extends React.Component {
 
 	render() {
 
-		const { formFields } = content.signup;
+
+		const { signup } = this.props.content;
 
 		const user = this.props.user || {};
 		const errors = user.errors || [];
@@ -47,12 +46,12 @@ export class SignupForm extends React.Component {
 		return (
 			<section className="container" onSubmit={ this.submit.bind(this) }>
 
-				<h2>Signup</h2>
+				<h2>{ signup.title }</h2>
 
 				<form>
 
 					{
-						formFields.map((field, index) => {
+						signup.formFields.map((field, index) => {
 
 							let fieldErrors = errors[field.name] || [];
 

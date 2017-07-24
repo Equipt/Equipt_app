@@ -21,11 +21,9 @@ class AlertContainer extends React.Component {
 	}
 
 	render() {
-
-		const alerts = this.props.alerts || [];
-
+		
 		return (
-			<Alert alerts={ alerts }/>
+			<Alert alerts={ this.props.alerts }/>
 		)
 
 	}

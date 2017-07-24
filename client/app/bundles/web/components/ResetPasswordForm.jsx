@@ -17,10 +17,10 @@ class ResetPasswordForm extends React.Component {
 
 		const { reset_token } = this.context.router.route.match.params;
 
-		resetPassword(reset_token, {
+		resetPassword(reset_token, {'user': {			
 			password: this.refs.password.value,
 			password_confirmation: this.refs.password_confirmation.value
-		}, this.context.router.history.push('/login'));
+		}}, () => this.context.router.history.push('/login'));
 
 	}
 

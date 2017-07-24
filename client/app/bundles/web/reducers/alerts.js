@@ -1,6 +1,6 @@
 import types from 'actions/types';
  
-const alerts = (state = [], action) => {
+const alerts = (state = {}, action) => {
     switch (action.type) {
         case types.ERROR_ALERT:
             return action.payload;

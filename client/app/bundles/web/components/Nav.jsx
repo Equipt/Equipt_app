@@ -14,7 +14,7 @@ const Nav = (props) => {
 	// Set logged in html
 	if (currentUser) {
 		sessionHtml = (<div className="pull-right session-container">
-			<span>{ currentUser.firstname }</span>
+			<Link to="/profile">{ currentUser.firstname }</Link>
 			<button className="btn btn-success" onClick={ props.clearSession }>Logout</button>
 		</div>)
 	}

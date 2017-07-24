@@ -10,6 +10,7 @@ import Login from 'containers/Login';
 import Signup from 'containers/Signup';
 import ForgotPassword from 'containers/ForgotPassword';
 import ResetPassword from 'containers/ResetPassword';
+import Profile from 'containers/Profile';
 import Alert from 'containers/Alert';
 import FaceBook from 'containers/FaceBook';
 import SportingGoodsIndex from 'containers/SportingGoodsIndex';
@@ -28,7 +29,7 @@ export default (props, store) => {
 			return <ProtectedComponent/>;
 		} else {
 			return 	<div>
-						{  AlternativeSessionComponent ? <AlternativeSessionComponent/> : <Login/>}
+						{  AlternativeSessionComponent ? <AlternativeSessionComponent { ...props }/> : <Login { ...props }/>}
 						<FaceBook appId={ props.facebookAppId }/>
 					</div>;
 		}
@@ -38,18 +39,32 @@ export default (props, store) => {
 		<div>
 			<Session/>
 			<Alert/>
-			<Route path="/home" render={ () => {
+			<Route path="/" exact={ true } render={ () => {
 				if (isAuthenticated()) {
-					return <SportingGoodsIndex/>;
+					return <SportingGoodsIndex { ...props }/>;
 				} else {
-					return <Home/>;
+					return <Home { ...props }/>;
 				}
 			}}/>
 			<Route path="/signup" render={ () => {
-				return protectedRoute(SportingGoodsIndex, Signup);
+				if (isAuthenticated()) {
+					return <SportingGoodsIndex { ...props }/>;
+				} else {
+					return (<div>
+								<Signup { ...props }/>
+								<FaceBook { ...props }/>
+							</div>);
+				}
 			}}/>
 			<Route path="/login" render={ () => {
-				return protectedRoute(SportingGoodsIndex);
+				if (isAuthenticated()) {
+					return <SportingGoodsIndex/>;
+				} else {
+					return (<div>
+								<Login { ...props }/>
+								<FaceBook { ...props }/>
+							</div>);
+				}
 			}}/>
 			<Route path="/forgot_password" component={ ForgotPassword }/>
 			<Route path="/reset_password/:reset_token" component={ ResetPassword }/>
@@ -59,6 +74,9 @@ export default (props, store) => {
 				}}/>
 				<Route path="/sporting_goods" render={ () => {
 					return protectedRoute(SportingGoodsIndex);
+				}}/>
+				<Route path="/profile" render={ () => {
+					return protectedRoute(Profile);
 				}}/>
 			</Switch>
 		</div>

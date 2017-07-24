@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Alert = ({
-	alerts = []
+	alerts = {}
 }) => {
 
 	function alertClass(alertType) {
@@ -27,17 +27,15 @@ const Alert = ({
 	return (
 		<div className="container">
 			{ 
-				alerts.map((alert, index) => {
-					for (let key in alert) {
-						let message = alert[key];
-						return 	<div className={ `alert ${ alertClass(key) }` }
-									 key={ `alert_${index}` }>
-									 <i className="fa fa-times pull-right" 
-									 	aria-hidden="true"></i>
-									{ message }
-								</div>;	
-					}
-				})
+				Object.keys(alerts).map((key, index) => {
+					let message = alerts[key];
+					return 	<div className={ `alert ${ alertClass(key) }` }
+								 key={ `alert_${index}` }>
+								 <i className="fa fa-times pull-right" 
+								 	aria-hidden="true"></i>
+								{ message }
+							</div>;	
+				})	
 			}
 		</div>
 	)

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 class ForgotPasswordForm extends React.Component {
 
 	SubmittedForgotPassword(e) {
@@ -19,6 +21,8 @@ class ForgotPasswordForm extends React.Component {
 		return (
 			<section className="container">
 
+				<Link className="pull-right" to="/login">Go back to login!</Link>
+
 				<h2>Forgot Your Password, No Sweat!</h2>
 
 				<p>We will send you a reset link!</p>
@@ -30,7 +34,7 @@ class ForgotPasswordForm extends React.Component {
 						<input type="input" ref="email" className="form-control" name="email"/>
 					</div>
 
-					<input type="submit" value="login" className="btn btn-success"/>
+					<input type="submit" value="Send" className="btn btn-success"/>
 
 				</form>
 

@@ -10,22 +10,28 @@ import * as sessionActions from 'actions/session';
 
 import { LoginForm } from 'components/LoginForm';
 
-class Login extends React.Component {
+import ProfileForm from 'components/ProfileForm';
+
+class Profile extends React.Component {
 
 	render() {
+		
+		const { fetchCurrentUser } = this.props.actions;
+
 		return (
-			<LoginForm { ...this.props }/>
+			<ProfileForm/>
 		)
+
 	}
 
 }
 
 function mapStateToProps(state, ownProps) {
-	return {session: state.session}
+	return {user: state.user}
 }
 
 function matchDispatchToProps(dispatch) {  
 	return {actions: bindActionCreators(sessionActions, dispatch)}
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(Login);
+export default connect(mapStateToProps, matchDispatchToProps)(Profile);
