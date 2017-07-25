@@ -1,7 +1,8 @@
 import React from 'react';
 
 const Alert = ({
-	alerts = {}
+	alerts = {},
+	actions
 }) => {
 
 	function alertClass(alertType) {
@@ -32,7 +33,8 @@ const Alert = ({
 					return 	<div className={ `alert ${ alertClass(key) }` }
 								 key={ `alert_${index}` }>
 								 <i className="fa fa-times pull-right" 
-								 	aria-hidden="true"></i>
+								 	aria-hidden="true"
+								 	onClick={ actions.clearAlerts }></i>
 								{ message }
 							</div>;	
 				})	

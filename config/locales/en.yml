@@ -61,4 +61,7 @@ en:
           label: Password Confirmation
           tag: input
           type: password
+    sporting_goods: 
+      create:
+        title: Create Sporting Form
       

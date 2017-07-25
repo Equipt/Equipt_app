@@ -15,11 +15,9 @@ import ProfileForm from 'components/ProfileForm';
 class Profile extends React.Component {
 
 	render() {
-		
-		const { fetchCurrentUser } = this.props.actions;
 
 		return (
-			<ProfileForm/>
+			<ProfileForm { ...this.props }/>
 		)
 
 	}
@@ -27,7 +25,7 @@ class Profile extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	return {user: state.user}
+	return { currentUser: state.session.currentUser }
 }
 
 function matchDispatchToProps(dispatch) {  

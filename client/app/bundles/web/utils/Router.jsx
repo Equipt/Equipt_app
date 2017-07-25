@@ -15,6 +15,7 @@ import Alert from 'containers/Alert';
 import FaceBook from 'containers/FaceBook';
 import SportingGoodsIndex from 'containers/SportingGoodsIndex';
 import SportingGoodsShow from 'containers/SportingGoodsShow';
+import SportingGoodsNew from 'containers/SportingGoodsNew';
 
 export default (props, store) => {
 
@@ -26,7 +27,7 @@ export default (props, store) => {
 	// Render Login if not authenticated
 	const protectedRoute = (ProtectedComponent, AlternativeSessionComponent) => {
 		if (isAuthenticated()) {
-			return <ProtectedComponent/>;
+			return <ProtectedComponent { ...props }/>;
 		} else {
 			return 	<div>
 						{  AlternativeSessionComponent ? <AlternativeSessionComponent { ...props }/> : <Login { ...props }/>}
@@ -39,7 +40,7 @@ export default (props, store) => {
 		<div>
 			<Session/>
 			<Alert/>
-			<Route path="/" exact={ true } render={ () => {
+			<Route path="(/|/home)" exact={ true } render={ () => {
 				if (isAuthenticated()) {
 					return <SportingGoodsIndex { ...props }/>;
 				} else {
@@ -69,6 +70,9 @@ export default (props, store) => {
 			<Route path="/forgot_password" component={ ForgotPassword }/>
 			<Route path="/reset_password/:reset_token" component={ ResetPassword }/>
 			<Switch>
+				<Route path="/:currentUser/sporting_goods/new" render={ () => {
+					return protectedRoute(SportingGoodsNew);
+				}}/>
 				<Route path="/sporting_goods/:slug" render={ () => {
 					return protectedRoute(SportingGoodsShow);
 				}}/>

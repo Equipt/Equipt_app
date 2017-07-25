@@ -1,12 +1,12 @@
 import React from 'react';
 
 const ProfileForm = ({
-	user
+	currentUser = {}
 }) => {
 
 	return (
 		<aside className="container">
-			<h3>profile</h3>
+			<h3>{ currentUser.firstname }</h3>
 		</aside>
 	)
 };

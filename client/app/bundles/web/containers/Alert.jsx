@@ -23,7 +23,7 @@ class AlertContainer extends React.Component {
 	render() {
 		
 		return (
-			<Alert alerts={ this.props.alerts }/>
+			<Alert { ...this.props }/>
 		)
 
 	}
