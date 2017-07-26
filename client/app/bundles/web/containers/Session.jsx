@@ -37,7 +37,8 @@ class Session extends React.Component {
 		return (
 			<div>
 				<Nav currentUser={ session.currentUser } 
-					 clearSession={ this.clearSession.bind(this) }/>
+					 clearSession={ this.clearSession.bind(this) }
+					 assets={ this.props.assets }/>
 				{ session.token ? <SideBar/> : null }
 			</div>
 		)

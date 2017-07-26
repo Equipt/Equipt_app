@@ -2,9 +2,12 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-const Nav = (props) => {
+import logo from 'images/logo.png'
 
-	const currentUser = props.currentUser;
+const Nav = ({
+	currentUser = {},
+	clearSession
+}) => {
 		
 	let sessionHtml = (<div className="pull-right session-container">
     	<Link className="btn btn-success" to="/login">Login</Link>
@@ -15,7 +18,7 @@ const Nav = (props) => {
 	if (currentUser) {
 		sessionHtml = (<div className="pull-right session-container">
 			<Link to="/profile">{ currentUser.firstname }</Link>
-			<button className="btn btn-success" onClick={ props.clearSession }>Logout</button>
+			<button className="btn btn-success" onClick={ clearSession }>Logout</button>
 		</div>)
 	}
 
@@ -23,7 +26,7 @@ const Nav = (props) => {
 		<nav className="navbar">
 				<div className="container">
 					<Link to="/home">
-						<img className="pull-left" src="/assets/logo.png" width="60"/>
+						<img className="pull-left" src={ logo } width="60"/>
 					</Link>
 					{ sessionHtml }
 				</div>
