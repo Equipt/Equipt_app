@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import logo from 'images/logo.png'
+import logo from 'images/logo.png';
 
 const Nav = ({
-	currentUser = {},
+	currentUser,
 	clearSession
 }) => {
 		
