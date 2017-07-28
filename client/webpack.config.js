@@ -70,18 +70,6 @@ const config = {
         test: /\.jsx?$/,
         use: 'babel-loader',
         exclude: /node_modules/,
-      },
-      {
-        // The important stuff
-        test: /\.(jpg|jpeg|png)(\?.*)?$/, // Load only .jpg .jpeg, and .png files
-        use: {
-          loader: 'file-loader', 
-          options: {
-            name: '[md5:hash].[ext]', // Name of bundled asset
-            outputPath: 'images/', // Output location for assets. Final: `app/assets/webpack/webpack-assets/`
-            publicPath: '/assets/' // Endpoint asset can be found at on Rails server
-          }
-        }
       }
     ],
   },

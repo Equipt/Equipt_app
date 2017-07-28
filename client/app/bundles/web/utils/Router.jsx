@@ -15,7 +15,7 @@ import Alert from 'containers/Alert';
 import FaceBook from 'containers/FaceBook';
 import SportingGoodsIndex from 'containers/SportingGoodsIndex';
 import SportingGoodsShow from 'containers/SportingGoodsShow';
-import SportingGoodsNew from 'containers/SportingGoodsNew';
+import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
 
 export default (props, store) => {
 
@@ -37,8 +37,8 @@ export default (props, store) => {
 	}
 
 	return (
-		<div>
-			<Session/>
+		<div className="main-wrapper">
+			<Session { ...props }/>
 			<Alert/>
 			<Route path="(/|/home)" exact={ true } render={ () => {
 				if (isAuthenticated()) {
@@ -70,7 +70,7 @@ export default (props, store) => {
 			<Route path="/forgot_password" component={ ForgotPassword }/>
 			<Route path="/reset_password/:reset_token" component={ ResetPassword }/>
 			<Switch>
-				<Route path="/:currentUser/sporting_goods/new" render={ () => {
+				<Route path="/owner/sporting_goods/new" render={ () => {
 					return protectedRoute(SportingGoodsNew);
 				}}/>
 				<Route path="/sporting_goods/:slug" render={ () => {

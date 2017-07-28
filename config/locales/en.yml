@@ -26,6 +26,15 @@ en:
     reset_expired: Password reset has expired
     password_reset: Your password has been reset!
   frontend:
+    logo: https://s3-us-west-2.amazonaws.com/equipt-assets/logo.png
+    nav: 
+      login: 'Login'
+      signup: 'Signup'
+      logout: 'Logout'
+      all_goods: 'Rent Sporting Goods'
+      add_good: 'Add A Sporting Good'
+      your_goods: 'Your Goods'
+      calendar: 'Calendar'
     login:
       title: Login
       password_reset: Need help logging in?

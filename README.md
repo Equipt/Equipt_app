@@ -7,3 +7,7 @@ A webpack sass product to manage rental appointments of outdoor / leisure equipm
 ## Development
 
 ```foreman start -f Procfile.dev```
+
+## Email
+
+equipt.general@gmail.com

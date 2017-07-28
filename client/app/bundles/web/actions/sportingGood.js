@@ -1,5 +1,7 @@
 import types from './types';
 
+import * as alertActions from './alerts';
+
 export const fetchSportingGood = (pathname) => {
 
 	return function(dispatch, getState, api) {

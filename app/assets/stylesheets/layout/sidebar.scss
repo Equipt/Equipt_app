@@ -3,9 +3,19 @@ $secondary_color: #D3D3D3;
 
 .sidebar-wrapper {
 	position: fixed;
+	top: 72px;
 	left: 0;
-	top: 0;
-	width: 50px;
+	width: 60px;
 	height: 100vh;
 	background: $secondary_color;
+	i {
+		cursor: pointer;
+		color: #fff;
+		font-size: 25px;
+		margin: 20px 18px;
+		&.bottom {
+			position: absolute;
+			bottom: 75px;
+		}
+	}
 }

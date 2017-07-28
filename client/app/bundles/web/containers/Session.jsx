@@ -10,6 +10,7 @@ import * as sessionActions from 'actions/session';
 
 import Nav from 'components/Nav';
 import SideBar from 'components/SideBar';
+import MobileNav from 'components/MobileNav';
 
 class Session extends React.Component {
 
@@ -36,9 +37,8 @@ class Session extends React.Component {
 
 		return (
 			<div>
-				<Nav currentUser={ session.currentUser } 
-					 clearSession={ this.clearSession.bind(this) }
-					 assets={ this.props.assets }/>
+				<Nav { ...this.props } clearSession={ this.clearSession.bind(this) }/>
+				<MobileNav { ...this.props } clearSession={ this.clearSession.bind(this) }/>
 				{ session.token ? <SideBar/> : null }
 			</div>
 		)
