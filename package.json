@@ -7,7 +7,9 @@
   },
   "scripts": {
     "postinstall": "cd client && yarn install",
-    "start": "foreman start -f Procfile.dev"
+    "start": "foreman start -f Procfile.dev",
+    "webpack:deploy": "webpack --config=webpack/webpack.config.js -p",
+    "heroku-postbuild": "npm run webpack:deploy"
   },
   "engines": {
     "node": "^6.9",
