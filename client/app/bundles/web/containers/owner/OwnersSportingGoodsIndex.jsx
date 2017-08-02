@@ -14,7 +14,7 @@ class OwnersSportingGoodsIndex extends React.Component {
 
 	componentDidMount() {
 		const { actions } = this.props;
-		actions.fetchSportingGoods();
+		actions.fetchOwnersSportingGoods();
 	}
 
 	render() {

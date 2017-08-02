@@ -1,26 +1,26 @@
-class Api::Owner::SportingGoodsController < ApplicationController
+class Api::Owner::SportingGoodsController < ApiController
 
 	skip_before_action :verify_authenticity_token
 
 	before_action :ensure_authenticated_user
 
-	def new 
+	def index
+		sporting_goods = current_user.sporting_goods
+		render json: sporting_goods, status: 200
+	end
 
+	def new 
 		sporting_good = current_user.sporting_goods.new
 		render json: sporting_good,  status: 200
-
 	end
 
 	def create
-		
 		sporting_good = current_user.sporting_goods.new(sporting_good_params)
-
 		if sporting_good.save
 			render json: sporting_good, send_create_message: true, status: 200
 		else
 			render json: sporting_good, send_create_message: false, status: 400
 		end
-
 	end
 
 	private

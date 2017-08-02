@@ -1,0 +1,19 @@
+<h1>Users Index</h1>
+
+<table>
+
+	<tr>
+		<th>firstname</th>
+		<th>lastname</th>
+		<th>email</th>
+	</tr>
+	
+	<% @users.each do |user| %>
+	<tr>
+		<td><%= user.firstname %></td>
+		<td><%= user.lastname %></td>
+		<td><%= user.email %></td>
+	</tr>
+	<% end %>
+
+</table>

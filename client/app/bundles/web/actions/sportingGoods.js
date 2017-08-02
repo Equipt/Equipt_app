@@ -21,6 +21,24 @@ export const fetchSportingGoods = () => {
 
 }
 
+// Get all sporting goods belonging to user
+export const fetchOwnersSportingGoods = () => {
+	
+	return function(dispatch, getState, api) {
+
+		api.token = getState().session.token;
+
+		api.get('/owner/sporting_goods')
+		.then(sportingGoods => {
+			dispatch(setSportingGoods(sportingGoods));
+		})
+		.catch(err => {
+			dispatch(alertActions.showErrorAlert(err));
+		});
+
+	}
+
+}
 
 // Set the sporting goods in store
 export const setSportingGoods = (data) => {

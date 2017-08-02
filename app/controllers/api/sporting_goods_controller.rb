@@ -1,4 +1,4 @@
-class Api::SportingGoodsController < ApplicationController
+class Api::SportingGoodsController < ApiController
 
 	before_action :ensure_authenticated_user
 

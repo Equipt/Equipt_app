@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   end
 
+  namespace :admin do
+    resources :users
+  end
+
   get '/', to: 'home#index'
   get '*path', to: 'home#index'
 

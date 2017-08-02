@@ -10,8 +10,8 @@ const SportingGoodsList = ({
 	return (
 		<section className="container">
 		{
-			sportingGoods.map(sportingGood => {
-				return <SportingGood key={ sportingGood.title } 
+			sportingGoods.map((sportingGood, index) => {
+				return <SportingGood key={ `${ sportingGood.title }_${ index }` } 
 									 sportingGood={ sportingGood }/>
 			})	
 		}
