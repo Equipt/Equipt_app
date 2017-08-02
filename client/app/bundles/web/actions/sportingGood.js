@@ -25,3 +25,32 @@ export const setSportingGood = (data) => {
 		payload: data
 	}
 }
+
+export const newSportingGood = () => {
+
+	return function(dispatch, getState, api) {
+
+		api.token = getState().session.token;
+
+		api.get('/owner/sporting_goods/new')
+		.then(data => dispatch(setSportingGood(data)));
+
+	}
+
+}
+
+export const createSportingGood = (data) => {
+
+	return function(dispatch, getState, api) {
+
+		api.token = getState().session.token;
+
+		api.post('/owner/sporting_goods', data, {
+			isMultipart: true
+		})
+		.then(data => {
+			
+		});
+
+	}
+}

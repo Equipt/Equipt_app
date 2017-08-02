@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default function() {
+export default function(history) {
 
 	const BASE_PATH = '/api';
 
@@ -71,8 +71,13 @@ export default function() {
 				resolve(res.data);
 			})
 			.catch(err => {
-				if (err.status === 500 || err.status === 401) {
+				const { status } = err.response;
 
+				if (status === 500 || status === 401) {
+					localStorage.clear();
+					history.push('/login');
+				} else if (status === 404) {
+					history.push('/not_found');
 				}
 
 				reject(err.response.data);

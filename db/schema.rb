@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170723022430) do
+ActiveRecord::Schema.define(version: 20170801051458) do
 
   create_table "api_keys", force: :cascade do |t|
     t.integer  "user_id"
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 20170723022430) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["user_id"], name: "index_api_keys_on_user_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string   "imageable_type"
+    t.integer  "imageable_id"
+    t.string   "file"
+    t.boolean  "primary"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id"
   end
 
   create_table "sporting_goods", force: :cascade do |t|
@@ -30,7 +40,7 @@ ActiveRecord::Schema.define(version: 20170723022430) do
     t.integer  "age"
     t.float    "price_per_day"
     t.float    "price_per_week"
-    t.float    "desposit",       default: 0.0
+    t.float    "deposit",        default: 0.0
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.string   "slug"

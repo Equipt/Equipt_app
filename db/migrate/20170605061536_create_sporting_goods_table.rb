@@ -10,7 +10,7 @@ class CreateSportingGoodsTable < ActiveRecord::Migration[5.0]
 			t.integer :age
 			t.float :price_per_day
 			t.float :price_per_week
-			t.float :desposit, default: 0
+			t.float :deposit, default: 0
 			t.timestamps
 	    end
   	end

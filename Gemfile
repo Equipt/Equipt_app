@@ -38,6 +38,8 @@ gem 'friendly_id', '~> 5.0.0'
 
 gem 'validates_email_format_of'
 
+gem 'carrierwave', '~> 1.0'
+
 # o-auth 
 gem 'omniauth-facebook'
 

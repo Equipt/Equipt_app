@@ -3,6 +3,7 @@ import { Router, Route, Redirect, browserHistory, Switch } from 'react-router';
 
 // Components
 import Home from 'components/Home';
+import NotFoundPage from 'components/NotFoundPage';
 
 // Containers
 import Session from 'containers/Session';
@@ -15,7 +16,9 @@ import Alert from 'containers/Alert';
 import FaceBook from 'containers/FaceBook';
 import SportingGoodsIndex from 'containers/SportingGoodsIndex';
 import SportingGoodsShow from 'containers/SportingGoodsShow';
+import OwnersSportingGoodsIndex from 'containers/owner/OwnersSportingGoodsIndex';
 import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
+import OwnersCalendar from 'containers/owner/OwnersCalendar';
 
 export default (props, store) => {
 
@@ -73,6 +76,12 @@ export default (props, store) => {
 				<Route path="/owner/sporting_goods/new" render={ () => {
 					return protectedRoute(SportingGoodsNew);
 				}}/>
+				<Route path="/owner/sporting_goods" render={ () => {
+					return protectedRoute(OwnersSportingGoodsIndex);
+				}}/>
+				<Route path="/owner/calendar" render={ () => {
+					return protectedRoute(OwnersCalendar);
+				}}/>
 				<Route path="/sporting_goods/:slug" render={ () => {
 					return protectedRoute(SportingGoodsShow);
 				}}/>
@@ -82,6 +91,7 @@ export default (props, store) => {
 				<Route path="/profile" render={ () => {
 					return protectedRoute(Profile);
 				}}/>
+				<Route path="/not_found" component={ NotFoundPage } />
 			</Switch>
 		</div>
 	);

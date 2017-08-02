@@ -1,0 +1,46 @@
+$secondary_color: #D3D3D3;
+
+.drop-container {
+
+	.drop-area {
+
+		margin-top: 80px;
+		height: 300px;
+		width: 100%;
+		padding: 100px 0;
+		border: dashed 1px $secondary_color;
+
+		i, p {
+			font-size: 20px;
+			color: $secondary_color;
+			text-align: center;
+		}
+
+		i {
+			display: block;
+			font-size: 30px;
+			margin: 0 auto;
+		}
+
+	}
+
+	.drop-preview {
+
+		padding: 0;
+
+		li {
+			list-style: none;
+			display: inline-block;
+			vertical-align: top;
+			margin: 5px;
+			padding: 5px 0;
+			i {
+				color: $secondary_color;
+			}
+			img {
+				width: 150px;
+
+			}
+		}
+	}
+}

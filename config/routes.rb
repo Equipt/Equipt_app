@@ -2,8 +2,13 @@ Rails.application.routes.draw do
 
   namespace :api do 
     resources :session, only: [:create, :destroy]
-    resources :sporting_goods, param: :slug
+    resources :sporting_goods, only: [:index, :show], param: :slug
     resources :user, only: [:create]
+
+    namespace :owner do 
+      resources :sporting_goods, param: :slug
+    end
+
   end
 
   get '/', to: 'home#index'

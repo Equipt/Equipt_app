@@ -20,6 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  errors:
+    not_found: Sorry %{item} does not exist!
   session:
     incorrect_credentials: Incorrect credentials, try again!
     sent_password_reset: A password reset link has been sent your email!
@@ -73,4 +75,49 @@ en:
     sporting_goods: 
       create:
         title: Create Sporting Form
+        dropZone: Drop images here!
+        formFields:
+        - name: category
+          label: Category
+          tag: select
+          options: 
+            - Snow
+            - Bike
+            - Camp
+            - Water
+            - Rock
+        - name: title
+          label: Short Description
+          tag: input
+          type: text
+        - name: brand
+          label: brand
+          tag: input
+          type: text
+        - name: model
+          label: model
+          tag: input
+          type: text
+        - name: description
+          label: Extra Details
+          tag: textarea
+        - name: age
+          label: How old is it?
+          tag: input
+          type: number
+        - name: price_per_day
+          label: How much do you want to charge per day?
+          tag: input
+          type: number
+        - name: price_per_week
+          label: How much do you want to charge per week?
+          tag: input
+          type: number
+        - name: desposit
+          label: How much is the deposit?
+          tag: input
+          type: number
+        
+  
+
       

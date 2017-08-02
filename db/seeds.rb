@@ -45,7 +45,6 @@ def create_users
 			firstname: Faker::Name.first_name,
 			lastname: Faker::Name.last_name,
 			email: email,
-			email_confirmation: email,
 			username: Faker::Internet.user_name,
 			unit: (1..50).to_a.sample,
 			street: Faker::Address.street_address,
@@ -86,7 +85,7 @@ def create_sporting_good(user)
 			age: (1..10).to_a.sample,
 			price_per_day: (1..50).to_a.sample,
 			price_per_week: (50..200).to_a.sample,
-			desposit: (10..100).to_a.sample
+			deposit: (10..100).to_a.sample
 		)
 
 		# 5.times do |i|
@@ -141,7 +140,6 @@ admin = User.create(
 	firstname: 'tom',
 	lastname: 'tom',
 	email: 'tom@tom.com',
-	email_confirmation: 'tom@tom.com',
 	username: 'tommy',
 	street: '123 fake street',
 	city: 'Vancouver',
@@ -151,8 +149,7 @@ admin = User.create(
 	lat: '-123.1280044',
 	lng: '49.2841339',
 	restricted_availability: [true, false].sample,
-	password: 'tom',
-	password_confirmation: 'tom'
+	password: 'tom'
 )
 
 10.times do |i|

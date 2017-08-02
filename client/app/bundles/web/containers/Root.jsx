@@ -38,7 +38,7 @@ const session = createSession({
 });
 
 // Thunk setup
-const thunkMiddleware = thunk.withExtraArgument(new Api());
+const thunkMiddleware = thunk.withExtraArgument(new Api(history));
 
 // Create Redux Store
 const store = createStore(
