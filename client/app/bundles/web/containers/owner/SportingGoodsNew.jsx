@@ -16,10 +16,15 @@ class SportingGoodsNew extends React.Component {
 
 	render() {
 
+		const { actions } = this.props;
+
 		const content = this.props.content.sporting_goods.create;
 
 		return (
-			<SportingGoodsForm { ...this.props } content={ content }/>
+			<SportingGoodsForm 	{ ...this.props } 
+								content={ content } 
+								submit={ this.submit } 
+								createOrUpdate={ actions.createSportingGood }/>
 		)
 	}
 

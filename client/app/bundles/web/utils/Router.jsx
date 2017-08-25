@@ -17,6 +17,7 @@ import FaceBook from 'containers/FaceBook';
 import SportingGoodsIndex from 'containers/SportingGoodsIndex';
 import SportingGoodsShow from 'containers/SportingGoodsShow';
 import OwnersSportingGoodsIndex from 'containers/owner/OwnersSportingGoodsIndex';
+import OwnersSportingGoodsEdit from 'containers/owner/OwnersSportingGoodsEdit';
 import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
 import OwnersCalendar from 'containers/owner/OwnersCalendar';
 
@@ -62,7 +63,7 @@ export default (props, store) => {
 			}}/>
 			<Route path="/login" render={ () => {
 				if (isAuthenticated()) {
-					return <SportingGoodsIndex/>;
+					return <SportingGoodsIndex { ...props }/>;
 				} else {
 					return (<div>
 								<Login { ...props }/>
@@ -73,6 +74,9 @@ export default (props, store) => {
 			<Route path="/forgot_password" component={ ForgotPassword }/>
 			<Route path="/reset_password/:reset_token" component={ ResetPassword }/>
 			<Switch>
+				<Route path="/owner/sporting_goods/:slug/edit" render={ () => {
+					return protectedRoute(OwnersSportingGoodsEdit);
+				}}/>
 				<Route path="/owner/sporting_goods/new" render={ () => {
 					return protectedRoute(SportingGoodsNew);
 				}}/>

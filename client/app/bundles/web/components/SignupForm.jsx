@@ -37,38 +37,37 @@ export class SignupForm extends React.Component {
 
 	render() {
 
-
 		const { signup } = this.props.content;
 
 		const user = this.props.user || {};
 		const errors = user.errors || [];
 
 		return (
-			<section className="container" onSubmit={ this.submit.bind(this) }>
+			<section className="container">
 
 				<h2>{ signup.title }</h2>
 
-				<form>
+				<form onSubmit={ this.submit.bind(this) }>
 
 					{
 						signup.formFields.map((field, index) => {
 
 							let fieldErrors = errors[field.name] || [];
 
-							return 	<div key={ `field_${ index }` }>
-										<br/>
-										<label>{ field.label }</label>
-										<input  ref={ field.name }
-												name={ field.name }
-												className="form-control"
-												type={ field.type }
-										/>
-										{
-											fieldErrors.map((error, index) => {
-												return <p className="text-danger" key={ `${field.name}_error_${index}` }>{ error }</p>;
-											})
-										}
-								   	</div>;
+							return 	(<div key={ `field_${ index }` }>
+												<br/>
+													<label>{ field.label }</label>
+														<input  ref={ field.name }
+																		name={ field.name }
+																		className="form-control"
+																		type={ field.type }
+														/>
+														{
+															fieldErrors.map((error, index) => {
+																return <p className="text-danger" key={ `${field.name}_error_${index}` }>{ error }</p>;
+															})
+														}
+								   			</div>);
 						})
 					}
 

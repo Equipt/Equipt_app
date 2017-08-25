@@ -4,7 +4,11 @@ const sportingGoods = (state = [], action) => {
 	switch (action.type) {
         case types.SET_SPORTING_GOODS:
             return action.payload;
-        default: 
+				break;
+				case types.DETACH_SPORTING_GOOD:
+					debugger;
+				break;
+        default:
             return state;
 	}
 }

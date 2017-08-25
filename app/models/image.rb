@@ -4,12 +4,4 @@ class Image < ActiveRecord::Base
 
 	mount_uploader :file, ImagesUploader
 
-	before_create :check_file 
-
-	private
-
-	def check_file
-		binding.pry 
-	end
-
 end

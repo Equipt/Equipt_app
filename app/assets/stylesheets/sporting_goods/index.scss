@@ -1,0 +1,40 @@
+$secondary_color: #D3D3D3;
+
+.sporting-goods-index-wrapper {
+
+	margin-top: 25px;
+
+	.sporting-good-wrapper {
+		padding-right: 2px;
+		padding-left: 2px;
+		padding-bottom: 5px;
+	}
+
+	.sporting-good-container {
+		
+		padding: 5px;
+		border: solid 1px $secondary_color;
+
+		.sporting-good-image {
+			height: 300px;
+
+			img {
+    			display: block;
+			    height: 100%;
+				margin: 0 auto;
+			}
+
+		}
+
+		.sporting-good-controls {
+			width: 73px;
+			float: right;
+			i {
+				font-size: 30px;
+				margin: 0 5px;
+			}
+		}
+
+	}
+
+}

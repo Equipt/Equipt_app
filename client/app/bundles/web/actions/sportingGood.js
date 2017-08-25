@@ -39,18 +39,79 @@ export const newSportingGood = () => {
 
 }
 
-export const createSportingGood = (data) => {
+
+export const createSportingGood = (sportingGood = {}, images = [], slug = '', callback) => {
 
 	return function(dispatch, getState, api) {
 
 		api.token = getState().session.token;
 
-		api.post('/owner/sporting_goods', data, {
-			isMultipart: true
+		const formData = buildFormData('sporting_good', sportingGood, images);
+
+		api.post('/owner/sporting_goods', null, {
+			isMultipart: true,
+			data: formData
 		})
 		.then(data => {
-			
-		});
+			callback();
+		})
+		.catch(data => dispatch(setSportingGood(data)));
 
 	}
+}
+
+export const editSportingGood = (slug) => {
+
+	return function(dispatch, getState, api) {
+
+		api.token = getState().session.token;
+
+		api.get(`/owner/sporting_goods/${slug}/edit`)
+		.then(data => dispatch(setSportingGood(data)));
+
+	}
+
+}
+
+export const updateSportingGood = (sportingGood = {}, images = [], slug = '', callback) => {
+
+	return function(dispatch, getState, api) {
+
+		api.token = getState().session.token;
+
+		const formData = buildFormData('sporting_good', sportingGood, images);
+
+		api.put(`/owner/sporting_goods/${ slug }`, null, {
+			isMultipart: true,
+			data: formData
+		})
+		.then(data => {
+			callback();
+		})
+		.catch(data => dispatch(setSportingGood(data)));
+
+	}
+
+}
+
+function buildFormData(resource, data, images ) {
+
+	const formData = new FormData();
+
+	for (let key in data) {
+
+		if (key !== 'errors') formData.append(`${ resource }[${ key }]`, data[key] || '');
+
+	}
+
+	images.forEach(image => {
+		if (image.id) {
+			formData.append(`${ resource }[images_attributes][]`, image.id);
+		} else {
+			formData.append(`${ resource }[images_attributes][]`, image);
+		}
+	});
+
+	return formData;
+
 }

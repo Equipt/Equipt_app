@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :users
+    
+    resources :users do 
+      resources :sporting_goods
+    end
+
   end
 
   get '/', to: 'home#index'

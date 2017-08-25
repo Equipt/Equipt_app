@@ -27,9 +27,11 @@ en:
     sent_password_reset: A password reset link has been sent your email!
     reset_expired: Password reset has expired
     password_reset: Your password has been reset!
+  sporting_good:
+    deleted: ! '%{item} has been removed'
   frontend:
     logo: https://s3-us-west-2.amazonaws.com/equipt-assets/logo.png
-    nav: 
+    nav:
       login: 'Login'
       signup: 'Signup'
       logout: 'Logout'
@@ -49,7 +51,7 @@ en:
           label: password
           tag: input
           type: password
-    signup: 
+    signup:
       title: Signup
       formFields:
         - name: firstname
@@ -72,15 +74,18 @@ en:
           label: Password Confirmation
           tag: input
           type: password
-    sporting_goods: 
+    sporting_goods:
+      index:
+        default_image: https://s3-us-west-2.amazonaws.com/equipt-assets/equipment-default.png
       create:
         title: Create Sporting Form
         dropZone: Drop images here!
+        imageLimit: Exceeded Images limit!
         formFields:
         - name: category
           label: Category
           tag: select
-          options: 
+          options:
             - Snow
             - Bike
             - Camp
@@ -117,7 +122,3 @@ en:
           label: How much is the deposit?
           tag: input
           type: number
-        
-  
-
-      

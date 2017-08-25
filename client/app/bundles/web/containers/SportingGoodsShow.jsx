@@ -16,7 +16,7 @@ export class SportingGoodsShow extends React.Component {
   		})
 	};
 
-	componentDidMount() {
+	componentWillMount() {
 		
 		const { actions }  = this.props;
 		const { pathname } = this.context.router.route.location;

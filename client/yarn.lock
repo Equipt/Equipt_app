@@ -931,6 +931,10 @@ builtin-status-codes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
 
+calendar-base@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/calendar-base/-/calendar-base-0.2.1.tgz#cecefc827901aca2082f847db8cd2f1c26bf1596"
+
 camelcase@^1.0.2:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-1.2.1.tgz#9bb5304d2e0b56698b2c758b08a3eaa9daa58a39"
@@ -981,6 +985,10 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
+
+classnames@^2.1.3, classnames@^2.2.4, classnames@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
 cliui@^2.1.0:
   version "2.1.0"
@@ -1116,6 +1124,10 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
+date-arithmetic@^3.0.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/date-arithmetic/-/date-arithmetic-3.1.0.tgz#1fcd03dbd504b9dbee2b9078c85a5f1c7d3cc2d3"
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -1162,6 +1174,10 @@ diffie-hellman@^5.0.0:
     bn.js "^4.1.0"
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
+
+"dom-helpers@^2.3.0 || ^3.0.0", dom-helpers@^3.2.0:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.2.1.tgz#3203e07fed217bd1f424b019735582fc37b2825a"
 
 dom-walk@^0.1.0:
   version "0.1.1"
@@ -1593,7 +1609,7 @@ interpret@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.3.tgz#cbc35c62eeee73f19ab7b10a801511401afc0f90"
 
-invariant@^2.0.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
+invariant@^2.0.0, invariant@^2.1.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -1843,7 +1859,7 @@ lodash-es@^4.2.0, lodash-es@^4.2.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
 
-"lodash@>=3.5 <5", lodash@^4.14.0, lodash@^4.2.0, lodash@^4.2.1:
+"lodash@>=3.5 <5", lodash@^4.14.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -1932,6 +1948,10 @@ minimist@^1.2.0:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+moment@^2.18.1:
+  version "2.18.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
 ms@2.0.0:
   version "2.0.0"
@@ -2196,7 +2216,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.7:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -2259,6 +2279,21 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-big-calendar@^0.14.4:
+  version "0.14.4"
+  resolved "https://registry.yarnpkg.com/react-big-calendar/-/react-big-calendar-0.14.4.tgz#8c2a3fdedbdc3f3c5b183323dcc2581f65262ddf"
+  dependencies:
+    classnames "^2.1.3"
+    date-arithmetic "^3.0.0"
+    dom-helpers "^2.3.0 || ^3.0.0"
+    invariant "^2.1.0"
+    lodash "^4.17.4"
+    prop-types "^15.5.8"
+    react-overlays "^0.7.0"
+    react-prop-types "^0.4.0"
+    uncontrollable "^3.3.1 || ^4.0.0"
+    warning "^2.0.0"
+
 react-dom@^15.5.4:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.1.tgz#2cb0ed4191038e53c209eb3a79a23e2a4cf99470"
@@ -2275,6 +2310,13 @@ react-dropzone@^3.13.4:
     attr-accept "^1.0.3"
     prop-types "^15.5.7"
 
+react-event-calendar@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-event-calendar/-/react-event-calendar-0.3.0.tgz#b4d7d288f8fc5645fabcc120f736a66f6cd6935d"
+  dependencies:
+    calendar-base "^0.2.1"
+    classnames "^2.2.4"
+
 react-facebook-login@^3.6.2:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-3.6.2.tgz#1965f6af54cc90341b788d0752185cfd25a14d30"
@@ -2282,6 +2324,22 @@ react-facebook-login@^3.6.2:
 react-on-rails@8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/react-on-rails/-/react-on-rails-8.0.0.tgz#97fda265cdc5e4cd4334ae7a7f2bacd85346161e"
+
+react-overlays@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.7.0.tgz#531898ff566c7e5c7226ead2863b8cf9fbb5a981"
+  dependencies:
+    classnames "^2.2.5"
+    dom-helpers "^3.2.0"
+    prop-types "^15.5.8"
+    react-prop-types "^0.4.0"
+    warning "^3.0.0"
+
+react-prop-types@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-prop-types/-/react-prop-types-0.4.0.tgz#f99b0bfb4006929c9af2051e7c1414a5c75b93d0"
+  dependencies:
+    warning "^3.0.0"
 
 react-redux@^5.0.5:
   version "5.0.5"
@@ -2744,6 +2802,12 @@ uid-number@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
 
+"uncontrollable@^3.3.1 || ^4.0.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/uncontrollable/-/uncontrollable-4.1.0.tgz#e0358291252e1865222d90939b19f2f49f81c1a9"
+  dependencies:
+    invariant "^2.1.0"
+
 url@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/url/-/url-0.11.0.tgz#3838e97cfc60521eb73c525a8e55bfdd9e2e28f1"
@@ -2797,6 +2861,12 @@ vm-browserify@0.0.4:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
   dependencies:
     indexof "0.0.1"
+
+warning@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-2.1.0.tgz#21220d9c63afc77a8c92111e011af705ce0c6901"
+  dependencies:
+    loose-envify "^1.0.0"
 
 warning@^3.0.0:
   version "3.0.0"

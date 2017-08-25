@@ -19,12 +19,10 @@ class OwnersSportingGoodsIndex extends React.Component {
 
 	render() {
 
-		const { sportingGoods } = this.props;
-
 		return (
 			<div className="container">
 				<h3>Owners Sporting Goods Index</h3>
-				<SportingGoodsList sportingGoods={ sportingGoods }/>
+				<SportingGoodsList { ...this.props} isOwner={ true }/>
 			</div>
 		)
 	}
