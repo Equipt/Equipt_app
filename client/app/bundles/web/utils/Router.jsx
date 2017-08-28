@@ -1,6 +1,9 @@
 import React from 'react';
 import { Router, Route, Redirect, browserHistory, Switch } from 'react-router';
 
+// Transition Component
+import { RouteTransition } from 'react-router-transition';
+
 // Components
 import Home from 'components/Home';
 import NotFoundPage from 'components/NotFoundPage';
@@ -33,10 +36,10 @@ export default (props, store) => {
 		if (isAuthenticated()) {
 			return <ProtectedComponent { ...props }/>;
 		} else {
-			return 	<div>
+			return 	(<div>
 						{  AlternativeSessionComponent ? <AlternativeSessionComponent { ...props }/> : <Login { ...props }/>}
 						<FaceBook appId={ props.facebookAppId }/>
-					</div>;
+					</div>);
 		}
 	}
 
@@ -44,6 +47,7 @@ export default (props, store) => {
 		<div className="main-wrapper">
 			<Session { ...props }/>
 			<Alert/>
+
 			<Route path="(/|/home)" exact={ true } render={ () => {
 				if (isAuthenticated()) {
 					return <SportingGoodsIndex { ...props }/>;
@@ -73,31 +77,39 @@ export default (props, store) => {
 			}}/>
 			<Route path="/forgot_password" component={ ForgotPassword }/>
 			<Route path="/reset_password/:reset_token" component={ ResetPassword }/>
-			<Switch>
-				<Route path="/owner/sporting_goods/:slug/edit" render={ () => {
-					return protectedRoute(OwnersSportingGoodsEdit);
-				}}/>
-				<Route path="/owner/sporting_goods/new" render={ () => {
-					return protectedRoute(SportingGoodsNew);
-				}}/>
-				<Route path="/owner/sporting_goods" render={ () => {
-					return protectedRoute(OwnersSportingGoodsIndex);
-				}}/>
-				<Route path="/owner/calendar" render={ () => {
-					return protectedRoute(OwnersCalendar);
-				}}/>
-				<Route path="/sporting_goods/:slug" render={ () => {
-					return protectedRoute(SportingGoodsShow);
-				}}/>
-				<Route path="/sporting_goods" render={ () => {
-					return protectedRoute(SportingGoodsIndex);
-				}}/>
-				<Route path="/profile" render={ () => {
-					return protectedRoute(Profile);
-				}}/>
-				<Route path="/not_found" component={ NotFoundPage } />
-			</Switch>
+			<Route render={({ location }) => (
+				<RouteTransition
+					className="transition"
+					pathname={location.pathname}
+					atEnter={{ opacity: 0 }}
+					atLeave={{ opacity: 0 }}
+					atActive={{ opacity: 1 }}>
+					<Switch key={location.key} location={location}>
+						<Route exact path="/owner/sporting_goods/:slug/edit" render={ () => {
+							return protectedRoute(OwnersSportingGoodsEdit);
+						}}/>
+						<Route exact path="/owner/sporting_goods/new" render={ () => {
+							return protectedRoute(SportingGoodsNew);
+						}}/>
+						<Route exact path="/owner/sporting_goods" render={ () => {
+							return protectedRoute(OwnersSportingGoodsIndex);
+						}}/>
+						<Route exact path="/owner/calendar" render={ () => {
+							return protectedRoute(OwnersCalendar);
+						}}/>
+						<Route exact path="/sporting_goods/:slug" render={ () => {
+							return protectedRoute(SportingGoodsShow);
+						}}/>
+						<Route exact path="/sporting_goods" render={ () => {
+							return protectedRoute(SportingGoodsIndex);
+						}}/>
+						<Route exact path="/profile" render={ () => {
+							return protectedRoute(Profile);
+						}}/>
+						<Route exact path="/not_found" component={ NotFoundPage } />
+					</Switch>
+				</RouteTransition>
+			)} />
 		</div>
 	);
-	
 };

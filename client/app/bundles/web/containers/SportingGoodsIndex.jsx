@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {connect} from 'react-redux';  
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import { Link } from 'react-router-dom';
@@ -19,8 +19,11 @@ class SportingGoodsIndex extends React.Component {
 
 	render() {
 
+		const { fetchSportingGoods } = this.props.actions;
+		const content = this.props.content.sporting_goods.index;
+
 		return (
-			<SportingGoodsList { ...this.props }/>
+			<SportingGoodsList { ...this.props } content={ content } search={ fetchSportingGoods }/>
 		)
 	}
 
@@ -32,7 +35,7 @@ function mapStateToProps(state, ownProps) {
 	}
 }
 
-function matchDispatchToProps(dispatch) {  
+function matchDispatchToProps(dispatch) {
 	return {actions: bindActionCreators(sportingGoodsActions, dispatch)}
 }
 

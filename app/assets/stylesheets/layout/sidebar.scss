@@ -3,11 +3,12 @@ $secondary_color: #D3D3D3;
 
 .sidebar-wrapper {
 	position: fixed;
-	top: 72px;
+	top: 66px;
 	left: 0;
 	width: 60px;
 	height: 100vh;
 	background: $secondary_color;
+	z-index: 4;
 	i {
 		cursor: pointer;
 		color: #fff;

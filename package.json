@@ -2,6 +2,7 @@
   "name": "equipt_app",
   "private": true,
   "dependencies": {
+    "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.1",
     "redux-thunk": "^2.2.0"
   },

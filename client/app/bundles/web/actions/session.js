@@ -2,7 +2,7 @@ import types from './types';
 
 import * as alertActions from './alerts';
 
-// Fetch Current User 
+// Fetch Current User
 export const fetchCurrentUser = (data, callback) => {
 
 	return function(dispatch, getState, api) {
@@ -19,13 +19,13 @@ export const fetchCurrentUser = (data, callback) => {
 			dispatch(fetchingCurrentUser({fetching: false}));
 
 			// Set Current User
-			dispatch(setCurrentUser({ 
+			dispatch(setCurrentUser({
 				currentUser: user,
 				token: user.api_key
 			}));
 
 			// Clear Alerts
-			dispatch(alertActions.clearAlerts());	
+			dispatch(alertActions.clearAlerts());
 
 			// run success
 			callback();
@@ -37,7 +37,7 @@ export const fetchCurrentUser = (data, callback) => {
 
 			// Problem Fetching Current User
 			dispatch(alertActions.showErrorAlert(err));
-				
+
 		});
 
 	}
@@ -46,18 +46,18 @@ export const fetchCurrentUser = (data, callback) => {
 
 // Set Starting User
 export const setCurrentUser = (data) => {
-	return {	
+	return {
 		type: types.SET_CURRENT_USER,
-		payload: data  
+		payload: data
 	}
 };
 
 // Logout
 export const clearSession = () => {
 
-	window.FB.logout();
+	if (window.FB) window.FB.logout();
 
-	return {	
+	return {
 		type: types.CLEAR_SESSION,
 		payload: {}
 	}
@@ -66,16 +66,16 @@ export const clearSession = () => {
 
 // Clear session
 export const clearStoredData = (data) => {
-	return {	
+	return {
 		type: types.DROP_SESSION_DATA
 	}
 };
 
 // Fetching currentuser
 export const fetchingCurrentUser = (data) => {
-	return {	
+	return {
 		type: types.FETCHING_CURRENT_USER,
-		payload: data  
+		payload: data
 	}
 }
 
@@ -116,7 +116,7 @@ export const resetPassword = (resetToken, data, callback) => {
 			} else {
 				dispatch(resetErrors(errors));
 			}
-			
+
 		});
 
 	}
@@ -140,13 +140,13 @@ export const loginWithFacebook = (data, callback) => {
 		api.post('/auth/facebook/callback', data).then(user => {
 
 			// Set Current User
-			dispatch(setCurrentUser({ 
+			dispatch(setCurrentUser({
 				currentUser: user,
 				token:user.api_key
 			}));
 
 			// Clear Alerts
-			dispatch(alertActions.clearAlerts());	
+			dispatch(alertActions.clearAlerts());
 
 			// run success
 			callback();
@@ -155,6 +155,3 @@ export const loginWithFacebook = (data, callback) => {
 
 	}
 }
-
-
-

@@ -49,7 +49,7 @@ const store = createStore(
 
 // Root Template
 const Root = (props, railsContext) => {
-	
+
 	return (
 		<Provider store={store}>
 			<ConnectedRouter history={ history }>
@@ -60,4 +60,3 @@ const Root = (props, railsContext) => {
 }
 
 export default Root;
-

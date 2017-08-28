@@ -3,13 +3,13 @@ import types from './types';
 import * as alertActions from './alerts';
 
 // Get all sporting goods
-export const fetchSportingGoods = () => {
+export const fetchSportingGoods = (query = {}) => {
 
 	return function(dispatch, getState, api) {
 
 		api.token = getState().session.token;
 
-		api.get('/sporting_goods')
+		api.get('/sporting_goods', query)
 		.then(sportingGoods => {
 			dispatch(setSportingGoods(sportingGoods));
 		})
@@ -22,13 +22,13 @@ export const fetchSportingGoods = () => {
 }
 
 // Get all sporting goods belonging to user
-export const fetchOwnersSportingGoods = () => {
+export const fetchOwnersSportingGoods = (query = {}) => {
 
 	return function(dispatch, getState, api) {
 
 		api.token = getState().session.token;
 
-		api.get('/owner/sporting_goods')
+		api.get('/owner/sporting_goods', query)
 		.then(sportingGoods => {
 			dispatch(setSportingGoods(sportingGoods));
 		})

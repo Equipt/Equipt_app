@@ -33,6 +33,7 @@ class OwnersSportingGoodsEdit extends React.Component {
 		return (
 			<SportingGoodsForm 	{ ...this.props }
 								content={ content }
+								isEditing={ true }
 								createOrUpdate={ actions.updateSportingGood }/>
 		)
 	}

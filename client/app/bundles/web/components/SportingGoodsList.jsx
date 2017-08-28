@@ -2,27 +2,33 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import SportingGood from 'components/SportingGood';
+import { SearchBar } from 'components/SearchBar';
 
 const SportingGoodsList = ({
 	sportingGoods,
 	content,
 	isOwner,
+	search,
 	actions
 }) => {
 
-	const indexContent = content.sporting_goods.index;
-
 	return (
 		<section className="container sporting-goods-index-wrapper">
-		{
-			sportingGoods.map((sportingGood, index) => {
-				return <SportingGood key={ `${ sportingGood.title }_${ index }` } 
-									 sportingGood={ sportingGood }
-									 content={ indexContent }
-									 isOwner={ isOwner }
-									 actions={ actions }/>
-			})	
-		}
+
+			<h3>{ content.title }</h3>
+
+			<SearchBar search={ search }/>
+
+			{
+				sportingGoods.map((sportingGood, index) => {
+					return <SportingGood key={ `${ sportingGood.title }_${ index }` }
+										 sportingGood={ sportingGood }
+										 content={ content }
+										 isOwner={ isOwner }
+										 actions={ actions }/>
+				})
+			}
+
 		</section>
 	)
 
@@ -31,7 +37,9 @@ const SportingGoodsList = ({
 SportingGoodsList.propTypes = {
 	sportingsGood: PropTypes.array,
 	content: PropTypes.object.isRequired,
-	isOwner: PropTypes.bool
+	search: PropTypes.func.isRequired,
+	actions: PropTypes.object.isRequired,
+	isOwner: PropTypes.bool,
 }
 
 export default SportingGoodsList;

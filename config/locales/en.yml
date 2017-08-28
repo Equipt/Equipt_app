@@ -76,6 +76,7 @@ en:
           type: password
     sporting_goods:
       index:
+        title: Rent Equipment
         default_image: https://s3-us-west-2.amazonaws.com/equipt-assets/equipment-default.png
       create:
         title: Create Sporting Form
@@ -122,3 +123,6 @@ en:
           label: How much is the deposit?
           tag: input
           type: number
+    owners_sporting_goods:
+        index:
+            title: You're Equipment

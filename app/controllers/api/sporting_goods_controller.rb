@@ -3,7 +3,7 @@ class Api::SportingGoodsController < ApiController
 	before_action :ensure_authenticated_user
 
 	def index
-		sporting_goods = SportingGood.all
+		sporting_goods = SportingGood.exclude_user(current_user).search(params)
 		render json: sporting_goods, status: 200
 	end
 
@@ -12,7 +12,7 @@ class Api::SportingGoodsController < ApiController
 		sporting_good = SportingGood.find_by_slug(params[:slug])
 
 		if sporting_good
-			render json: sporting_good, status: 200 
+			render json: sporting_good, status: 200
 		else
 			render json: { error: I18n.t('errors.not_found', item: params[:slug]) }, status: 404
 		end
@@ -20,7 +20,7 @@ class Api::SportingGoodsController < ApiController
 	end
 
 	def create
-		
+
 		sporting_good = SportingGood.new(sporting_good_params)
 
 		if sporting_good.save

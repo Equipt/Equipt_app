@@ -1,5 +1,9 @@
 class SportingGood < ActiveRecord::Base
 
+	scope :exclude_user, -> user { where.not(user_id: user.id) }
+	scope :search_by_keyword, -> keyword { where("title LIKE ? OR brand LIKE ?", "%#{keyword}%", "%#{keyword}%") }
+	scope :search, -> (params) { search_by_keyword(params[:keyword]) }
+
 	belongs_to :user
 	has_many :images, :as => :imageable, dependent: :destroy
 	accepts_nested_attributes_for :images
@@ -20,7 +24,7 @@ class SportingGood < ActiveRecord::Base
 
 		images.each do |image|
 			if image.instance_of?(String)
-				excluded_image_ids << image 
+				excluded_image_ids << image
 			else
 				excluded_image_ids << self.images.create(file: image).id
 			end

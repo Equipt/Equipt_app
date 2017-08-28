@@ -6,10 +6,10 @@ export default function(history) {
 
 	this.token = null;
 
-	this.get = (url) => {
+	this.get = (url, params) => {
 		return new Promise((resolve, reject) => {
-			
-			this.send(url, 'GET')
+
+			this.send(url, 'GET', null, {params: params})
 			.then((res, apiKey) => {
 				resolve(res);
 			}, (err) => {
@@ -61,6 +61,7 @@ export default function(history) {
 				responseType: options.isMultipart ? false : 'application/json',
  				cache: false,
  				processData: false,
+				params: options.params,
 				data: options.isMultipart ? options.data : data,
 				headers: {
         			'Authorization': `Basic ${ this.token }`

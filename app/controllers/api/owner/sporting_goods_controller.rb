@@ -7,7 +7,7 @@ class Api::Owner::SportingGoodsController < ApiController
 	before_action :ensure_authenticated_user
 
 	def index
-		sporting_goods = current_user.sporting_goods
+		sporting_goods = current_user.sporting_goods.search(params)
 		render json: sporting_goods, status: 200
 	end
 
@@ -43,8 +43,7 @@ class Api::Owner::SportingGoodsController < ApiController
 
 	def destroy
 		sporting_good = current_user.sporting_goods.find_by_slug(params[:slug])
-		render json: { info: I18n.t('sporting_good.deleted', item: sporting_good.title) }, status: 200
-		# render json: { info: I18n.t('sporting_good.deleted', item: sporting_good.title) }, status: 200 if sporting_good.destroy
+		render json: { info: I18n.t('sporting_good.deleted', item: sporting_good.title) }, status: 200 if sporting_good.destroy
 	end
 
 	private

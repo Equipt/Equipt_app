@@ -42,7 +42,7 @@ const config = {
       containers: resolve(__dirname, './app/bundles/web/containers'),
       reducers: resolve(__dirname, './app/bundles/web/reducers'),
       utils: resolve(__dirname, './app/bundles/web/utils'),
-      images: resolve(__dirname, './app/assets/images')
+      images: resolve(__dirname, './app/bundles/web/assets/images')
     }
   },
 
@@ -57,20 +57,25 @@ const config = {
   module: {
     rules: [
       {
-        test: require.resolve('react'),
-        use: {
-          loader: 'imports-loader',
-          options: {
-            shim: 'es5-shim/es5-shim',
-            sham: 'es5-shim/es5-sham',
-          },
+          test: require.resolve('react'),
+            use: {
+            loader: 'imports-loader',
+            options: {
+              shim: 'es5-shim/es5-shim',
+                sham: 'es5-shim/es5-sham',
+            },
+            },
         },
-      },
-      {
-        test: /\.jsx?$/,
-        use: 'babel-loader',
-        exclude: /node_modules/,
-      }
+        {
+            test: /\.jsx?$/,
+            use: 'babel-loader',
+            exclude: /node_modules/,
+        },
+        {
+            test: /\.svg$/,
+            loader: 'svg-inline-loader'
+        }
+
     ],
   },
 };

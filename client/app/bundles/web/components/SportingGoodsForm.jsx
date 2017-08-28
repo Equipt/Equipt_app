@@ -6,7 +6,8 @@ export class SportingGoodsForm extends React.Component {
 
 	static propTypes = {
 		sporting_goods: PropTypes.object,
-		createOrUpdate: PropTypes.func.isRequired
+		createOrUpdate: PropTypes.func.isRequired,
+		isEditing: PropTypes.bool
 	}
 
 	static contextTypes = {
@@ -51,7 +52,7 @@ export class SportingGoodsForm extends React.Component {
 	onChange(name) {
 
 		const { sportingGood } = this.props;
-
+		sportingGood.images = this.state.images;
 		sportingGood[name] = this.refs[name].value;
 		this.setState( sportingGood );
 
@@ -173,7 +174,7 @@ export class SportingGoodsForm extends React.Component {
 
 							<br/>
 
-							<input type="submit" className="btn btn-success clearfix col-xs-12" value="Add Item"/>
+							<input type="submit" className="btn btn-success clearfix col-xs-12" value={ this.props.isEditing ? "Update" : "Add" }/>
 						</form>
 					</div>
 
