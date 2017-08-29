@@ -94,6 +94,24 @@ export const updateSportingGood = (sportingGood = {}, images = [], slug = '', ca
 
 }
 
+export const rent = (rental, slug = '', callback) => {
+
+	return function(dispatch, getState, api) {
+
+		api.token = getState().session.token;
+
+		api.post(`/sporting_goods/${ slug }/rentals`, rental, {
+			data: rental
+		})
+		.then(data => {
+			callback();
+		})
+		.catch(data => console.log(data));
+
+	}
+
+}
+
 function buildFormData(resource, data, images ) {
 
 	const formData = new FormData();

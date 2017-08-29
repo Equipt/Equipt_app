@@ -4,7 +4,8 @@
   "dependencies": {
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.1",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "slick-carousel": "^1.7.1"
   },
   "scripts": {
     "postinstall": "cd client && yarn install",
