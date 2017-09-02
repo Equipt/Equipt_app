@@ -21,7 +21,8 @@ export class SportingGoodsShow extends React.Component {
 		this.state = {
 			rental: {
 				agreedToTerms: false
-			}
+			},
+			showRentalTermsModal: false
 		}
 	}
 
@@ -42,6 +43,12 @@ export class SportingGoodsShow extends React.Component {
 
 		});
 
+	}
+
+	showModal(modal, isVisible) {
+		this.setState({
+			[modal]: isVisible
+		})
 	}
 
 	selectRental(rental) {
@@ -66,11 +73,13 @@ export class SportingGoodsShow extends React.Component {
 		const { sportingGood } = this.props;
 
 		return(
-			<SportingGoodDetails content={ this.props.content.rentals }
+			<SportingGoodDetails content={ this.props.content }
 								 rent={ this.rent.bind(this) }
 								 rental={ this.state.rental }
 								 sportingGood={ sportingGood }
 								 selectRental={ this.selectRental.bind(this) }
+								 showRentalTermsModal={ this.state.showRentalTermsModal }
+								 showModal={ this.showModal.bind(this) }
 								 agreeWithTermsChanged={ this.agreeWithTermsChanged.bind(this) }/>
 		)
 	}

@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import Slider from 'react-slick';
 
-// import EventCalendar from 'react-event-calendar';
+import Modal from 'components/Modal';
+import Slider from 'react-slick';
 import BigCalendar from 'react-big-calendar';
 
 const SportingGoodDetails = ({
@@ -14,6 +14,8 @@ const SportingGoodDetails = ({
 	rent,
 	selectRental,
 	agreeWithTermsChanged,
+	showRentalTermsModal = false,
+	showModal
 }) => {
 
 	const settings = {
@@ -60,10 +62,17 @@ const SportingGoodDetails = ({
 			</div>
 
 			<div className="col-xs-12">
-				<label>{ content.agree_wth_terms }</label>
+				<label onClick={ () => showModal('showRentalTermsModal', true)}>
+					{ content.rentals.agree_wth_terms }
+				</label>
 				<input 	type="checkbox"
 						checked={ rental.agreedToTerms }
 						onChange={ agreeWithTermsChanged }/>
+				<Modal contentLabel="rental-terms"
+					isVisible={ showRentalTermsModal }
+					onClose={ () => showModal('showRentalTermsModal', false) }>
+					{ content.rentals.rental_terms }
+				</Modal>
 			</div>
 
 			<div className="col-xs-12">
@@ -79,9 +88,11 @@ SportingGoodDetails.propTypes = {
 	content: PropTypes.object.isRequired,
     sportingGood: PropTypes.object.isRequired,
 	rental: PropTypes.object.isRequired,
+	showRentalTermsModal: PropTypes.bool.isRequired,
+	showModal: PropTypes.func.isRequired,
 	rent: PropTypes.func,
 	selectRental: PropTypes.func,
-	agreeWithTermsChanged: PropTypes.func
+	agreeWithTermsChanged: PropTypes.func,
 }
 
 export default SportingGoodDetails;
