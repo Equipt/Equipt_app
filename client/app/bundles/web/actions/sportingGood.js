@@ -100,13 +100,13 @@ export const rent = (rental, slug = '', callback) => {
 
 		api.token = getState().session.token;
 
-		api.post(`/sporting_goods/${ slug }/rentals`, rental, {
-			data: rental
-		})
+		api.post(`/sporting_goods/${ slug }/rentals`, rental)
 		.then(data => {
 			callback();
 		})
-		.catch(data => console.log(data));
+		.catch(data => {
+			dispatch(alertActions.showErrorAlert(data.errors));
+		});
 
 	}
 

@@ -2,8 +2,8 @@ class User < ActiveRecord::Base
 
 	has_secure_password
 
-	has_many :sporting_goods
-
+	has_many :sporting_goods, dependent: :destroy
+	has_many :rentals, dependent: :destroy
 	has_many :api_keys, dependent: :destroy
 
 	validates_presence_of :firstname, :lastname, :email
@@ -28,17 +28,17 @@ class User < ActiveRecord::Base
 
 	# oAuth
 	def self.from_facebook(auth)
-		
+
 		password = SecureRandom.hex(9)
 
-    	where(provider: 'facebook', uid: auth['userID']).first_or_initialize.tap do |user|
+    	where(provider: 'facebook', uid: auth['user_id']).first_or_initialize.tap do |user|
   			user.provider           	= 'facebook'
-  			user.uid                	= auth['userID']
+  			user.uid                	= auth['user_id']
   			user.firstname          	= auth['name']
   			user.lastname          		= auth['name']
       		user.email              	= auth['email']
-  			user.oauth_token        	= auth['accessToken']
-  			user.oauth_expires_at   	= Time.at(auth['expiresIn'])
+  			user.oauth_token        	= auth['access_token']
+  			user.oauth_expires_at   	= Time.at(auth['expires_in'])
       		user.password              ||=  password
       		user.password_confirmation ||=  password
 	  		user.save!

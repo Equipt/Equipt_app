@@ -26,18 +26,18 @@ const Alert = ({
 	};
 
 	return (
-		<div className="container">
-			{ 
+		<div className="container alerts">
+			{
 				Object.keys(alerts).map((key, index) => {
 					let message = alerts[key];
 					return 	<div className={ `alert ${ alertClass(key) }` }
 								 key={ `alert_${index}` }>
-								 <i className="fa fa-times pull-right" 
+								 <i className="fa fa-times pull-right"
 								 	aria-hidden="true"
 								 	onClick={ actions.clearAlerts }></i>
 								{ message }
-							</div>;	
-				})	
+							</div>;
+				})
 			}
 		</div>
 	)

@@ -8,11 +8,12 @@ import Slider from 'react-slick';
 import BigCalendar from 'react-big-calendar';
 
 const SportingGoodDetails = ({
-	sportingGood,
-	selectRental,
-	rent,
-	rentals = [],
+	content = {},
+	sportingGood = {},
 	rental = {},
+	rent,
+	selectRental,
+	agreeWithTermsChanged,
 }) => {
 
 	const settings = {
@@ -24,9 +25,7 @@ const SportingGoodDetails = ({
     };
 
 	const images = sportingGood.images || [];
-
-	// Rentals
-	rentals.push(rental)
+	const rentals = sportingGood.rentals || [];
 
     return (
         <section className="container">
@@ -53,11 +52,18 @@ const SportingGoodDetails = ({
 
 			<div className="col-xs-12">
 				<BigCalendar
-					events={ rentals }
+					events={ rentals.concat([ rental ]) }
 					selectable
 					views={ ['month', 'agenda'] }
 					onSelectSlot={ selectRental }
 				/>
+			</div>
+
+			<div className="col-xs-12">
+				<label>{ content.agree_wth_terms }</label>
+				<input 	type="checkbox"
+						checked={ rental.agreedToTerms }
+						onChange={ agreeWithTermsChanged }/>
 			</div>
 
 			<div className="col-xs-12">
@@ -70,11 +76,12 @@ const SportingGoodDetails = ({
 }
 
 SportingGoodDetails.propTypes = {
+	content: PropTypes.object.isRequired,
     sportingGood: PropTypes.object.isRequired,
-	rent: PropTypes.func.isRequired,
 	rental: PropTypes.object.isRequired,
-	rentals: PropTypes.array.isRequired,
-	selectRental: PropTypes.func
+	rent: PropTypes.func,
+	selectRental: PropTypes.func,
+	agreeWithTermsChanged: PropTypes.func
 }
 
 export default SportingGoodDetails;

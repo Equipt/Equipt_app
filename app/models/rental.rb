@@ -1,0 +1,63 @@
+class Rental < ActiveRecord::Base
+
+    belongs_to :user
+    belongs_to :sporting_good
+
+	validate :dates_are_vacant, :has_agreed_to_terms
+
+    before_save :set_total_days, :set_rental_cost
+
+    # after_save :send_confirmation_email, if: :rental_confirmed_changed?
+    # after_create :send_create_emails
+    # after_destroy :send_destroy_email
+
+    @@dates_taken_sql = "(start BETWEEN ? AND ? OR end BETWEEN ? AND ?) OR (start <= ? AND end >= ?)";
+
+    # validates methods
+	def dates_are_vacant
+
+        rentals = self.sporting_good.rentals
+
+		if (self.start? || self.end?)
+			if rentals.where(@@dates_taken_sql, self.start, self.end, self.start, self.end, self.start, self.end).any?
+				errors.add(:error, I18n.t('rentals.dates_are_taken', item: self.sporting_good.title))
+			end
+		end
+
+	end
+
+	def has_agreed_to_terms
+		errors.add(:error, I18n.t('rentals.terms_not_agreed_to')) unless self.agreed_to_terms
+	end
+
+	# before create methods
+
+	def set_total_days
+		self.total_rental_days = (self.start - self.end).to_i.abs
+	end
+
+	def set_rental_cost
+		sporting_good = SportingGood.find(self.sporting_good_id)
+		self.sub_total 	    = sporting_good.price_per_day * self.total_rental_days
+		self.rental_total   = self.sub_total + sporting_good.deposit
+		self.rental_deposit = sporting_good.deposit
+	end
+
+	# =============
+	# EMAIL ALERTS
+	# =============
+
+	# def send_create_emails
+	# 	RentalMailer.needs_confirmation( self ).deliver
+	# 	RentalMailer.waiting_on_owners_confirmation( self ).deliver
+	# end
+    #
+	# def send_destroy_email
+	# 	RentalMailer.rental_destroyed( self ).deliver
+	# end
+    #
+	# def send_confirmation_email
+	# 	RentalMailer.owner_confirmed( self ).deliver if self.rental_confirmed
+	# end
+
+end

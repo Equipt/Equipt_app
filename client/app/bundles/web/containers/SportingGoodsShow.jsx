@@ -19,7 +19,9 @@ export class SportingGoodsShow extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			rental: {}
+			rental: {
+				agreedToTerms: false
+			}
 		}
 	}
 
@@ -39,7 +41,7 @@ export class SportingGoodsShow extends React.Component {
 		this.props.actions.rent(this.state.rental, slug, () => {
 
 		});
-		
+
 	}
 
 	selectRental(rental) {
@@ -47,9 +49,16 @@ export class SportingGoodsShow extends React.Component {
 			rental: {
 				title: 'renting',
 				start: rental.start,
-				end: rental.end
+				end: rental.end,
+				agreedToTerms: this.state.rental.agreedToTerms
 			}
 		})
+	}
+
+	agreeWithTermsChanged() {
+		const { rental } = this.state;
+		rental.agreedToTerms = rental.agreedToTerms ? false : true
+		this.setState({ rental: rental });
 	}
 
 	render() {
@@ -57,11 +66,12 @@ export class SportingGoodsShow extends React.Component {
 		const { sportingGood } = this.props;
 
 		return(
-			<SportingGoodDetails rent={ this.rent.bind(this) }
-								 rentals={ [] }
+			<SportingGoodDetails content={ this.props.content.rentals }
+								 rent={ this.rent.bind(this) }
 								 rental={ this.state.rental }
 								 sportingGood={ sportingGood }
-								 selectRental={ this.selectRental.bind(this) }/>
+								 selectRental={ this.selectRental.bind(this) }
+								 agreeWithTermsChanged={ this.agreeWithTermsChanged.bind(this) }/>
 		)
 	}
 

@@ -29,6 +29,9 @@ en:
     password_reset: Your password has been reset!
   sporting_good:
     deleted: ! '%{item} has been removed'
+  rentals:
+    dates_are_taken: "Sorry, %{item} is unavailible between these dates"
+    terms_not_agreed_to: "Terms must be agree too"
   frontend:
     logo: https://s3-us-west-2.amazonaws.com/equipt-assets/logo.png
     nav:
@@ -126,3 +129,5 @@ en:
     owners_sporting_goods:
         index:
             title: You're Equipment
+    rentals:
+        agree_wth_terms: I agree with the terms of the rental

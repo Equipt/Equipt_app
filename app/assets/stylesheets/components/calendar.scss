@@ -1,0 +1,10 @@
+$danger: #a94442;
+
+.rbc-calendar {
+
+    .rbc-event-content[title="unavailable"] {
+        background: $danger;
+        border-color: $danger;
+    }
+
+}

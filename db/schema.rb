@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170801051458) do
+ActiveRecord::Schema.define(version: 20170902023243) do
 
   create_table "api_keys", force: :cascade do |t|
     t.integer  "user_id"
@@ -28,6 +28,25 @@ ActiveRecord::Schema.define(version: 20170801051458) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id"
+  end
+
+  create_table "rentals", force: :cascade do |t|
+    t.integer  "sporting_good_id"
+    t.integer  "user_id"
+    t.date     "start"
+    t.date     "end"
+    t.float    "pick_up_time"
+    t.float    "sub_total"
+    t.float    "rental_deposit",    default: 0.0
+    t.float    "rental_total"
+    t.integer  "total_rental_days"
+    t.boolean  "rental_completed",  default: false
+    t.boolean  "rental_confirmed",  default: false
+    t.boolean  "agreed_to_terms",   default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["sporting_good_id"], name: "index_rentals_on_sporting_good_id"
+    t.index ["user_id"], name: "index_rentals_on_user_id"
   end
 
   create_table "sporting_goods", force: :cascade do |t|

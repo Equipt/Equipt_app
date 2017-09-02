@@ -5,7 +5,10 @@ class SportingGood < ActiveRecord::Base
 	scope :search, -> (params) { search_by_keyword(params[:keyword]) }
 
 	belongs_to :user
+
 	has_many :images, :as => :imageable, dependent: :destroy
+	has_many :rentals, dependent: :destroy
+
 	accepts_nested_attributes_for :images
 
 	extend FriendlyId

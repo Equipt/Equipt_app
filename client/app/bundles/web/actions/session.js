@@ -21,7 +21,7 @@ export const fetchCurrentUser = (data, callback) => {
 			// Set Current User
 			dispatch(setCurrentUser({
 				currentUser: user,
-				token: user.api_key
+				token: user.apiKey
 			}));
 
 			// Clear Alerts
@@ -142,7 +142,7 @@ export const loginWithFacebook = (data, callback) => {
 			// Set Current User
 			dispatch(setCurrentUser({
 				currentUser: user,
-				token:user.api_key
+				token:user.apiKey
 			}));
 
 			// Clear Alerts
