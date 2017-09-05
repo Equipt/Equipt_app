@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 	has_many :sporting_goods, dependent: :destroy
 	has_many :rentals, dependent: :destroy
 	has_many :api_keys, dependent: :destroy
+	has_many :owned_rentals, :through => :sporting_goods, source: 'rentals'
 
 	validates_presence_of :firstname, :lastname, :email
 

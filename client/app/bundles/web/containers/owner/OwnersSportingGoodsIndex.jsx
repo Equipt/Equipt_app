@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import * as sportingGoodsActions from 'actions/sportingGoods';
 
 import SportingGoodsList from 'components/SportingGoodsList';
+import NoSportingGoods from 'components/NoSportingGoods';
 
 class OwnersSportingGoodsIndex extends React.Component {
 
@@ -22,11 +23,19 @@ class OwnersSportingGoodsIndex extends React.Component {
 		const { fetchOwnersSportingGoods } = this.props.actions;
 		const content = this.props.content.owners_sporting_goods.index;
 
-		return (
-			<div className="container">
-				<SportingGoodsList { ...this.props} content={ content } isOwner={ true } search={ fetchOwnersSportingGoods }/>
-			</div>
-		)
+		const sportingGoods = this.props.sportingGoods || [];
+
+		if (sportingGoods.length) {
+
+			return (<SportingGoodsList 	{ ...this.props}
+						content={ content }
+						isOwner={ true }
+						search={ fetchOwnersSportingGoods }/>);
+
+		}
+
+		return (<NoSportingGoods content={ content }/>);
+
 	}
 
 }

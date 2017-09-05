@@ -6,14 +6,16 @@ import alerts from './alerts';
 import errors from './errors';
 import sportingGoods from './sportingGoods';
 import sportingGood from './sportingGood';
+import rental from './rental';
 import user from './user';
- 
+
 export default combineReducers({
 	alerts,
 	errors,
 	session,
 	sportingGoods,
 	sportingGood,
+    rental,
 	user,
 	routing
 });

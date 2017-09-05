@@ -7,7 +7,7 @@ class SportingGood < ActiveRecord::Base
 	belongs_to :user
 
 	has_many :images, :as => :imageable, dependent: :destroy
-	has_many :rentals, dependent: :destroy
+	has_many :rentals, dependent: :destroy, inverse_of: :sporting_good
 
 	accepts_nested_attributes_for :images
 
@@ -15,7 +15,7 @@ class SportingGood < ActiveRecord::Base
 
   	friendly_id :title, use: :slugged
 
-  	validates_presence_of :category, :title, :brand, :model
+	validates_presence_of :category, :title, :brand, :model
 
 	def slug_candidates
   		[ :title,[:title,:id] ]
@@ -24,6 +24,7 @@ class SportingGood < ActiveRecord::Base
 	def store_images(images = [])
 
 		excluded_image_ids = []
+		images ||= []
 
 		images.each do |image|
 			if image.instance_of?(String)

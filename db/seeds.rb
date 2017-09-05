@@ -8,26 +8,26 @@ end
 @rentable_equipment_amount = (1..5).to_a
 @equipment_category = [
 	{camp: [
-		'tent', 
-		'stove', 
-		'sleeping bag', 
+		'tent',
+		'stove',
+		'sleeping bag',
 		'mat'
-	]}, 
+	]},
 	{lake: [
-		'kayak', 
+		'kayak',
 		'canone',
 		'row'
-	]}, 
+	]},
 	{bike: [
-		'mountain bike', 
-		'road bike', 
+		'mountain bike',
+		'road bike',
 		'helmet'
 	]},
 	{snow: [
-		'snowboard', 
-		'bindings', 
-		'skis', 
-		'boots', 
+		'snowboard',
+		'bindings',
+		'skis',
+		'boots',
 		'jacket'
 	]}
 ]
@@ -76,7 +76,7 @@ def create_sporting_good(user)
 		category_key  = category_list.keys[0]
 		sub_category  = category_list[category_key].sample
 
-		sporting_good = user.sporting_goods.create(
+		sporting_good = user.sporting_goods.new(
 			category: category_key.to_s,
 			title: Faker::Commerce.product_name,
 			brand: Faker::Commerce.product_name,
@@ -88,10 +88,10 @@ def create_sporting_good(user)
 			deposit: (10..100).to_a.sample
 		)
 
-		# 5.times do |i|
-		# 	create_rentals(equipment, user) if equipment.save!
-		# 	create_ratings(equipment) if equipment.save!
-		# end
+		5.times do |i|
+			create_rentals(sporting_good, user) if sporting_good.save
+			# create_ratings(equipment) if equipment.save!
+		end
 
 		# file = @equipment_images.sample
 
@@ -105,23 +105,38 @@ def create_sporting_good(user)
 
 end
 
-def create_rentals(equipment, user)
+def create_rentals(sporting_good, user)
 
 	rentals_amount = (1..5).to_a.sample
 
 	rentals_amount.times do |i|
 
-		rental = equipment.rentals.new(
+        now = DateTime.now
+        one_year_later = now >> 12
+        days_variance = (one_year_later - now).to_i
+        start_date = Time.at((1.year.from_now.to_f - 1.day.from_now.to_f)*rand + 1.day.from_now.to_f)
+
+        days_rented = (1..14).to_a.sample
+        sub_total = sporting_good.price_per_day * days_rented
+
+		rental = sporting_good.rentals.new(
 			user_id: user.id,
-			pickup_date: Faker::Date.backward(10),
-			dropoff_date: Faker::Date.forward(5),
-			pick_up_time: (6..22).to_a.sample,
-			rental_total: (20..500).to_a.sample,
-			rental_deposit: (10..100).to_a.sample,
-			rental_completed: [true, false].sample
+			start: start_date,
+            end: start_date + days_rented.days,
+			pick_up_time: (0..24).to_a.sample,
+            total_days: days_rented,
+            sub_total: sub_total,
+			total:  sporting_good.deposit + sub_total,
+			deposit: sporting_good.deposit,
+			completed: [true, false].sample,
+            agreed_to_terms: true
 		)
 
-		rental.save(:validate => false);
+        begin
+            rental.save!
+        rescue ActiveRecord::RecordInvalid => invalid
+            next
+        end
 
 	end
 

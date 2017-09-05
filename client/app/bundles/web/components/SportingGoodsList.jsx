@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import SportingGood from 'components/SportingGood';
 import { SearchBar } from 'components/SearchBar';
 
@@ -13,7 +15,7 @@ const SportingGoodsList = ({
 }) => {
 
 	return (
-		<section className="container sporting-goods-index-wrapper">
+		<section className="container">
 
 			<h3>{ content.title }</h3>
 

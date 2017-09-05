@@ -31,20 +31,22 @@ ActiveRecord::Schema.define(version: 20170902023243) do
   end
 
   create_table "rentals", force: :cascade do |t|
+    t.string   "hash_id"
     t.integer  "sporting_good_id"
     t.integer  "user_id"
     t.date     "start"
     t.date     "end"
     t.float    "pick_up_time"
-    t.float    "sub_total"
-    t.float    "rental_deposit",    default: 0.0
-    t.float    "rental_total"
-    t.integer  "total_rental_days"
-    t.boolean  "rental_completed",  default: false
-    t.boolean  "rental_confirmed",  default: false
-    t.boolean  "agreed_to_terms",   default: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.float    "sub_total",        default: 0.0
+    t.float    "deposit",          default: 0.0
+    t.float    "total",            default: 0.0
+    t.integer  "total_days"
+    t.boolean  "completed",        default: false
+    t.boolean  "confirmed",        default: false
+    t.boolean  "agreed_to_terms",  default: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.index ["hash_id"], name: "index_rentals_on_hash_id"
     t.index ["sporting_good_id"], name: "index_rentals_on_sporting_good_id"
     t.index ["user_id"], name: "index_rentals_on_user_id"
   end

@@ -1,40 +1,56 @@
 $secondary_color: #D3D3D3;
 
-.sporting-goods-index-wrapper {
+.sporting-good-wrapper {
+	padding-right: 2px;
+	padding-left: 2px;
+	padding-bottom: 5px;
+}
 
-	margin-top: 25px;
+.no-sporting-goods-wrapper {
 
-	.sporting-good-wrapper {
-		padding-right: 2px;
-		padding-left: 2px;
-		padding-bottom: 5px;
-	}
+	margin-top: 30px;
 
 	.sporting-good-container {
-		
-		padding: 5px;
-		border: solid 1px $secondary_color;
+		a, a:hover {
+			text-decoration: none;
+		}
+		i {
+			display: block;
+			width: 40px;
+			font-size: 40px;
+			margin: 0 auto;
+			padding: 50px 0;
+		}
+		h3 {
+			padding: 0 20px;
+		}
+	}
 
-		.sporting-good-image {
-			height: 300px;
+}
 
-			img {
-    			display: block;
-			    height: 100%;
-				margin: 0 auto;
-			}
+.sporting-good-container {
 
+	padding: 5px;
+	border: solid 1px $secondary_color;
+
+	.sporting-good-image {
+		height: 300px;
+		border: solid 1px #ccc;
+		img {
+			display: block;
+		    height: 100%;
+			margin: 0 auto;
 		}
 
-		.sporting-good-controls {
-			width: 73px;
-			float: right;
-			i {
-				font-size: 30px;
-				margin: 0 5px;
-			}
-		}
+	}
 
+	.sporting-good-controls {
+		width: 73px;
+		float: right;
+		i {
+			font-size: 30px;
+			margin: 0 5px;
+		}
 	}
 
 }

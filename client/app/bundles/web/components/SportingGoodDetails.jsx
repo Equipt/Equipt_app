@@ -62,17 +62,37 @@ const SportingGoodDetails = ({
 			</div>
 
 			<div className="col-xs-12">
-				<label onClick={ () => showModal('showRentalTermsModal', true)}>
+
+				<label onClick={ agreeWithTermsChanged }>
 					{ content.rentals.agree_wth_terms }
 				</label>
+
 				<input 	type="checkbox"
 						checked={ rental.agreedToTerms }
 						onChange={ agreeWithTermsChanged }/>
+
+				<a 	href="#"
+					className="display-block"
+					onClick={ e => {
+					e.preventDefault();
+					showModal('showRentalTermsModal', true);
+				}}>
+					{ content.rentals.read_rental_terms }
+				</a>
+
 				<Modal contentLabel="rental-terms"
 					isVisible={ showRentalTermsModal }
 					onClose={ () => showModal('showRentalTermsModal', false) }>
-					{ content.rentals.rental_terms }
+					<h4>{ content.rentals.rental_terms_title }</h4>
+					<ol>
+					{
+						content.rentals.rental_terms.map((term, index) => {
+							return <li key={ `rental_terms_${ index }` }>{ term }</li>;
+						})
+					}
+					</ol>
 				</Modal>
+
 			</div>
 
 			<div className="col-xs-12">

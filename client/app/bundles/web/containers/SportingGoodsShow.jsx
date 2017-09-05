@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Moment from 'moment';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -39,8 +40,8 @@ export class SportingGoodsShow extends React.Component {
 
 		const { slug } = this.context.router.route.match.params;
 
-		this.props.actions.rent(this.state.rental, slug, () => {
-
+		this.props.actions.rent(this.state.rental, slug, (rental = {}) => {
+			this.context.router.history.push(`sporting_good/${ slug }/rentals/${ rental.hashId }`);
 		});
 
 	}
@@ -56,7 +57,7 @@ export class SportingGoodsShow extends React.Component {
 			rental: {
 				title: 'renting',
 				start: rental.start,
-				end: rental.end,
+				end: Moment(rental.end, "DD-MM-YYYY").add('days', 1),
 				agreedToTerms: this.state.rental.agreedToTerms
 			}
 		})

@@ -1,5 +1,3 @@
-require 'pry-remote'
-
 class Api::Owner::SportingGoodsController < ApiController
 
 	skip_before_action :verify_authenticity_token

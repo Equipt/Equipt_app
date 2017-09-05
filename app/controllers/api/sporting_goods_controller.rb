@@ -12,35 +12,9 @@ class Api::SportingGoodsController < ApiController
 		sporting_good = SportingGood.find_by_slug(params[:slug])
 
 		if sporting_good
-			render json: sporting_good, status: 200
+			render json: sporting_good, exclude_rentals: true, status: 200
 		else
 			render json: { error: I18n.t('errors.not_found', item: params[:slug]) }, status: 404
-		end
-
-	end
-
-	def create
-
-		sporting_good = SportingGood.new(sporting_good_params)
-
-		if sporting_good.save
-			sporting_good.store_images params[:sporting_good][:image_attributes]
-			render json: sporting_good, send_create_message: true, status: 200
-		else
-			render json: sporting_good, send_create_message: false, status: 400
-		end
-
-	end
-
-	def update
-
-		sporting_good = SportingGood.find_by_slug params[:slug]
-
-		if sporting_good.update(sporting_good_params)
-			sporting_good.store_images params[:sporting_good][:image_attributes]
-			render json: sporting_good, send_updated_message: true, status: 200
-		else
-			render json: sporting_good, send_updated_message: true, status: 400
 		end
 
 	end

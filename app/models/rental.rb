@@ -1,7 +1,10 @@
 class Rental < ActiveRecord::Base
 
+    # hashable id
+    include Friendlyable
+
     belongs_to :user
-    belongs_to :sporting_good
+    belongs_to :sporting_good, inverse_of: :rentals
 
 	validate :dates_are_vacant, :has_agreed_to_terms
 
@@ -33,14 +36,14 @@ class Rental < ActiveRecord::Base
 	# before create methods
 
 	def set_total_days
-		self.total_rental_days = (self.start - self.end).to_i.abs
+		self.total_days = (self.start - self.end).to_i.abs
 	end
 
 	def set_rental_cost
 		sporting_good = SportingGood.find(self.sporting_good_id)
-		self.sub_total 	    = sporting_good.price_per_day * self.total_rental_days
-		self.rental_total   = self.sub_total + sporting_good.deposit
-		self.rental_deposit = sporting_good.deposit
+		self.sub_total = sporting_good.price_per_day * self.total_days
+		self.total   = self.sub_total + sporting_good.deposit
+		self.deposit = sporting_good.deposit
 	end
 
 	# =============

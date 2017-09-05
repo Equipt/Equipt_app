@@ -3,7 +3,8 @@ class RentalSerializer < ActiveModel::Serializer
     @@all_day = true
     @@title = 'unavailable'
 
-    attributes  :title,
+    attributes  :hash_id,
+                :title,
                 :start,
                 :end,
                 :set_total_days,

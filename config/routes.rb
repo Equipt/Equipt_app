@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
         namespace :owner do
             resources :sporting_goods, param: :slug
+            resources :rentals
         end
 
     end

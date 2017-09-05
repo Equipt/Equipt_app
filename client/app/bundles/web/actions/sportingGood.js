@@ -1,6 +1,7 @@
 import types from './types';
 
 import * as alertActions from './alerts';
+import * as rentalActions from './rental';
 
 export const fetchSportingGood = (pathname) => {
 
@@ -101,11 +102,13 @@ export const rent = (rental, slug = '', callback) => {
 		api.token = getState().session.token;
 
 		api.post(`/sporting_goods/${ slug }/rentals`, rental)
-		.then(data => {
-			callback();
+		.then(rental => {
+			dispatch(rentalActions.setRental(rental));
+			callback(rental);
 		})
 		.catch(data => {
-			dispatch(alertActions.showErrorAlert(data.errors));
+			debugger;
+			dispatch(alertActions.showErrorAlert(data.errors))
 		});
 
 	}

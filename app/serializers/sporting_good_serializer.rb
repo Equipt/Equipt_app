@@ -17,4 +17,9 @@ class SportingGoodSerializer < ActiveModel::Serializer
 
 	belongs_to :user
 
+	def include_associations!
+		include! :rentals unless @instance_options[:exclude_rentals]
+		include! :images unless @instance_options[:exclude_images]
+	end
+
 end
