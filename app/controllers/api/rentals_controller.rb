@@ -5,7 +5,7 @@ class Api::RentalsController < ApiController
     def create
         sporting_good = SportingGood.find_by_slug(params[:sporting_good_slug])
         rental = sporting_good.rentals.new(rental_params)
-        
+        rental.user_id = current_user.id
         if rental.save
             render json: rental, status: 200
         else

@@ -4,15 +4,30 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import * as rentalActions from 'actions/rental';
+import * as sportingGoodActions from 'actions/sportingGood';
 
 import RentalConfirmation from 'components/RentalConfirmation';
 
 class RentalsShow extends React.Component {
 
-	render() {
+	static contextTypes = {
+  		router: PropTypes.shape({
+    		history: PropTypes.object.isRequired,
+  		})
+	};
 
-		debugger;
+	componentWillMount() {
+
+		if (this.props.sportingGood.rental) return;
+
+		const { actions } = this.props;
+		const { params } = this.context.router.route.match;
+
+		actions.fetchSportingGood(`/sporting_goods/${ params.slug }`, params.id);
+
+	}
+
+	render() {
 
 		return (
 			<RentalConfirmation {...this.props}/>
@@ -24,12 +39,12 @@ class RentalsShow extends React.Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		session: state.rental
+		sportingGood: state.sportingGood
 	}
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators(rentalActions, dispatch)}
+	return {actions: bindActionCreators(sportingGoodActions, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(RentalsShow);

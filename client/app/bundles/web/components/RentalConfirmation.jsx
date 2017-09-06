@@ -2,15 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const RentalConfirmation = ({
-    sportingGood = {}
+    content,
+    sportingGood
 }) => {
+
+    const rental = sportingGood.rental || {};
 
     return (
         <div className="container">
 
-            <h3>Rental Confirmation</h3>
-
-            <p>{ this.props.rental.hashId }</p>
+            <h3>{ rental.confirmed ? content.rentals.confirmed_title : content.rentals.waiting_for_confirmation_title }</h3>
 
         </div>
     )
@@ -18,7 +19,8 @@ const RentalConfirmation = ({
 }
 
 RentalConfirmation.propTypes = {
-    sportingGood: PropTypes.object.isRequired
+    sportingGood: PropTypes.object.isRequired,
+    content: PropTypes.object.isRequired
 }
 
 export default RentalConfirmation;

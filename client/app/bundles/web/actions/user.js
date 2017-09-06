@@ -32,7 +32,7 @@ export const signup = (formData, callback) => {
 
 // Get users ( owners ) rentals
 
-export const getUserRentals = () => {
+export const fetchUserRentals = () => {
 
 	return function(dispatch, getState, api) {
 
@@ -42,9 +42,7 @@ export const getUserRentals = () => {
 		.then(rentals => {
 
 			// Set Rentals on Current User
-			dispatch(setUserRentals({
-				rentals: rentals
-			}));
+			dispatch(setUsersRentals(rentals));
 
 		});
 
@@ -54,7 +52,7 @@ export const getUserRentals = () => {
 
 // Set user Rentals
 
-export const setUserRentals = rentals => {
+export const setUsersRentals = rentals => {
 	return {
 		type: types.SET_USER_RENTALS,
 		payload: rentals

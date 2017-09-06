@@ -17,13 +17,16 @@ BigCalendar.setLocalizer(
 class OwnersCalendar extends React.Component {
 
 	componentWillMount() {
-		this.props.actions.getUserRentals();
+		this.props.actions.fetchUserRentals();
 	}
 
 	render() {
 
-		const user = this.props.user || {};
+		const { currentUser } = this.props;
+
 		const rentals = user.rentals || [];
+
+		debugger;
 
 		return (
 			<div className="container">
@@ -41,7 +44,7 @@ class OwnersCalendar extends React.Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		sportingGood: state.user
+		currentUser: state.session.currentUser
 	}
 }
 

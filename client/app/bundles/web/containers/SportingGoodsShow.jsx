@@ -38,10 +38,10 @@ export class SportingGoodsShow extends React.Component {
 
 	rent() {
 
-		const { slug } = this.context.router.route.match.params;
+		const sportingGood = this.props.sportingGood || {};
 
-		this.props.actions.rent(this.state.rental, slug, (rental = {}) => {
-			this.context.router.history.push(`sporting_good/${ slug }/rentals/${ rental.hashId }`);
+		this.props.actions.rent(this.state.rental, sportingGood, (rental = {}) => {
+			this.context.router.history.push(`/sporting_goods/${ sportingGood.slug }/rentals/${ rental.hashId }`);
 		});
 
 	}

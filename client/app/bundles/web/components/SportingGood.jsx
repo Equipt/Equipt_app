@@ -55,9 +55,9 @@ const SportingGood = ({
 					<h4>Model: { sportingGood.model }</h4>
 
 					<div>
-						<p>Deposit: ${ sportingGood.desposit_amount }</p>
-						<p>Price Per Day: ${ sportingGood.price_per_day }</p>
-						<p>Price Per Week: ${ sportingGood.price_per_week }</p>
+						<p>Deposit: ${ sportingGood.deposit }</p>
+						<p>Price Per Day: ${ sportingGood.pricePerDay }</p>
+						<p>Price Per Week: ${ sportingGood.pricePerWeek }</p>
 					</div>
 
 				</Link>

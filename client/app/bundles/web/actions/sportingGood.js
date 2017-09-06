@@ -1,16 +1,24 @@
 import types from './types';
 
 import * as alertActions from './alerts';
-import * as rentalActions from './rental';
 
-export const fetchSportingGood = (pathname) => {
+export const fetchSportingGood = (pathname, rentalHashId = null) => {
 
 	return function(dispatch, getState, api) {
 
 		api.token = getState().session.token;
 
-		api.get(pathname).then(data => {
+		api.get(pathname)
+		.then(data => {
+
+			// Add rental if needed
+			if (rentalHashId) {
+				const rentals = data.rentals || [];
+				data.rental = rentals.filter(rental => rental.hashId === rentalHashId)[0];
+			}
+
 			dispatch(setSportingGood(data));
+
 		})
 		.catch(err => {
 			dispatch(alertActions.showErrorAlert(err));
@@ -95,7 +103,9 @@ export const updateSportingGood = (sportingGood = {}, images = [], slug = '', ca
 
 }
 
-export const rent = (rental, slug = '', callback) => {
+export const rent = (rental, sportingGood, callback) => {
+
+	const slug = sportingGood.slug;
 
 	return function(dispatch, getState, api) {
 
@@ -103,16 +113,20 @@ export const rent = (rental, slug = '', callback) => {
 
 		api.post(`/sporting_goods/${ slug }/rentals`, rental)
 		.then(rental => {
-			dispatch(rentalActions.setRental(rental));
+			dispatch(setRental(rental));
 			callback(rental);
 		})
-		.catch(data => {
-			debugger;
-			dispatch(alertActions.showErrorAlert(data.errors))
-		});
+		.catch(data => dispatch(alertActions.showErrorAlert(data.errors)));
 
 	}
 
+}
+
+export const setRental = data => {
+	return {
+		type: types.SET_RENTAL,
+		payload: data
+	}
 }
 
 function buildFormData(resource, data, images ) {

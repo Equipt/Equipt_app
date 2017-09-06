@@ -1,10 +1,13 @@
 import types from 'actions/types';
 
-const user = (state = [], action) => {
+const user = (state = {}, action) => {
 	switch (action.type) {
         case types.USER_ERRORS:
             return action.payload;
-        default: 
+		case types.SET_USER_RENTALS:
+			state.rentals = action.payload;
+			return state;
+		default:
             return state;
 	}
 }
