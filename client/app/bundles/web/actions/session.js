@@ -155,3 +155,49 @@ export const loginWithFacebook = (data, callback) => {
 
 	}
 }
+
+// Get users ( owners ) rentals
+export const fetchCurrentUserRentals = () => {
+
+	return function(dispatch, getState, api) {
+
+		api.token = getState().session.token;
+
+		api.get('/owner/rentals')
+		.then(rentals => {
+
+			// Set Rentals on Current User
+			dispatch(setCurrentUserRentals(rentals));
+
+		});
+
+	}
+
+}
+
+// Set user Rentals
+export const setCurrentUserRentals = rentals => {
+	return {
+		type: types.SET_CURRENT_USER_RENTALS,
+		payload: rentals
+	}
+}
+
+// Cancel Owners Rental
+export const cancelCurentUserRental = rental => {
+
+	return function(dispatch, getState, api) {
+
+		api.token = getState().session.token;
+
+		api.delete(`/owner/rentals/${ rental.hashId }`)
+		.then(res => {
+			dispatch(alertActions.showSuccessAlert(res));
+		})
+		.catch(err => {
+			dispatch(alertActions.showErrorAlert(err));
+		});
+
+	}
+
+}

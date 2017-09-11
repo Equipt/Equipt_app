@@ -17,6 +17,8 @@ class SportingGood < ActiveRecord::Base
 
 	validates_presence_of :category, :title, :brand, :model
 
+	validates :deposit, presence: true, numericality: { greater_than_or_equal_to: 1.0 }
+
 	def slug_candidates
   		[ :title,[:title,:id] ]
 	end

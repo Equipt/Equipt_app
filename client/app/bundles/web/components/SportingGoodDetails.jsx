@@ -96,7 +96,10 @@ const SportingGoodDetails = ({
 			</div>
 
 			<div className="col-xs-12">
-				<button className="btn btn-success" onClick={ rent }>Rent</button>
+				<button className="btn btn-success"
+					onClick={ rent }>
+					Rent
+				</button>
 			</div>
 
         </section>

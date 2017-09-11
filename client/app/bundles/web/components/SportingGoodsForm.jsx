@@ -114,8 +114,9 @@ export class SportingGoodsForm extends React.Component {
 														onChange={ this.onChange.bind(this, field.name) }
 														className='form-control'
 														type={ field.type }
+														step={ field.step }
 														ref={ field.name }
-														value={ sportingGood[field.name] || '' }
+														value={ sportingGood[field.name] || field.default }
 												/>
 												{
 													fieldErrors.map((error, index) => {

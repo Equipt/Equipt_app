@@ -59,9 +59,9 @@ ActiveRecord::Schema.define(version: 20170902023243) do
     t.string   "model"
     t.text     "description"
     t.integer  "age"
-    t.float    "price_per_day"
-    t.float    "price_per_week"
-    t.float    "deposit",        default: 0.0
+    t.float    "price_per_day",  default: 0.0, null: false
+    t.float    "price_per_week", default: 0.0, null: false
+    t.float    "deposit",        default: 0.0, null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.string   "slug"

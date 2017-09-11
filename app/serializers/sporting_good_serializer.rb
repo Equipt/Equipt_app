@@ -10,16 +10,19 @@ class SportingGoodSerializer < ActiveModel::Serializer
 				:price_per_week,
 				:deposit,
 				:errors,
-				:slug
+				:slug,
+				:images
 
-	has_many :images
 	has_many :rentals
 
 	belongs_to :user
 
 	def include_associations!
 		include! :rentals unless @instance_options[:exclude_rentals]
-		include! :images unless @instance_options[:exclude_images]
+	end
+
+	def images
+		@object.images unless @instance_options[:exclude_images]
 	end
 
 end

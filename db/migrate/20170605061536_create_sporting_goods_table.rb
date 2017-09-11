@@ -7,10 +7,10 @@ class CreateSportingGoodsTable < ActiveRecord::Migration[5.0]
 			t.string :brand
 			t.string :model
 			t.text :description
-			t.integer :age
-			t.float :price_per_day
-			t.float :price_per_week
-			t.float :deposit, default: 0.00
+			t.integer :age, default: 0.0, null: false
+			t.float :price_per_day, default: 0.0, null: false
+			t.float :price_per_week, default: 0.0, null: false
+			t.float :deposit, default: 0.0, null: false
 			t.timestamps
 	    end
   	end

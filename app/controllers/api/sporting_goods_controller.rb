@@ -8,15 +8,12 @@ class Api::SportingGoodsController < ApiController
 	end
 
 	def show
-
 		sporting_good = SportingGood.find_by_slug(params[:slug])
-
 		if sporting_good
 			render json: sporting_good, exclude_rentals: true, status: 200
 		else
 			render json: { error: I18n.t('errors.not_found', item: params[:slug]) }, status: 404
 		end
-
 	end
 
 	private

@@ -32,6 +32,8 @@ en:
   rentals:
     dates_are_taken: "Sorry, %{item} is unavailible between these dates"
     terms_not_agreed_to: "Terms must be agree too"
+    cancel_success: "Rental has been cancelled"
+    cancel_error: "Issue cancelling rental, please try again later"
   frontend:
     logo: https://s3-us-west-2.amazonaws.com/equipt-assets/logo.png
     nav:
@@ -118,14 +120,20 @@ en:
           label: How much do you want to charge per day?
           tag: input
           type: number
+          step: 0.01
+          default: 1.00
         - name: price_per_week
           label: How much do you want to charge per week?
           tag: input
           type: number
-        - name: desposit
+          step: 0.01
+          default: 1.00
+        - name: deposit
           label: How much is the deposit?
           tag: input
           type: number
+          step: 0.01
+          default: 1.00
     owners_sporting_goods:
         index:
             title: You're Equipment
@@ -135,6 +143,7 @@ en:
         rental_terms_title: Rental Terms
         waiting_for_confirmation_title: Just waiting on { owners } confirmation
         confirmed_title: Rental has been confirmed
+        cancel_rental: Are you sure you want to cancel this rental?
         rental_terms:
             - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
             - It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.

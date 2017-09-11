@@ -30,35 +30,6 @@ export const signup = (formData, callback) => {
 
 };
 
-// Get users ( owners ) rentals
-
-export const fetchUserRentals = () => {
-
-	return function(dispatch, getState, api) {
-
-		api.token = getState().session.token;
-
-		api.get('/owner/rentals')
-		.then(rentals => {
-
-			// Set Rentals on Current User
-			dispatch(setUsersRentals(rentals));
-
-		});
-
-	}
-
-}
-
-// Set user Rentals
-
-export const setUsersRentals = rentals => {
-	return {
-		type: types.SET_USER_RENTALS,
-		payload: rentals
-	}
-}
-
 // User errors
 
 export const userErrors = errors => {

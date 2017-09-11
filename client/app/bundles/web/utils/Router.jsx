@@ -25,6 +25,15 @@ import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
 import OwnersCalendar from 'containers/owner/OwnersCalendar';
 import RentalsShow from 'containers/RentalsShow';
 
+// Route transition settings
+const RouteTransitionSettings = {
+	className: "transition",
+	pathname: location.pathname,
+	atEnter: {opacity: 0 },
+	atLeave: { opacity: 0 },
+	atActive: { opacity: 1 }
+}
+
 export default (props, store) => {
 
 	const isAuthenticated = () => {
@@ -39,7 +48,7 @@ export default (props, store) => {
 		} else {
 			return 	(<div>
 						{  AlternativeSessionComponent ? <AlternativeSessionComponent { ...props }/> : <Login { ...props }/>}
-						<FaceBook appId={ props.facebookAppId }/>
+						<FaceBook { ...props }/>
 					</div>);
 		}
 	}
@@ -50,41 +59,18 @@ export default (props, store) => {
 			<Alert/>
 
 			<Route path="(/|/home)" exact={ true } render={ () => {
-				if (isAuthenticated()) {
-					return <SportingGoodsIndex { ...props }/>;
-				} else {
-					return <Home { ...props }/>;
-				}
+				return protectedRoute(SportingGoodsIndex, Home);
 			}}/>
 			<Route path="/signup" render={ () => {
-				if (isAuthenticated()) {
-					return <SportingGoodsIndex { ...props }/>;
-				} else {
-					return (<div>
-								<Signup { ...props }/>
-								<FaceBook { ...props }/>
-							</div>);
-				}
+				return protectedRoute(SportingGoodsIndex, Signup);
 			}}/>
 			<Route path="/login" render={ () => {
-				if (isAuthenticated()) {
-					return <SportingGoodsIndex { ...props }/>;
-				} else {
-					return (<div>
-								<Login { ...props }/>
-								<FaceBook { ...props }/>
-							</div>);
-				}
+				return protectedRoute(SportingGoodsIndex);
 			}}/>
 			<Route path="/forgot_password" component={ ForgotPassword }/>
 			<Route path="/reset_password/:reset_token" component={ ResetPassword }/>
 			<Route render={({ location }) => (
-				<RouteTransition
-					className="transition"
-					pathname={location.pathname}
-					atEnter={{ opacity: 0 }}
-					atLeave={{ opacity: 0 }}
-					atActive={{ opacity: 1 }}>
+				<RouteTransition { ...RouteTransitionSettings }>
 					<Switch key={location.key} location={location}>
 						<Route exact path="/sporting_goods/:slug/rentals/:id" render={ () => {
 							return protectedRoute(RentalsShow);
