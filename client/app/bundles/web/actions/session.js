@@ -192,6 +192,7 @@ export const cancelCurentUserRental = rental => {
 
 		api.delete(`/owner/rentals/${ rental.hashId }`)
 		.then(res => {
+			dispatch(detachRental(rental));
 			dispatch(alertActions.showSuccessAlert(res));
 		})
 		.catch(err => {
@@ -200,4 +201,11 @@ export const cancelCurentUserRental = rental => {
 
 	}
 
+}
+
+export const detachRental = data => {
+	return {
+		type: types.DETACH_RENTAL,
+		payload: data
+	}
 }

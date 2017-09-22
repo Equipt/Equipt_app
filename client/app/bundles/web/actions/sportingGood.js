@@ -137,11 +137,10 @@ export const cancelRental = (rental, callback) => {
 
         api.delete(`/rentals/${ rental.hashId }`)
         .then(res => {
-			dispatch(detachRental(rental));
+						dispatch(detachRental(rental));
             dispatch(alertActions.showSuccessAlert(res));
-			if (callback) callback();
-        })
-        .catch(err => {
+						if (callback) callback();
+        }).catch(err => {
             dispatch(alertActions.showErrorAlert(err));
         });
 

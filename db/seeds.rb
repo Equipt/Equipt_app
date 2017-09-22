@@ -46,18 +46,28 @@ def create_users
 			lastname: Faker::Name.last_name,
 			email: email,
 			username: Faker::Internet.user_name,
-			unit: (1..50).to_a.sample,
-			street: Faker::Address.street_address,
-			city: Faker::Address.city,
-			state: Faker::Address.state,
-			zip: Faker::Address.zip,
-			country: Faker::Address.country,
-			lat: Faker::Address.latitude,
-			lng: Faker::Address.longitude,
 			restricted_availability: [true, false].sample,
 			password: 'password',
 			password_confirmation: 'password'
 		)
+
+    Address.create(
+      user_id: user.id,
+      unit: (1..50).to_a.sample,
+      street: Faker::Address.street_address,
+      city: Faker::Address.city,
+      state: Faker::Address.state,
+      zip: Faker::Address.zip,
+      country: Faker::Address.country,
+      lat: Faker::Address.latitude,
+      lng: Faker::Address.longitude
+    )
+
+    Phone.create(
+      user_id: user.id,
+      number: Faker::PhoneNumber.phone_number,
+      source: ['mobile', 'home'].sample
+    )
 
 		(0..6).to_a.sample.times do |i|
 			create_sporting_good(user) if user.save!
@@ -156,15 +166,25 @@ admin = User.create(
 	lastname: 'tom',
 	email: 'tom@tom.com',
 	username: 'tommy',
-	street: '123 fake street',
-	city: 'Vancouver',
-	state: 'BC',
-	zip: '10002',
-	country: 'Canada',
-	lat: '-123.1280044',
-	lng: '49.2841339',
 	restricted_availability: [true, false].sample,
 	password: 'tom'
+)
+
+Address.create(
+  user_id: admin.id,
+  street: '123 fake street',
+  city: 'Vancouver',
+  state: 'BC',
+  zip: '10002',
+  country: 'Canada',
+  lat: '-123.1280044',
+  lng: '49.2841339',
+)
+
+Phone.create(
+  user_id: admin.id,
+  number: '333.333.3333',
+  source: 'mobile'
 )
 
 10.times do |i|

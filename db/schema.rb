@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170902023243) do
+ActiveRecord::Schema.define(version: 20170919053558) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer "user_id"
+    t.string  "unit"
+    t.string  "number"
+    t.string  "street"
+    t.string  "city"
+    t.string  "state"
+    t.string  "zip"
+    t.string  "country"
+    t.float   "lng"
+    t.float   "lat"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
 
   create_table "api_keys", force: :cascade do |t|
     t.integer  "user_id"
@@ -28,6 +42,13 @@ ActiveRecord::Schema.define(version: 20170902023243) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id"
+  end
+
+  create_table "phones", force: :cascade do |t|
+    t.integer "user_id"
+    t.string  "number"
+    t.string  "source"
+    t.index ["user_id"], name: "index_phones_on_user_id"
   end
 
   create_table "rentals", force: :cascade do |t|
@@ -58,7 +79,7 @@ ActiveRecord::Schema.define(version: 20170902023243) do
     t.string   "brand"
     t.string   "model"
     t.text     "description"
-    t.integer  "age"
+    t.integer  "age",            default: 0,   null: false
     t.float    "price_per_day",  default: 0.0, null: false
     t.float    "price_per_week", default: 0.0, null: false
     t.float    "deposit",        default: 0.0, null: false
@@ -69,21 +90,12 @@ ActiveRecord::Schema.define(version: 20170902023243) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer  "address_id"
+    t.integer  "phone_id"
     t.string   "firstname"
     t.string   "lastname"
     t.string   "email"
     t.string   "username"
-    t.string   "unit"
-    t.string   "street_number"
-    t.string   "street"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "country"
-    t.integer  "home_phone"
-    t.integer  "cell_phone"
-    t.float    "lng"
-    t.float    "lat"
     t.string   "password"
     t.string   "password_digest"
     t.boolean  "restricted_availability", default: false
@@ -95,6 +107,8 @@ ActiveRecord::Schema.define(version: 20170902023243) do
     t.datetime "oauth_expires_at"
     t.string   "password_reset_token"
     t.string   "password_reset_sent_at"
+    t.index ["address_id"], name: "index_users_on_address_id"
+    t.index ["phone_id"], name: "index_users_on_phone_id"
   end
 
 end

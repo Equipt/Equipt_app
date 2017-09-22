@@ -4,7 +4,7 @@ class Api::SportingGoodsController < ApiController
 
 	def index
 		sporting_goods = SportingGood.exclude_user(current_user).search(params)
-		render json: sporting_goods, status: 200
+		render json: sporting_goods, exclude_rentals: true, status: 200
 	end
 
 	def show

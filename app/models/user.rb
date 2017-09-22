@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
 	has_many :api_keys, dependent: :destroy
 	has_many :owned_rentals, :through => :sporting_goods, source: 'rentals'
 
+	has_one :address
+	has_one :phone
+
 	validates_presence_of :firstname, :lastname, :email
 
 	validates_email_format_of :email
