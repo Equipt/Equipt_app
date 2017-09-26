@@ -1,4 +1,5 @@
 $tablet-size: 767px;
+$grey: #AFAFAF;
 
 .main-wrapper {
 	.transition .container {
@@ -10,6 +11,10 @@ $tablet-size: 767px;
 	@media (max-width: $tablet-size) {
 		margin: 50px 0 0;
 	}
+}
+
+.container {
+	margin-top: 40px;
 }
 
 .no-margin {
@@ -24,4 +29,9 @@ $tablet-size: 767px;
 // Forms
 .search-field {
 	margin-bottom: 10px;
+}
+
+.box-container {
+	padding: 20px;
+ 	border: solid 1px $grey;
 }

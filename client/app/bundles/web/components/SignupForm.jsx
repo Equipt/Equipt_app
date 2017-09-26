@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { UserForm } from 'components/UserForm';
+
 export class SignupForm extends React.Component {
 
 	static contextTypes = {
@@ -14,19 +16,9 @@ export class SignupForm extends React.Component {
 		actions: PropTypes.object.isRequired
 	}
 
-	submit(e) {
-
-		e.preventDefault();
+	submit(formData) {
 
 		const { actions } = this.props;
-
-		let formData = {
-			firstname: this.refs.firstname.value,
-			lastname: this.refs.lastname.value,
-			email: this.refs.email.value,
-			password: this.refs.password.value,
-			password_confirmation: this.refs.password_confirmation.value
-		}
 
 		// Fetch Current User
 		actions.signup(formData, () => {
@@ -47,35 +39,7 @@ export class SignupForm extends React.Component {
 
 				<h2>{ signup.title }</h2>
 
-				<form onSubmit={ this.submit.bind(this) }>
-
-					{
-						signup.formFields.map((field, index) => {
-
-							let fieldErrors = errors[field.name] || [];
-
-							return 	(<div key={ `field_${ index }` }>
-												<br/>
-													<label>{ field.label }</label>
-														<input  ref={ field.name }
-																		name={ field.name }
-																		className="form-control"
-																		type={ field.type }
-														/>
-														{
-															fieldErrors.map((error, index) => {
-																return <p className="text-danger" key={ `${field.name}_error_${index}` }>{ error }</p>;
-															})
-														}
-								   			</div>);
-						})
-					}
-
-					<br/>
-
-					<input type="submit" className="btn btn-success" value="Signup"/>
-
-				</form>
+				<UserForm submit={ this.submit.bind(this) } formContent={ signup }/>
 
 			</section>
 		)

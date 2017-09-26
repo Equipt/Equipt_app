@@ -1,58 +1,70 @@
 import React from 'react';
 
+import { UserForm } from 'components/UserForm';
+
+import Address from 'components/Address';
+
 export class ProfileForm extends React.Component {
 
-	submit(e) {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			listItems: ['Basic', 'Address', 'Reviews', 'Verify'],
+			currentListItem: 'Basic'
+		}
+	}
+
+	submit(formData) {
 
 		e.preventDefault();
 
 	}
 
-	render() {
+	clickedListItem(item) {
+		this.setState({
+			currentListItem: item
+		})
+	}
 
-		const content = this.props.content.signup;
-
-		const user = this.props.user || {};
-		const errors = user.errors || [];
+	getCurrentTab() {
 
 		const { currentUser } = this.props;
+		const { signup } = this.props.content;
+
+		if (this.state.currentListItem === 'Address') {
+			return <Address/>;
+		}
+
+		return <UserForm submit={ this.submit.bind(this) } formContent={ signup } user={ currentUser }/>;
+
+	}
+
+	render() {
 
 		return (
 
 			<section className="container">
 
-				<h2>Profile</h2>
+				<aside className="col-xs-2 selection-list">
 
-				<form onSubmit={ this.submit.bind(this) }>
+					<ul>
+						{
+							this.state.listItems.map(item => {
+								return <li 	key={ `list_item_${ item }` }
+														onClick={ this.clickedListItem.bind(this, item) }
+														className={ this.state.currentListItem === item ? 'active' : '' }>
+														{ item }</li>
+							})
+						}
 
-					{
-						content.formFields.map((field, index) => {
+					</ul>
 
-							let fieldErrors = errors[field.name] || [];
+				</aside>
 
-							return 	(<div key={ `field_${ index }` }>
-												<br/>
-													<label>{ field.label }</label>
-														<input  ref={ field.name }
-																		name={ field.name }
-																		className="form-control"
-																		type={ field.type }
-																		value={ currentUser[field.name] }
-														/>
-														{
-															fieldErrors.map((error, index) => {
-																return <p className="text-danger" key={ `${field.name}_error_${index}` }>{ error }</p>;
-															})
-														}
-												</div>);
-						})
-					}
-
-					<br/>
-
-					<input type="submit" className="btn btn-success" value="Signup"/>
-
-				</form>
+				<div className="col-xs-10 box-container">
+					{ this.getCurrentTab.call(this) }
+				</div>
 
 			</section>
 		)

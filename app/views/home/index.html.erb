@@ -5,11 +5,13 @@
 	content: @content
 }) %>
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=[YOUR_API_KEY]&libraries=places"></script>
+
 <script>
 
 	// Set up Facebook
 	window.fbAsyncInit = function() {
-		
+
 		FB.init({
 	      appId      : <%= ENV['FACEBOOK_APP_ID'] %>,
 	      xfbml      : true,
