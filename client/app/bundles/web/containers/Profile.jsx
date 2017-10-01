@@ -9,15 +9,14 @@ import { Link } from 'react-router-dom';
 import * as sessionActions from 'actions/session';
 
 import { LoginForm } from 'components/LoginForm';
-
-import { ProfileForm } from 'components/ProfileForm';
+import { UsersProfile } from 'components/UsersProfile';
 
 class Profile extends React.Component {
 
 	render() {
 
 		return (
-			<ProfileForm { ...this.props }/>
+			<UsersProfile { ...this.props }/>
 		)
 
 	}

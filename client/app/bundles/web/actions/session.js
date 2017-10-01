@@ -95,6 +95,21 @@ export const forgotPassword = data => {
 
 }
 
+// Submit Users Contact Information
+export const updateCurrentUser = user => {
+
+	return function(dispatch, getState, api) {
+
+		api.token = getState().session.token;
+
+		api.put('/users', data)
+		.then(currentUser => dispatch(setCurrentUser(currentUser)))
+		.catch(err => dispatch(alertActions.showErrorAlert(err)));
+
+	}
+
+}
+
 // Reset Password
 export const resetPassword = (resetToken, data, callback) => {
 

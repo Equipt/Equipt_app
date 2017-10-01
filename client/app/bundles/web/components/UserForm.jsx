@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import FormFieldsHelper from 'helpers/FormFields';
+
 export class UserForm extends React.Component {
 
   static propTypes = {
@@ -40,32 +42,11 @@ export class UserForm extends React.Component {
 
         <title>{ title }</title>
 
-        {
-          formFields.map((field, index) => {
-
-            let fieldErrors = errors[field.name] || [];
-
-            return 	(<div key={ `field_${ index }` }>
-                      <br/>
-                        <label>{ field.label }</label>
-                          <input  ref={ field.name }
-                                  name={ field.name }
-                                  className="form-control"
-                                  type={ field.type }
-                                  defaultValue={ user[field.name] }
-                          />
-                          {
-                            fieldErrors.map((error, index) => {
-                              return <p className="text-danger" key={ `${field.name}_error_${index}` }>{ error }</p>;
-                            })
-                          }
-                      </div>);
-          })
-        }
+        { FormFieldsHelper.call(this, formFields, errors, user) }
 
         <br/>
 
-        <input type="submit" className="btn btn-success" value="Signup"/>
+        <input type="submit" className="btn btn-success clearfix" value="Signup"/>
 
       </form>
     )

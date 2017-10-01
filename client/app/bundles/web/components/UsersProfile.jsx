@@ -1,17 +1,19 @@
 import React from 'react';
 
 import { UserForm } from 'components/UserForm';
+import { UsersContact } from 'components/UsersContact';
+import Reviews from 'components/Reviews';
 
-import Address from 'components/Address';
-
-export class ProfileForm extends React.Component {
+export class UsersProfile extends React.Component {
 
 	constructor(props) {
 		super(props);
 
+		const { tabs } = this.props.content.profile.edit;
+
 		this.state = {
-			listItems: ['Basic', 'Address', 'Reviews', 'Verify'],
-			currentListItem: 'Basic'
+			tabs: tabs,
+			currentTab: tabs[0]
 		}
 	}
 
@@ -23,7 +25,7 @@ export class ProfileForm extends React.Component {
 
 	clickedListItem(item) {
 		this.setState({
-			currentListItem: item
+			currentTab: item
 		})
 	}
 
@@ -31,12 +33,24 @@ export class ProfileForm extends React.Component {
 
 		const { currentUser } = this.props;
 		const { signup } = this.props.content;
+		const { currentTab } = this.state;
 
-		if (this.state.currentListItem === 'Address') {
-			return <Address/>;
+		switch(currentTab) {
+			case this.state.tabs[1]:
+				return <UsersContact { ...this.props } setAddress={ this.setAddress.bind(this) }/>;
+			break;
+			case this.state.tabs[2]:
+				return <Reviews reviews={ currentUser.reviews || [] }/>;
+			break;
 		}
 
 		return <UserForm submit={ this.submit.bind(this) } formContent={ signup } user={ currentUser }/>;
+
+	}
+
+	setAddress(address) {
+
+		debugger;
 
 	}
 
@@ -50,10 +64,10 @@ export class ProfileForm extends React.Component {
 
 					<ul>
 						{
-							this.state.listItems.map(item => {
+							this.state.tabs.map(item => {
 								return <li 	key={ `list_item_${ item }` }
 														onClick={ this.clickedListItem.bind(this, item) }
-														className={ this.state.currentListItem === item ? 'active' : '' }>
+														className={ this.state.currentTab === item ? 'active' : '' }>
 														{ item }</li>
 							})
 						}
