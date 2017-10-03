@@ -82,7 +82,6 @@ export default function(history) {
 					history.push('/not_found');
 				}
 
-				reject(err.response.data);
 			});
 
 		});

@@ -2,15 +2,19 @@ import React from 'react';
 
 export default function(fields = [], errors = {}, resource = {}) {
 
-  function buildSelect(field) {
+  const buildSelect = field => {
 
     const options = field.options || [];
 
     return (
       <select name={ field.name }
               ref={ field.name }
-              defaultValue={ resource[field.name] }
-              className="form-control">
+              defaultValue={ resource[field.name] || field.default }
+              disabled={ field.disabled }
+              className="form-control"
+              onChange={ () => this.setState({
+                [field.name]: this.refs[field.name].value
+              }) }>
       {
           options.map(option => {
             return <option key={ `${field.name}_option_${ option }` } value={ option }>{ option }</option>
@@ -20,14 +24,20 @@ export default function(fields = [], errors = {}, resource = {}) {
 
   }
 
-  function buildInput(field) {
+  const buildInput = field => {
 
     return (<input ref={ field.name }
                   name={ field.name }
                   className="form-control"
                   type={ field.type }
                   placeholder={ field.placeholder }
-                  defaultValue={ resource[field.name] }
+                  disabled={ field.disabled }
+                  step={ field.step }
+                  min={ field.min }
+                  defaultValue={ resource[field.name] || field.default }
+                  onChange={ () => this.setState({
+                    [field.name]: this.refs[field.name].value
+                  }) }
             />);
 
   }

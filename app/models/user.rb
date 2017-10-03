@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+	attr_accessor :notice, :api_key, :phone, :address, :errors
+
 	has_secure_password
 
 	has_many :sporting_goods, dependent: :destroy
@@ -10,12 +12,12 @@ class User < ActiveRecord::Base
 	has_one :address
 	has_one :phone
 
+	accepts_nested_attributes_for :address
+	accepts_nested_attributes_for :phone
+
 	validates_presence_of :firstname, :lastname, :email
-
 	validates_email_format_of :email
-
 	validates_uniqueness_of :email
-
 	validates :password, :length=>{ :minimum => 6 }
 
 	after_create :session_api_key

@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20170919053558) do
   create_table "phones", force: :cascade do |t|
     t.integer "user_id"
     t.string  "number"
-    t.string  "source"
+    t.boolean "valiated"
     t.index ["user_id"], name: "index_phones_on_user_id"
   end
 

@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Dropzone from 'react-dropzone'
+import Dropzone from 'react-dropzone';
+
+import FormFieldsHelper from 'helpers/FormFields';
 
 export class SportingGoodsForm extends React.Component {
 
@@ -37,6 +39,8 @@ export class SportingGoodsForm extends React.Component {
 	submit(e) {
 
 		e.preventDefault();
+
+		debugger;
 
 		const { sportingGood } = this.props;
 		const { images } = this.state;
@@ -86,8 +90,9 @@ export class SportingGoodsForm extends React.Component {
 
 	render() {
 
-		const content 	   		= this.props.content;
-		const sportingGood 		= this.props.sportingGood || {};
+		const content 	   	= this.props.content || {};
+		const formFields 		= content.formFields || [];
+		const sportingGood 	= this.props.sportingGood || {};
 		const images 	   		= this.state.images || [];
 		const errors 	   		= sportingGood.errors || {};
 		const imageLimitMessage = this.state.showLimitMessage ? <p className="alert alert-info">{ content.imageLimit }</p> : '';
@@ -99,79 +104,10 @@ export class SportingGoodsForm extends React.Component {
 					<div className="col-md-6 col-xs-12">
 						<h3>{ content.title }</h3>
 						<form onSubmit={ this.submit.bind( this ) }>
-							{
-								content.formFields.map((field, index) => {
 
-									let fieldErrors = errors[field.name] || [];
-
-									if (field.tag === 'input') {
-
-										return (
-											<fieldset key={ `fieldset_${ field.name }_${ index }` }
-													  className={ field.type === 'number' ? `col-md-6 col-xs-12 no-margin number-container` : `` }>
-												<label>{ field.label }</label>
-												<input 	name={ field.name }
-														onChange={ this.onChange.bind(this, field.name) }
-														className='form-control'
-														type={ field.type }
-														step={ field.step }
-														ref={ field.name }
-														value={ sportingGood[field.name] || field.default }
-												/>
-												{
-													fieldErrors.map((error, index) => {
-														return <p className="text-danger" key={ `${field.name}_error_${index}` }>{ error }</p>;
-													})
-												}
-											</fieldset>
-										);
-
-									} else if (field.tag === 'select') {
-
-										return (
-											<fieldset key={ `select_${ field.name }_${ index }` }>
-												<label>{ field.label }</label>
-												<select name={ field.name }
-														ref={ field.name }
-														className="form-control"
-														onChange={ this.onChange.bind(this, field.name) }
-														value={ sportingGood[field.name] || '' }
-												>
-													<option>Please Select a type</option>
-													{
-														field.options.map((option, index) => {
-															return (
-																<option value={ option } key={ `option_${ index }` }>
-																	{ option }
-																</option>
-															)
-														})
-													}
-												</select>
-												{
-													fieldErrors.map((error, index) => {
-														return <p className="text-danger" key={ `${field.name}_error_${index}` }>{ error }</p>;
-													})
-												}
-											</fieldset>
-										);
-
-									} else if (field.tag === 'textarea') {
-
-										return (
-											<fieldset key={ `textfield_${ field.name }_${ index }` }>
-												<label>{ field.label }</label>
-												<textarea 	className="form-control"
-															name={ field.name }
-															ref={ field.name }
-															onChange={ this.onChange.bind(this, field.name) }
-															value={ sportingGood[field.name] || ''}/>
-											</fieldset>
-										);
-
-									}
-								})
-							}
+							<div className="row">
+								{ FormFieldsHelper.call(this, formFields, errors, sportingGood) }
+							</div>
 
 							<br/>
 

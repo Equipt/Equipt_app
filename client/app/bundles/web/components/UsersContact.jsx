@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import AddressAutocomplete from 'react-address-autocomplete';
-
 import FormFieldsHelper from 'helpers/FormFields';
 
 export class UsersContact extends React.Component {
@@ -15,17 +13,13 @@ export class UsersContact extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      search: '',
-      latitude: Infinity,
-      longitude: Infinity
-    }
   }
 
   submitContact(e) {
     e.preventDefault();
     const currentUser = this.props.currentUser || {};
-    this.props.actions.updateCurrentUser();
+    currentUser.address = this.state;
+    this.props.actions.updateCurrentUser({user: currentUser});
   }
 
   render() {
@@ -40,14 +34,6 @@ export class UsersContact extends React.Component {
         <form onSubmit={ this.submitContact.bind(this) }>
 
           <h4>Contact Information</h4>
-
-          <AddressAutocomplete
-            name="location"
-            placeholder="Address: 12456 Fake Street #A, San Francisco, CA, 94118"
-            value={this.state}
-            onChange={data => this.setState(data)}
-            apiKey={ this.props.mapZenKey }
-          />
 
           <div className="row">
             { FormFieldsHelper.call(this, contact.formFields, address.errors, address) }

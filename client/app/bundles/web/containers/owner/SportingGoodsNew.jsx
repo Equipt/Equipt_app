@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { connect } from 'react-redux';  
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as sportingGoodActions from 'actions/sportingGood';
@@ -21,9 +21,9 @@ class SportingGoodsNew extends React.Component {
 		const content = this.props.content.sporting_goods.create;
 
 		return (
-			<SportingGoodsForm 	{ ...this.props } 
-								content={ content } 
-								submit={ this.submit } 
+			<SportingGoodsForm 	{ ...this.props }
+								content={ content }
+								submit={ this.submit }
 								createOrUpdate={ actions.createSportingGood }/>
 		)
 	}
@@ -32,11 +32,12 @@ class SportingGoodsNew extends React.Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		sportingGood: state.sportingGood
+		sportingGood: state.sportingGood,
+		currentUser: state.session ? state.session.currentUser : {}
 	}
 }
 
-function matchDispatchToProps(dispatch) {  
+function matchDispatchToProps(dispatch) {
 	return {actions: bindActionCreators(sportingGoodActions, dispatch)}
 }
 

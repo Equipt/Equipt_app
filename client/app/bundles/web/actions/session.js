@@ -96,13 +96,13 @@ export const forgotPassword = data => {
 }
 
 // Submit Users Contact Information
-export const updateCurrentUser = user => {
+export const updateCurrentUser = data => {
 
 	return function(dispatch, getState, api) {
 
 		api.token = getState().session.token;
 
-		api.put('/users', data)
+		api.put(`/user/${ data.user.id }`, data)
 		.then(currentUser => dispatch(setCurrentUser(currentUser)))
 		.catch(err => dispatch(alertActions.showErrorAlert(err)));
 

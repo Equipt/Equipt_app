@@ -90,37 +90,38 @@ en:
           button: 'Update Contact Info'
           formFields:
             - name: phone
-              label: Home Phone
+              label: Phone
               tag: input
               type: text
               placeholder: '333-333-3333'
-              fieldsetClass: 'col-xs-6'
-            - name: phone
-              label: Mobile Phone
-              tag: input
-              type: text
-              placeholder: '333-333-3333'
-              fieldsetClass: 'col-xs-6'
+              fieldsetClass: 'col-xs-12'
             - name: unit
-              label: unit
+              label: Unit
+              tag: input
+              type: text
+              fieldsetClass: 'col-xs-1'
+            - name: number
+              label: Number
               tag: input
               type: text
               fieldsetClass: 'col-xs-1'
             - name: street
-              label: Street Address
+              label: Street Name
               tag: input
               type: text
-              fieldsetClass: 'col-xs-11'
+              fieldsetClass: 'col-xs-10'
             - name: city
               label: City
               tag: input
               type: text
               fieldsetClass: 'col-xs-6'
             - name: state
-              label: state / province
+              label: Only available in British Columbia
               tag: input
               type: text
               tag: select
+              default: 'British Columbia'
+              disabled: true
               options:
                 - Alberta
                 - British Columbia
@@ -143,6 +144,8 @@ en:
               tag: input
               type: text
               fieldsetClass: 'col-xs-6'
+              default: 'Canada'
+              disabled: true
     sporting_goods:
       index:
         title: Rent Equipment
@@ -161,43 +164,55 @@ en:
             - Camp
             - Water
             - Rock
+          fieldsetClass: 'col-xs-12'
         - name: title
           label: Short Description
           tag: input
           type: text
+          fieldsetClass: 'col-xs-12'
         - name: brand
           label: brand
           tag: input
           type: text
+          fieldsetClass: 'col-xs-12'
         - name: model
           label: model
           tag: input
           type: text
+          fieldsetClass: 'col-xs-12'
         - name: description
           label: Extra Details
           tag: textarea
+          fieldsetClass: 'col-xs-12'
         - name: age
           label: How old is it?
           tag: input
           type: number
+          fieldsetClass: 'col-xs-6'
         - name: price_per_day
           label: How much do you want to charge per day?
           tag: input
           type: number
           step: 0.01
           default: 1.00
+          min: 1.00
+          fieldsetClass: 'col-xs-6'
         - name: price_per_week
           label: How much do you want to charge per week?
           tag: input
           type: number
           step: 0.01
           default: 1.00
+          min: 1.00
+          fieldsetClass: 'col-xs-6'
         - name: deposit
           label: How much is the deposit?
           tag: input
           type: number
           step: 0.01
           default: 1.00
+          min: 1.00
+          fieldsetClass: 'col-xs-6'
     owners_sporting_goods:
         index:
             title: You're Equipment
