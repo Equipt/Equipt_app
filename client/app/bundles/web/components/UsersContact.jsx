@@ -13,12 +13,27 @@ export class UsersContact extends React.Component {
 
   constructor(props) {
     super(props);
+    const currentUser = props.currentUser || {};
+    this.state = Object.assign(currentUser.address, currentUser.phone);
   }
 
   submitContact(e) {
     e.preventDefault();
     const currentUser = this.props.currentUser || {};
-    currentUser.address = this.state;
+    // Set address params
+    currentUser.address = {
+      unit: this.state.unit,
+      number: this.state.number,
+      street: this.state.street,
+      city: this.state.city,
+      zip: this.state.zip,
+      country: this.state.country
+    };
+    // Set phone params
+    currentUser.phone = {
+      number: this.state.phone
+    };
+
     this.props.actions.updateCurrentUser({user: currentUser});
   }
 

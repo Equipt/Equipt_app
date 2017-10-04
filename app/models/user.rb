@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-	attr_accessor :notice, :api_key, :phone, :address, :errors
+	attr_accessor :notice, :api_key, :updating_password
 
 	has_secure_password
 
@@ -15,10 +15,12 @@ class User < ActiveRecord::Base
 	accepts_nested_attributes_for :address
 	accepts_nested_attributes_for :phone
 
+	validates_confirmation_of :password, if: :should_validate_password?
+	validates :password, :length=>{ :minimum => 6 }, if: :should_validate_password?
+
 	validates_presence_of :firstname, :lastname, :email
 	validates_email_format_of :email
 	validates_uniqueness_of :email
-	validates :password, :length=>{ :minimum => 6 }
 
 	after_create :session_api_key
 
@@ -37,26 +39,31 @@ class User < ActiveRecord::Base
 
 		password = SecureRandom.hex(9)
 
-    	where(provider: 'facebook', uid: auth['user_id']).first_or_initialize.tap do |user|
-  			user.provider           	= 'facebook'
-  			user.uid                	= auth['user_id']
-  			user.firstname          	= auth['name']
-  			user.lastname          		= auth['name']
-      		user.email              	= auth['email']
-  			user.oauth_token        	= auth['access_token']
-  			user.oauth_expires_at   	= Time.at(auth['expires_in'])
-      		user.password              ||=  password
-      		user.password_confirmation ||=  password
-	  		user.save!
+  	where(provider: 'facebook', uid: auth['user_id']).first_or_initialize.tap do |user|
+			user.provider           	= 'facebook'
+			user.uid                	= auth['user_id']
+			user.firstname          	= auth['name']
+			user.lastname          		= auth['name']
+    	user.email              	= auth['email']
+			user.oauth_token        	= auth['access_token']
+			user.oauth_expires_at   	= Time.at(auth['expires_in'])
+    	user.password              ||=  password
+    	user.password_confirmation ||=  password
+  		user.save!
 		end
+
 	end
 
-	 # forgot password
-  	def send_password_reset
-    	generate_token(:password_reset_token)
-    	self.password_reset_sent_at = Time.zone.now
-    	save! validate: false
-    	UserMailer.password_reset(self).deliver
-  	end
+ 	# forgot password
+	def send_password_reset
+  	generate_token(:password_reset_token)
+  	self.password_reset_sent_at = Time.zone.now
+  	save! validate: false
+  	UserMailer.password_reset(self).deliver
+	end
+
+	def should_validate_password?
+		updating_password || new_record?
+	end
 
 end

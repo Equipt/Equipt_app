@@ -12,8 +12,7 @@ class Api::UserController < ApiController
 	end
 
 	def update
-		binding.remote_pry
-		if current_user.update(user_params)
+		if current_user.update_attributes(user_params)
 			render json: current_user, send_api_token: true, status: 200
 		else
 			render json: current_user, send_api_token: false, status: 400
@@ -23,8 +22,9 @@ class Api::UserController < ApiController
 	private
 
 	def user_params
-		params[:user][:address_attributes] = params[:user][:address] if params[:user][:address]
-		params[:user][:phone_attributes] = params[:user][:phone] if params[:user][:phone]
+		params[:user][:address_attributes] = params[:user].delete(:address) if params[:user][:address]
+		params[:user][:phone_attributes] = params[:user].delete(:phone) if params[:user][:phone]
+		params[:user].delete(:errors) if params[:user][:errors]
 		params.require(:user).permit(
 			:id,
 			:username,
@@ -35,6 +35,8 @@ class Api::UserController < ApiController
 			:email,
 			:password,
 			:password_confirmation,
+			:notice,
+			:api_key,
 			phone_attributes: [
 				:number,
 				:_destroy
@@ -50,7 +52,7 @@ class Api::UserController < ApiController
 				:lat,
 				:_destroy
 			]
-		).permit!
+		)
 	end
 
 end

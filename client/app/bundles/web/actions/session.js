@@ -103,7 +103,10 @@ export const updateCurrentUser = data => {
 		api.token = getState().session.token;
 
 		api.put(`/user/${ data.user.id }`, data)
-		.then(currentUser => dispatch(setCurrentUser(currentUser)))
+		.then(currentUser => dispatch(setCurrentUser({
+			currentUser: user,
+			token: user.apiKey
+		})))
 		.catch(err => dispatch(alertActions.showErrorAlert(err)));
 
 	}
