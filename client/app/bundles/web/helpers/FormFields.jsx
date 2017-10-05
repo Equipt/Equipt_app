@@ -6,6 +6,19 @@ export default function(fields = [], errors = {}, resource = {}) {
 
     const options = field.options || [];
 
+    let optionsMarkUp = [];
+
+    if (options instanceof Array) {
+      optionsMarkUp = options.map(option => {
+        return <option key={ `${field.name}_option_${ option }` } value={ option }>{ option }</option>;
+      });
+    } else {
+      optionsMarkUp = Object.keys(options).map(key => {
+        let option = options[key];
+        return <option key={ `${field.name}_option_${ option }` } value={ key }>{ option }</option>;
+      });
+    }
+
     return (
       <select name={ field.name }
               ref={ field.name }
@@ -15,11 +28,7 @@ export default function(fields = [], errors = {}, resource = {}) {
               onChange={ () => this.setState({
                 [field.name]: this.refs[field.name].value
               }) }>
-      {
-          options.map(option => {
-            return <option key={ `${field.name}_option_${ option }` } value={ option }>{ option }</option>
-          })
-      }
+              {optionsMarkUp}
     </select>);
 
   }

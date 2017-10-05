@@ -43,6 +43,12 @@ export class UsersContact extends React.Component {
     const address = currentUser.address || {};
     const { contact } = this.props.content.profile.edit;
 
+    contact.formFields.forEach(field => {
+        if(field.name === 'country') {
+          field.options =  this.props.content.countries;
+        }
+    });
+
     return (
       <section className="user-contact">
 

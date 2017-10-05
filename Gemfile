@@ -40,7 +40,7 @@ gem 'validates_email_format_of'
 
 gem 'carrierwave', '~> 1.0'
 
-# o-auth 
+# o-auth
 gem 'omniauth-facebook'
 
 # Front-end libraries
@@ -50,6 +50,8 @@ gem "font-awesome-rails"
 
 # Faker for seeding
 gem 'faker'
+
+gem 'city-state'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
