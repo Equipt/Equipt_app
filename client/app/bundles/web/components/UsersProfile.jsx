@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { UserForm } from 'components/UserForm';
-import { UsersContact } from 'components/UsersContact';
+import { UsersContactForm } from 'components/UsersContactForm';
 import Reviews from 'components/Reviews';
 
 export class UsersProfile extends React.Component {
@@ -9,18 +9,12 @@ export class UsersProfile extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const { tabs } = this.props.content.profile.edit;
+		const { tabs } = this.props.content.profile;
 
 		this.state = {
 			tabs: tabs,
 			currentTab: tabs[0]
 		}
-	}
-
-	submit(formData) {
-
-		e.preventDefault();
-
 	}
 
 	clickedListItem(item) {
@@ -37,20 +31,14 @@ export class UsersProfile extends React.Component {
 
 		switch(currentTab) {
 			case this.state.tabs[1]:
-				return <UsersContact { ...this.props } setAddress={ this.setAddress.bind(this) }/>;
+				return <UsersContactForm { ...this.props }/>;
 			break;
 			case this.state.tabs[2]:
 				return <Reviews reviews={ currentUser.reviews || [] }/>;
 			break;
 		}
 
-		return <UserForm submit={ this.submit.bind(this) } formContent={ signup } user={ currentUser }/>;
-
-	}
-
-	setAddress(address) {
-
-		debugger;
+		return <UserForm { ...this.props } formContent={ signup } isUpdating={ true }/>;
 
 	}
 

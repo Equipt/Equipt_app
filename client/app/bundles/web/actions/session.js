@@ -95,18 +95,24 @@ export const forgotPassword = data => {
 
 }
 
-// Submit Users Contact Information
-export const updateCurrentUser = data => {
+// Submit Users Profile Information
+export const updateCurrentUser = currentUser => {
 
 	return function(dispatch, getState, api) {
 
 		api.token = getState().session.token;
 
-		api.put(`/user/${ data.user.id }`, data)
-		.then(currentUser => dispatch(setCurrentUser({
-			currentUser: user,
-			token: user.apiKey
-		})))
+		api.put(`/user/${ currentUser.id }`, currentUser)
+		.then(currentUser => {
+
+			dispatch(setCurrentUser({
+				currentUser: currentUser,
+				token: currentUser.apiKey
+			}));
+
+			dispatch(alertActions.showSuccessAlert(currentUser.notice));
+
+		})
 		.catch(err => dispatch(alertActions.showErrorAlert(err)));
 
 	}

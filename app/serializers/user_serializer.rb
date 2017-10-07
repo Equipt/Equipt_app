@@ -17,6 +17,7 @@ class UserSerializer < ActiveModel::Serializer
   def notice
 		{ info: "Welcome, #{ @object.firstname.capitalize }" } if @instance_options[:create_notice]
     { info: "Welcome back, #{ @object.firstname.capitalize }"} if @instance_options[:session_notice]
+		{ info: "You successfully updated your profile"} if @instance_options[:update_notice]
   end
 
   def api_key

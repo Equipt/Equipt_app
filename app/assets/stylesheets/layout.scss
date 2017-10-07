@@ -32,10 +32,16 @@ $grey: #AFAFAF;
 }
 
 label {
+	margin-right: 5px;
 	font-size: 12px;
 }
 
 .box-container {
 	padding: 20px;
  	border: solid 1px $grey;
+}
+
+.error {
+	margin-right: 5px;
+	text-transform: capitalize;
 }

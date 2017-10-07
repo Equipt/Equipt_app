@@ -25,6 +25,7 @@ export class SportingGoodsForm extends React.Component {
 		this.IMAGES_LIMIT = 5;
 
 		this.state = {
+			sportingGood: this.props.sportingGood,
 			images: [],
 			showLimitMessage: false
 		}
@@ -40,12 +41,9 @@ export class SportingGoodsForm extends React.Component {
 
 		e.preventDefault();
 
-		debugger;
-
-		const { sportingGood } = this.props;
-		const { images } = this.state;
-
 		const { slug } = this.context.router.route.match.params;
+		const { sportingGood } = this.state;
+		const { images } = this.state;
 
 		this.props.createOrUpdate(sportingGood, images, slug, () => {
 			this.context.router.history.push('/owner/sporting_goods');
@@ -53,11 +51,12 @@ export class SportingGoodsForm extends React.Component {
 
 	}
 
-	onChange(name) {
+	onChange(field) {
 
-		const { sportingGood } = this.props;
+		const { sportingGood } = this.state;
+
 		sportingGood.images = this.state.images;
-		sportingGood[name] = this.refs[name].value;
+		sportingGood[field.name] = this.refs[field.name].value;
 		this.setState( sportingGood );
 
 	}
@@ -75,18 +74,17 @@ export class SportingGoodsForm extends React.Component {
 			this.setState({showLimitMessage: true});
 		}
 
+  }
 
-  	}
+	removeFile(index) {
 
-  	removeFile(index) {
+		const { images } = this.state;
 
-  		const { images } = this.state;
+		images.splice(index, 1);
 
-  		images.splice(index, 1);
+		this.setState({images: images});
 
-  		this.setState({images: images});
-
-  	}
+	}
 
 	render() {
 

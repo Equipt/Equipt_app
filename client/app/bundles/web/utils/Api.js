@@ -69,18 +69,19 @@ export default function(history) {
 			};
 
 			axios(ajaxObj)
-			.then((res, status, xhr) => {
-				resolve(res.data);
-			})
+			.then((res, status, xhr) => resolve(res.data))
 			.catch(err => {
-				const { status } = err.response;
+
+				const { data, status } = err.response;
 
 				if (status === 500 || status === 401) {
 					localStorage.clear();
-					history.push('/login');
+					return history.push('/login');
 				} else if (status === 404) {
-					history.push('/not_found');
+					return history.push('/not_found');
 				}
+
+				reject(data);
 
 			});
 

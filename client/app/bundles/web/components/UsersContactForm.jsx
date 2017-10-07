@@ -3,21 +3,25 @@ import React from 'react';
 
 import FormFieldsHelper from 'helpers/FormFields';
 
-export class UsersContact extends React.Component {
+export class UsersContactForm extends React.Component {
 
   static propTypes = {
     mapZenKey: PropTypes.string.isRequired,
-    setAddress: PropTypes.func.isRequired,
     content: PropTypes.object.isRequired
   }
 
   constructor(props) {
     super(props);
-    const currentUser = props.currentUser || {};
-    this.state = Object.assign(currentUser.address, currentUser.phone);
+
+    this.state = {
+      address: props.currentUser.address,
+      phone: props.currentUser.phone.number
+    }
+
   }
 
   submitContact(e) {
+
     e.preventDefault();
     const currentUser = this.props.currentUser || {};
     // Set address params
@@ -26,6 +30,7 @@ export class UsersContact extends React.Component {
       number: this.state.number,
       street: this.state.street,
       city: this.state.city,
+      state: this.state.state,
       zip: this.state.zip,
       country: this.state.country
     };
@@ -35,19 +40,39 @@ export class UsersContact extends React.Component {
     };
 
     this.props.actions.updateCurrentUser({user: currentUser});
+
+  }
+
+  onChange(field) {
+
+    const { value } = this.refs[field.name];
+
+    // Change to select tag if US or CA is selected
+    if (field.name === 'country') {
+
+      field.tag = 'select';
+      switch(value) {
+        case 'us':
+          field.options = field.states;
+          break;
+        case 'ca':
+          field.options = field.provencies;
+          break;
+        default:
+          field.tag = 'input';
+      }
+    }
+
+    if (field.name === 'phone') {
+      debugger;
+    }
+
   }
 
   render() {
 
-    const currentUser = this.props.currentUser || {};
-    const address = currentUser.address || {};
-    const { contact } = this.props.content.profile.edit;
-
-    contact.formFields.forEach(field => {
-        if(field.name === 'country') {
-          field.options =  this.props.content.countries;
-        }
-    });
+    const { contact } = this.props.content.profile;
+    const { address, phone } = this.state;
 
     return (
       <section className="user-contact">
@@ -57,7 +82,8 @@ export class UsersContact extends React.Component {
           <h4>Contact Information</h4>
 
           <div className="row">
-            { FormFieldsHelper.call(this, contact.formFields, address.errors, address) }
+            { FormFieldsHelper.call(this, contact.address.formFields, phone.errors, phone) }
+            { FormFieldsHelper.call(this, contact.phone.formFields, address.errors, address) }
           </div>
 
           <br/>

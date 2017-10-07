@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {connect} from 'react-redux';  
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import Alert from 'components/Alert';
@@ -14,14 +14,13 @@ class AlertContainer extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		clearTimeout(this.showAlert);
-
 		this.showAlert = setTimeout(() => {
 			this.props.actions.clearAlerts();
 		}, 5000);
 	}
 
 	render() {
-		
+
 		return (
 			<Alert { ...this.props }/>
 		)
@@ -34,7 +33,7 @@ function mapStateToProps(state, ownProps) {
 	return {alerts: state.alerts}
 }
 
-function matchDispatchToProps(dispatch) {  
+function matchDispatchToProps(dispatch) {
 	return {actions: bindActionCreators(alertActions, dispatch)}
 }
 

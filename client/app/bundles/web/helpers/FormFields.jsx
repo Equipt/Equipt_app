@@ -25,9 +25,7 @@ export default function(fields = [], errors = {}, resource = {}) {
               defaultValue={ resource[field.name] || field.default }
               disabled={ field.disabled }
               className="form-control"
-              onChange={ () => this.setState({
-                [field.name]: this.refs[field.name].value
-              }) }>
+              onChange={ this.onChange.bind(this, field) }>
               {optionsMarkUp}
     </select>);
 
@@ -44,9 +42,7 @@ export default function(fields = [], errors = {}, resource = {}) {
                   step={ field.step }
                   min={ field.min }
                   defaultValue={ resource[field.name] || field.default }
-                  onChange={ () => this.setState({
-                    [field.name]: this.refs[field.name].value
-                  }) }
+                  onChange={ this.onChange.bind(this, field) }
             />);
 
   }
@@ -60,12 +56,12 @@ export default function(fields = [], errors = {}, resource = {}) {
         <fieldset className={ field.fieldsetClass } key={ `field_${ index }` }>
           <br/>
           <label>{ field.label }</label>
-          { field.tag === 'select' ? buildSelect(field) : buildInput(field) }
           {
             fieldErrors.map((error, index) => {
-              return <p className="text-danger" key={ `${field.name}_error_${index}` }>{ error }</p>;
+              return <span className="error text-danger" key={ `${field.name}_error_${index}` }>{ error }</span>;
             })
           }
+          { field.tag === 'select' ? buildSelect(field) : buildInput(field) }
         </fieldset>
       );
 
