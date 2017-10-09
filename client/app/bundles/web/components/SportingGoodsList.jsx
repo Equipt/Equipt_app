@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import SportingGood from 'components/SportingGood';
+import { SportingGood } from 'components/SportingGood';
 import { SearchBar } from 'components/SearchBar';
 
 const SportingGoodsList = ({

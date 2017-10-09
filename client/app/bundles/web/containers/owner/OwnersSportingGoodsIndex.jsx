@@ -21,7 +21,7 @@ class OwnersSportingGoodsIndex extends React.Component {
 	render() {
 
 		const { fetchOwnersSportingGoods } = this.props.actions;
-		const content = this.props.content.owners_sporting_goods.index;
+		const content = this.props.content.owners_sporting_goods;
 
 		const sportingGoods = this.props.sportingGoods || [];
 

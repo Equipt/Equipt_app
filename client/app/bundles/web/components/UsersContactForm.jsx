@@ -14,8 +14,8 @@ export class UsersContactForm extends React.Component {
     super(props);
 
     this.state = {
-      address: props.currentUser.address,
-      phone: props.currentUser.phone.number
+      address: props.currentUser.address || {},
+      phone: props.currentUser.phone || {}
     }
 
   }
@@ -23,23 +23,36 @@ export class UsersContactForm extends React.Component {
   submitContact(e) {
 
     e.preventDefault();
+
     const currentUser = this.props.currentUser || {};
     // Set address params
-    currentUser.address = {
-      unit: this.state.unit,
-      number: this.state.number,
-      street: this.state.street,
-      city: this.state.city,
-      state: this.state.state,
-      zip: this.state.zip,
-      country: this.state.country
-    };
+    currentUser.address = this.state.address;
     // Set phone params
-    currentUser.phone = {
-      number: this.state.phone
-    };
+    currentUser.phone = this.state.phone;
 
     this.props.actions.updateCurrentUser({user: currentUser});
+
+  }
+
+  countryChanged() {
+
+    const { value } = this.refs['country'];
+    const { contact } = this.props.content.profile;
+    const stateField = contact.address.formFields[4];
+
+    if (value === 'CA') {
+      stateField.tag = 'select';
+      stateField.options = stateField.options;
+    } else if (value === 'US') {
+      stateField.tag = 'select';
+      stateField.options = stateField.states;
+    } else {
+      stateField.tag = 'input';
+    }
+
+    this.state.address['country'] = value;
+
+    this.setState(this.state);
 
   }
 
@@ -47,25 +60,21 @@ export class UsersContactForm extends React.Component {
 
     const { value } = this.refs[field.name];
 
-    // Change to select tag if US or CA is selected
-    if (field.name === 'country') {
+    this.state.address[field.name] = value;
 
-      field.tag = 'select';
-      switch(value) {
-        case 'us':
-          field.options = field.states;
-          break;
-        case 'ca':
-          field.options = field.provencies;
-          break;
-        default:
-          field.tag = 'input';
-      }
+    this.setState(this.state);
+
+  }
+
+  phoneNumberChanged(field) {
+
+    const {value} = this.refs['phone'];
+
+    this.state.phone = {
+      number: value
     }
 
-    if (field.name === 'phone') {
-      debugger;
-    }
+    this.setState(this.state);
 
   }
 
@@ -73,6 +82,17 @@ export class UsersContactForm extends React.Component {
 
     const { contact } = this.props.content.profile;
     const { address, phone } = this.state;
+
+    const phoneField = contact.phone.formFields[0];
+    const countryField = contact.address.formFields[6];
+
+    // On change of country
+    countryField.onChange = this.countryChanged.bind(this);
+
+    // Phone number work around
+    phoneField.name = 'phone';
+    phoneField.onChange = this.phoneNumberChanged.bind(this);
+    phone.phone = this.state.phone.number;
 
     return (
       <section className="user-contact">
@@ -82,8 +102,8 @@ export class UsersContactForm extends React.Component {
           <h4>Contact Information</h4>
 
           <div className="row">
-            { FormFieldsHelper.call(this, contact.address.formFields, phone.errors, phone) }
-            { FormFieldsHelper.call(this, contact.phone.formFields, address.errors, address) }
+            { FormFieldsHelper.call(this, contact.phone.formFields, phone) }
+            { FormFieldsHelper.call(this, contact.address.formFields, address) }
           </div>
 
           <br/>

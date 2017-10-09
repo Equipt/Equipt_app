@@ -25,8 +25,8 @@ export class SportingGoodsForm extends React.Component {
 		this.IMAGES_LIMIT = 5;
 
 		this.state = {
-			sportingGood: this.props.sportingGood,
-			images: [],
+			sportingGood: props.sportingGood || {},
+			images: props.sportingGood.images || [],
 			showLimitMessage: false
 		}
 	}
@@ -57,7 +57,7 @@ export class SportingGoodsForm extends React.Component {
 
 		sportingGood.images = this.state.images;
 		sportingGood[field.name] = this.refs[field.name].value;
-		this.setState( sportingGood );
+		this.setState({sportingGood: sportingGood});
 
 	}
 
@@ -86,14 +86,16 @@ export class SportingGoodsForm extends React.Component {
 
 	}
 
+	imageLimitMessage(content) {
+		return this.state.showLimitMessage ? <p className="alert alert-info">{ content.imageLimit }</p> : '';
+	}
+
 	render() {
 
+		const sportingGood 	= this.props.sportingGood;
+		const images 	   		= this.state.images || [];
 		const content 	   	= this.props.content || {};
 		const formFields 		= content.formFields || [];
-		const sportingGood 	= this.props.sportingGood || {};
-		const images 	   		= this.state.images || [];
-		const errors 	   		= sportingGood.errors || {};
-		const imageLimitMessage = this.state.showLimitMessage ? <p className="alert alert-info">{ content.imageLimit }</p> : '';
 
 		return (
 			<section className="container sporting-good-form">
@@ -104,7 +106,7 @@ export class SportingGoodsForm extends React.Component {
 						<form onSubmit={ this.submit.bind( this ) }>
 
 							<div className="row">
-								{ FormFieldsHelper.call(this, formFields, errors, sportingGood) }
+								{ FormFieldsHelper.call(this, formFields, sportingGood) }
 							</div>
 
 							<br/>
@@ -120,7 +122,7 @@ export class SportingGoodsForm extends React.Component {
 							<i className="fa fa-arrow-circle-down" aria-hidden="true"></i>
 						</Dropzone>
 
-						{ imageLimitMessage }
+						{ this.imageLimitMessage(content) }
 
 						<ul className="drop-preview">
 						{

@@ -20,7 +20,7 @@ class SportingGoodsIndex extends React.Component {
 	render() {
 
 		const { fetchSportingGoods } = this.props.actions;
-		const content = this.props.content.sporting_goods.index;
+		const content = this.props.content.sporting_goods;
 
 		return (
 			<SportingGoodsList { ...this.props } content={ content } search={ fetchSportingGoods }/>

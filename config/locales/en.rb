@@ -13,7 +13,7 @@
           :phone => {
             :formFields => [
               {
-                name: "phone",
+                name: "number",
                 label: "Phone",
                 tag: "input",
                 type: "text",
@@ -74,7 +74,7 @@
                 label: "Country",
                 tag: "select",
                 type: "text",
-                default: 'ca',
+                default: 'CA',
                 options: CS.countries,
                 fieldsetClass: "col-xs-6"
               }

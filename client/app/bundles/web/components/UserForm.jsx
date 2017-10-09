@@ -11,11 +11,17 @@ export class UserForm extends React.Component {
     currentUser: PropTypes.object
   }
 
+  static contextTypes = {
+      router: PropTypes.shape({
+        history: PropTypes.object.isRequired,
+      })
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
-      user: props.currentUser
+      user: props.currentUser || {}
     }
 
   }
@@ -29,11 +35,11 @@ export class UserForm extends React.Component {
 
     if (this.props.isUpdating) {
 
-      actions.updateCurrentUser(user);
+      actions.updateCurrentUser({user: user});
 
     } else if (this.props.isCreating) {
 
-      actions.signup(user, () => {
+      actions.signup({user: user}, () => {
         this.context.router.history.push('/sporting_goods');
       });
 
@@ -44,6 +50,7 @@ export class UserForm extends React.Component {
   onChange(field) {
 
     const { user } = this.state;
+
     user[field.name] = this.refs[field.name].value;
 
     this.setState({
@@ -54,18 +61,15 @@ export class UserForm extends React.Component {
 
   render() {
 
+    const user = this.props.user || this.state.user;
     const content = this.props.formContent;
-    const title =  content.title || '';
-    const formFields  = content.formFields || {};
-    const user = this.props.currentUser || {};
-    const errors = user.errors || [];
 
     return (
       <form onSubmit={ this.submit.bind(this) }>
 
-        <title>{ title }</title>
+        <title>{ content.title }</title>
 
-        { FormFieldsHelper.call(this, formFields, errors, user) }
+        { FormFieldsHelper.call(this, content.formFields, user) }
 
         <br/>
 

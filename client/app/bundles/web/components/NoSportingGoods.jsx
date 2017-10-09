@@ -21,7 +21,7 @@ const NoSportingGoods = ({
                             <i className="fa fa-plus" aria-hidden="true"></i>
                         </div>
 
-                        <h3 className="title">{ content.no_sporting_goods }</h3>
+                        <h3 className="title">{ content.index.no_sporting_goods }</h3>
 
                     </Link>
 

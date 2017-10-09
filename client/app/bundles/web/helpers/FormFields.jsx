@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default function(fields = [], errors = {}, resource = {}) {
+export default function(fields = [], resource = {}) {
+
+  const fieldErrors = resource.errors || {};
 
   const buildSelect = field => {
 
@@ -25,7 +27,7 @@ export default function(fields = [], errors = {}, resource = {}) {
               defaultValue={ resource[field.name] || field.default }
               disabled={ field.disabled }
               className="form-control"
-              onChange={ this.onChange.bind(this, field) }>
+              onChange={ field.onChange ? field.onChange : this.onChange.bind(this, field) }>
               {optionsMarkUp}
     </select>);
 
@@ -42,22 +44,21 @@ export default function(fields = [], errors = {}, resource = {}) {
                   step={ field.step }
                   min={ field.min }
                   defaultValue={ resource[field.name] || field.default }
-                  onChange={ this.onChange.bind(this, field) }
+                  onChange={ field.onChange ? field.onChange : this.onChange.bind(this, field) }
             />);
 
   }
 
-
   return fields.map((field, index) => {
 
-      const fieldErrors = errors[field.name] || [];
+      const errors = fieldErrors[field.name] || [];
 
       return 	(
         <fieldset className={ field.fieldsetClass } key={ `field_${ index }` }>
           <br/>
           <label>{ field.label }</label>
           {
-            fieldErrors.map((error, index) => {
+            errors.map((error, index) => {
               return <span className="error text-danger" key={ `${field.name}_error_${index}` }>{ error }</span>;
             })
           }

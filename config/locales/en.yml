@@ -147,9 +147,14 @@ en:
           min: 1.00
           fieldsetClass: 'col-xs-6'
     owners_sporting_goods:
-        index:
-            title: You're Equipment
-            no_sporting_goods: Doesn't look like you have added any sporting goods yet, click here to add one.
+      index:
+        title: You're Equipment
+        no_sporting_goods: Doesn't look like you have added any sporting goods yet, click here to add one.
+      delete:
+        title: Are you sure you want to delete { sportingGood.title }?
+        warning: By deleting { sportingGood.title } you will forfeit all rentals and payments associated to it, any users with a rental will be notified of the removal.
+        yes: I'm sure!
+        no: No, I don't want to delete this
     rentals:
         agree_wth_terms: I agree with the terms of the rental
         rental_terms_title: Rental Terms
