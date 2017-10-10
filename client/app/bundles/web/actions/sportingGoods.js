@@ -1,6 +1,7 @@
 import types from './types';
 
 import * as alertActions from './alerts';
+import * as loaderActions from './loader';
 
 // Get all sporting goods
 export const fetchSportingGoods = (query = {}) => {
@@ -9,12 +10,16 @@ export const fetchSportingGoods = (query = {}) => {
 
 		api.token = getState().session.token;
 
+		dispatch(loaderActions.showLoader(true));
+
 		api.get('/sporting_goods', query)
 		.then(sportingGoods => {
 			dispatch(setSportingGoods(sportingGoods));
+			dispatch(loaderActions.showLoader(false));
 		})
 		.catch(err => {
 			dispatch(alertActions.showErrorAlert(err));
+			dispatch(loaderActions.showLoader(false));
 		});
 
 	}
@@ -28,12 +33,16 @@ export const fetchOwnersSportingGoods = (query = {}) => {
 
 		api.token = getState().session.token;
 
+		dispatch(loaderActions.showLoader(true));
+
 		api.get('/owner/sporting_goods', query)
 		.then(sportingGoods => {
 			dispatch(setSportingGoods(sportingGoods));
+			dispatch(loaderActions.showLoader(false));
 		})
 		.catch(err => {
 			dispatch(alertActions.showErrorAlert(err));
+			dispatch(loaderActions.showLoader(false));
 		});
 
 	}

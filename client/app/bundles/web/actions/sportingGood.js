@@ -1,6 +1,7 @@
 import types from './types';
 
 import * as alertActions from './alerts';
+import * as loaderActions from './loader';
 
 export const fetchSportingGood = (pathname, rentalHashId = null) => {
 
@@ -73,10 +74,15 @@ export const editSportingGood = (slug) => {
 
 	return function(dispatch, getState, api) {
 
+		dispatch(loaderActions.showLoader(true));
+
 		api.token = getState().session.token;
 
 		api.get(`/owner/sporting_goods/${slug}/edit`)
-		.then(data => dispatch(setSportingGood(data)));
+		.then(data => {
+			dispatch(loaderActions.showLoader(false));
+			dispatch(setSportingGood(data))
+		});
 
 	}
 

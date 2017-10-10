@@ -5,13 +5,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as sportingGoodActions from 'actions/sportingGood';
+import * as alertActions from 'actions/alerts';
 
 import { SportingGoodsForm } from 'components/SportingGoodsForm';
 
 class SportingGoodsNew extends React.Component {
 
 	componentWillMount() {
-		this.props.actions.newSportingGood();
+
+		const { actions } = this.props;
+
+		actions.setSportingGood({});
+
 	}
 
 	render() {
@@ -21,9 +26,8 @@ class SportingGoodsNew extends React.Component {
 		const content = this.props.content.sporting_goods.create;
 
 		return (
-			<SportingGoodsForm 	{ ...this.props }
+			<SportingGoodsForm { ...this.props }
 								content={ content }
-								submit={ this.submit }
 								createOrUpdate={ actions.createSportingGood }/>
 		)
 	}
@@ -38,7 +42,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators(sportingGoodActions, dispatch)}
+	return {actions: bindActionCreators({ ...sportingGoodActions, ...alertActions}, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(SportingGoodsNew);

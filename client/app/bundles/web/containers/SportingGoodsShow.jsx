@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 
 import * as sportingGoodActions from 'actions/sportingGood';
 
-import SportingGoodDetails from 'components/SportingGoodDetails';
+import { SportingGoodDetails } from 'components/SportingGoodDetails';
 
 export class SportingGoodsShow extends React.Component {
 
@@ -53,6 +53,7 @@ export class SportingGoodsShow extends React.Component {
 	}
 
 	selectRental(rental) {
+
 		this.setState({
 			rental: {
 				title: 'renting',
@@ -60,7 +61,8 @@ export class SportingGoodsShow extends React.Component {
 				end: Moment(rental.end, "DD-MM-YYYY").add('days', 1),
 				agreedToTerms: this.state.rental.agreedToTerms
 			}
-		})
+		});
+
 	}
 
 	agreeWithTermsChanged() {
@@ -76,7 +78,7 @@ export class SportingGoodsShow extends React.Component {
 		return(
 			<SportingGoodDetails content={ this.props.content }
 								 rent={ this.rent.bind(this) }
-								 rental={ this.state.rental }
+								 rental={ this.state.rental || {} }
 								 sportingGood={ sportingGood }
 								 selectRental={ this.selectRental.bind(this) }
 								 showRentalTermsModal={ this.state.showRentalTermsModal }

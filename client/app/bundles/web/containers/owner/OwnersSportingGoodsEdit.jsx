@@ -27,7 +27,7 @@ class OwnersSportingGoodsEdit extends React.Component {
 
 	render() {
 
-		const content = this.props.content.sporting_goods.create;
+		const content = this.props.content.sporting_goods.update;
 		const { actions } = this.props;
 
 		return (

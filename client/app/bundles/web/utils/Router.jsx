@@ -36,6 +36,8 @@ const RouteTransitionSettings = {
 
 export default (props, store) => {
 
+	console.log('INIT');
+
 	const isAuthenticated = () => {
 		const state = store.getState();
 		return !!state.session && state.session.token;

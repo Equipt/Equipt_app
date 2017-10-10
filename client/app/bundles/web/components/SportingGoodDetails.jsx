@@ -7,115 +7,172 @@ import Modal from 'components/Modal';
 import Slider from 'react-slick';
 import BigCalendar from 'react-big-calendar';
 
-const SportingGoodDetails = ({
-	content = {},
-	sportingGood = {},
-	rental = {},
-	rent,
-	selectRental,
-	agreeWithTermsChanged,
-	showRentalTermsModal = false,
-	showModal
-}) => {
+export class SportingGoodDetails extends React.Component {
 
-	const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1
-    };
+	static propTypes = {
+		content: PropTypes.object.isRequired,
+	  sportingGood: PropTypes.object.isRequired,
+		rental: PropTypes.object.isRequired,
+		showRentalTermsModal: PropTypes.bool.isRequired,
+		showModal: PropTypes.func.isRequired,
+		rent: PropTypes.func,
+		selectRental: PropTypes.func,
+		agreeWithTermsChanged: PropTypes.func,
+	}
 
-	const images = sportingGood.images || [];
-	const rentals = sportingGood.rentals || [];
+	static sliderSettings = {
+		dots: true,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 1,
+		slidesToScroll: 1
+	}
 
-    return (
-        <section className="container">
+	constructor(props) {
+		super(props);
+	}
 
-            <Link to="/sporting_goods" className="pull-right">Go Back</Link>
+	totalDays() {
 
-			<div className="col-xs-7">
-				<h3>{ sportingGood.title }</h3>
-				<h4>{ sportingGood.model }</h4>
-				<p>{ sportingGood.description }</p>
-			</div>
+		const { rental } = this.props;
 
-			<div className="col-xs-5">
-				 <Slider {...settings}>
-				 	{
+		if (rental.end && rental.start) {
+			return rental.end.diff(rental.start, 'days');
+		}
+
+		return 0;
+
+	}
+
+	subTotal() {
+
+		const { rental, sportingGood } = this.props;
+
+		return this.totalDays() * sportingGood.pricePerDay;
+
+	}
+
+	weeklyRentalDiscount() {
+
+		const { rental, sportingGood } = this.props;
+
+		const totalWeeks = Math.floor(this.totalDays() / 7);
+		const remainingDays = this.totalDays() % 7;
+
+		if (totalWeeks > 0) {
+
+			const priceOfWeeks = totalWeeks * sportingGood.pricePerWeek;
+			const remainingPrice = remainingDays * sportingGood.pricePerDay;
+			const totalSavingsPrice = priceOfWeeks + remainingPrice;
+
+			return this.subTotal() - totalSavingsPrice;
+
+		}
+
+		return 0;
+
+	}
+
+	render() {
+
+		const { sportingGood, rental, content } = this.props;
+
+		const images = sportingGood.images || [];
+		const rentals = sportingGood.rentals || [];
+
+		const totalDays = this.totalDays();
+		const subTotal = this.subTotal();
+		const weeklyRentalDiscount = this.weeklyRentalDiscount();
+
+		return (
+
+			<section className="container">
+
+				<Link to="/sporting_goods" className="pull-right">Go Back</Link>
+
+				<div className="col-xs-8">
+
+					<BigCalendar
+					events={ rentals.concat([ rental ]) }
+					selectable
+					views={ ['month', 'agenda'] }
+					onSelectSlot={ this.props.selectRental }/>
+
+				</div>
+
+				<div className="col-xs-4">
+
+					<h3>{ sportingGood.title }</h3>
+					<h4>{ sportingGood.model }</h4>
+					<p>{ sportingGood.description }</p>
+
+					<Slider {...SportingGoodDetails.sliderSettings}>
+					{
 						images.map((image, index) => {
 							if (image) {
 								return <img key={ `${ sportingGood.slug }_image_${ index }` } src={ image.file.url }/>
 							}
 						})
 					}
-				 </Slider>
-			</div>
+					</Slider>
 
-			<div className="col-xs-12">
-				<BigCalendar
-					events={ rentals.concat([ rental ]) }
-					selectable
-					views={ ['month', 'agenda'] }
-					onSelectSlot={ selectRental }
-				/>
-			</div>
+					<div className="price-container">
 
-			<div className="col-xs-12">
+						<h4>Rental days: { totalDays }</h4>
+						<h4>Sub total: ${ subTotal }</h4>
+						<h4>Deposit: ${ sportingGood.deposit }</h4>
+						<h4>Discount: ${ weeklyRentalDiscount }</h4>
+						<h4>Total: ${ subTotal - weeklyRentalDiscount }</h4>
 
-				<label onClick={ agreeWithTermsChanged }>
+					</div>
+
+				</div>
+
+				<div className="col-xs-12">
+
+					<label onClick={ this.props.agreeWithTermsChanged }>
 					{ content.rentals.agree_wth_terms }
-				</label>
+					</label>
 
-				<input 	type="checkbox"
-						checked={ rental.agreedToTerms }
-						onChange={ agreeWithTermsChanged }/>
+					<input 	type="checkbox"
+					checked={ rental.agreedToTerms }
+					onChange={ this.props.agreeWithTermsChanged }/>
 
-				<a 	href="#"
+					<a 	href="#"
 					className="display-block"
 					onClick={ e => {
-					e.preventDefault();
-					showModal('showRentalTermsModal', true);
-				}}>
+						e.preventDefault();
+						showModal('showRentalTermsModal', true);
+					}}>
 					{ content.rentals.read_rental_terms }
-				</a>
+					</a>
 
-				<Modal contentLabel="rental-terms"
-					isVisible={ showRentalTermsModal }
+					<Modal contentLabel="rental-terms"
+					isVisible={ this.props.showRentalTermsModal }
 					onClose={ () => showModal('showRentalTermsModal', false) }>
 					<h4>{ content.rentals.rental_terms_title }</h4>
 					<ol>
 					{
-						content.rentals.rental_terms.map((term, index) => {
+						this.props.content.rentals.rental_terms.map((term, index) => {
 							return <li key={ `rental_terms_${ index }` }>{ term }</li>;
 						})
 					}
 					</ol>
-				</Modal>
+					</Modal>
 
-			</div>
+				</div>
 
-			<div className="col-xs-12">
+				<div className="col-xs-12">
 				<button className="btn btn-success"
-					onClick={ rent }>
-					Rent
+				onClick={ this.props.rent }>
+				Rent
 				</button>
-			</div>
+				</div>
 
-        </section>
-    );
+			</section>
+
+		);
+
+	}
 
 }
-
-SportingGoodDetails.propTypes = {
-	content: PropTypes.object.isRequired,
-    sportingGood: PropTypes.object.isRequired,
-	rental: PropTypes.object.isRequired,
-	showRentalTermsModal: PropTypes.bool.isRequired,
-	showModal: PropTypes.func.isRequired,
-	rent: PropTypes.func,
-	selectRental: PropTypes.func,
-	agreeWithTermsChanged: PropTypes.func,
-}
-
-export default SportingGoodDetails;

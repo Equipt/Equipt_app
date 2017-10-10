@@ -26,6 +26,12 @@ export class UserForm extends React.Component {
 
   }
 
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      user: newProps.user
+    });
+  }
+
   submit(e) {
 
     e.preventDefault();
@@ -61,7 +67,7 @@ export class UserForm extends React.Component {
 
   render() {
 
-    const user = this.props.user || this.state.user;
+    const user = this.state.user;
     const content = this.props.formContent;
 
     return (

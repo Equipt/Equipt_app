@@ -45,7 +45,6 @@ export class SportingGood extends React.Component {
 	sportingGoodIsOwners() {
 
 		const { content, sportingGood, isOwner, actions } = this.props;
-
 		const { showDeleteModal } = this.state;
 
 		if (isOwner) {
@@ -60,19 +59,22 @@ export class SportingGood extends React.Component {
 					<Modal
 						contentLabel="delete-sporting-good"
 						isVisible={ showDeleteModal }
-						onClose={ () => this.showModal('showDeleteModal', false) }>
+						onClose={ this.showModal.bind(this, 'showDeleteModal', false) }>
 						<div className="delete-modal">
-						
+
 							<h4 dangerouslySetInnerHTML={{__html: content.delete.title}}></h4>
 
 							<p className="text-danger">{ content.delete.warning }</p>
 
 							<button onClick={ actions.deleteSportingGood.bind(this, sportingGood.slug) }
 											className="btn btn-danger">
-											{ content.delete.yes }
+											{ content.delete.im_sure }
 							</button>
 
-							<button className="btn btn-info">{ content.delete.no }</button>
+							<button className="btn btn-info"
+											onClick={ this.showModal.bind(this, 'showDeleteModal', false) }>
+											{ content.delete.dont_delete }
+							</button>
 
 						</div>
 					</Modal>

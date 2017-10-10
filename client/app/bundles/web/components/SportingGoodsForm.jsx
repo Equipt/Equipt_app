@@ -7,9 +7,9 @@ import FormFieldsHelper from 'helpers/FormFields';
 export class SportingGoodsForm extends React.Component {
 
 	static propTypes = {
-		sporting_goods: PropTypes.object,
 		createOrUpdate: PropTypes.func.isRequired,
-		isEditing: PropTypes.bool
+		sporting_goods: PropTypes.object,
+		isEditing: PropTypes.bool,
 	}
 
 	static contextTypes = {
@@ -31,10 +31,28 @@ export class SportingGoodsForm extends React.Component {
 		}
 	}
 
-	componentWillReceiveProps(props) {
-		if (props.sportingGood && props.sportingGood.images) {
-			this.setState({images: this.state.images.concat(props.sportingGood.images)});
+	componentWillReceiveProps(newProps) {
+
+			this.setState({
+				sportingGood: newProps.sportingGood || {},
+				images: newProps.sportingGood.images || []
+			});
+
+	}
+
+	isValid() {
+
+		const { actions } = this.props;
+		const { sportingGood } = this.state;
+		const sportingGoodKeys = Object.keys(sportingGood);
+
+		if (sportingGoodKeys.length === 0) {
+			actions.showErrorAlert({error: 'Fill out the fields below to create a rentable good.'});
+			return false;
 		}
+
+		return true;
+
 	}
 
 	submit(e) {
@@ -45,9 +63,11 @@ export class SportingGoodsForm extends React.Component {
 		const { sportingGood } = this.state;
 		const { images } = this.state;
 
-		this.props.createOrUpdate(sportingGood, images, slug, () => {
-			this.context.router.history.push('/owner/sporting_goods');
-		});
+		if (this.isValid()) {
+			this.props.createOrUpdate(sportingGood, images, slug, () => {
+				this.context.router.history.push('/owner/sporting_goods');
+			});
+		}
 
 	}
 
@@ -62,8 +82,6 @@ export class SportingGoodsForm extends React.Component {
 	}
 
 	onDrop(files, rejectedFiles) {
-
-		console.log(this.IMAGES_LIMIT);
 
 		if (this.state.images.length < 5) {
 			this.setState({
@@ -92,10 +110,10 @@ export class SportingGoodsForm extends React.Component {
 
 	render() {
 
-		const sportingGood 	= this.props.sportingGood;
-		const images 	   		= this.state.images || [];
-		const content 	   	= this.props.content || {};
-		const formFields 		= content.formFields || [];
+		const { sportingGood, images } 	= this.state;
+
+		const content 	 = this.props.content || {};
+		const formFields = content.formFields || [];
 
 		return (
 			<section className="container sporting-good-form">

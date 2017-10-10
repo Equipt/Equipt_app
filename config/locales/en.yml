@@ -29,6 +29,7 @@ en:
     password_reset: Your password has been reset!
   sporting_good:
     deleted: ! '%{item} has been removed'
+    discount_error: 'Discounted price must be less than %{price}!'
   rentals:
     dates_are_taken: "Sorry, %{item} is unavailible between these dates"
     terms_not_agreed_to: "Terms must be agree too"
@@ -126,25 +127,83 @@ en:
           label: How much do you want to charge per day?
           tag: input
           type: number
-          step: 0.01
-          default: 1.00
-          min: 1.00
+          default: 1
+          min: 1
           fieldsetClass: 'col-xs-6'
         - name: price_per_week
           label: How much do you want to charge per week?
           tag: input
           type: number
-          step: 0.01
-          default: 1.00
-          min: 1.00
+          default: 1
+          min: 1
           fieldsetClass: 'col-xs-6'
         - name: deposit
           label: How much is the deposit?
           tag: input
           type: number
-          step: 0.01
-          default: 1.00
-          min: 1.00
+          default: 1
+          min: 1
+          fieldsetClass: 'col-xs-6'
+      update:
+        title: Update Sporting Form
+        dropZone: Drop images here!
+        imageLimit: Exceeded Images limit!
+        formFields:
+        - name: category
+          label: Category
+          tag: select
+          options:
+            - Snow
+            - Bike
+            - Camp
+            - Water
+            - Rock
+          fieldsetClass: 'col-xs-12'
+        - name: title
+          label: Short Description
+          tag: input
+          type: text
+          fieldsetClass: 'col-xs-12'
+        - name: brand
+          label: brand
+          tag: input
+          type: text
+          fieldsetClass: 'col-xs-12'
+        - name: model
+          label: model
+          tag: input
+          type: text
+          fieldsetClass: 'col-xs-12'
+        - name: description
+          label: Extra Details
+          tag: textarea
+          fieldsetClass: 'col-xs-12'
+        - name: age
+          label: How old is it?
+          tag: input
+          type: number
+          fieldsetClass: 'col-xs-6'
+        - name: price_per_day
+          label: How much do you want to charge per day?
+          tag: input
+          type: number
+          default: 1
+          min: 1
+          fieldsetClass: 'col-xs-6'
+          defaultValue: true
+        - name: price_per_week
+          label: How much do you want to charge per week?
+          tag: input
+          type: number
+          default: 1
+          min: 1
+          fieldsetClass: 'col-xs-6'
+        - name: deposit
+          label: How much is the deposit?
+          tag: input
+          type: number
+          default: 1
+          min: 1
           fieldsetClass: 'col-xs-6'
     owners_sporting_goods:
       index:
@@ -153,8 +212,8 @@ en:
       delete:
         title: Are you sure you want to delete { sportingGood.title }?
         warning: By deleting { sportingGood.title } you will forfeit all rentals and payments associated to it, any users with a rental will be notified of the removal.
-        yes: I'm sure!
-        no: No, I don't want to delete this
+        im_sure: I'm sure!
+        dont_delete: No, I don't want to delete this
     rentals:
         agree_wth_terms: I agree with the terms of the rental
         rental_terms_title: Rental Terms

@@ -6,13 +6,28 @@ import { Link } from 'react-router-dom';
 import { SportingGood } from 'components/SportingGood';
 import { SearchBar } from 'components/SearchBar';
 
+import Loader from 'components/Loader';
+
 const SportingGoodsList = ({
+	loader,
 	sportingGoods,
 	content,
 	isOwner,
 	search,
 	actions
 }) => {
+
+	const loaderMarkUp = () => <Loader/>;
+
+	const sportingGoodsMarkup = () => {
+		return sportingGoods.map((sportingGood, index) => {
+			return <SportingGood key={ `${ sportingGood.title }_${ index }` }
+							 sportingGood={ sportingGood }
+							 content={ content }
+							 isOwner={ isOwner }
+							 actions={ actions }/>
+		});
+	}
 
 	return (
 		<section className="container">
@@ -21,15 +36,7 @@ const SportingGoodsList = ({
 
 			<SearchBar search={ search }/>
 
-			{
-				sportingGoods.map((sportingGood, index) => {
-					return <SportingGood key={ `${ sportingGood.title }_${ index }` }
-										 sportingGood={ sportingGood }
-										 content={ content }
-										 isOwner={ isOwner }
-										 actions={ actions }/>
-				})
-			}
+			{ loader ? loaderMarkUp() :  sportingGoodsMarkup() }
 
 		</section>
 	)
@@ -37,6 +44,7 @@ const SportingGoodsList = ({
 }
 
 SportingGoodsList.propTypes = {
+	loader: PropTypes.bool.isRequired,
 	sportingsGood: PropTypes.array,
 	content: PropTypes.object.isRequired,
 	search: PropTypes.func.isRequired,

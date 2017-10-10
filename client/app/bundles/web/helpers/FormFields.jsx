@@ -24,28 +24,31 @@ export default function(fields = [], resource = {}) {
     return (
       <select name={ field.name }
               ref={ field.name }
-              defaultValue={ resource[field.name] || field.default }
+              value={ resource[field.name] || field.default || '' }
               disabled={ field.disabled }
               className="form-control"
               onChange={ field.onChange ? field.onChange : this.onChange.bind(this, field) }>
               {optionsMarkUp}
-    </select>);
+      </select>
+    );
 
   }
 
   const buildInput = field => {
 
-    return (<input ref={ field.name }
-                  name={ field.name }
-                  className="form-control"
-                  type={ field.type }
-                  placeholder={ field.placeholder }
-                  disabled={ field.disabled }
-                  step={ field.step }
-                  min={ field.min }
-                  defaultValue={ resource[field.name] || field.default }
-                  onChange={ field.onChange ? field.onChange : this.onChange.bind(this, field) }
-            />);
+    return (
+      <input  ref={ field.name }
+              name={ field.name }
+              className="form-control"
+              type={ field.type }
+              placeholder={ field.placeholder }
+              disabled={ field.disabled }
+              step={ field.step }
+              min={ field.min }
+              value={ resource[field.name] || field.default || '' }
+              onChange={ field.onChange ? field.onChange : this.onChange.bind(this, field) }
+        />
+    );
 
   }
 
