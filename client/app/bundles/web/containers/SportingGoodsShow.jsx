@@ -4,10 +4,14 @@ import Moment from 'moment';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {extendMoment} from 'moment-range';
 
 import * as sportingGoodActions from 'actions/sportingGood';
+import * as alertActions from 'actions/alerts';
 
 import { SportingGoodDetails } from 'components/SportingGoodDetails';
+
+const moment = extendMoment(Moment);
 
 export class SportingGoodsShow extends React.Component {
 
@@ -54,11 +58,43 @@ export class SportingGoodsShow extends React.Component {
 
 	selectRental(rental) {
 
+		const startDate = Moment(rental.start);
+		const difference = Moment().diff(startDate, 'day');
+
+		const selectedRange = moment.range(rental.start, rental.end);
+
+		const { actions } = this.props;
+		const { rentals } = this.props.sportingGood;
+
+		let unavailable = false;
+
+		// Cannot select a taken date
+		rentals.forEach(rental => {
+			const rentalRange = moment.range(rental.start, rental.end);
+			if (rentalRange.overlaps(selectedRange)) unavailable = true;
+		});
+
+		if (unavailable) {
+			return actions.showErrorAlert({error: 'Sorry, this item is taken during this time.'});
+		}
+
+		// Can't select dates in the past
+		if (difference > 0) {
+			return actions.showErrorAlert({error: 'Starting Date cannot be in the past.'});
+		}
+
+		// Can't rent today
+		else if (difference === 0) {
+			return actions.showErrorAlert({error: 'Starting Date cannot be today.'});
+		}
+
+		actions.clearAlerts();
+
 		this.setState({
 			rental: {
 				title: 'renting',
 				start: rental.start,
-				end: Moment(rental.end, "DD-MM-YYYY").add('days', 1),
+				end: Moment(rental.end, "DD-MM-YYYY").add(1, 'days'),
 				agreedToTerms: this.state.rental.agreedToTerms
 			}
 		});
@@ -96,7 +132,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators(sportingGoodActions, dispatch)}
+	return {actions: bindActionCreators({ ...sportingGoodActions, ...alertActions }, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(SportingGoodsShow);
