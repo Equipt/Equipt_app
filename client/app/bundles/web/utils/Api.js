@@ -40,9 +40,9 @@ export default function(history) {
 		});
 	},
 
-	this.delete = function(url) {
+	this.delete = function(url, data, options) {
 		return new Promise((resolve, reject) => {
-			this.send(url, 'DELETE')
+			this.send(url, 'DELETE', data, options)
 			.then((res, apiKey) => {
 				resolve(res, apiKey);
 			}, (err) => {

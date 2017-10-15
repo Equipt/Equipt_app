@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import { Link } from 'react-router-dom';
 
 import * as sessionActions from 'actions/session';
+import * as alertActions from 'actions/alerts';
 
 import { LoginForm } from 'components/LoginForm';
 import { UsersProfile } from 'components/UsersProfile';
@@ -28,7 +29,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators(sessionActions, dispatch)}
+	return {actions: bindActionCreators({ ...sessionActions, ...alertActions }, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Profile);

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { UserForm } from 'components/UserForm';
 import { UsersContactForm } from 'components/UsersContactForm';
+import { Privacy } from 'components/Privacy';
 import Reviews from 'components/Reviews';
 
 export class UsersProfile extends React.Component {
@@ -15,6 +16,10 @@ export class UsersProfile extends React.Component {
 			tabs: tabs,
 			currentTab: tabs[0]
 		}
+	}
+
+	shouldComponentUpdate(newProps, newState) {
+		return newState.currentTab !== this.state.currentTab;
 	}
 
 	clickedListItem(item) {
@@ -34,11 +39,14 @@ export class UsersProfile extends React.Component {
 				return <UsersContactForm { ...this.props }/>;
 			break;
 			case this.state.tabs[2]:
+				return <Privacy { ...this.props }/>;
+			break;
+			case this.state.tabs[3]:
 				return <Reviews reviews={ currentUser.reviews || [] }/>;
 			break;
+			default:
+				return <UserForm { ...this.props } formContent={ signup } isUpdating={ true }/>;
 		}
-
-		return <UserForm { ...this.props } formContent={ signup } isUpdating={ true }/>;
 
 	}
 

@@ -98,6 +98,22 @@ export const updateCurrentUser = currentUser => {
 
 }
 
+// Delete users account
+export const deleteCurrentUser = (currentUser = {}, feedback = '') => {
+
+	return (dispatch, getState, api) => {
+
+		api.delete(`/user/${ currentUser.id }`, {
+			feedback: feedback
+		}).then(message => {
+			dispatch(clearSession());
+			dispatch(alertActions.showErrorAlert(message))
+		});
+
+	}
+
+}
+
 // Reset Password
 export const resetPassword = (resetToken, data, callback) => {
 
