@@ -1,6 +1,10 @@
 $tablet-size: 767px;
 $grey: #AFAFAF;
 
+li {
+		list-style: none;
+}
+
 .main-wrapper {
 	.transition .container {
 		position: absolute;
@@ -44,4 +48,10 @@ label {
 .error {
 	margin-right: 5px;
 	text-transform: capitalize;
+}
+
+.radio-container {
+	label {
+		margin: 0 5px;
+	}
 }

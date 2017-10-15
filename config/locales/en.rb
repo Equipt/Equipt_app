@@ -5,9 +5,24 @@
         :tabs => [
             'Basic',
             'Contact',
-            'Reviews',
-            'Verify'
+            'Privacy',
+            'Reviews'
         ],
+        :privacy => {
+          email_notifications: "Would you like to recieve email notifications?",
+          delete_account: "I want to delete my account",
+          delete: {
+            are_you_sure: "Are you sure you want to delete you account",
+            im_sure: "I\'m sure I want to delete my account",
+            :consequences => [
+              'Any goods you are renting will be removed',
+              'Any rentals on your goods will be be cancelled',
+              'Any rentals you have will be cancelled',
+              'You cannot use this email again, If you resign up at an future date'
+            ],
+            we_appreciate_any_feedback: 'We appreciate any feedback'
+          }
+        },
         :contact => {
           button: 'Update Contact Info',
           :phone => {

@@ -19,6 +19,13 @@ class Api::UserController < ApiController
 		end
 	end
 
+	def destroy
+		firstname = current_user.firstname
+		if current_user.destroy
+			render json: { error: I18n.t('user.deleted', name: firstname) }, status: 200
+		end
+	end
+
 	private
 
 	def user_params
