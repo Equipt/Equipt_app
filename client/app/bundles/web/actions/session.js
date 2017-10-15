@@ -2,8 +2,32 @@ import types from './types';
 
 import * as alertActions from './alerts';
 
-// Fetch Current User
-export const fetchCurrentUser = (data, callback) => {
+
+// Fetch current user
+export const fetchCurrentUser = () => {
+
+	return function(dispatch, getState, api) {
+
+		const session = getState().session || {};
+
+		if (session.token) {
+
+			api.token = session.token;
+
+			api.get(`/session/fetch_user`)
+			.then(user => dispatch(setCurrentUser({
+				currentUser: user,
+				token: user.apiKey
+			})));
+
+		}
+
+	}
+
+}
+
+// Login
+export const login = (data, callback) => {
 
 	return function(dispatch, getState, api) {
 
@@ -75,7 +99,7 @@ export const forgotPassword = data => {
 }
 
 // Submit Users Profile Information
-export const updateCurrentUser = currentUser => {
+export const updateCurrentUser = (currentUser, callback) => {
 
 	return function(dispatch, getState, api) {
 
@@ -90,6 +114,8 @@ export const updateCurrentUser = currentUser => {
 			}));
 
 			dispatch(alertActions.showSuccessAlert(currentUser.notice));
+
+			if (callback) callback(currentUser);
 
 		})
 		.catch(err => dispatch(alertActions.showErrorAlert(err)));
@@ -227,4 +253,51 @@ export const detachRental = data => {
 		type: types.DETACH_RENTAL,
 		payload: data
 	}
+}
+
+// Verify the users phone number pin
+export const verifyPhonePin = (pin, callback) => {
+
+	return (dispatch, getState, api) => {
+
+		api.token = getState().session.token;
+
+		api.post('/phone/verify', {pin: pin})
+		.then(phone => {
+
+			const { currentUser } = getState().session;
+
+			currentUser.phone = phone;
+
+			// Set Current User
+			dispatch(setCurrentUser({
+				currentUser: currentUser,
+				token: currentUser.apiKey
+			}));
+
+			// Show Success alert
+			dispatch(alertActions.showSuccessAlert(phone.notice));
+
+			// run success
+			if (callback) callback(phone);
+
+		})
+		.catch(err => dispatch(alertActions.showErrorAlert(err)));
+
+	}
+
+}
+
+// Resend pin
+export const resendPin = () => {
+
+	return (dispatch, getState, api) => {
+
+			api.token = getState().session.token;
+
+			api.get('/phone/resend_pin')
+			.then(message => dispatch(alertActions.showSuccessAlert(message)));
+
+	}
+
 }

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import * as alertActions from 'actions/alerts'; 
+import * as alertActions from 'actions/alerts';
 
 export class LoginForm extends React.Component {
 
@@ -17,13 +17,13 @@ export class LoginForm extends React.Component {
 
 		e.preventDefault();
 
-		const { fetchCurrentUser } = this.props.actions;
+		const { login } = this.props.actions;
 
 		let email = this.refs.email.value;
 		let password = this.refs.password.value;
 
 		// Fetch Current User
-		fetchCurrentUser({
+		login({
 			email: email,
 			password: password
 		}, () => this.context.router.history.push('/sporting_goods'));

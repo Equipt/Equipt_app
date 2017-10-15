@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import ReactCodeInput from 'react-code-input';
 
 import FormFieldsHelper from 'helpers/FormFields';
 
 export class UsersContactForm extends React.Component {
 
   static propTypes = {
+    currentUser: PropTypes.object.isRequired,
     mapZenKey: PropTypes.string.isRequired,
     content: PropTypes.object.isRequired
   }
@@ -15,7 +17,8 @@ export class UsersContactForm extends React.Component {
 
     this.state = {
       address: props.currentUser.address || {},
-      phone: props.currentUser.phone || {}
+      phone: props.currentUser.phone || {},
+      isVerifingPhoneNumber: false
     }
 
   }
@@ -25,12 +28,25 @@ export class UsersContactForm extends React.Component {
     e.preventDefault();
 
     const currentUser = this.props.currentUser || {};
+
     // Set address params
     currentUser.address = this.state.address;
     // Set phone params
     currentUser.phone = this.state.phone;
 
-    this.props.actions.updateCurrentUser({user: currentUser});
+    // Update user
+    return this.props.actions.updateCurrentUser({user: currentUser}, currentUser => {
+
+        // Needs to verifying phone number pin
+        if (currentUser.phone && currentUser.phone.verifying) {
+          this.setState({
+            address: currentUser.address || {},
+            phone: currentUser.phone || {},
+            isVerifingPhoneNumber: true
+          });
+        }
+
+    });
 
   }
 
@@ -78,11 +94,43 @@ export class UsersContactForm extends React.Component {
 
   }
 
-  render() {
+  updatePin(pin) {
+
+    const { actions } = this.props;
+
+    if (pin.length === 4) {
+      actions.verifyPhonePin(pin, phone => {
+        this.setState({
+          phone: phone,
+          isVerifingPhoneNumber: false
+        })
+      });
+    }
+
+  }
+
+  renderVerifyingPhoneForm() {
+
+    const { actions } = this.props;
+
+    return (
+      <form>
+
+        <h4>{ this.props.content.profile.contact.need_pin }</h4>
+
+        <ReactCodeInput type='text' fields={ 4 } onChange={ this.updatePin.bind(this) }/>
+
+        <span onClick={ actions.resendPin }>{ this.props.content.profile.contact.resend_pin }</span>
+
+      </form>
+    )
+
+  }
+
+  renderContactForm() {
 
     const { contact } = this.props.content.profile;
     const { address, phone } = this.state;
-
     const phoneField = contact.phone.formFields[0];
     const countryField = contact.address.formFields[6];
 
@@ -95,23 +143,30 @@ export class UsersContactForm extends React.Component {
     phone.phone = this.state.phone.number;
 
     return (
+      <form onSubmit={ this.submitContact.bind(this) }>
+
+        <h5>{ this.props.title || '' }</h5>
+
+        <div className="row">
+          { FormFieldsHelper.call(this, contact.phone.formFields, phone) }
+          { FormFieldsHelper.call(this, contact.address.formFields, address) }
+        </div>
+
+        <br/>
+
+        <input type="submit" className="btn btn-success clearfix" value={ contact.button }/>
+
+      </form>
+    )
+  }
+
+  render() {
+
+    const { phone } = this.state;
+
+    return (
       <section className="user-contact">
-
-        <form onSubmit={ this.submitContact.bind(this) }>
-
-          <h4>Contact Information</h4>
-
-          <div className="row">
-            { FormFieldsHelper.call(this, contact.phone.formFields, phone) }
-            { FormFieldsHelper.call(this, contact.address.formFields, address) }
-          </div>
-
-          <br/>
-
-          <input type="submit" className="btn btn-success clearfix" value={ contact.button }/>
-
-        </form>
-
+        { phone.verifying ? this.renderVerifyingPhoneForm() : this.renderContactForm() }
       </section>
     )
 

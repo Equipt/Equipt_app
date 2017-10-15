@@ -8,6 +8,7 @@ import {extendMoment} from 'moment-range';
 
 import * as sportingGoodActions from 'actions/sportingGood';
 import * as alertActions from 'actions/alerts';
+import * as currentUserActions from 'actions/session';
 
 import { SportingGoodDetails } from 'components/SportingGoodDetails';
 
@@ -109,13 +110,10 @@ export class SportingGoodsShow extends React.Component {
 
 	render() {
 
-		const { sportingGood } = this.props;
-
 		return(
-			<SportingGoodDetails content={ this.props.content }
+			<SportingGoodDetails { ...this.props }
 								 rent={ this.rent.bind(this) }
 								 rental={ this.state.rental || {} }
-								 sportingGood={ sportingGood }
 								 selectRental={ this.selectRental.bind(this) }
 								 showRentalTermsModal={ this.state.showRentalTermsModal }
 								 showModal={ this.showModal.bind(this) }
@@ -127,12 +125,13 @@ export class SportingGoodsShow extends React.Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
+		currentUser: state.session.currentUser,
 		sportingGood: state.sportingGood
 	}
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators({ ...sportingGoodActions, ...alertActions }, dispatch)}
+	return {actions: bindActionCreators({ ...sportingGoodActions, ...alertActions, ...currentUserActions }, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(SportingGoodsShow);

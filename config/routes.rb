@@ -23,11 +23,15 @@ Rails.application.routes.draw do
         end
     end
 
+    match 'api/phone/resend_pin', to: 'api/phone#resend_pin', via: 'GET'
+    match 'api/session/fetch_user', to: 'api/session#fetch_user', via: 'GET'
+
     get '/', to: 'home#index'
     get '*path', to: 'home#index'
 
     match 'api/auth/:provider/callback', to: 'api/session#facebook_auth', via: 'POST'
     match 'api/forgot_password', to: 'api/session#forgot_password', via: 'POST'
     match 'api/reset_password/:reset_token', to: 'api/session#reset_password', via: 'POST'
+    match 'api/phone/verify', to: 'api/phone#verify', via: 'POST'
 
 end

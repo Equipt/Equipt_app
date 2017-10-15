@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20170919053558) do
     t.string  "country"
     t.float   "lng"
     t.float   "lat"
+    t.boolean "verified", default: false
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
@@ -47,7 +48,9 @@ ActiveRecord::Schema.define(version: 20170919053558) do
   create_table "phones", force: :cascade do |t|
     t.integer "user_id"
     t.string  "number"
-    t.boolean "valiated"
+    t.string  "pin"
+    t.boolean "verifying", default: true
+    t.boolean "verified",  default: false
     t.index ["user_id"], name: "index_phones_on_user_id"
   end
 

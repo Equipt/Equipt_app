@@ -3,7 +3,9 @@ class CreatePhonesTable < ActiveRecord::Migration[5.0]
     create_table :phones do |t|
       t.references :user, foreign_key: true
       t.string :number
-      t.boolean :valiated
+      t.string :pin
+      t.boolean :verifying, default: true
+      t.boolean :verified, default: false
     end
   end
 end

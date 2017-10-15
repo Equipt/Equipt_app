@@ -24,7 +24,11 @@
           }
         },
         :contact => {
+          title: 'Enter your contact details below',
           button: 'Update Contact Info',
+          need_contact: 'You haven\'t provided your contact details yet?',
+          need_pin: 'Just one last step, we texted you a pin to verify your phone number.',
+          resend_pin: 'I need another pin!',
           :phone => {
             :formFields => [
               {

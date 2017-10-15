@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import { UsersContactForm } from 'components/UsersContactForm';
 
 import Modal from 'components/Modal';
 import Slider from 'react-slick';
@@ -11,6 +12,7 @@ export class SportingGoodDetails extends React.Component {
 
 	static propTypes = {
 		content: PropTypes.object.isRequired,
+		currentUser: PropTypes.object.isRequired,
 	  sportingGood: PropTypes.object.isRequired,
 		rental: PropTypes.object.isRequired,
 		showRentalTermsModal: PropTypes.bool.isRequired,
@@ -30,6 +32,34 @@ export class SportingGoodDetails extends React.Component {
 
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			showContactModal: false
+		}
+	}
+
+	rent() {
+
+		const { rent, currentUser } = this.props;
+
+		const address = currentUser.address || {};
+		const phone = currentUser.phone || {};
+
+		// Must have completed address and phone number to rent
+		if (phone.verified && address.verified) {
+			return rent();
+		}
+
+		this.setState({
+			showContactModal: true
+		});
+
+	}
+
+	showContactModal(state) {
+		this.setState({
+			showContactModal: state
+		});
 	}
 
 	totalDays() {
@@ -163,11 +193,18 @@ export class SportingGoodDetails extends React.Component {
 				</div>
 
 				<div className="col-xs-12">
-				<button className="btn btn-success"
-				onClick={ this.props.rent }>
-				Rent
-				</button>
+					<button className="btn btn-success"
+					onClick={ this.rent.bind(this) }>
+					Rent
+					</button>
 				</div>
+
+				<Modal contentLabel="address-modal"
+				isVisible={ this.state.showContactModal }
+				onClose={ this.showContactModal.bind(this, false) }>
+					<h5>{ content.profile.contact.need_contact }</h5>
+					<UsersContactForm { ...this.props }/>
+				</Modal>
 
 			</section>
 

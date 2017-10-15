@@ -13,6 +13,7 @@ import routes from 'utils/Router';
 import Api from 'utils/Api';
 
 import reducers from '../reducers';
+import * as sessionActions from 'actions/session';
 
 // Create a browser history
 const history = createHistory();
@@ -50,6 +51,9 @@ const store = createStore(
 // Root Template
 const Root = (props, railsContext) => {
 
+	// Fetch current user details on load
+	store.dispatch(sessionActions.fetchCurrentUser());
+
 	return (
 		<Provider store={store}>
 			<ConnectedRouter history={ history }>
@@ -57,6 +61,7 @@ const Root = (props, railsContext) => {
 			</ConnectedRouter>
 		</Provider>
 	)
+
 }
 
 export default Root;

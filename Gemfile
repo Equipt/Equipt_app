@@ -40,6 +40,8 @@ gem 'validates_email_format_of'
 
 gem 'carrierwave', '~> 1.0'
 
+gem 'twilio-ruby', '~> 4.1.0'
+
 # o-auth
 gem 'omniauth-facebook'
 

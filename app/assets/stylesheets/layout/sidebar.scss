@@ -13,10 +13,16 @@ $secondary_color: #D3D3D3;
 		cursor: pointer;
 		color: #fff;
 		font-size: 25px;
-		margin: 20px 18px;
+		margin: 20px 18px 5px;
 		&.bottom {
 			position: absolute;
 			bottom: 75px;
 		}
+	}
+	p {
+		font-size: 11px;
+		padding: 0 2px;
+		color: #fff;
+		text-align: center;
 	}
 }

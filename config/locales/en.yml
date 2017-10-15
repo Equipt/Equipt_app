@@ -32,6 +32,7 @@ en:
     discount_error: 'Discounted price must be less than %{price}!'
   user:
     deleted: 'Sorry you decided to cancel you account %{name}'
+    phone_verification: '"Hey, Equipt here. Your PIN is %{pin}!"'
   rentals:
     dates_are_taken: "Sorry, %{item} is unavailible between these dates"
     terms_not_agreed_to: "Terms must be agree too"

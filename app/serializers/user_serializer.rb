@@ -9,10 +9,10 @@ class UserSerializer < ActiveModel::Serializer
 			:updated_at,
 			:notice,
       :api_key,
-      :errors,
-      :phone,
-      :address
+      :errors
 
+	has_one :phone
+	has_one :address
 
   def notice
 		{ info: "Welcome, #{ @object.firstname.capitalize }" } if @instance_options[:create_notice]
@@ -26,16 +26,6 @@ class UserSerializer < ActiveModel::Serializer
 
   def include_associations!
     include! :rentals unless @instance_options[:exclude_rentals]
-  end
-
-  private
-
-  def phone
-    @object.phone
-  end
-
-  def address
-    @object.address
   end
 
 end

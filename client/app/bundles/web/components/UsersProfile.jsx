@@ -36,7 +36,7 @@ export class UsersProfile extends React.Component {
 
 		switch(currentTab) {
 			case this.state.tabs[1]:
-				return <UsersContactForm { ...this.props }/>;
+				return <UsersContactForm { ...this.props } title={ this.props.content.profile.contact.title }/>;
 			break;
 			case this.state.tabs[2]:
 				return <Privacy { ...this.props }/>;

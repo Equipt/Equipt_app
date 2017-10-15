@@ -11,6 +11,7 @@ class CreateAddressesTable < ActiveRecord::Migration[5.0]
       t.string :country
       t.float :lng
       t.float :lat
+      t.boolean :verified, default: false
     end
   end
 end
