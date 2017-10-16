@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { SportingGood } from 'components/SportingGood';
 import { SearchBar } from 'components/SearchBar';
+import NoSportingGoods from 'components/NoSportingGoods';
 
 import Loader from 'components/Loader';
 
@@ -17,16 +18,12 @@ const SportingGoodsList = ({
 	actions
 }) => {
 
-	const loaderMarkUp = () => <Loader/>;
+	if (loader) {
+		return <Loader/>;
+	}
 
-	const sportingGoodsMarkup = () => {
-		return sportingGoods.map((sportingGood, index) => {
-			return <SportingGood key={ `${ sportingGood.title }_${ index }` }
-							 sportingGood={ sportingGood }
-							 content={ content }
-							 isOwner={ isOwner }
-							 actions={ actions }/>
-		});
+	if (!sportingGoods.length) {
+		return (<NoSportingGoods content={ content }/>);
 	}
 
 	return (
@@ -36,7 +33,18 @@ const SportingGoodsList = ({
 
 			<SearchBar search={ search }/>
 
-			{ loader ? loaderMarkUp() :  sportingGoodsMarkup() }
+			{
+				sportingGoods.map((sportingGood, index) => {
+
+					return <SportingGood key={ `${ sportingGood.title }_${ index }` }
+								 sportingGood={ sportingGood }
+								 content={ content }
+								 isOwner={ isOwner }
+								 actions={ actions }/>;
+
+				})
+
+			}
 
 		</section>
 	)

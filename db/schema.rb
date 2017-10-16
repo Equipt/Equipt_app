@@ -21,9 +21,9 @@ ActiveRecord::Schema.define(version: 20170919053558) do
     t.string  "state"
     t.string  "zip"
     t.string  "country"
-    t.float   "lng"
-    t.float   "lat"
-    t.boolean "verified", default: false
+    t.float   "latitude"
+    t.float   "longitude"
+    t.boolean "verified",  default: false
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20170919053558) do
     t.integer "user_id"
     t.string  "number"
     t.string  "pin"
-    t.boolean "verifying", default: true
+    t.boolean "verifying", default: false
     t.boolean "verified",  default: false
     t.index ["user_id"], name: "index_phones_on_user_id"
   end

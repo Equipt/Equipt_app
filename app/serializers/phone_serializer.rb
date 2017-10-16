@@ -3,7 +3,8 @@ class PhoneSerializer < ActiveModel::Serializer
   attributes :number,
              :verified,
              :verifying,
-             :notice
+             :notice,
+             :errors
 
   def notice
  		{ info: "#{ @object.number } has been verified" } if @instance_options[:verify_notice]

@@ -40,7 +40,9 @@ gem 'validates_email_format_of'
 
 gem 'carrierwave', '~> 1.0'
 
+# Address and phone validation
 gem 'twilio-ruby', '~> 4.1.0'
+gem 'geocoder'
 
 # o-auth
 gem 'omniauth-facebook'

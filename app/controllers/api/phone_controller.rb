@@ -4,7 +4,6 @@ class Api::PhoneController < ApiController
 
   def verify
     phone = current_user.phone
-
     if phone && phone.verify_pin(params[:pin])
       render json: phone, verify_notice: true, status: 200
     else

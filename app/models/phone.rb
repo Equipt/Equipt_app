@@ -2,7 +2,9 @@ class Phone < ApplicationRecord
 
   has_one :user, dependent: :destroy
 
-  before_create :send_verification_pin
+  before_save :send_verification_pin, :if => :new_record?
+
+  validates_presence_of :number
 
   # NOTE Verify is a real phone number
   def send_verification_pin

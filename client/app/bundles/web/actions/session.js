@@ -118,7 +118,14 @@ export const updateCurrentUser = (currentUser, callback) => {
 			if (callback) callback(currentUser);
 
 		})
-		.catch(err => dispatch(alertActions.showErrorAlert(err)));
+		.catch(currentUser => {
+			dispatch(setCurrentUser({
+				currentUser: currentUser,
+				token: currentUser.apiKey
+			}));
+
+			if (callback) callback(currentUser);
+		});
 
 	}
 

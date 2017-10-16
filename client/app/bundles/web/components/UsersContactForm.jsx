@@ -40,11 +40,14 @@ export class UsersContactForm extends React.Component {
         // Needs to verifying phone number pin
         if (currentUser.phone && currentUser.phone.verifying) {
           this.setState({
-            address: currentUser.address || {},
-            phone: currentUser.phone || {},
             isVerifingPhoneNumber: true
           });
         }
+
+        this.setState({
+          address: currentUser.address || {},
+          phone: currentUser.phone || {}
+        });
 
     });
 
@@ -133,14 +136,19 @@ export class UsersContactForm extends React.Component {
     const { address, phone } = this.state;
     const phoneField = contact.phone.formFields[0];
     const countryField = contact.address.formFields[6];
+    const phoneErrors = this.state.phone.errors;
 
     // On change of country
     countryField.onChange = this.countryChanged.bind(this);
 
-    // Phone number work around
+    // HACK: Phone number work around
     phoneField.name = 'phone';
     phoneField.onChange = this.phoneNumberChanged.bind(this);
     phone.phone = this.state.phone.number;
+
+    if (this.state.phone.errors) {
+      phone.errors.phone = this.state.phone.errors.number;
+    }
 
     return (
       <form onSubmit={ this.submitContact.bind(this) }>

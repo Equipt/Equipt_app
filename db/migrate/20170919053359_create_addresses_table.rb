@@ -9,8 +9,8 @@ class CreateAddressesTable < ActiveRecord::Migration[5.0]
       t.string :state
       t.string :zip
       t.string :country
-      t.float :lng
-      t.float :lat
+      t.float :latitude
+      t.float :longitude
       t.boolean :verified, default: false
     end
   end

@@ -23,18 +23,12 @@ class OwnersSportingGoodsIndex extends React.Component {
 		const { fetchOwnersSportingGoods } = this.props.actions;
 		const content = this.props.content.owners_sporting_goods;
 
-		const sportingGoods = this.props.sportingGoods || [];
-
-		if (sportingGoods.length) {
-
-			return (<SportingGoodsList 	{ ...this.props}
-						content={ content }
-						isOwner={ true }
-						search={ fetchOwnersSportingGoods }/>);
-
-		}
-
-		return (<NoSportingGoods content={ content }/>);
+		return (
+			<SportingGoodsList 	{ ...this.props}
+					content={ content }
+					isOwner={ true }
+					search={ fetchOwnersSportingGoods }/>
+		);
 
 	}
 

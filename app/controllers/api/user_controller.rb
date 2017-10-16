@@ -12,10 +12,11 @@ class Api::UserController < ApiController
 	end
 
 	def update
-		if current_user.update_attributes(user_params)
-			render json: current_user, update_notice: true, send_api_token: true, status: 200
+		user = current_user
+		if user.update_attributes(user_params)
+			render json: user, update_notice: true, send_api_token: true, status: 200
 		else
-			render json: current_user, send_api_token: false, status: 400
+			render json: user, send_api_token: true, status: 400
 		end
 	end
 
