@@ -9,7 +9,8 @@ export class UsersContactForm extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
     mapZenKey: PropTypes.string.isRequired,
-    content: PropTypes.object.isRequired
+    content: PropTypes.object.isRequired,
+    completedContactForm: PropTypes.func
   }
 
   constructor(props) {
@@ -23,9 +24,16 @@ export class UsersContactForm extends React.Component {
 
   }
 
+  componentDidMount() {
+    // Set default country and state
+    this.countryChanged();
+  }
+
   submitContact(e) {
 
     e.preventDefault();
+
+    const { actions } = this.props;
 
     const currentUser = this.props.currentUser || {};
 
@@ -35,19 +43,26 @@ export class UsersContactForm extends React.Component {
     currentUser.phone = this.state.phone;
 
     // Update user
-    return this.props.actions.updateCurrentUser({user: currentUser}, currentUser => {
+    return actions.updateCurrentUser({user: currentUser}, currentUser => {
+
+        const { phone, address } = currentUser;
+
+        this.setState({
+          address: address || {},
+          phone: phone || {}
+        });
 
         // Needs to verifying phone number pin
-        if (currentUser.phone && currentUser.phone.verifying) {
+        if (phone && phone.verifying) {
           this.setState({
             isVerifingPhoneNumber: true
           });
         }
 
-        this.setState({
-          address: currentUser.address || {},
-          phone: currentUser.phone || {}
-        });
+        // Show unfound address alert
+        if (currentUser.errors && currentUser.errors['address.address']) {
+          actions.showErrorAlert({error: currentUser.errors['address.address']});
+        }
 
     });
 
@@ -61,16 +76,18 @@ export class UsersContactForm extends React.Component {
 
     if (value === 'CA') {
       stateField.tag = 'select';
+      this.state.address.state = Object.keys(stateField.options)[0];
       stateField.options = stateField.options;
     } else if (value === 'US') {
-      stateField.tag = 'select';
+      this.state.address.state = Object.keys(stateField.states)[0];
       stateField.options = stateField.states;
+      stateField.tag = 'select';
     } else {
+      this.state.address.state = '';
       stateField.tag = 'input';
     }
 
-    this.state.address['country'] = value;
-
+    this.state.address.country = value;
     this.setState(this.state);
 
   }
@@ -103,10 +120,20 @@ export class UsersContactForm extends React.Component {
 
     if (pin.length === 4) {
       actions.verifyPhonePin(pin, phone => {
+
+        const { address } = this.state;
+        const { completedContactForm } = this.props;
+
         this.setState({
           phone: phone,
           isVerifingPhoneNumber: false
         })
+
+        // Finished updating user
+        if ((phone && phone.verified) && (address && address.verified)) {
+          return completedContactForm && completedContactForm();
+        }
+
       });
     }
 

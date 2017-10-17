@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
 	has_many :api_keys, dependent: :destroy
 	has_many :owned_rentals, :through => :sporting_goods, source: 'rentals'
 
-	has_one :address
-	has_one :phone
+	has_one :address, :dependent => :destroy
+	has_one :phone, :dependent => :destroy
 
 	accepts_nested_attributes_for :address
 	accepts_nested_attributes_for :phone

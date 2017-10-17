@@ -203,7 +203,7 @@ export class SportingGoodDetails extends React.Component {
 				isVisible={ this.state.showContactModal }
 				onClose={ this.showContactModal.bind(this, false) }>
 					<h5>{ content.profile.contact.need_contact }</h5>
-					<UsersContactForm { ...this.props }/>
+					<UsersContactForm { ...this.props } completedContactForm={ this.showContactModal.bind(this, false) }/>
 				</Modal>
 
 			</section>

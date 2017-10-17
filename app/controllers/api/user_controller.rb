@@ -54,6 +54,7 @@ class Api::UserController < ApiController
 				:number,
 				:street,
 				:city,
+				:state,
 				:zip,
 				:country,
 				:lng,
