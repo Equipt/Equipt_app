@@ -17,7 +17,7 @@ const SideBar = (props) => {
 				<p>See your items</p>
 			</Link>
 
-			<Link to="/owner/calendar">
+			<Link to="/owner/schedule">
 				<i className="fa fa-calendar-check-o" aria-hidden="true"></i>
 				<p>See your rentals</p>
 			</Link>

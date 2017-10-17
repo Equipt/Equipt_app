@@ -22,7 +22,7 @@ import SportingGoodsShow from 'containers/SportingGoodsShow';
 import OwnersSportingGoodsIndex from 'containers/owner/OwnersSportingGoodsIndex';
 import OwnersSportingGoodsEdit from 'containers/owner/OwnersSportingGoodsEdit';
 import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
-import OwnersCalendar from 'containers/owner/OwnersCalendar';
+import OwnersSchedule from 'containers/owner/OwnersSchedule';
 import RentalsShow from 'containers/RentalsShow';
 
 // Route transition settings
@@ -84,8 +84,8 @@ export default (props, store) => {
 						<Route exact path="/owner/sporting_goods" render={ () => {
 							return protectedRoute(OwnersSportingGoodsIndex);
 						}}/>
-						<Route exact path="/owner/calendar" render={ () => {
-							return protectedRoute(OwnersCalendar);
+						<Route exact path="/owner/schedule" render={ () => {
+							return protectedRoute(OwnersSchedule);
 						}}/>
 						<Route exact path="/sporting_goods/:slug" render={ () => {
 							return protectedRoute(SportingGoodsShow);

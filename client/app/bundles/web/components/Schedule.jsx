@@ -1,34 +1,30 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import Modal from 'components/Modal';
 import RentalDetails from 'components/RentalDetails';
 
-import * as sessionActions from 'actions/session';
-import * as sportingGoodActions from 'actions/sportingGood';
-
 BigCalendar.setLocalizer(
 	BigCalendar.momentLocalizer(moment)
 );
 
-class OwnersCalendar extends React.Component {
+export class Schedule extends React.Component {
 
-	constructor(props) {
+  static propTypes = {
+    content: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired,
+    currentUser: PropTypes.object.isRequired
+  }
+
+  constructor(props) {
 		super(props);
 		this.state = {
 			showRentalModal: false,
 			showCancelRentalModal: false,
 			rental: {}
 		}
-	}
-
-	componentWillMount() {
-		this.props.actions.fetchCurrentUserRentals();
 	}
 
 	onSelectEvent(rental) {
@@ -49,15 +45,16 @@ class OwnersCalendar extends React.Component {
 	cancelRental(hasConfirmed) {
 
 		const { rental } = this.state;
+    const { actions } = this.props;
 
 		if (hasConfirmed && rental.owned ) {
-			this.props.actions.cancelCurentUserRental(rental);
+			actions.cancelCurentUserRental(rental);
 			this.setState({
 				showCancelRentalModal: false,
 				showRentalModal: false
 			});
 		} else if (hasConfirmed && !rental.owned) {
-			this.props.actions.cancelRental(rental, () => {
+			actions.cancelRental(rental, () => {
 				this.setState({
 					showCancelRentalModal: false,
 					showRentalModal: false
@@ -105,15 +102,3 @@ class OwnersCalendar extends React.Component {
 	}
 
 }
-
-function mapStateToProps(state, ownProps) {
-	return {
-		currentUser: state.session.currentUser
-	}
-}
-
-function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators({ ...sessionActions, ...sportingGoodActions }, dispatch)}
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(OwnersCalendar);
