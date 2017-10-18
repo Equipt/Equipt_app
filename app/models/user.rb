@@ -66,4 +66,10 @@ class User < ActiveRecord::Base
 		updating_password || new_record?
 	end
 
+	# user has completed contact info
+	def verified?
+		phone.verified && address.verified
+	end
+
+
 end

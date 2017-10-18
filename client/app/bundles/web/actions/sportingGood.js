@@ -122,7 +122,13 @@ export const rent = (rental, sportingGood, callback) => {
 			dispatch(setRental(rental));
 			callback(rental);
 		})
-		.catch(data => dispatch(alertActions.showErrorAlert(data.errors)));
+		.catch((data) => {
+			if (data.errors) {
+				dispatch(alertActions.showErrorAlert(data.errors));
+			} else {
+				dispatch(alertActions.showErrorAlert(data));
+			}
+		});
 
 	}
 

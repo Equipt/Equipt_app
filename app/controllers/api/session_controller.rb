@@ -14,7 +14,7 @@ class Api::SessionController < ApiController
 	end
 
 	def fetch_user
-		render json: current_user, send_api_token: true, status: 200
+		render json: current_user, include_rentals: true, send_api_token: true, status: 200
 	end
 
 	def facebook_auth

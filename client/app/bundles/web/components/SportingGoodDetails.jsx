@@ -105,7 +105,7 @@ export class SportingGoodDetails extends React.Component {
 
 	render() {
 
-		const { sportingGood, rental, content } = this.props;
+		const { sportingGood, rental, content, showModal } = this.props;
 
 		const images = sportingGood.images || [];
 		const rentals = sportingGood.rentals || [];

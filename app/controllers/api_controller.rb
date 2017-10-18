@@ -30,4 +30,9 @@ class ApiController < ApplicationController
 		head :unauthorized unless current_user
 	end
 
+	#ensure current_user has verified contact details
+	def verified_user
+		render json: { error: I18n.t('user.not_verified') }, status: 400 unless current_user.verified?
+	end
+
 end
