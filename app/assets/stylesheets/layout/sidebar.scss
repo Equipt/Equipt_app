@@ -1,6 +1,3 @@
-$primary_color: #499252;
-$secondary_color: #D4D3B7;
-
 .sidebar-wrapper {
 	position: fixed;
 	top: 66px;
@@ -11,7 +8,7 @@ $secondary_color: #D4D3B7;
 	z-index: 4;
 	i {
 		cursor: pointer;
-		color: $primary_color;
+		color: #D64E33;
 		font-size: 25px;
 		margin: 20px 18px 5px;
 		&.bottom {
@@ -22,7 +19,7 @@ $secondary_color: #D4D3B7;
 	p {
 		font-size: 11px;
 		padding: 0 2px;
-		color: $primary_color;
+		color: #D64E33;
 		text-align: center;
 	}
 }
