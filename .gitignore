@@ -31,3 +31,6 @@ node_modules
 
 # Generated js bundles
 /public/webpack/*
+
+# Ignore application configuration
+/config/application.yml

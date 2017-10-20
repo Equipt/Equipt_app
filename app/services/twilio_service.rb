@@ -5,7 +5,7 @@ class TwilioService
   PIN_LENGTH = 4
 
   def initialize
-    @client = Twilio::REST::Client.new(ENV['TWILIO_TOKEN'], ENV['TWILIO_SID'])
+    @client = Twilio::REST::Client.new(ENV['TWILIO_SID'], ENV['TWILIO_TOKEN'])
   end
 
   def send_pin phone_number, pin
