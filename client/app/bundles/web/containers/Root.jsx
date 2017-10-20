@@ -26,16 +26,17 @@ const session = createSession({
 	ns: 'equipt_app',
 	adapter: 'localStorage',
 	selectState (state) {
-		return {
+			debugger;
+			return {
 	  		session: state.session
-		};
-  	},
-  	onLoad(storedState, dispatch) {
+			};
+  },
+  onLoad(storedState, dispatch) {
 		dispatch({ type: 'HYDRATE_STATE', storedState })
-  	},
-  	clearStorage (action) {
-    	return action.type === 'DROP_SESSION_DATA';
-  	}
+  },
+  clearStorage (action) {
+    return action.type === 'DROP_SESSION_DATA';
+  }
 });
 
 // Thunk setup
