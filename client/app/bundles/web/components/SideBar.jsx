@@ -8,22 +8,22 @@ const SideBar = (props) => {
 		<aside className="sidebar-wrapper hidden-xs">
 
 			<Link to="/sporting_goods">
-				<i className="fa fa-home" aria-hidden="true"></i>
+				<i className="icon compass"/>
 				<p>Rent an item</p>
 			</Link>
 
 			<Link to="/owner/sporting_goods">
-				<i className="fa fa-list-ul" aria-hidden="true"></i>
+				<i className="icon backpack"/>
 				<p>See your items</p>
 			</Link>
 
 			<Link to="/owner/schedule">
-				<i className="fa fa-calendar-check-o" aria-hidden="true"></i>
-				<p>See your rentals</p>
+				<i className="icon map"/>
+				<p>Schedule</p>
 			</Link>
 
 			<Link to="/owner/sporting_goods/new">
-				<i className="fa fa-plus" aria-hidden="true"></i>
+				<i className="icon axe"/>
 				<p>Add an item</p>
 			</Link>
 
