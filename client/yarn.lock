@@ -20,6 +20,12 @@ acorn@^5.0.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.1.1.tgz#53fe161111f912ab999ee887a90a0bc52822fd75"
 
+addressit@^1.4.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/addressit/-/addressit-1.5.0.tgz#3f47b80ddafe0d25f224345ea66c02098e58d64a"
+  dependencies:
+    cog "^1.0.0"
+
 ajv-keywords@^1.1.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-1.5.1.tgz#314dd0a4b3368fad3dfcdc54ede6171b886daf3c"
@@ -1018,6 +1024,10 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
+cog@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/cog/-/cog-1.1.0.tgz#bff31f813b7deaed5ad868bfe364f2ff9afe10b3"
+
 combined-stream@^1.0.5, combined-stream@~1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.5.tgz#938370a57b4a51dea2c77c15d5c5fdf895164009"
@@ -1121,6 +1131,12 @@ crypto-browserify@^3.11.0:
     pbkdf2 "^3.0.3"
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
+
+d@1:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/d/-/d-1.0.0.tgz#754bb5bfe55451da69a58b94d45f4c5b0462d58f"
+  dependencies:
+    es5-ext "^0.10.9"
 
 dashdash@^1.12.0:
   version "1.14.1"
@@ -1240,9 +1256,31 @@ error-ex@^1.2.0:
   dependencies:
     is-arrayish "^0.2.1"
 
+es5-ext@^0.10.35, es5-ext@^0.10.9, es5-ext@~0.10.14:
+  version "0.10.35"
+  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.35.tgz#18ee858ce6a3c45c7d79e91c15fcca9ec568494f"
+  dependencies:
+    es6-iterator "~2.0.1"
+    es6-symbol "~3.1.1"
+
 es5-shim@^4.5.9:
   version "4.5.9"
   resolved "https://registry.yarnpkg.com/es5-shim/-/es5-shim-4.5.9.tgz#2a1e2b9e583ff5fed0c20a3ee2cbf3f75230a5c0"
+
+es6-iterator@~2.0.1:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/es6-iterator/-/es6-iterator-2.0.3.tgz#a7de889141a05a94b0854403b2d0a0fbfa98f3b7"
+  dependencies:
+    d "1"
+    es5-ext "^0.10.35"
+    es6-symbol "^3.1.1"
+
+es6-symbol@^3.1.0, es6-symbol@^3.1.1, es6-symbol@~3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/es6-symbol/-/es6-symbol-3.1.1.tgz#bf00ef4fdab6ba1b46ecb7b629b4c7ed5715cc77"
+  dependencies:
+    d "1"
+    es5-ext "~0.10.14"
 
 escape-string-regexp@^1.0.2:
   version "1.0.5"
@@ -1965,6 +2003,12 @@ minimist@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
+moment-range@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/moment-range/-/moment-range-3.0.3.tgz#f7a1567c73228f317469cb33148ea996f79ccb9a"
+  dependencies:
+    es6-symbol "^3.1.0"
+
 moment@^2.18.1:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
@@ -2301,6 +2345,14 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-address-autocomplete@^0.5.6:
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/react-address-autocomplete/-/react-address-autocomplete-0.5.6.tgz#2e4cb4e98951e3571a70ff87d39f3a8a0fabec24"
+  dependencies:
+    addressit "^1.4.0"
+    classnames "^2.2.5"
+    underscore "^1.8.3"
+
 react-big-calendar@^0.14.4:
   version "0.14.4"
   resolved "https://registry.yarnpkg.com/react-big-calendar/-/react-big-calendar-0.14.4.tgz#8c2a3fdedbdc3f3c5b183323dcc2581f65262ddf"
@@ -2315,6 +2367,14 @@ react-big-calendar@^0.14.4:
     react-prop-types "^0.4.0"
     uncontrollable "^3.3.1 || ^4.0.0"
     warning "^2.0.0"
+
+react-code-input@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/react-code-input/-/react-code-input-1.1.5.tgz#422c487bf48e373a9b95a4ce617df6b4eaa7338b"
+  dependencies:
+    classnames "^2.2.5"
+    react "^15.5.4"
+    react-dom "^15.5.4"
 
 react-dom@^15.5.4:
   version "15.6.1"
@@ -2874,6 +2934,10 @@ uid-number@^0.0.6:
   resolved "https://registry.yarnpkg.com/uncontrollable/-/uncontrollable-4.1.0.tgz#e0358291252e1865222d90939b19f2f49f81c1a9"
   dependencies:
     invariant "^2.1.0"
+
+underscore@^1.8.3:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
 
 url@^0.11.0:
   version "0.11.0"
