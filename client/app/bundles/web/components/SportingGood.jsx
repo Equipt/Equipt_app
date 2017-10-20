@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import Modal from 'components/modal';
+import Modal from 'components/Modal';
 
 export class SportingGood extends React.Component {
 
