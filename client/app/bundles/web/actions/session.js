@@ -15,10 +15,7 @@ export const fetchCurrentUser = () => {
 			api.token = session.token;
 
 			api.get(`/session/fetch_user`)
-			.then(user => dispatch(setCurrentUser({
-				currentUser: user,
-				token: user.apiKey
-			})));
+			.then(user => dispatch(setCurrentUser(user)));
 
 		}
 
@@ -35,11 +32,7 @@ export const login = (data, callback) => {
 
 		api.post('/session', data).then(user => {
 
-			// Set Current User
-			dispatch(setCurrentUser({
-				currentUser: user,
-				token: user.apiKey
-			}));
+			dispatch(setCurrentUser(user));
 
 			// run success
 			callback();
@@ -56,10 +49,13 @@ export const login = (data, callback) => {
 };
 
 // Set Starting User
-export const setCurrentUser = (data) => {
+export const setCurrentUser = user => {
 	return {
 		type: types.SET_CURRENT_USER,
-		payload: data
+		payload: {
+			currentUser: user,
+			token: user.apiKey
+		}
 	}
 };
 
@@ -106,25 +102,20 @@ export const updateCurrentUser = (currentUser, callback) => {
 		api.token = getState().session.token;
 
 		api.put(`/user/${ currentUser.id }`, currentUser)
-		.then(currentUser => {
+		.then(user => {
 
-			dispatch(setCurrentUser({
-				currentUser: currentUser,
-				token: currentUser.apiKey
-			}));
+			dispatch(setCurrentUser(user));
 
-			dispatch(alertActions.showSuccessAlert(currentUser.notice));
+			dispatch(alertActions.showSuccessAlert(user.notice));
 
-			if (callback) callback(currentUser);
+			if (callback) callback(user);
 
 		})
-		.catch(currentUser => {
-			dispatch(setCurrentUser({
-				currentUser: currentUser,
-				token: currentUser.apiKey
-			}));
+		.catch(user => {
 
-			if (callback) callback(currentUser);
+			dispatch(setCurrentUser(user));
+
+			if (callback) callback(user);
 		});
 
 	}
@@ -192,10 +183,7 @@ export const loginWithFacebook = (data, callback) => {
 		api.post('/auth/facebook/callback', data).then(user => {
 
 			// Set Current User
-			dispatch(setCurrentUser({
-				currentUser: user,
-				token:user.apiKey
-			}));
+			dispatch(setCurrentUser(user));
 
 			// Clear Alerts
 			dispatch(alertActions.clearAlerts());
@@ -277,10 +265,7 @@ export const verifyPhonePin = (pin, callback) => {
 			currentUser.phone = phone;
 
 			// Set Current User
-			dispatch(setCurrentUser({
-				currentUser: currentUser,
-				token: currentUser.apiKey
-			}));
+			dispatch(setCurrentUser(currentUser));
 
 			// Show Success alert
 			dispatch(alertActions.showSuccessAlert(phone.notice));
