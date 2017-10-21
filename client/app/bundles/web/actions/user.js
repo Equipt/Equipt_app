@@ -14,10 +14,7 @@ export const signup = (formData, callback) => {
 		.then(user => {
 
 			// Set Current User
-			dispatch(sessionActions.setCurrentUser({
-				currentUser: user,
-				token: user.apiKey
-			}));
+			dispatch(sessionActions.setCurrentUser(user));
 
 			// run success
 			callback();
