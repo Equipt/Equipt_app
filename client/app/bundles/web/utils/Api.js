@@ -1,10 +1,13 @@
 import axios from 'axios';
 
+import * as sessionActions from 'actions/session';
+
 export default function(history) {
 
 	const BASE_PATH = '/api';
 
 	this.token = null;
+	this.dispatch = null;
 
 	this.get = (url, params) => {
 		return new Promise((resolve, reject) => {
@@ -76,9 +79,10 @@ export default function(history) {
 
 				if (status === 500 || status === 401) {
 					localStorage.clear();
-					return history.push('/login');
+					this.dispatch(sessionActions.clearSession());
+					history.push('/login');
 				} else if (status === 404) {
-					return history.push('/not_found');
+					history.push('/not_found');
 				}
 
 				reject(data);

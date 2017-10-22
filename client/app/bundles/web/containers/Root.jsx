@@ -38,8 +38,11 @@ const session = createSession({
   	}
 });
 
+// Set up api
+const api = new Api(history);
+
 // Thunk setup
-const thunkMiddleware = thunk.withExtraArgument(new Api(history));
+const thunkMiddleware = thunk.withExtraArgument(api);
 
 // Create Redux Store
 const store = createStore(
@@ -47,6 +50,9 @@ const store = createStore(
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 	applyMiddleware(middleware, thunkMiddleware, session)
 );
+
+// add dispatch to api
+api.dispatch = store.dispatch;
 
 // Root Template
 const Root = (props, railsContext) => {

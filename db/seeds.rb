@@ -5,6 +5,9 @@ ActiveRecord::Base.connection.tables.each do |table|
    ActiveRecord::Base.connection.execute("DELETE FROM #{table}") unless table == "schema_migrations"
 end
 
+# Skip callbacks
+Phone.skip_callback(:save, :before, :send_verification_pin, raise: false)
+
 @rentable_equipment_amount = (1..5).to_a
 @equipment_category = [
 	{camp: [
@@ -59,14 +62,14 @@ def create_users
       state: Faker::Address.state,
       zip: Faker::Address.zip,
       country: Faker::Address.country,
-      lat: Faker::Address.latitude,
-      lng: Faker::Address.longitude
+      latitude: Faker::Address.latitude,
+      longitude: Faker::Address.longitude
     )
 
     Phone.create(
       user_id: user.id,
       number: Faker::PhoneNumber.phone_number,
-      source: ['mobile', 'home'].sample
+      verified: true
     )
 
 		(0..6).to_a.sample.times do |i|
@@ -85,6 +88,9 @@ def create_sporting_good(user)
 		category_list = @equipment_category.sample
 		category_key  = category_list.keys[0]
 		sub_category  = category_list[category_key].sample
+    price_per_day = (1..50).to_a.sample
+
+    price_per_week = (price_per_day * 7) - (price_per_day * 7) * 0.10
 
 		sporting_good = user.sporting_goods.new(
 			category: category_key.to_s,
@@ -93,8 +99,8 @@ def create_sporting_good(user)
 			model: Faker::Commerce.product_name,
 			description: Faker::Lorem.paragraph(2),
 			age: (1..10).to_a.sample,
-			price_per_day: (1..50).to_a.sample,
-			price_per_week: (50..200).to_a.sample,
+			price_per_day: price_per_day,
+			price_per_week: price_per_week,
 			deposit: (10..100).to_a.sample
 		)
 
@@ -177,14 +183,14 @@ Address.create(
   state: 'BC',
   zip: '10002',
   country: 'Canada',
-  lat: '-123.1280044',
-  lng: '49.2841339',
+  latitude: '-123.1280044',
+  longitude: '49.2841339',
 )
 
 Phone.create(
   user_id: admin.id,
   number: '333.333.3333',
-  source: 'mobile'
+  verified: true
 )
 
 10.times do |i|
