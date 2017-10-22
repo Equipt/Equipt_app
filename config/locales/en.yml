@@ -27,6 +27,7 @@ en:
     sent_password_reset: A password reset link has been sent your email!
     reset_expired: Password reset has expired
     password_reset: Your password has been reset!
+    current_user_not_found: We had a issue finding you, please login again!
   sporting_good:
     deleted: ! '%{item} has been removed'
     discount_error: 'Discounted price must be less than %{price}!'

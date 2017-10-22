@@ -15,7 +15,7 @@ export const fetchCurrentUser = () => {
 			api.token = session.token;
 
 			api.get(`/session/fetch_user`)
-			.then(user => dispatch(setCurrentUser(user)));
+			.then(user => dispatch(setCurrentUser(user)))
 
 		}
 
