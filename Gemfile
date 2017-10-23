@@ -38,7 +38,7 @@ gem 'friendly_id', '~> 5.0.0'
 
 gem 'validates_email_format_of'
 
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 1.2'
 gem "fog-aws"
 
 # Address and phone validation
