@@ -1,5 +1,4 @@
 require 'fog/aws'
-require 'pry'
 
 # sample config/initializers/carrierwave.rb
 CarrierWave.configure do |config|
