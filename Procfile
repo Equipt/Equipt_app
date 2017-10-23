@@ -1,2 +1,2 @@
-web: bundle exec rake assets:clean RAILS_ENV=$FOREMAN_ENV && bundle exec rake assets:precompile RAILS_ENV=$FOREMAN_ENV && bundle exec puma -e $FOREMAN_ENV
+web: bundle exec rake assets:clean RAILS_ENV=production && bundle exec rake assets:precompile RAILS_ENV=production && bundle exec puma -e production
 worker: bundle exec rake jobs:work
