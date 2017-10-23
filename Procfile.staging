@@ -1,2 +1,0 @@
-web: bundle exec rake assets:clean RAILS_ENV=staging && bundle exec rake assets:precompile RAILS_ENV=staging && bundle exec puma bundle exec puma -C config/puma.rb
-worker: bundle exec rake jobs:work
