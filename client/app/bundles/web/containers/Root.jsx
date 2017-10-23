@@ -26,7 +26,6 @@ const session = createSession({
 	ns: 'equipt_app',
 	adapter: 'localStorage',
 	selectState (state) {
-			debugger;
 			return {
 	  		session: state.session
 			};
