@@ -20,7 +20,7 @@ test:
   <<: *default
   database: db/test.sqlite3
 
-production:
+staging:
   host: ENV['PG_HOST']
   adapter: postgresql
   encoding: unicode
@@ -29,5 +29,11 @@ production:
   username: ENV['PG_USERNAME']
   password: ENV['PG_PASSWORD']
 
-staging:
-  <<: *production
+production:
+  host: ENV['PG_HOST']
+  adapter: postgresql
+  encoding: unicode
+  database: ENV['PG_DATABASE']
+  pool: 5432
+  username: ENV['PG_USERNAME']
+  password: ENV['PG_PASSWORD']
