@@ -1,14 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  unless ENV['STAGING_AUTH'].blank?
-    config.middleware.use '::Rack::Auth::Basic' do |username, password|
-        ENV['STAGING_AUTH'].split(';').any? do |pair|
-            [username, password] == pair.split(':')
-        end
-    end
-  end
-
   # Code is not reloaded between requests.
   config.cache_classes = true
 
