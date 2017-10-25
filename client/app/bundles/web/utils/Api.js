@@ -80,7 +80,7 @@ export default function(history) {
 				if (status === 500 || status === 401) {
 					localStorage.clear();
 					this.dispatch(sessionActions.clearSession());
-					history.push('/login');
+					return history.push('/login');
 				} else if (status === 404) {
 					history.push('/not_found');
 				}
