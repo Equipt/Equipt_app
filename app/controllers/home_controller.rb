@@ -10,7 +10,7 @@ class HomeController < ApplicationController
 
 	def basic_authenticate
 		authenticate_or_request_with_http_basic 'Staging' do |name, password|
-      name == ENV['BASIC_USERNAME'] && password == ['BASIC_PASSWORD']
+      name == 'tom' && 'password'
     end
 	end
 
