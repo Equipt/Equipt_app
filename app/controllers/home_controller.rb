@@ -6,16 +6,12 @@ class HomeController < ApplicationController
 		@content = I18n.t('frontend')
 	end
 
-	protected
+	private
 
 	def basic_authenticate
-		unless ENV['STAGING_AUTH'].blank?
-			authenticate_or_request_with_http_digest do |username, password|
-				ENV['STAGING_AUTH'].split(';').any? do |pair|
-						[username, password] == pair.split(':')
-				end
-	    end
-		end
+		authenticate_or_request_with_http_basic 'Staging' do |name, password|
+      name == ENV['BASIC_USERNAME'] && password == ['BASIC_PASSWORD']
+    end
 	end
 
 end
