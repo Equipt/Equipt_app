@@ -1,8 +1,12 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "Staging") do |u, p|
-    [u, p] == [ENV['BASIC_USER'], ENV['BASIC_PASSWORD']]
+  unless ENV['STAGING_AUTH'].blank?
+    config.middleware.use '::Rack::Auth::Basic' do |username, password|
+        ENV['STAGING_AUTH'].split(';').any? do |pair|
+            [username, password] == pair.split(':')
+        end
+    end
   end
 
   # Code is not reloaded between requests.
