@@ -1,32 +1,30 @@
 class Rental < ActiveRecord::Base
 
-    # hashable id
-    include Friendlyable
+  acts_as_paranoid
 
-    belongs_to :user
-    belongs_to :sporting_good, inverse_of: :rentals
+  # hashable id
+  include Friendlyable
 
-	validate :dates_are_vacant, :has_agreed_to_terms
+  belongs_to :user
+  belongs_to :sporting_good, inverse_of: :rentals
 
-    before_save :set_total_days, :set_rental_cost
+  before_save :set_total_days, :set_rental_cost
+  validate :dates_are_vacant, :has_agreed_to_terms
 
-    # after_save :send_confirmation_email, if: :rental_confirmed_changed?
-    # after_create :send_create_emails
-    # after_destroy :send_destroy_email
+  # after_save :send_confirmation_email, if: :rental_confirmed_changed?
+  # after_create :send_create_emails
+  # after_destroy :send_destroy_email
 
-    @@dates_taken_sql = "(start BETWEEN ? AND ? OR end BETWEEN ? AND ?) OR (start <= ? AND end >= ?)";
+  @@dates_taken_sql = "(start BETWEEN ? AND ? OR end BETWEEN ? AND ?) OR (start <= ? AND end >= ?)";
 
     # validates methods
 	def dates_are_vacant
-
-        rentals = self.sporting_good.rentals
-
+    rentals = self.sporting_good.rentals
 		if (self.start? || self.end?)
 			if rentals.where(@@dates_taken_sql, self.start, self.end, self.start, self.end, self.start, self.end).any?
 				errors.add(:error, I18n.t('rentals.dates_are_taken', item: self.sporting_good.title))
 			end
 		end
-
 	end
 
 	def has_agreed_to_terms

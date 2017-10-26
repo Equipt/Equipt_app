@@ -14,6 +14,7 @@ class CreateRentalsTable < ActiveRecord::Migration[5.0]
             t.boolean :completed, default: false
             t.boolean :confirmed, default: false
             t.boolean :agreed_to_terms, default: false
+            t.datetime :deleted_at, index: true
             t.timestamps
         end
     end

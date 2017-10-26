@@ -1,5 +1,7 @@
 class SportingGood < ActiveRecord::Base
 
+	acts_as_paranoid
+
 	DAYS_IN_WEEK = 7
 
 	scope :exclude_user, -> user { where.not(user_id: user.id) }
@@ -50,7 +52,7 @@ class SportingGood < ActiveRecord::Base
 		if (self.price_per_week && ( self.price_per_week.to_i > full_weekly_cost))
 			errors.add(:price_per_week, I18n.t('sporting_good.discount_error', price: full_weekly_cost))
 		end
-		
+
 	end
 
 	def set_deposits_default

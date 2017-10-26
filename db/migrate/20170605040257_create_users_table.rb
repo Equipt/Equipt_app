@@ -10,6 +10,7 @@ class CreateUsersTable < ActiveRecord::Migration[5.0]
 			t.string :password
 			t.string :password_digest
 			t.boolean :restricted_availability, default: false
+      t.datetime :deleted_at, index: true
 			t.timestamps
 	    end
   	end

@@ -39,8 +39,8 @@ export class Privacy extends React.Component {
         <ul>
 
         <li className="radio-container send-email-notifications">
-        <input type="radio" value={ currentUser.notify }/>
-        <label>{ content.profile.privacy.email_notifications }</label>
+          <input type="radio" value={ currentUser.notify }/>
+          <label>{ content.profile.privacy.email_notifications }</label>
         </li>
 
         </ul>
@@ -53,7 +53,7 @@ export class Privacy extends React.Component {
         <Modal contentLabel="delete-account"
         isVisible={ this.state.deleteModalIsOpen }
         onClose={ this.showDeleteAccountModal.bind(this, false) }>
-          <DeleteAccount { ...this.props }/>
+          <DeleteAccount { ...this.props } showModal={ this.showDeleteAccountModal.bind(this) }/>
         </Modal>
 
       </section>

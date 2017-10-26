@@ -6,8 +6,15 @@ export class DeleteAccount extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
     content: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
+    showModal: PropTypes.func
   }
+
+  static contextTypes = {
+      router: PropTypes.shape({
+        history: PropTypes.object.isRequired,
+      })
+  };
 
   constructor(props) {
     super(props);
@@ -42,13 +49,17 @@ export class DeleteAccount extends React.Component {
   }
 
   deleteAccount(e) {
+
     e.preventDefault();
 
-    const { actions, currentUser } = this.props;
+    const { actions, currentUser, showModal } = this.props;
     const { feedback } = this.state;
 
     if (this.acceptedConsequences()) {
-      actions.deleteCurrentUser(currentUser, this.state.feedback);
+      actions.deleteCurrentUser(currentUser, this.state.feedback, () => {
+        if (showModal) showModal(false);
+        this.context.router.history.push('/login');
+      });
     } else {
       actions.showErrorAlert({error: 'You must agree to all consequences'});
     }
@@ -68,11 +79,10 @@ export class DeleteAccount extends React.Component {
           <ul>
             {
               content.profile.privacy.delete.consequences.map((consequence, index) => {
-                return <div className="radio-container"
-                            key={ `delete_account_consequence_${ index }` }>
-                              <input type="radio" ref={ `consequence_${ index }` }/>
-                              <span>{ consequence }</span>
-                       </div>;
+                return  (<li className="radio-container" key={ `delete_account_consequence_${ index }` }>
+                          <input type="radio" ref={ `consequence_${ index }` }/>
+                          <span>{ consequence }</span>
+                        </li>);
               })
             }
           </ul>

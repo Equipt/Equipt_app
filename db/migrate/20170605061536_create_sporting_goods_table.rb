@@ -11,6 +11,7 @@ class CreateSportingGoodsTable < ActiveRecord::Migration[5.0]
 			t.float :price_per_day, default: 0.0, null: false
 			t.float :price_per_week, default: 0.0, null: false
 			t.float :deposit, default: 0.0, null: false
+      t.datetime :deleted_at, index: true
 			t.timestamps
 	    end
   	end

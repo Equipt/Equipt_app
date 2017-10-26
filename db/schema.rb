@@ -68,8 +68,10 @@ ActiveRecord::Schema.define(version: 20170919053558) do
     t.boolean  "completed",        default: false
     t.boolean  "confirmed",        default: false
     t.boolean  "agreed_to_terms",  default: false
+    t.datetime "deleted_at"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.index ["deleted_at"], name: "index_rentals_on_deleted_at"
     t.index ["hash_id"], name: "index_rentals_on_hash_id"
     t.index ["sporting_good_id"], name: "index_rentals_on_sporting_good_id"
     t.index ["user_id"], name: "index_rentals_on_user_id"
@@ -86,9 +88,11 @@ ActiveRecord::Schema.define(version: 20170919053558) do
     t.float    "price_per_day",  default: 0.0, null: false
     t.float    "price_per_week", default: 0.0, null: false
     t.float    "deposit",        default: 0.0, null: false
+    t.datetime "deleted_at"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.string   "slug"
+    t.index ["deleted_at"], name: "index_sporting_goods_on_deleted_at"
     t.index ["user_id"], name: "index_sporting_goods_on_user_id"
   end
 
@@ -102,6 +106,7 @@ ActiveRecord::Schema.define(version: 20170919053558) do
     t.string   "password"
     t.string   "password_digest"
     t.boolean  "restricted_availability", default: false
+    t.datetime "deleted_at"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
     t.string   "provider"
@@ -111,6 +116,7 @@ ActiveRecord::Schema.define(version: 20170919053558) do
     t.string   "password_reset_token"
     t.string   "password_reset_sent_at"
     t.index ["address_id"], name: "index_users_on_address_id"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["phone_id"], name: "index_users_on_phone_id"
   end
 

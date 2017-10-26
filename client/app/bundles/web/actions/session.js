@@ -123,7 +123,7 @@ export const updateCurrentUser = (currentUser, callback) => {
 }
 
 // Delete users account
-export const deleteCurrentUser = (currentUser = {}, feedback = '') => {
+export const deleteCurrentUser = (currentUser = {}, feedback = '', callback) => {
 
 	return (dispatch, getState, api) => {
 
@@ -132,6 +132,7 @@ export const deleteCurrentUser = (currentUser = {}, feedback = '') => {
 		}).then(message => {
 			dispatch(clearSession());
 			dispatch(alertActions.showErrorAlert(message))
+			if (callback) callback();
 		});
 
 	}

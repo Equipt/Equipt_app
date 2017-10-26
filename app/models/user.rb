@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
 
-	attr_accessor :notice, :api_key, :updating_password
-
+	acts_as_paranoid
 	has_secure_password
+
+	attr_accessor :notice, :api_key, :updating_password
 
 	has_many :sporting_goods, dependent: :destroy
 	has_many :rentals, dependent: :destroy
