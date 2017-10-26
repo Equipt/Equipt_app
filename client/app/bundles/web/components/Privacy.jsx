@@ -21,6 +21,17 @@ export class Privacy extends React.Component {
 
   }
 
+  changeEmailNotificationStatus() {
+
+    const { actions, currentUser } = this.props;
+    const { notifyByEmailCheckbox } = this.refs;
+
+    currentUser.notifyByEmail = notifyByEmailCheckbox.checked;
+
+    actions.updateCurrentUser(currentUser);
+
+  }
+
   showDeleteAccountModal(state) {
     this.setState({
       deleteModalIsOpen: state
@@ -39,7 +50,10 @@ export class Privacy extends React.Component {
         <ul>
 
         <li className="radio-container send-email-notifications">
-          <input type="radio" value={ currentUser.notify }/>
+          <input type="checkbox"
+                 ref="notifyByEmailCheckbox"
+                 defaultChecked={ currentUser.notifyByEmail }
+                 onChange={ this.changeEmailNotificationStatus.bind(this) }/>
           <label>{ content.profile.privacy.email_notifications }</label>
         </li>
 

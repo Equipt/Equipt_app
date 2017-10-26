@@ -45,6 +45,8 @@ class Api::UserController < ApiController
 			:password_confirmation,
 			:notice,
 			:api_key,
+			:notify_by_sms,
+			:notify_by_email,
 			phone_attributes: [
 				:number,
 				:_destroy

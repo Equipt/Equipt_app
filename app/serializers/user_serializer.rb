@@ -10,7 +10,9 @@ class UserSerializer < ActiveModel::Serializer
 			:notice,
       :api_key,
       :errors,
-			:rentals
+			:rentals,
+			:notify_by_sms,
+			:notify_by_email
 
 	has_one :phone
 	has_one :address

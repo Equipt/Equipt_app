@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919053558) do
+ActiveRecord::Schema.define(version: 20171026072649) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer "user_id"
@@ -115,6 +115,8 @@ ActiveRecord::Schema.define(version: 20170919053558) do
     t.datetime "oauth_expires_at"
     t.string   "password_reset_token"
     t.string   "password_reset_sent_at"
+    t.boolean  "notify_by_email",         default: true
+    t.boolean  "notify_by_sms",           default: false
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["phone_id"], name: "index_users_on_phone_id"

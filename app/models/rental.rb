@@ -15,7 +15,8 @@ class Rental < ActiveRecord::Base
   # after_create :send_create_emails
   # after_destroy :send_destroy_email
 
-  @@dates_taken_sql = "(start BETWEEN ? AND ? OR end BETWEEN ? AND ?) OR (start <= ? AND end >= ?)";
+  # TODO change database to sql and update this to use the built in overlap function overlap
+  @@dates_taken_sql = "(start BETWEEN ? AND ? OR end BETWEEN ? AND ?) OR (start <= ? AND end >= ?);";
 
     # validates methods
 	def dates_are_vacant
