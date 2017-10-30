@@ -3,8 +3,8 @@ class Api::SportingGoodsController < ApiController
 	before_action :ensure_authenticated_user
 
 	def index
-		sporting_goods = SportingGood.exclude_user(current_user).search(params)
-		render json: sporting_goods, exclude_rentals: true, status: 200
+		sporting_goods = SportingGood.exclude_user(current_user).search(params).paginate(pagination_params)
+		render json: { sporting_goods: sporting_goods, total: SportingGood.count }, exclude_rentals: true, status: 200
 	end
 
 	def show
@@ -18,8 +18,26 @@ class Api::SportingGoodsController < ApiController
 
 	private
 
+	def pagination_params
+		params[:per_page] ||= SportingGood.count
+		{ page: params[:page], per_page: params[:per_page] }
+	end
+
 	def sporting_good_params
-		params.require(:sporting_good).permit(:category, :title, :brand, :model, :description, :age, :price_per_day, :price_per_week, :deposit, :image_attributes)
+		params.require(:sporting_good).permit(
+			:category,
+			:title,
+			:brand,
+			:model,
+			:description,
+			:age,
+			:price_per_day,
+			:price_per_week,
+			:deposit,
+			:image_attributes,
+			:page,
+			:per_page
+		)
 	end
 
 end

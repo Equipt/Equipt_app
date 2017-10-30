@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -10,20 +10,18 @@ import NoSportingGoods from 'components/NoSportingGoods';
 import Loader from 'components/Loader';
 
 const SportingGoodsList = ({
-	loader,
 	sportingGoods,
+	loader,
 	content,
-	isOwner,
 	search,
-	actions
+	actions,
+	isOwner
 }) => {
 
-	if (loader) {
-		return <Loader/>;
-	}
+	const { results = [], total = 0 } = sportingGoods;
 
-	if (!sportingGoods.length) {
-		return (<NoSportingGoods content={ content }/>);
+	if (!results.length && !loader) {
+		return <NoSportingGoods content={ content }/>;
 	}
 
 	return (
@@ -31,19 +29,20 @@ const SportingGoodsList = ({
 
 			<h3>{ content.title }</h3>
 
-			<SearchBar search={ search }/>
+			<SearchBar search={ search } pagesTotal={ total }/>
 
 			{
-				sportingGoods.map((sportingGood, index) => {
+				loader ?
+				<Loader/> :
+				results.map((sportingGood, index) => {
 
 					return <SportingGood key={ `${ sportingGood.title }_${ index }` }
-								 sportingGood={ sportingGood }
-								 content={ content }
-								 isOwner={ isOwner }
-								 actions={ actions }/>;
+															 sportingGood={ sportingGood }
+															 content={ content }
+															 isOwner={ isOwner }
+															 actions={ actions }/>
 
 				})
-
 			}
 
 		</section>

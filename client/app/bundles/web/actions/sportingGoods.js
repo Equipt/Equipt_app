@@ -4,7 +4,11 @@ import * as alertActions from './alerts';
 import * as loaderActions from './loader';
 
 // Get all sporting goods
-export const fetchSportingGoods = (query = {}) => {
+export const fetchSportingGoods = ({
+	keyword = '',
+	page = 1,
+	per_page = 12
+}) => {
 
 	return function(dispatch, getState, api) {
 
@@ -12,9 +16,13 @@ export const fetchSportingGoods = (query = {}) => {
 
 		dispatch(loaderActions.showLoader(true));
 
-		api.get('/sporting_goods', query)
-		.then(sportingGoods => {
-			dispatch(setSportingGoods(sportingGoods));
+		api.get('/sporting_goods', {
+			keyword: keyword,
+			page: page,
+			per_page: per_page
+		})
+		.then(data => {
+			dispatch(setSportingGoods(data));
 			dispatch(loaderActions.showLoader(false));
 		})
 		.catch(err => {
@@ -53,6 +61,14 @@ export const fetchOwnersSportingGoods = (query = {}) => {
 export const setSportingGoods = (data) => {
 	return {
 		type: types.SET_SPORTING_GOODS,
+		payload: data
+	}
+}
+
+// Set sportingGoods pagination total
+export const setSportingGoodsTotal = (data) => {
+	return {
+		type: types.SET_SPORTING_GOODS_TOTAL,
 		payload: data
 	}
 }

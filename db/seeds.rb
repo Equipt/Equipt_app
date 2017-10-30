@@ -54,30 +54,42 @@ def create_users
 			password_confirmation: 'password'
 		)
 
-    Address.create(
-      user_id: user.id,
-      unit: (1..50).to_a.sample,
-      street: Faker::Address.street_address,
-      city: Faker::Address.city,
-      state: Faker::Address.state,
-      zip: Faker::Address.zip,
-      country: Faker::Address.country,
-      latitude: Faker::Address.latitude,
-      longitude: Faker::Address.longitude
-    )
-
-    Phone.create(
-      user_id: user.id,
-      number: Faker::PhoneNumber.phone_number,
-      verified: true
-    )
+    sleep 2
 
 		(0..6).to_a.sample.times do |i|
 			create_sporting_good(user) if user.save!
+      create_address(user) if user.save!
+      create_phone(user) if user.save!
 			# create_ratings(user) if user.save!
 		end
 
 	end
+
+end
+
+def create_address(user)
+
+  Address.create(
+    user_id: user.id,
+    unit: (1..50).to_a.sample,
+    street: Faker::Address.street_address,
+    city: Faker::Address.city,
+    state: Faker::Address.state,
+    zip: Faker::Address.zip,
+    country: Faker::Address.country,
+    latitude: Faker::Address.latitude,
+    longitude: Faker::Address.longitude
+  )
+
+end
+
+def create_phone(user)
+
+  Phone.create(
+    user_id: user.id,
+    number: Faker::PhoneNumber.phone_number,
+    verified: true
+  )
 
 end
 
@@ -92,7 +104,7 @@ def create_sporting_good(user)
 
     price_per_week = (price_per_day * 7) - (price_per_day * 7) * 0.10
 
-		sporting_good = user.sporting_goods.new(
+		sporting_good = user.sporting_goods.create(
 			category: category_key.to_s,
 			title: Faker::Commerce.product_name,
 			brand: Faker::Commerce.product_name,
@@ -104,8 +116,14 @@ def create_sporting_good(user)
 			deposit: (10..100).to_a.sample
 		)
 
+    begin
+        sporting_good.save!
+    rescue ActiveRecord::RecordInvalid => invalid
+        next
+    end
+
 		5.times do |i|
-			create_rentals(sporting_good, user) if sporting_good.save
+			create_rentals(sporting_good, user) if sporting_good.save!
 			# create_ratings(equipment) if equipment.save!
 		end
 
@@ -127,32 +145,32 @@ def create_rentals(sporting_good, user)
 
 	rentals_amount.times do |i|
 
-        now = DateTime.now
-        one_year_later = now >> 12
-        days_variance = (one_year_later - now).to_i
-        start_date = Time.at((1.year.from_now.to_f - 1.day.from_now.to_f)*rand + 1.day.from_now.to_f)
+    now = DateTime.now
+    one_year_later = now >> 12
+    days_variance = (one_year_later - now).to_i
+    start_date = Time.at((1.year.from_now.to_f - 1.day.from_now.to_f)*rand + 1.day.from_now.to_f)
 
-        days_rented = (1..14).to_a.sample
-        sub_total = sporting_good.price_per_day * days_rented
+    days_rented = (1..14).to_a.sample
+    sub_total = sporting_good.price_per_day * days_rented
 
 		rental = sporting_good.rentals.new(
-			user_id: user.id,
-			start: start_date,
-            end: start_date + days_rented.days,
-			pick_up_time: (0..24).to_a.sample,
-            total_days: days_rented,
-            sub_total: sub_total,
-			total:  sporting_good.deposit + sub_total,
-			deposit: sporting_good.deposit,
-			completed: [true, false].sample,
-            agreed_to_terms: true
+      user_id: user.id,
+      start: start_date,
+      end: start_date + days_rented.days,
+      pick_up_time: (0..24).to_a.sample,
+      total_days: days_rented,
+      sub_total: sub_total,
+      total:  sporting_good.deposit + sub_total,
+      deposit: sporting_good.deposit,
+      completed: [true, false].sample,
+      agreed_to_terms: true
 		)
 
-        begin
-            rental.save!
-        rescue ActiveRecord::RecordInvalid => invalid
-            next
-        end
+    begin
+      rental.save!
+    rescue ActiveRecord::RecordInvalid => invalid
+      rental.save(validate: false)
+    end
 
 	end
 

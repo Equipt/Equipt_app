@@ -2,7 +2,7 @@ class Address < ApplicationRecord
 
   has_one :user, dependent: :destroy
 
-  before_validation :geocode
+  before_validation :geocode, :unless => :verified  
 
   validates_presence_of :number, :street, :city, :state, :zip, :country
 

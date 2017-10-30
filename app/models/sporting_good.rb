@@ -2,11 +2,13 @@ class SportingGood < ActiveRecord::Base
 
 	acts_as_paranoid
 
+	attr_accessor :page, :per_page
+
 	DAYS_IN_WEEK = 7
 
 	scope :exclude_user, -> user { where.not(user_id: user.id) }
 	scope :search_by_keyword, -> keyword { where("title LIKE ? OR brand LIKE ?", "%#{keyword}%", "%#{keyword}%") }
-	scope :search, -> (params) { search_by_keyword(params[:keyword]) }
+	scope :search, -> params { search_by_keyword(params[:keyword]) }
 
 	belongs_to :user
 	has_many :images, :as => :imageable, dependent: :destroy
@@ -21,6 +23,7 @@ class SportingGood < ActiveRecord::Base
 	validates_presence_of :category, :title, :brand, :model, :price_per_day
 	validates :price_per_day, :price_per_week, :age, :numericality => { greater_than: 0 }
 	validate :weekly_price_is_a_discount
+	validates :user, :presence => true
 
 	before_save :set_deposits_default
 
