@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import { SignupForm } from 'components/SignupForm';
 
 import * as userActions from 'actions/user';
+import * as alertActions from 'actions/alerts';
 
 class Signup extends React.Component {
 
@@ -27,7 +28,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators(userActions, dispatch)}
+	return {actions: bindActionCreators({ ...userActions, ...alertActions }, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Signup);

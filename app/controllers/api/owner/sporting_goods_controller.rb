@@ -6,7 +6,9 @@ class Api::Owner::SportingGoodsController < ApiController
 
 	def index
 		sporting_goods = current_user.sporting_goods.search(params)
-		render json: sporting_goods, status: 200
+		render json: { sporting_goods: ActiveModel::Serializer::CollectionSerializer.new(sporting_goods, serializer: SportingGoodsSerializer),
+									 total: SportingGood.count
+									}, status: 200
 	end
 
 	def new

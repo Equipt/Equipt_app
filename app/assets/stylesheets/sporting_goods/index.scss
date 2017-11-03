@@ -1,6 +1,6 @@
 .sporting-good-wrapper {
-	padding-right: 2px;
-	padding-left: 2px;
+	padding-right: 10px;
+	padding-left: 10px;
 	padding-bottom: 5px;
 }
 
@@ -28,20 +28,37 @@
 
 .sporting-good-container {
 
-	h3, h4 {
-		color: $primary_color;
+	overflow: hidden;
+
+	.sporting-good-image {
+		height: 100px;
+	}
+
+	a:hover {
+		text-decoration: none;
+	}
+
+	h5, p {
+		color: #484848;
+		width: 345px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	h5 {
+		font-size: 18px;
 	}
 
 	padding: 5px;
-	border: solid 1px $secondary_color;
 
 	.sporting-good-image {
 		height: 300px;
-		border: solid 1px #ccc;
+		background: #eee;
 		img {
 			display: block;
+			width: auto;
 		  height: 100%;
-			width: 100%;
 			margin: 0 auto;
 		}
 

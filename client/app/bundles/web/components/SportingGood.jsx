@@ -24,21 +24,10 @@ export class SportingGood extends React.Component {
 	getImage() {
 
 		const { sportingGood, content } = this.props;
+		const { default_image } = content.index
+		const { primary_image } = sportingGood;
 
-		const images = sportingGood.images || [];
-		const primaryImage = images.filter(image => image.primary)[0];
-
-		// Get Correct Image
-
-		if (!images.length) {
-			return <img src={ content.index.default_image }/>;
-		}
-
-		if (primaryImage) {
-			return <img src={ primaryImage.file.url }/>;
-		}
-
-		return <img src={ images[0].file.url }/>;
+		return <img src={ primary_image ? primary_image : default_image }/>;
 
 	}
 
@@ -109,15 +98,8 @@ export class SportingGood extends React.Component {
 							{ this.getImage() }
 						</div>
 
-						<h3 className="title">{ sportingGood.title }</h3>
-						<h4>Brand: { sportingGood.brand }</h4>
-						<h4>Model: { sportingGood.model }</h4>
-
-						<div>
-							<p>Deposit: ${ sportingGood.deposit }</p>
-							<p>Price Per Day: ${ sportingGood.pricePerDay }</p>
-							<p>Price Per Week: ${ sportingGood.pricePerWeek }</p>
-						</div>
+						<h5 className="title"><span>${ sportingGood.price_per_day } per day (CAN)</span> - { sportingGood.title }</h5>
+						<p>{ sportingGood.model } - { sportingGood.brand }</p>
 
 					</Link>
 

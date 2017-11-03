@@ -35,7 +35,7 @@ Phone.skip_callback(:save, :before, :send_verification_pin, raise: false)
 	]}
 ]
 
-# @equipment_images = ['tmp/kayak.jpg', 'tmp/snowboard.jpg', 'tmp/tent.jpg', nil];
+@equipment_images = ['tmp/kayak.jpg', 'tmp/snowboard.jpg', 'tmp/tent.jpg', nil];
 
 def create_users
 
@@ -44,7 +44,7 @@ def create_users
 		# Create Users
 		email = Faker::Internet.email
 
-		user = 	User.create(
+		user = 	User.create!(
 			firstname: Faker::Name.first_name,
 			lastname: Faker::Name.last_name,
 			email: email,
@@ -69,8 +69,9 @@ end
 
 def create_address(user)
 
-  Address.create(
+  address = Address.new(
     user_id: user.id,
+    number: (1..1000).to_a.sample,
     unit: (1..50).to_a.sample,
     street: Faker::Address.street_address,
     city: Faker::Address.city,
@@ -81,11 +82,13 @@ def create_address(user)
     longitude: Faker::Address.longitude
   )
 
+  address.save(validate: false)
+
 end
 
 def create_phone(user)
 
-  Phone.create(
+  Phone.create!(
     user_id: user.id,
     number: Faker::PhoneNumber.phone_number,
     verified: true
@@ -104,7 +107,7 @@ def create_sporting_good(user)
 
     price_per_week = (price_per_day * 7) - (price_per_day * 7) * 0.10
 
-		sporting_good = user.sporting_goods.create(
+		sporting_good = user.sporting_goods.create!(
 			category: category_key.to_s,
 			title: Faker::Commerce.product_name,
 			brand: Faker::Commerce.product_name,
@@ -124,18 +127,21 @@ def create_sporting_good(user)
 
 		5.times do |i|
 			create_rentals(sporting_good, user) if sporting_good.save!
-			# create_ratings(equipment) if equipment.save!
+			sporting_good_image(sporting_good) if sporting_good.save!
 		end
 
-		# file = @equipment_images.sample
-
-		# if file
-		# 	image = equipment.images.new
-		# 	image.file = File.open(file)
-		# 	image.save!
-		# end
-
 	end
+
+end
+
+def sporting_good_image sporting_good
+
+  file = @equipment_images.sample
+
+  if file
+    file = File.open(file)
+    sporting_good.images.create!(file: file, primary: true)
+  end
 
 end
 
@@ -177,7 +183,7 @@ def create_rentals(sporting_good, user)
 end
 
 def create_ratings(model)
-	model.ratings.create(
+	model.ratings.create!(
 		score: (1..5).to_a.sample,
 		comment: Faker::Lorem.sentence(3)
 	)
@@ -185,7 +191,7 @@ end
 
 create_users
 
-admin = User.create(
+admin = User.create!(
 	firstname: 'tom',
 	lastname: 'tom',
 	email: 'tom@tom.com',
@@ -194,7 +200,7 @@ admin = User.create(
 	password: 'tom'
 )
 
-Address.create(
+Address.create!(
   user_id: admin.id,
   street: '123 fake street',
   city: 'Vancouver',
@@ -205,7 +211,7 @@ Address.create(
   longitude: '49.2841339',
 )
 
-Phone.create(
+Phone.create!(
   user_id: admin.id,
   number: '333.333.3333',
   verified: true

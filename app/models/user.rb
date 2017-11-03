@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
 
 	validates_confirmation_of :password, if: :should_validate_password?
 	validates :password, :length=>{ :minimum => 6 }, if: :should_validate_password?
+	validates :password_confirmation, :length=>{ :minimum => 6 }, if: :should_validate_password?
 
 	validates_presence_of :firstname, :lastname, :email
 	validates_email_format_of :email
@@ -71,6 +72,5 @@ class User < ActiveRecord::Base
 	def verified?
 		phone.verified && address.verified
 	end
-
 
 end

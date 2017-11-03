@@ -4,13 +4,13 @@ import * as sessionActions from 'actions/session';
 
 // Sign up
 
-export const signup = (formData, callback) => {
+export const signup = (user, callback) => {
 
 	return function(dispatch, getState, api) {
 
 		api.token = getState().session.token;
 
-		api.post('/user', formData)
+		api.post('/user', { user: user })
 		.then(user => {
 
 			// Set Current User

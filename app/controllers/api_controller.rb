@@ -2,7 +2,7 @@ class ApiController < ApplicationController
 
 	protect_from_forgery with: :null_session
 
-	protected
+	serialization_scope :current_user
 
 	#returns the active user associated with the access token
 	def current_user
@@ -13,6 +13,8 @@ class ApiController < ApplicationController
 			return nil
 		end
 	end
+
+	protected
 
 	# gets token from headers
 	def token

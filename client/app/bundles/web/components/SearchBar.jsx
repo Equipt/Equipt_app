@@ -15,7 +15,7 @@ export class SearchBar extends React.Component {
         this.state = {
             keyword: '',
             page: 1,
-            per_page: 12
+            per_page: 30
         }
     }
 

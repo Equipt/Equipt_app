@@ -39,13 +39,18 @@ export class UserForm extends React.Component {
     const { actions } = this.props;
     const { user } = this.state;
 
+    if (Object.keys(user).length === 0) {
+      actions.showErrorAlert({error: 'Form cannot be empty!'});
+      return;
+    }
+
     if (this.props.isUpdating) {
 
-      actions.updateCurrentUser({user: user});
+      actions.updateCurrentUser(user);
 
     } else if (this.props.isCreating) {
 
-      actions.signup({user: user}, () => {
+      actions.signup(user, () => {
         this.context.router.history.push('/sporting_goods');
       });
 
@@ -58,6 +63,8 @@ export class UserForm extends React.Component {
     const { user } = this.state;
 
     user[field.name] = this.refs[field.name].value;
+
+    user.errors && delete user.errors[field.name]
 
     this.setState({
       user: user
