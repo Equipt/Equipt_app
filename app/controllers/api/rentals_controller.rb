@@ -1,7 +1,7 @@
 class Api::RentalsController < ApiController
 
     before_action :ensure_authenticated_user
-    before_action :verified_user, only: [:create, :destroy] 
+    before_action :verified_user, only: [:create, :destroy]
 
     def create
         sporting_good = SportingGood.find_by_slug(params[:sporting_good_slug])

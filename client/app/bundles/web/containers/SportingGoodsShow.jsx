@@ -9,7 +9,9 @@ import {extendMoment} from 'moment-range';
 import * as sportingGoodActions from 'actions/sportingGood';
 import * as alertActions from 'actions/alerts';
 import * as currentUserActions from 'actions/session';
+import * as rentalActions from 'actions/rental';
 
+import Loader from 'components/Loader';
 import { SportingGoodDetails } from 'components/SportingGoodDetails';
 
 const moment = extendMoment(Moment);
@@ -25,9 +27,6 @@ export class SportingGoodsShow extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			rental: {
-				agreedToTerms: false
-			},
 			showRentalTermsModal: false
 		}
 	}
@@ -41,83 +40,14 @@ export class SportingGoodsShow extends React.Component {
 
 	}
 
-	rent() {
-
-		const sportingGood = this.props.sportingGood || {};
-
-		this.props.actions.rent(this.state.rental, sportingGood, (rental = {}) => {
-			this.context.router.history.push(`/sporting_goods/${ sportingGood.slug }/rentals/${ rental.hashId }`);
-		});
-
-	}
-
-	showModal(modal, isVisible) {
-		this.setState({
-			[modal]: isVisible
-		})
-	}
-
-	selectRental(rental) {
-
-		const startDate = Moment(rental.start);
-		const difference = Moment().diff(startDate, 'day');
-
-		const selectedRange = moment.range(rental.start, rental.end);
-
-		const { actions } = this.props;
-		const { rentals } = this.props.sportingGood;
-
-		let unavailable = false;
-
-		// Cannot select a taken date
-		rentals.forEach(rental => {
-			const rentalRange = moment.range(rental.start, rental.end);
-			if (rentalRange.overlaps(selectedRange)) unavailable = true;
-		});
-
-		if (unavailable) {
-			return actions.showErrorAlert({error: 'Sorry, this item is taken during this time.'});
-		}
-
-		// Can't select dates in the past
-		if (difference > 0) {
-			return actions.showErrorAlert({error: 'Starting Date cannot be in the past.'});
-		}
-
-		// Can't rent today
-		else if (difference === 0) {
-			return actions.showErrorAlert({error: 'Starting Date cannot be today.'});
-		}
-
-		actions.clearAlerts();
-
-		this.setState({
-			rental: {
-				title: 'renting',
-				start: rental.start,
-				end: Moment(rental.end, "DD-MM-YYYY").add(1, 'days'),
-				agreedToTerms: this.state.rental.agreedToTerms
-			}
-		});
-
-	}
-
-	agreeWithTermsChanged() {
-		const { rental } = this.state;
-		rental.agreedToTerms = rental.agreedToTerms ? false : true
-		this.setState({ rental: rental });
-	}
-
 	render() {
 
+		const { sportingGood } = this.props;
+
 		return(
-			<SportingGoodDetails { ...this.props }
-								 rent={ this.rent.bind(this) }
-								 rental={ this.state.rental || {} }
-								 selectRental={ this.selectRental.bind(this) }
-								 showRentalTermsModal={ this.state.showRentalTermsModal }
-								 showModal={ this.showModal.bind(this) }
-								 agreeWithTermsChanged={ this.agreeWithTermsChanged.bind(this) }/>
+			<div>
+				{ Object.keys(sportingGood).length ? <SportingGoodDetails { ...this.props }/> : <Loader/> }
+			</div>
 		)
 	}
 
@@ -126,12 +56,19 @@ export class SportingGoodsShow extends React.Component {
 function mapStateToProps(state, ownProps) {
 	return {
 		currentUser: state.session.currentUser,
-		sportingGood: state.sportingGood
+		sportingGood: state.sportingGood,
+		rental: state.rental || {}
 	}
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators({ ...sportingGoodActions, ...alertActions, ...currentUserActions }, dispatch)}
+	return {actions: bindActionCreators({
+																				...sportingGoodActions,
+																				...alertActions,
+																				...currentUserActions,
+																				...rentalActions
+																			},
+																			dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(SportingGoodsShow);

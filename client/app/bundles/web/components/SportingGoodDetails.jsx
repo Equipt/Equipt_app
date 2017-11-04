@@ -15,11 +15,7 @@ export class SportingGoodDetails extends React.Component {
 		currentUser: PropTypes.object.isRequired,
 	  sportingGood: PropTypes.object.isRequired,
 		rental: PropTypes.object.isRequired,
-		showRentalTermsModal: PropTypes.bool.isRequired,
-		showModal: PropTypes.func.isRequired,
-		rent: PropTypes.func,
-		selectRental: PropTypes.func,
-		agreeWithTermsChanged: PropTypes.func,
+		actions: PropTypes.object.isRequired
 	}
 
 	static sliderSettings = {
@@ -30,24 +26,34 @@ export class SportingGoodDetails extends React.Component {
 		slidesToScroll: 1
 	}
 
+	static contextTypes = {
+			router: PropTypes.shape({
+				history: PropTypes.object.isRequired
+			})
+	};
+
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			showContactModal: false
+			showContactModal: false,
+			showRentalTermsModal: false
 		}
+
 	}
 
 	rent() {
 
-		const { rent, currentUser } = this.props;
+		const { currentUser, sportingGood, rental, actions } = this.props;
 
 		const address = currentUser.address || {};
 		const phone = currentUser.phone || {};
 
 		// Must have completed address and phone number to rent
 		if (phone.verified && address.verified) {
-			return rent();
+			return actions.rent(rental, sportingGood, () => {
+				this.context.router.history.push(`/sporting_goods/${ sportingGood.slug }/rentals/${ rental.hashId }`);
+			});
 		}
 
 		this.setState({
@@ -66,7 +72,7 @@ export class SportingGoodDetails extends React.Component {
 
 		const { rental } = this.props;
 
-		if (rental.end && rental.start) {
+		if (rental.end && rental.start && rental.end.diff) {
 			return rental.end.diff(rental.start, 'days');
 		}
 
@@ -105,10 +111,9 @@ export class SportingGoodDetails extends React.Component {
 
 	render() {
 
-		const { sportingGood, rental, content, showModal } = this.props;
-
-		const images = sportingGood.images || [];
-		const rentals = sportingGood.rentals || [];
+		const { sportingGood, rental, content, showModal, actions } = this.props;
+		const { agreedToTerms } = this.state;
+		const { images = [], rentals = [] } = sportingGood;
 
 		const totalDays = this.totalDays();
 		const subTotal = this.subTotal();
@@ -116,18 +121,16 @@ export class SportingGoodDetails extends React.Component {
 
 		return (
 
-			<section className="container">
+			<section className="container sporting-goods-show">
 
 				<Link to="/sporting_goods" className="pull-right">Go Back</Link>
 
 				<div className="col-xs-8">
-
 					<BigCalendar
 					events={ rentals.concat([ rental ]) }
 					selectable
 					views={ ['month', 'agenda'] }
-					onSelectSlot={ this.props.selectRental }/>
-
+					onSelectSlot={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }/>
 				</div>
 
 				<div className="col-xs-4">
@@ -160,13 +163,11 @@ export class SportingGoodDetails extends React.Component {
 
 				<div className="col-xs-12">
 
-					<label onClick={ this.props.agreeWithTermsChanged }>
-					{ content.rentals.agree_wth_terms }
+					<label onClick={ e => actions.aggreedToRentalTerms(e.target.checke) }>
+						{ content.rentals.agree_wth_terms }
 					</label>
 
-					<input 	type="checkbox"
-					checked={ rental.agreedToTerms }
-					onChange={ this.props.agreeWithTermsChanged }/>
+					<input 	type="checkbox" onChange={ e => actions.aggreedToRentalTerms(e.target.checked) }/>
 
 					<a 	href="#"
 					className="display-block"
@@ -174,27 +175,27 @@ export class SportingGoodDetails extends React.Component {
 						e.preventDefault();
 						showModal('showRentalTermsModal', true);
 					}}>
-					{ content.rentals.read_rental_terms }
+						{ content.rentals.read_rental_terms }
 					</a>
 
 					<Modal contentLabel="rental-terms"
-					isVisible={ this.props.showRentalTermsModal }
+					isVisible={ this.state.showRentalTermsModal }
 					onClose={ () => showModal('showRentalTermsModal', false) }>
-					<h4>{ content.rentals.rental_terms_title }</h4>
-					<ol>
-					{
-						this.props.content.rentals.rental_terms.map((term, index) => {
-							return <li key={ `rental_terms_${ index }` }>{ term }</li>;
-						})
-					}
-					</ol>
+						<h4>{ content.rentals.rental_terms_title }</h4>
+						<ol>
+						{
+							this.props.content.rentals.rental_terms.map((term, index) => {
+								return <li key={ `rental_terms_${ index }` }>{ term }</li>;
+							})
+						}
+						</ol>
 					</Modal>
 
 				</div>
 
 				<div className="col-xs-12">
 					<button className="btn btn-success"
-					onClick={ this.rent.bind(this) }>
+					onClick={ () => this.rent(rental, sportingGood) }>
 					Rent
 					</button>
 				</div>

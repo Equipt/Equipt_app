@@ -7,7 +7,7 @@ const Nav = ({
 	clearSession,
 	content
 }) => {
-	
+
 	let sessionHtml = (<div className="pull-right session-container">
     	<Link className="btn btn-success" to="/login">Login</Link>
     	<Link className="btn btn-success" to="/signup">Signup</Link>
@@ -18,14 +18,17 @@ const Nav = ({
 
 		sessionHtml = (<div className="pull-right session-container">
 			<Link to="/profile" className="profile">{ session.currentUser.firstname }</Link>
-			<button className="btn btn-success" onClick={ clearSession }>Logout</button>
+			<div onClick={ clearSession } className="logoout-container">
+				<i className="fa fa-power-off power-off" aria-hidden="true"></i>
+				<p>Logout</p>
+			</div>
 		</div>)
 	}
 
 	return (
-		<nav className="navbar fixed hidden-xs">				
+		<nav className="navbar fixed hidden-xs">
 			<Link to="/home">
-				<img className="pull-left" src={ content.logo } width="60"/>
+				<div className="main-logo"></div>
 			</Link>
 			{ sessionHtml }
 		</nav>

@@ -109,38 +109,6 @@ export const updateSportingGood = (sportingGood = {}, images = [], slug = '', ca
 
 }
 
-export const rent = (rental, sportingGood, callback) => {
-
-	const slug = sportingGood.slug;
-
-	return function(dispatch, getState, api) {
-
-		api.token = getState().session.token;
-
-		api.post(`/sporting_goods/${ slug }/rentals`, rental)
-		.then(rental => {
-			dispatch(setRental(rental));
-			callback(rental);
-		})
-		.catch((data) => {
-			if (data.errors) {
-				dispatch(alertActions.showErrorAlert(data.errors));
-			} else {
-				dispatch(alertActions.showErrorAlert(data));
-			}
-		});
-
-	}
-
-}
-
-export const setRental = data => {
-	return {
-		type: types.SET_RENTAL,
-		payload: data
-	}
-}
-
 export const cancelRental = (rental, callback) => {
 
     return function(dispatch, getState, api) {

@@ -25,7 +25,7 @@ const SportingGoodsList = ({
 	}
 
 	return (
-		<section className="container">
+		<section className="container sporting-goods-index-wrapper">
 
 			<h3>{ content.title }</h3>
 
