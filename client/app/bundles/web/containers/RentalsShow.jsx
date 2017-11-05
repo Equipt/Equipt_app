@@ -23,6 +23,7 @@ class RentalsShow extends React.Component {
 		const { actions } = this.props;
 		const { params } = this.context.router.route.match;
 
+		// Should be fetching the rental here
 		actions.fetchSportingGood(`/sporting_goods/${ params.slug }`, params.id);
 
 	}

@@ -40,6 +40,8 @@ export class SportingGoodDetails extends React.Component {
 			showRentalTermsModal: false
 		}
 
+		this.showModal = this.showModal.bind(this);
+
 	}
 
 	rent() {
@@ -51,7 +53,7 @@ export class SportingGoodDetails extends React.Component {
 
 		// Must have completed address and phone number to rent
 		if (phone.verified && address.verified) {
-			return actions.rent(rental, sportingGood, () => {
+			return actions.rent(rental, sportingGood, rental => {
 				this.context.router.history.push(`/sporting_goods/${ sportingGood.slug }/rentals/${ rental.hashId }`);
 			});
 		}
@@ -62,9 +64,9 @@ export class SportingGoodDetails extends React.Component {
 
 	}
 
-	showContactModal(state) {
+	showModal(showModal, state) {
 		this.setState({
-			showContactModal: state
+			[showModal]: state
 		});
 	}
 
@@ -163,7 +165,7 @@ export class SportingGoodDetails extends React.Component {
 
 				<div className="col-xs-12">
 
-					<label onClick={ e => actions.aggreedToRentalTerms(e.target.checke) }>
+					<label onClick={ e => actions.aggreedToRentalTerms(e.target.checked) }>
 						{ content.rentals.agree_wth_terms }
 					</label>
 
@@ -173,38 +175,39 @@ export class SportingGoodDetails extends React.Component {
 					className="display-block"
 					onClick={ e => {
 						e.preventDefault();
-						showModal('showRentalTermsModal', true);
+						this.showModal('showRentalTermsModal', true);
 					}}>
 						{ content.rentals.read_rental_terms }
 					</a>
-
-					<Modal contentLabel="rental-terms"
-					isVisible={ this.state.showRentalTermsModal }
-					onClose={ () => showModal('showRentalTermsModal', false) }>
-						<h4>{ content.rentals.rental_terms_title }</h4>
-						<ol>
-						{
-							this.props.content.rentals.rental_terms.map((term, index) => {
-								return <li key={ `rental_terms_${ index }` }>{ term }</li>;
-							})
-						}
-						</ol>
-					</Modal>
 
 				</div>
 
 				<div className="col-xs-12">
 					<button className="btn btn-success"
-					onClick={ () => this.rent(rental, sportingGood) }>
+					onClick={ () => this.rent(rental, sportingGood) }
+					disabled={ !rental.start }>
 					Rent
 					</button>
 				</div>
 
+				<Modal contentLabel="rental-terms"
+				isVisible={ this.state.showRentalTermsModal }
+				onClose={ () => this.showModal('showRentalTermsModal', false) }>
+					<h4>{ content.rentals.rental_terms_title }</h4>
+					<ol>
+					{
+						this.props.content.rentals.rental_terms.map((term, index) => {
+							return <li key={ `rental_terms_${ index }` }>{ term }</li>;
+						})
+					}
+					</ol>
+				</Modal>
+
 				<Modal contentLabel="address-modal"
 				isVisible={ this.state.showContactModal }
-				onClose={ this.showContactModal.bind(this, false) }>
+				onClose={ () => this.showModal('showContactModal', false) }>
 					<h5>{ content.profile.contact.need_contact }</h5>
-					<UsersContactForm { ...this.props } completedContactForm={ this.showContactModal.bind(this, false) }/>
+					<UsersContactForm { ...this.props } completedContactForm={ () => this.showModal('showContactModal', false) }/>
 				</Modal>
 
 			</section>

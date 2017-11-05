@@ -36,6 +36,7 @@ export class SportingGoodsShow extends React.Component {
 		const { actions }  = this.props;
 		const { pathname } = this.context.router.route.location;
 
+		actions.clearRental();
 		actions.fetchSportingGood(pathname);
 
 	}
