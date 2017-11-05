@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         resources :rentals, exclude: [:create], param: :hash_id
 
         resources :sporting_goods, only: [:index, :show], param: :slug do
-            resources :rentals, only: [:create], param: :hash_id
+            resources :rentals, only: [:create, :show], param: :hash_id
         end
 
         namespace :owner do

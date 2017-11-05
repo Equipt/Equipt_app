@@ -222,6 +222,7 @@ en:
     rentals:
         agree_wth_terms: I agree with the terms of the rental
         rental_terms_title: Rental Terms
+        not_found: Couldn't find this rental 
         waiting_for_confirmation_title: Just waiting on { owners } confirmation
         confirmed_title: Rental has been confirmed
         cancel_rental: Are you sure you want to cancel this rental?

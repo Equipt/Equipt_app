@@ -4,7 +4,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import * as sportingGoodActions from 'actions/sportingGood';
+import * as rentalActions from 'actions/rental';
 
 import RentalConfirmation from 'components/RentalConfirmation';
 
@@ -18,13 +18,11 @@ class RentalsShow extends React.Component {
 
 	componentWillMount() {
 
-		if (this.props.sportingGood.rental) return;
-
 		const { actions } = this.props;
 		const { params } = this.context.router.route.match;
 
 		// Should be fetching the rental here
-		actions.fetchSportingGood(`/sporting_goods/${ params.slug }`, params.id);
+		actions.fetchRental(params.slug, params.id);
 
 	}
 
@@ -40,12 +38,12 @@ class RentalsShow extends React.Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		sportingGood: state.sportingGood
+		rental: state.rental
 	}
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators(sportingGoodActions, dispatch)}
+	return {actions: bindActionCreators(rentalActions, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(RentalsShow);

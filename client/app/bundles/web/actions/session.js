@@ -225,7 +225,7 @@ export const setCurrentUserRentals = rentals => {
 }
 
 // Cancel Owners Rental
-export const cancelCurentUserRental = rental => {
+export const cancelCurrentUserRental = rental => {
 
 	return function(dispatch, getState, api) {
 

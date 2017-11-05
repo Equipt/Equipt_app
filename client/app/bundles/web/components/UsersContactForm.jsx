@@ -8,7 +8,6 @@ export class UsersContactForm extends React.Component {
 
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
-    mapZenKey: PropTypes.string.isRequired,
     content: PropTypes.object.isRequired,
     completedContactForm: PropTypes.func
   }

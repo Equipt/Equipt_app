@@ -14,6 +14,7 @@ class SportingGoodsSerializer < ActiveModel::Serializer
 
 	def primary_image
 		image = @object.images.find_by(primary: true)
+		image = @object.images.first unless image
 		image.file.url if image
 	end
 

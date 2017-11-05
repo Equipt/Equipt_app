@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import RentalDetails from 'components/RentalDetails';
+
 const RentalConfirmation = ({
     content,
-    sportingGood
+    rental,
+    actions
 }) => {
-
-    const rental = sportingGood.rental || {};
 
     return (
         <div className="container">
 
             <h3>{ rental.confirmed ? content.rentals.confirmed_title : content.rentals.waiting_for_confirmation_title }</h3>
+            <RentalDetails rental={ rental } cancelRental={ actions.cancelRental }/>
 
         </div>
     )
@@ -19,7 +21,7 @@ const RentalConfirmation = ({
 }
 
 RentalConfirmation.propTypes = {
-    sportingGood: PropTypes.object.isRequired,
+    rental: PropTypes.object.isRequired,
     content: PropTypes.object.isRequired
 }
 

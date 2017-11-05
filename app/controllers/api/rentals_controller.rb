@@ -12,7 +12,15 @@ class Api::RentalsController < ApiController
         else
             render json: rental, status: 400
         end
+    end
 
+    def show
+      rental = current_user.rentals.find_by_hash_id(params[:hash_id])
+      if rental
+        render json: rental, status: 200
+      else
+        render json: { error: I18n.t('rentals.not_found') }, status: 404  
+      end
     end
 
     def destroy

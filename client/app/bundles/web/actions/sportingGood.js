@@ -109,25 +109,6 @@ export const updateSportingGood = (sportingGood = {}, images = [], slug = '', ca
 
 }
 
-export const cancelRental = (rental, callback) => {
-
-    return function(dispatch, getState, api) {
-
-        api.token = getState().session.token;
-
-        api.delete(`/rentals/${ rental.hashId }`)
-        .then(res => {
-						dispatch(detachRental(rental));
-            dispatch(alertActions.showSuccessAlert(res));
-						if (callback) callback();
-        }).catch(err => {
-            dispatch(alertActions.showErrorAlert(err));
-        });
-
-    }
-
-}
-
 export const detachRental = data => {
 	return {
 		type: types.DETACH_RENTAL,

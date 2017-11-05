@@ -48,7 +48,7 @@ export class Schedule extends React.Component {
     const { actions } = this.props;
 
 		if (hasConfirmed && rental.owned ) {
-			actions.cancelCurentUserRental(rental);
+			actions.cancelCurrentUserRental(rental);
 			this.setState({
 				showCancelRentalModal: false,
 				showRentalModal: false
@@ -72,8 +72,7 @@ export class Schedule extends React.Component {
 	render() {
 
 		const { content, currentUser } = this.props;
-
-		const rentals = currentUser.rentals || [];
+		const { rentals = [] } = currentUser;
 
 		return (
 			<div className="container">

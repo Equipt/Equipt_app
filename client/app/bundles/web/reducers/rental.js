@@ -1,6 +1,6 @@
 import types from 'actions/types';
 
-const rental = (state = false, action) => {
+const rental = (state = {}, action) => {
     switch (action.type) {
         case types.SELECTED_RENTAL:
         	return action.payload;

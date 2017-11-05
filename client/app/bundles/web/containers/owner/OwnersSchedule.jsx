@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import * as sessionActions from 'actions/session';
 import * as sportingGoodActions from 'actions/sportingGood';
+import * as rentalActions from 'actions/rental';
 
 import { Schedule } from 'components/Schedule';
 
@@ -30,7 +31,11 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators({ ...sessionActions, ...sportingGoodActions }, dispatch)}
+	return {actions: bindActionCreators({
+																				...sessionActions,
+																				...sportingGoodActions,
+																				...rentalActions
+																			}, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(OwnersSchedule);
