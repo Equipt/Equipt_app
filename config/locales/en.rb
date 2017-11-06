@@ -36,6 +36,7 @@
                 label: "Phone",
                 tag: "input",
                 type: "text",
+                error: "phone.number",
                 placeholder: "333-333-3333",
                 fieldsetClass: "col-xs-12"
               }
@@ -62,6 +63,7 @@
                 label: "Street Name",
                 tag: "input",
                 type: "text",
+                error: "address.street",
                 fieldsetClass: "col-xs-10"
               },
               {

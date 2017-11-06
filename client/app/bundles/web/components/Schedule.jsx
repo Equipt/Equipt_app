@@ -15,7 +15,7 @@ export class Schedule extends React.Component {
   static propTypes = {
     content: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
-    currentUser: PropTypes.object.isRequired
+		rentals: PropTypes.array.isRequired
   }
 
   constructor(props) {
@@ -47,32 +47,38 @@ export class Schedule extends React.Component {
 		const { rental } = this.state;
     const { actions } = this.props;
 
-		if (hasConfirmed && rental.owned ) {
-			actions.cancelCurrentUserRental(rental);
-			this.setState({
-				showCancelRentalModal: false,
-				showRentalModal: false
-			});
-		} else if (hasConfirmed && !rental.owned) {
-			actions.cancelRental(rental, () => {
+		
+		actions.cancelRental(rental, () => {
 				this.setState({
 					showCancelRentalModal: false,
 					showRentalModal: false
 				});
-			});
-		} else {
-			this.setState({
-				showCancelRentalModal: true,
-				showRentalModal: false
-			});
-		}
+		});
+
+		// if (hasConfirmed && rental.owned ) {
+		// 	this.setState({
+		// 		showCancelRentalModal: false,
+		// 		showRentalModal: false
+		// 	});
+		// } else if (hasConfirmed && !rental.owned) {
+		// 	actions.cancelRental(rental, () => {
+		// 		this.setState({
+		// 			showCancelRentalModal: false,
+		// 			showRentalModal: false
+		// 		});
+		// 	});
+		// } else {
+		// 	this.setState({
+		// 		showCancelRentalModal: true,
+		// 		showRentalModal: false
+		// 	});
+		// }
 
 	}
 
 	render() {
 
-		const { content, currentUser } = this.props;
-		const { rentals = [] } = currentUser;
+		const { content, rentals = [] } = this.props;
 
 		return (
 			<div className="container">
@@ -81,7 +87,7 @@ export class Schedule extends React.Component {
 					events={ rentals }
 					selectable={ true }
 					onSelectEvent={ this.onSelectEvent.bind(this) }
-					views={ ['month', 'agenda'] }
+					views={ ['month', 'agenda', 'day'] }
 				/>
 				<Modal 	isVisible={ this.state.showRentalModal }
 						onClose={ this.closeModal.bind(this) }

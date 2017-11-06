@@ -4,16 +4,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as sessionActions from 'actions/session';
 import * as sportingGoodActions from 'actions/sportingGood';
-import * as rentalActions from 'actions/rental';
+import * as rentalActions from 'actions/rentals';
 
 import { Schedule } from 'components/Schedule';
 
 class OwnersSchedule extends React.Component {
 
 	componentWillMount() {
-		this.props.actions.fetchCurrentUserRentals();
+		this.props.actions.fetchRentals();
 	}
 
 	render() {
@@ -26,13 +25,12 @@ class OwnersSchedule extends React.Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		currentUser: state.session.currentUser
+		rentals: state.rentals
 	}
 }
 
 function matchDispatchToProps(dispatch) {
 	return {actions: bindActionCreators({
-																				...sessionActions,
 																				...sportingGoodActions,
 																				...rentalActions
 																			}, dispatch)}

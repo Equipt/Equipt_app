@@ -10,12 +10,6 @@ const session = (state = {}, action) => {
     	return action.payload;
     case types.CLEAR_SESSION:
     	return action.payload;
-		case types.SET_CURRENT_USER_RENTALS:
-			state.currentUser.rentals = action.payload;
-			return state;
-		case types.DETACH_RENTAL:
-			state.currentUser.rentals = state.currentUser.rentals.filter(rental => rental.hashId != action.payload.hashId);
-			return state;
 		case 'HYDRATE_STATE':
 			return action.storedState.session;
     default:

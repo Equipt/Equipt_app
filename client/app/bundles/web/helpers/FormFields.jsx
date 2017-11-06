@@ -54,7 +54,7 @@ export default function(fields = [], resource = {}) {
 
   return fields.map((field, index) => {
 
-      const errors = fieldErrors[field.name] || [];
+      const errors = fieldErrors[field.error || field.name] || [];
 
       return 	(
         <fieldset className={ field.fieldsetClass } key={ `field_${ index }` }>

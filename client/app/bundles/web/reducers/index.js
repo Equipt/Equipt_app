@@ -7,6 +7,7 @@ import loader from  './loader';
 import errors from './errors';
 import sportingGoods from './sportingGoods';
 import sportingGood from './sportingGood';
+import rentals from './rentals';
 import rental from './rental';
 import user from './user';
 
@@ -17,6 +18,7 @@ export default combineReducers({
 	session,
 	sportingGoods,
 	sportingGood,
+	rentals,
 	rental,
 	user,
 	routing
