@@ -47,32 +47,13 @@ export class Schedule extends React.Component {
 		const { rental } = this.state;
     const { actions } = this.props;
 
-		
+
 		actions.cancelRental(rental, () => {
 				this.setState({
 					showCancelRentalModal: false,
 					showRentalModal: false
 				});
 		});
-
-		// if (hasConfirmed && rental.owned ) {
-		// 	this.setState({
-		// 		showCancelRentalModal: false,
-		// 		showRentalModal: false
-		// 	});
-		// } else if (hasConfirmed && !rental.owned) {
-		// 	actions.cancelRental(rental, () => {
-		// 		this.setState({
-		// 			showCancelRentalModal: false,
-		// 			showRentalModal: false
-		// 		});
-		// 	});
-		// } else {
-		// 	this.setState({
-		// 		showCancelRentalModal: true,
-		// 		showRentalModal: false
-		// 	});
-		// }
 
 	}
 
