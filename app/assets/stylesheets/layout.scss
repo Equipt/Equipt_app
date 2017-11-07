@@ -13,9 +13,7 @@ li {
 
 .main-wrapper {
 	.transition .container {
-		position: absolute;
-		right: 0;
-		left: 0;
+		padding-top: 40px;
 	}
 	margin: 74px 0 0 50px;
 	@media (max-width: $tablet-size) {

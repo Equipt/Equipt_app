@@ -33,5 +33,6 @@ Rails.application.routes.draw do
     match 'api/forgot_password', to: 'api/session#forgot_password', via: 'POST'
     match 'api/reset_password/:reset_token', to: 'api/session#reset_password', via: 'POST'
     match 'api/phone/verify', to: 'api/phone#verify', via: 'POST'
+    match 'api/sporting_goods/:slug/rentals/check_availability', to: 'api/rentals#check_availability', via: 'POST'
 
 end

@@ -127,7 +127,7 @@ export class SportingGoodDetails extends React.Component {
 
 				<Link to="/sporting_goods" className="pull-right">Go Back</Link>
 
-				<div className="col-xs-8">
+				<div className="col-xs-12 col-md-8">
 					<BigCalendar
 					events={ rentals.concat([ rental ]) }
 					selectable
@@ -135,7 +135,7 @@ export class SportingGoodDetails extends React.Component {
 					onSelectSlot={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }/>
 				</div>
 
-				<div className="col-xs-4">
+				<div className="col-xs-12 col-md-4">
 
 					<h3>{ sportingGood.title }</h3>
 					<h4>{ sportingGood.model }</h4>

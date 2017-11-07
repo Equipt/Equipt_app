@@ -19,7 +19,7 @@ class Api::RentalsController < ApiController
       if rental
         render json: rental, status: 200
       else
-        render json: { error: I18n.t('rentals.not_found') }, status: 404  
+        render json: { error: I18n.t('rentals.not_found') }, status: 404
       end
     end
 
@@ -30,6 +30,16 @@ class Api::RentalsController < ApiController
         else
             render json: { error: I18n.t('rentals.cancel_error') }, status: 400
         end
+    end
+
+    def check_availability
+      rental = SportingGood.find_by_slug(params[:slug]).rentals.new(rental_params)
+      rental.check_availability
+      unless rental.errors.any?
+        render json: rental, status: 200
+      else
+        render json: rental, status: 400
+      end
     end
 
     private

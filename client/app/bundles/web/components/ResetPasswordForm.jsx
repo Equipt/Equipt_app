@@ -12,12 +12,11 @@ class ResetPasswordForm extends React.Component {
 	SubmittedResetPassword(e) {
 
 		e.preventDefault();
-		
-		const { resetPassword } = this.props.actions;
 
+		const { resetPassword } = this.props.actions;
 		const { reset_token } = this.context.router.route.match.params;
 
-		resetPassword(reset_token, {'user': {			
+		resetPassword(reset_token, {'user': {
 			password: this.refs.password.value,
 			password_confirmation: this.refs.password_confirmation.value
 		}}, () => this.context.router.history.push('/login'));
@@ -35,15 +34,15 @@ class ResetPasswordForm extends React.Component {
 
 	}
 
-	render() {		
+	render() {
 
 		return (
 			<section className="container">
 
 				<h2>Reset your password</h2>
-				
+
 				<form onSubmit={ this.SubmittedResetPassword.bind(this) }>
-					
+
 					<div className="form-group">
 						<label htmlFor="password">Enter your new password</label>
 						<input type="password" ref="password" className="form-control" name="password"/>

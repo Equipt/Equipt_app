@@ -1,6 +1,6 @@
 class RentalSerializer < ActiveModel::Serializer
 
-    @@all_day = true
+    @@all_day = false
     @@unavailable = 'unavailable'
 
     attributes  :hash_id,
@@ -8,6 +8,8 @@ class RentalSerializer < ActiveModel::Serializer
                 :owned,
                 :start,
                 :end,
+                :start_date,
+                :end_date,
                 :pick_up_time,
                 :total_days,
                 :deposit,
@@ -21,6 +23,22 @@ class RentalSerializer < ActiveModel::Serializer
 
     def all_day
         @@all_day
+    end
+
+    def start_date
+      @object.start.to_date
+    end
+
+    def end_date
+      @object.end.to_date 
+    end
+
+    def start
+      @object.start.to_date + 1.day
+    end
+
+    def end
+      @object.end.to_date + 1.day
     end
 
     def title

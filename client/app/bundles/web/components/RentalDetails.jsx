@@ -25,8 +25,8 @@ const RentalDetails = ({
             <div className="col-xs-7">
                 <h4>{ sportingGood.title }</h4>
                 <p>{ sportingGood.description }</p>
-                <p>Pick Up Date: { rental.start && rental.start.toString() }</p>
-                <p>Drop Off Date: { rental.end && rental.end.toString() }</p>
+                <p>Pick Up Date: { rental.startDate }</p>
+                <p>Drop Off Date: { rental.endDate }</p>
                 <p>Total Days Renting: { rental.totalDays }</p>
                 <p>Deposit: ${ rental.deposit }</p>
                 <p>Sub Total: ${ rental.subTotal }</p>
