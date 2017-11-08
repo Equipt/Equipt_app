@@ -26,7 +26,7 @@ const Alert = ({
 	};
 
 	return (
-		<div className="container alerts">
+		<div className="alerts col-xs-12 col-md-5">
 			{
 				Object.keys(alerts).map((key, index) => {
 					let message = alerts[key];

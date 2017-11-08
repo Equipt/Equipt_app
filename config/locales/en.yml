@@ -36,11 +36,12 @@ en:
     phone_verification: '"Hey, Equipt here. Your PIN is %{pin}!"'
     not_verified: "Sorry you have not yey verifed your contact information with us!"
   rentals:
-    dates_are_taken: "Sorry, %{item} is unavailible between these dates"
+    dates_are_taken: "Sorry, %{item} is unavailable between these dates"
     dates_in_past: "Rental Dates cannot be in the past!"
     terms_not_agreed_to: "Terms must be agree too"
     cancel_success: "Rental has been cancelled"
     cancel_error: "Issue cancelling rental, please try again later"
+    cant_be_today: "Pickup date cant be today"
   frontend:
     logo: https://s3-us-west-2.amazonaws.com/equipt-assets/logo.png
     nav:

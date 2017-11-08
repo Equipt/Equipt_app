@@ -63,14 +63,13 @@ export class Schedule extends React.Component {
 
 		return (
 			<div className="container">
-				<h3>Owners Calendar</h3>
 				<BigCalendar
 					events={ rentals }
 					selectable={ true }
 					onSelectEvent={ this.onSelectEvent.bind(this) }
 					views={ ['month', 'agenda', 'day'] }
 				/>
-				
+
 				<Modal 	isVisible={ this.state.showRentalModal }
 						onClose={ this.closeModal.bind(this) }
 						contentLabel="Rental Modal">

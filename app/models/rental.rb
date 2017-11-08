@@ -9,7 +9,7 @@ class Rental < ActiveRecord::Base
   belongs_to :sporting_good, inverse_of: :rentals
 
   before_save :set_total_days, :set_rental_cost, :format_end_date
-  validate :dates_are_vacant, :has_agreed_to_terms
+  validate :dates_are_vacant?, :has_agreed_to_terms, :dates_not_today?, :dates_not_in_past?
 
   # after_save :send_confirmation_email, if: :rental_confirmed_changed?
   # after_create :send_create_emails
@@ -19,28 +19,37 @@ class Rental < ActiveRecord::Base
   @@dates_taken_sql = "(start BETWEEN ? AND ? OR end BETWEEN ? AND ?) OR (start <= ? AND end >= ?)";
 
     # validates methods
-	def dates_are_vacant
+	def dates_are_vacant?
     rentals = self.sporting_good.rentals
 		if (self.start? || self.end?)
 			if rentals.where(@@dates_taken_sql, self.start, self.end, self.start, self.end, self.start, self.end).any?
 				errors.add(:error, I18n.t('rentals.dates_are_taken', item: self.sporting_good.title))
+        return false
 			end
 		end
+    true
 	end
 
-  def dates_not_in_past
-    if self.start.past?
-      errors.add(:error, I18n.t('rentals.dates_in_past'))
-    end
+  def dates_not_in_past?
+    return true unless self.start.past?
+    errors.add(:error, I18n.t('rentals.dates_in_past'))
+    false
   end
 
-	def has_agreed_to_terms
-		errors.add(:error, I18n.t('rentals.terms_not_agreed_to')) unless self.agreed_to_terms
-	end
+  def dates_not_today?
+    return true unless self.start.today?
+    errors.add(:error, I18n.t('rentals.cant_be_today'))
+    false
+  end
 
-  def check_availability
-    dates_are_vacant
-    dates_not_in_past
+  def has_agreed_to_terms
+    return true if self.agreed_to_terms
+    errors.add(:error, I18n.t('rentals.terms_not_agreed_to'))
+    false
+  end
+
+  def is_available?
+    dates_are_vacant? && dates_not_today? && dates_not_in_past?
   end
 
 	# before create methods

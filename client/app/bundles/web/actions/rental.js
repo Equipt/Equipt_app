@@ -70,22 +70,21 @@ export const clearRental = () => {
 
 export const selectRental = (rental, sportingGood, agreedToTerms) => {
 
-  const startDate = Moment(rental.start);
-  const difference = Moment().diff(startDate, 'day');
-  const selectedRange = moment.range(rental.start, rental.end);
-
 	const { start, end } = rental;
-  const { rentals, slug } = sportingGood;
+  const { slug } = sportingGood;
   const { showErrorAlert, clearAlerts } = alertActions;
 
 	return (dispatch, getState, api) => {
 
 		api.token = getState().session.token;
 
+		const endDate = Moment(end, "DD-MM-YYYY").add(1, 'days');
+		const startDayIsSaturday = start.getDay() === 6;
+
 		const rental = {
 			title: 'renting',
 			start: start,
-			end: Moment(end, "DD-MM-YYYY").add(1, 'days'),
+			end: endDate,
 			agreedToTerms: agreedToTerms
 		}
 
@@ -98,48 +97,15 @@ export const selectRental = (rental, sportingGood, agreedToTerms) => {
 				payload: {
 		      title: 'renting',
 		      start: rental.start,
-		      end: rental.end,
+		      end: startDayIsSaturday ? end : endDate,
 		      agreedToTerms: agreedToTerms
 		    }
 			})
+			clearAlerts();
 		})
 		.catch(data => dispatch(showErrorAlert(data.errors)))
 
 	}
-
-  // let unavailable = false;
-	//
-  // // Cannot select a taken date
-  // rentals.forEach(rental => {
-  //   const rentalRange = moment.range(rental.start, rental.end);
-  //   if (rentalRange.overlaps(selectedRange)) unavailable = true;
-  // });
-	//
-  // if (unavailable) {
-  //   return showErrorAlert({error: 'Sorry, this item is taken during this time.'});
-  // }
-	//
-  // // Can't select dates in the past
-  // if (difference > 0) {
-  //   return showErrorAlert({error: 'Starting Date cannot be in the past.'});
-  // }
-	//
-  // // Can't rent today
-  // else if (difference === 0) {
-  //   return showErrorAlert({error: 'Starting Date cannot be today.'});
-  // }
-	//
-  // clearAlerts();
-	//
-  // return {
-  //   type: types.SELECTED_RENTAL,
-  //   payload: {
-  //     title: 'renting',
-  //     start: rental.start,
-  //     end: Moment(rental.end, "DD-MM-YYYY").add(1, 'days'),
-  //     agreedToTerms: agreedToTerms
-  //   }
-  // }
 
 }
 

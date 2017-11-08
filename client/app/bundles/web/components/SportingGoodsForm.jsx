@@ -120,7 +120,6 @@ export class SportingGoodsForm extends React.Component {
 				<div className="row">
 
 					<div className="col-md-6 col-xs-12">
-						<h3>{ content.title }</h3>
 						<form onSubmit={ this.submit.bind( this ) }>
 
 							<div className="row">

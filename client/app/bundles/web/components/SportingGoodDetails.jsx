@@ -7,6 +7,7 @@ import { UsersContactForm } from 'components/UsersContactForm';
 import Modal from 'components/Modal';
 import Slider from 'react-slick';
 import BigCalendar from 'react-big-calendar';
+import DateCell from 'components/partials/DateCell.jsx';
 
 export class SportingGoodDetails extends React.Component {
 
@@ -103,7 +104,7 @@ export class SportingGoodDetails extends React.Component {
 			const remainingPrice = remainingDays * sportingGood.pricePerDay;
 			const totalSavingsPrice = priceOfWeeks + remainingPrice;
 
-			return this.subTotal() - totalSavingsPrice;
+			return Math.round(this.subTotal() - totalSavingsPrice).toFixed(2);
 
 		}
 
@@ -132,7 +133,10 @@ export class SportingGoodDetails extends React.Component {
 					events={ rentals.concat([ rental ]) }
 					selectable
 					views={ ['month', 'agenda'] }
-					onSelectSlot={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }/>
+					onSelectSlot={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }
+					components={{
+						dateCellWrapper: DateCell
+					}}/>
 				</div>
 
 				<div className="col-xs-12 col-md-4">
@@ -140,16 +144,6 @@ export class SportingGoodDetails extends React.Component {
 					<h3>{ sportingGood.title }</h3>
 					<h4>{ sportingGood.model }</h4>
 					<p>{ sportingGood.description }</p>
-
-					<Slider {...SportingGoodDetails.sliderSettings}>
-					{
-						images.map((image, index) => {
-							if (image) {
-								return <img key={ `${ sportingGood.slug }_image_${ index }` } src={ image.file.url }/>
-							}
-						})
-					}
-					</Slider>
 
 					<div className="price-container">
 
@@ -159,35 +153,41 @@ export class SportingGoodDetails extends React.Component {
 						<h4>Discount: ${ weeklyRentalDiscount }</h4>
 						<h4>Total: ${ subTotal - weeklyRentalDiscount }</h4>
 
+						<label onClick={ e => actions.aggreedToRentalTerms(e.target.checked) }>
+							{ content.rentals.agree_wth_terms }
+						</label>
+
+						<input 	type="checkbox" onChange={ e => actions.aggreedToRentalTerms(e.target.checked) }/>
+
+						<a 	href="#"
+						className="display-block"
+						onClick={ e => {
+							e.preventDefault();
+							this.showModal('showRentalTermsModal', true);
+						}}>
+							{ content.rentals.read_rental_terms }
+						</a>
+
+						<button className="btn btn-success rent-btn"
+										onClick={ () => this.rent(rental, sportingGood) }
+										disabled={ !rental.start }>
+										Rent
+						</button>
+
 					</div>
 
 				</div>
 
-				<div className="col-xs-12">
-
-					<label onClick={ e => actions.aggreedToRentalTerms(e.target.checked) }>
-						{ content.rentals.agree_wth_terms }
-					</label>
-
-					<input 	type="checkbox" onChange={ e => actions.aggreedToRentalTerms(e.target.checked) }/>
-
-					<a 	href="#"
-					className="display-block"
-					onClick={ e => {
-						e.preventDefault();
-						this.showModal('showRentalTermsModal', true);
-					}}>
-						{ content.rentals.read_rental_terms }
-					</a>
-
-				</div>
-
-				<div className="col-xs-12">
-					<button className="btn btn-success"
-					onClick={ () => this.rent(rental, sportingGood) }
-					disabled={ !rental.start }>
-					Rent
-					</button>
+				<div className="slider-container col-xs-12 col-md-4 col-md-offset-">
+					<Slider {...SportingGoodDetails.sliderSettings}>
+					{
+						images.map((image, index) => {
+							if (image) {
+								return <img key={ `${ sportingGood.slug }_image_${ index }` } src={ image.file.url }/>
+							}
+						})
+					}
+					</Slider>
 				</div>
 
 				<Modal contentLabel="rental-terms"
