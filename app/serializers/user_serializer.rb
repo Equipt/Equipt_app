@@ -12,7 +12,8 @@ class UserSerializer < ActiveModel::Serializer
       :errors,
 			:rentals,
 			:notify_by_sms,
-			:notify_by_email
+			:notify_by_email,
+			:isVerified
 
 	has_one :phone
 	has_one :address
@@ -31,5 +32,9 @@ class UserSerializer < ActiveModel::Serializer
   def rentals
   	current_user.rentals | current_user.owned_rentals if @instance_options[:include_rentals]
   end
+
+	def isVerified
+		@object.address.present? && @object.address.verified && @object.phone.present? && @object.phone.verified
+	end
 
 end

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as sportingGoodActions from 'actions/sportingGood';
+import * as sessionActions from 'actions/session';
 
 import { SportingGoodsForm } from 'components/SportingGoodsForm';
 
@@ -42,12 +43,13 @@ class OwnersSportingGoodsEdit extends React.Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		sportingGood: state.sportingGood
+		sportingGood: state.sportingGood,
+		currentUser: state.session ? state.session.currentUser : {}
 	}
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators(sportingGoodActions, dispatch)}
+	return {actions: bindActionCreators({ ...sportingGoodActions, ...sessionActions }, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(OwnersSportingGoodsEdit);

@@ -3,12 +3,16 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 
 import FormFieldsHelper from 'helpers/FormFields';
+import Modal from 'components/Modal';
+
+import { UsersContactForm } from 'components/UsersContactForm';
 
 export class SportingGoodsForm extends React.Component {
 
 	static propTypes = {
 		createOrUpdate: PropTypes.func.isRequired,
-		sporting_goods: PropTypes.object,
+		sportingGood: PropTypes.object,
+		currentUser: PropTypes.object,
 		isEditing: PropTypes.bool,
 	}
 
@@ -27,7 +31,8 @@ export class SportingGoodsForm extends React.Component {
 		this.state = {
 			sportingGood: props.sportingGood || {},
 			images: props.sportingGood.images || [],
-			showLimitMessage: false
+			showLimitMessage: false,
+			showContactModal: !props.currentUser.isVerified
 		}
 	}
 
@@ -35,7 +40,8 @@ export class SportingGoodsForm extends React.Component {
 
 			this.setState({
 				sportingGood: newProps.sportingGood || {},
-				images: newProps.sportingGood.images || []
+				images: newProps.sportingGood.images || [],
+				currentUser: newProps.currentUser || {}
 			});
 
 	}
@@ -94,6 +100,12 @@ export class SportingGoodsForm extends React.Component {
 
   }
 
+	showModal(modalName, isVisible) {
+		this.setState({
+			[modalName]: isVisible
+		});
+	}
+
 	removeFile(index) {
 
 		const { images } = this.state;
@@ -111,9 +123,9 @@ export class SportingGoodsForm extends React.Component {
 	render() {
 
 		const { sportingGood, images } 	= this.state;
+		const { currentUser, content } = this.props;
 
-		const content 	 = this.props.content || {};
-		const formFields = content.formFields || [];
+		const formFields = content.sporting_goods.create.formFields || [];
 
 		return (
 			<section className="container sporting-good-form">
@@ -135,7 +147,7 @@ export class SportingGoodsForm extends React.Component {
 					<div className="col-md-6 col-xs-12 drop-container">
 
 						<Dropzone onDrop={ this.onDrop.bind(this) } className="drop-area">
-							<p>{ content.dropZone }</p>
+							<p>{ content.sporting_goods.create.dropZone }</p>
 							<i className="fa fa-arrow-circle-down" aria-hidden="true"></i>
 						</Dropzone>
 
@@ -155,6 +167,14 @@ export class SportingGoodsForm extends React.Component {
 					</div>
 
 				</div>
+
+				<Modal contentLabel="sporting-goods-terms"
+							 isVisible={ this.state.showContactModal }
+							 onClose={ () => this.showModal('showContactModal', false) }>
+							 <h4>{ content.profile.contact.need_contact }</h4>
+							 <UsersContactForm { ...this.props } completedContactForm={ () => this.showModal('showContactModal', false) }/>
+				</Modal>
+
 			</section>
 		)
 

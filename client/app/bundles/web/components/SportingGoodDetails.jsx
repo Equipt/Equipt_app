@@ -53,7 +53,7 @@ export class SportingGoodDetails extends React.Component {
 		const phone = currentUser.phone || {};
 
 		// Must have completed address and phone number to rent
-		if (phone.verified && address.verified) {
+		if (currentUser.isVerified) {
 			return actions.rent(rental, sportingGood, rental => {
 				this.context.router.history.push(`/sporting_goods/${ sportingGood.slug }/rentals/${ rental.hashId }`);
 			});
@@ -206,7 +206,7 @@ export class SportingGoodDetails extends React.Component {
 				<Modal contentLabel="address-modal"
 				isVisible={ this.state.showContactModal }
 				onClose={ () => this.showModal('showContactModal', false) }>
-					<h5>{ content.profile.contact.need_contact }</h5>
+					<h4>{ content.profile.contact.need_contact }</h4>
 					<UsersContactForm { ...this.props } completedContactForm={ () => this.showModal('showContactModal', false) }/>
 				</Modal>
 
