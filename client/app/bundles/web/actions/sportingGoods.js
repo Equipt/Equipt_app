@@ -12,8 +12,6 @@ export const fetchSportingGoods = ({
 
 	return function(dispatch, getState, api) {
 
-		api.token = getState().session.token;
-
 		dispatch(loaderActions.showLoader(true));
 
 		api.get('/sporting_goods', {

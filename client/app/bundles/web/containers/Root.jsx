@@ -10,6 +10,7 @@ import thunk from 'redux-thunk'; // Middleware for handling async redux events
 import { createSession } from 'redux-session';
 import routes from 'utils/Router';
 
+import axios from 'axios';
 import Api from 'utils/Api';
 
 import reducers from '../reducers';
@@ -53,6 +54,15 @@ const store = createStore(
 
 // add dispatch to api
 api.dispatch = store.dispatch;
+
+// Add apiKey on each request
+axios.interceptors.request.use(config => {
+	const state = store.getState();
+	if (state.session.token) {
+		config.headers.authorization = state.session.token;
+	}
+	return config;
+});
 
 // Root Template
 const Root = (props, railsContext) => {

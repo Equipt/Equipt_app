@@ -5,8 +5,6 @@ export const fetchRentals = () => {
 
   return (dispatch, getState, api) => {
 
-    api.token = getState().session.token;
-
     api.get('/owner/rentals')
     .then(rentals => dispatch(setRentals(rentals)));
 

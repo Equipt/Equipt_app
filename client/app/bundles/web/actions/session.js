@@ -12,8 +12,6 @@ export const fetchCurrentUser = () => {
 
 		if (session.token) {
 
-			api.token = session.token;
-
 			api.get(`/session/fetch_user`)
 			.then(user => dispatch(setCurrentUser(user)))
 
@@ -27,8 +25,6 @@ export const fetchCurrentUser = () => {
 export const login = (data, callback) => {
 
 	return function(dispatch, getState, api) {
-
-		api.token = getState().session.token;
 
 		api.post('/session', data).then(user => {
 
@@ -98,8 +94,6 @@ export const forgotPassword = data => {
 export const updateCurrentUser = (currentUser, callback) => {
 
 	return function(dispatch, getState, api) {
-
-		api.token = getState().session.token;
 
 		api.put(`/user/${ currentUser.id }`, currentUser)
 		.then(user => {
@@ -179,8 +173,6 @@ export const loginWithFacebook = (data, callback) => {
 
 	return function(dispatch, getState, api) {
 
-		api.token = getState().session.token;
-
 		api.post('/auth/facebook/callback', data).then(user => {
 
 			// Set Current User
@@ -201,8 +193,6 @@ export const loginWithFacebook = (data, callback) => {
 export const verifyPhonePin = (pin, callback) => {
 
 	return (dispatch, getState, api) => {
-
-		api.token = getState().session.token;
 
 		api.post('/phone/verify', {pin: pin})
 		.then(phone => {
@@ -231,8 +221,6 @@ export const verifyPhonePin = (pin, callback) => {
 export const resendPin = () => {
 
 	return (dispatch, getState, api) => {
-
-			api.token = getState().session.token;
 
 			api.get('/phone/resend_pin')
 			.then(message => dispatch(alertActions.showSuccessAlert(message)));

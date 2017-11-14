@@ -65,10 +65,7 @@ export default function(history) {
  				cache: false,
  				processData: false,
 				params: options.params,
-				data: options.isMultipart ? options.data : data,
-				headers: {
-        			'Authorization': `Basic ${ this.token }`
-    			}
+				data: options.isMultipart ? options.data : data
 			};
 
 			axios(ajaxObj)

@@ -11,8 +11,6 @@ export const fetchRental = (slug, id) => {
 
 	return (dispatch, getState, api) => {
 
-		api.token = getState().session.token;
-
 		api.get(`/sporting_goods/${ slug }/rentals/${ id }`)
 		.then(rental => dispatch(setRental(rental)))
 		.catch(err => dispatch(alertActions.showErrorAlert(err)));
@@ -24,8 +22,6 @@ export const fetchRental = (slug, id) => {
 export const rent = (rental, sportingGood, callback) => {
 
 	return (dispatch, getState, api) => {
-
-		api.token = getState().session.token;
 
     const { slug } = sportingGood;
     const { showErrorAlert } = alertActions;
@@ -75,8 +71,6 @@ export const selectRental = (rental, sportingGood, agreedToTerms) => {
   const { showErrorAlert, clearAlerts } = alertActions;
 
 	return (dispatch, getState, api) => {
-
-		api.token = getState().session.token;
 
 		const endDate = Moment(end, "DD-MM-YYYY").add(1, 'minute');
 
