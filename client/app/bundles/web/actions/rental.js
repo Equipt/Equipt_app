@@ -30,8 +30,6 @@ export const rent = (rental, sportingGood, callback) => {
     const { slug } = sportingGood;
     const { showErrorAlert } = alertActions;
 
-		rental.end = Moment(rental.end, "DD-MM-YYYY").add(1, 'day');
-
 		api.post(`/sporting_goods/${ slug }/rentals`, rental)
 		.then(rental => {
 			callback(rental);
