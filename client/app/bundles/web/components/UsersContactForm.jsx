@@ -32,14 +32,13 @@ export class UsersContactForm extends React.Component {
 
     e.preventDefault();
 
-    const { actions } = this.props;
-
-    const currentUser = this.props.currentUser || {};
+    const { actions, currentUser } = this.props;
+    const { address, phone } = this.state;
 
     // Set address params
-    currentUser.address = this.state.address;
+    currentUser.address = address;
     // Set phone params
-    currentUser.phone = this.state.phone;
+    currentUser.phone = phone;
 
     // Update user
     return actions.updateCurrentUser({user: currentUser}, currentUser => {
@@ -103,7 +102,7 @@ export class UsersContactForm extends React.Component {
 
   phoneNumberChanged(field) {
 
-    const {value} = this.refs['phone'];
+    const { value } = this.refs['phone'];
 
     this.state.phone = {
       number: value
@@ -158,11 +157,12 @@ export class UsersContactForm extends React.Component {
 
   renderContactForm() {
 
-    const { contact } = this.props.content.profile;
     const { address, phone } = this.state;
+    const { currentUser } = this.props;
+
+    const contact = this.props.content.profile.contact;
     const phoneField = contact.phone.formFields[0];
     const countryField = contact.address.formFields[6];
-    const phoneErrors = this.state.phone.errors;
 
     // On change of country
     countryField.onChange = this.countryChanged.bind(this);
@@ -170,11 +170,10 @@ export class UsersContactForm extends React.Component {
     // HACK: Phone number work around
     phoneField.name = 'phone';
     phoneField.onChange = this.phoneNumberChanged.bind(this);
-    phone.phone = this.state.phone.number;
+    phone.phone = phone.number;
 
-    if (this.state.phone.errors) {
-      phone.errors.phone = this.state.phone.errors.number;
-    }
+    address.errors = currentUser.errors;
+    phone.errors = currentUser.errors;
 
     return (
       <form onSubmit={ this.submitContact.bind(this) }>

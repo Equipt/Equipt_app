@@ -30,6 +30,8 @@ export const rent = (rental, sportingGood, callback) => {
     const { slug } = sportingGood;
     const { showErrorAlert } = alertActions;
 
+		rental.end = Moment(rental.end, "DD-MM-YYYY").add(1, 'day');
+
 		api.post(`/sporting_goods/${ slug }/rentals`, rental)
 		.then(rental => {
 			callback(rental);
@@ -78,26 +80,21 @@ export const selectRental = (rental, sportingGood, agreedToTerms) => {
 
 		api.token = getState().session.token;
 
-		const endDate = Moment(end, "DD-MM-YYYY").add(1, 'days');
-		const startDayIsSaturday = start.getDay() === 6;
-
-		const rental = {
-			title: 'renting',
-			start: start,
-			end: endDate,
-			agreedToTerms: agreedToTerms
-		}
+		const endDate = Moment(end, "DD-MM-YYYY").add(1, 'minute');
 
 		api.post(`/sporting_goods/${ slug }/rentals/check_availability`, {
-			rental: rental
+			rental: {
+				start: start,
+				end: endDate
+			}
 		})
 		.then(data => {
 			dispatch({
 				type: types.SELECTED_RENTAL,
 				payload: {
-		      title: 'renting',
+		      title: 'selected',
 		      start: rental.start,
-		      end: startDayIsSaturday ? end : endDate,
+		      end: endDate,
 		      agreedToTerms: agreedToTerms
 		    }
 			})

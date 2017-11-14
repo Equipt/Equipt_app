@@ -49,7 +49,6 @@ export const newSportingGood = () => {
 
 }
 
-
 export const createSportingGood = (sportingGood = {}, images = [], slug = '', callback) => {
 
 	return function(dispatch, getState, api) {

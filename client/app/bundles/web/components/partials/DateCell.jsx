@@ -1,27 +1,39 @@
 import React, { Component } from 'react';
 
-const DateCell = ({
-  range,
-  value,
-  children
-}) => {
+export class DateCell extends Component {
 
-  const now = new Date();
-  now.setHours(0,0,0,0);
+  constructor(props) {
+    super(props);
 
-  const getClassNames = () => {
-    let classArr = []
-    value <= now ? classArr.push("date-in-past") : classArr.push("date-cell");
-    value.getDay() === 6 && classArr.push("saturday");
-    return classArr.join(" ");
+    this.now = new Date();
+    this.now.setHours(0,0,0,0);
+
+    this.getClassNames = this.getClassNames.bind(this);
+
   }
 
-  return (
-    <div className={ getClassNames() }>
+  getClassNames() {
+
+    const { value } = this.props;
+
+    let classArr = [];
+
+    value <= this.now ? classArr.push("date-in-past") : classArr.push("date-cell rbc-day-bg")
+    value.getDay() === 6 && classArr.push("saturday");
+    return classArr.join(" ");
+
+  }
+
+  render() {
+
+    const { children } = this.props;
+
+    return (
+      <div className={ this.getClassNames() }>
       { children }
-    </div>
-  )
+      </div>
+    )
+
+  }
 
 }
-
-export default DateCell;

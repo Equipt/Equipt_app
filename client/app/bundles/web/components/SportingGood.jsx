@@ -15,7 +15,6 @@ export class SportingGood extends React.Component {
 
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			showDeleteModal: false
 		}
@@ -90,7 +89,7 @@ export class SportingGood extends React.Component {
 
 				<div className="sporting-good-container">
 
-		  			<Link to={{
+		  		<Link to={{
 		  				pathname: `/sporting_goods/${ sportingGood.slug }`,
 		  				state: { sportingGoodSlug: sportingGood.slug }}}>
 

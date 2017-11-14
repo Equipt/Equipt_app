@@ -28,14 +28,10 @@ class OwnersSportingGoodsEdit extends React.Component {
 
 	render() {
 
-		const content = this.props.content.sporting_goods.update;
 		const { actions } = this.props;
 
 		return (
-			<SportingGoodsForm 	{ ...this.props }
-								content={ content }
-								isEditing={ true }
-								createOrUpdate={ actions.updateSportingGood }/>
+			<SportingGoodsForm 	{ ...this.props } isEditing={ true } createOrUpdate={ actions.updateSportingGood }/>
 		)
 	}
 

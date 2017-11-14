@@ -7,7 +7,7 @@ import { UsersContactForm } from 'components/UsersContactForm';
 import Modal from 'components/Modal';
 import Slider from 'react-slick';
 import BigCalendar from 'react-big-calendar';
-import DateCell from 'components/partials/DateCell.jsx';
+import { DateCell } from 'components/partials/DateCell.jsx';
 
 export class SportingGoodDetails extends React.Component {
 
@@ -76,7 +76,11 @@ export class SportingGoodDetails extends React.Component {
 		const { rental } = this.props;
 
 		if (rental.end && rental.start && rental.end.diff) {
-			return rental.end.diff(rental.start, 'days');
+			return rental.end.diff(rental.start, 'days') || 1;
+		}
+
+		if (rental.end && rental.start) {
+			return 1;
 		}
 
 		return 0;
@@ -159,9 +163,7 @@ export class SportingGoodDetails extends React.Component {
 
 						<input 	type="checkbox" onChange={ e => actions.aggreedToRentalTerms(e.target.checked) }/>
 
-						<a 	href="#"
-						className="display-block"
-						onClick={ e => {
+						<a href="#" className="display-block" onClick={ e => {
 							e.preventDefault();
 							this.showModal('showRentalTermsModal', true);
 						}}>
@@ -179,7 +181,7 @@ export class SportingGoodDetails extends React.Component {
 				</div>
 
 				<div className="slider-container col-xs-12 col-md-4 col-md-offset-">
-					<Slider {...SportingGoodDetails.sliderSettings}>
+					<Slider { ...SportingGoodDetails.sliderSettings }>
 					{
 						images.map((image, index) => {
 							if (image) {
@@ -191,8 +193,8 @@ export class SportingGoodDetails extends React.Component {
 				</div>
 
 				<Modal contentLabel="rental-terms"
-				isVisible={ this.state.showRentalTermsModal }
-				onClose={ () => this.showModal('showRentalTermsModal', false) }>
+							 isVisible={ this.state.showRentalTermsModal }
+							 onClose={ () => this.showModal('showRentalTermsModal', false) }>
 					<h4>{ content.rentals.rental_terms_title }</h4>
 					<ol>
 					{
@@ -204,8 +206,8 @@ export class SportingGoodDetails extends React.Component {
 				</Modal>
 
 				<Modal contentLabel="address-modal"
-				isVisible={ this.state.showContactModal }
-				onClose={ () => this.showModal('showContactModal', false) }>
+							 isVisible={ this.state.showContactModal }
+							 onClose={ () => this.showModal('showContactModal', false) }>
 					<h4>{ content.profile.contact.need_contact }</h4>
 					<UsersContactForm { ...this.props } completedContactForm={ () => this.showModal('showContactModal', false) }/>
 				</Modal>
