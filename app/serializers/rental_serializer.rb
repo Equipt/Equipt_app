@@ -30,7 +30,7 @@ class RentalSerializer < ActiveModel::Serializer
     end
 
     def end_date
-      @object.end.to_date 
+      @object.end.to_date
     end
 
     def start

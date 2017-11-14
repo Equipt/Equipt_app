@@ -56,6 +56,7 @@
                 label: "Number",
                 tag: "input",
                 type: "text",
+                error: "address.number",
                 fieldsetClass: "col-xs-1"
               },
               {
@@ -71,6 +72,7 @@
                 label: "City",
                 tag: "input",
                 type: "text",
+                error: "address.city",
                 fieldsetClass: "col-xs-6"
               },
               {
@@ -79,6 +81,7 @@
                 tag: "select",
                 type: "text",
                 default: 'ca',
+                error: "address.state",
                 states: CS.states(:us),
                 options: CS.states(:ca),
                 fieldsetClass: "col-xs-6"
@@ -88,6 +91,7 @@
                 label: "zip / postal code",
                 tag: "input",
                 type: "text",
+                error: "address.zip",
                 fieldsetClass: "col-xs-6"
               },
               {
@@ -95,6 +99,7 @@
                 label: "Country",
                 tag: "select",
                 type: "text",
+                error: "address.country",
                 default: 'CA',
                 options: CS.countries,
                 fieldsetClass: "col-xs-6"
