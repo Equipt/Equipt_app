@@ -24,7 +24,6 @@ export const cancelRental = (rental, callback) => {
 
 	return (dispatch, getState, api) => {
 
-		api.token = getState().session.token;
 		api.delete(`/${ rental.owned ? 'owner/' : '/' }rentals/${ rental.hashId }`)
 		.then(res => {
 			dispatch(detachRental(rental));

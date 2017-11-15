@@ -2,14 +2,26 @@ import axios from 'axios';
 
 import * as sessionActions from 'actions/session';
 
-export default function(history) {
+export default class Api {
 
-	const BASE_PATH = '/api';
+	constructor(history, store) {
 
-	this.token = null;
-	this.dispatch = null;
+		this.history = history;
+		this.store = store;
 
-	this.get = (url, params) => {
+		this.basePath = "/api";
+
+		axios.interceptors.request.use(config => {
+			const state = this.store.getState();
+			if (state.session.token) {
+				config.headers.authorization = state.session.token;
+			}
+			return config;
+		});
+
+	}
+
+	get(url, params) {
 		return new Promise((resolve, reject) => {
 
 			this.send(url, 'GET', null, {params: params})
@@ -21,7 +33,7 @@ export default function(history) {
 		});
 	}
 
-	this.post = (url, data, options) => {
+	post(url, data, options) {
 		return new Promise((resolve, reject) => {
 			this.send(url, 'POST', data, options)
 			.then((res, apiKey) => {
@@ -32,7 +44,7 @@ export default function(history) {
 		});
 	}
 
-	this.put = function(url, data, options) {
+	put(url, data, options) {
 		return new Promise((resolve, reject) => {
 			this.send(url, 'PUT', data, options)
 			.then((res, apiKey) => {
@@ -41,9 +53,9 @@ export default function(history) {
 				reject(err);
 			});
 		});
-	},
+	}
 
-	this.delete = function(url, data, options) {
+	delete(url, data, options) {
 		return new Promise((resolve, reject) => {
 			this.send(url, 'DELETE', data, options)
 			.then((res, apiKey) => {
@@ -52,14 +64,14 @@ export default function(history) {
 				reject(err);
 			});
 		});
-	},
+	}
 
-	this.send = function(url, method, data, options = {}) {
+	send(url, method, data, options = {}) {
 
 		return new Promise((resolve, reject) => {
 
-			var ajaxObj = {
-				url: BASE_PATH + url,
+			const ajaxObj = {
+				url: this.basePath + url,
 				method: method,
 				responseType: options.isMultipart ? false : 'application/json',
  				cache: false,
@@ -76,10 +88,10 @@ export default function(history) {
 
 				if (status === 500 || status === 401) {
 					localStorage.clear();
-					this.dispatch(sessionActions.clearSession());
-					return history.push('/login');
+					this.store.dispatch(sessionActions.clearSession());
+					return this.history.push('/login');
 				} else if (status === 404) {
-					history.push('/not_found');
+					this.history.push('/not_found');
 				}
 
 				reject(data);

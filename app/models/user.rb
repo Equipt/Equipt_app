@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 	has_many :sporting_goods, dependent: :destroy
 	has_many :rentals, dependent: :destroy
 	has_many :api_keys, dependent: :destroy
+	has_many :ratings, :as => :rateable, dependent: :destroy
 	has_many :owned_rentals, :through => :sporting_goods, source: 'rentals'
 
 	has_one :address, :dependent => :destroy

@@ -128,9 +128,28 @@ def create_sporting_good(user)
 		5.times do |i|
 			create_rentals(sporting_good, user) if sporting_good.save!
 			sporting_good_image(sporting_good) if sporting_good.save!
+      create_ratings(sporting_good) if sporting_good.save!
 		end
 
 	end
+
+end
+
+def create_ratings sporting_good
+
+  rating = sporting_good.ratings.create!(
+    score: (1..5).to_a.sample
+  )
+
+  create_comments(rating) if rating.save!
+
+end
+
+def create_comments rating
+
+  rating.comments.create!(
+    comment: Faker::Lorem.sentence(2)
+  )
 
 end
 
@@ -180,13 +199,6 @@ def create_rentals(sporting_good, user)
 
 	end
 
-end
-
-def create_ratings(model)
-	model.ratings.create!(
-		score: (1..5).to_a.sample,
-		comment: Faker::Lorem.sentence(3)
-	)
 end
 
 create_users

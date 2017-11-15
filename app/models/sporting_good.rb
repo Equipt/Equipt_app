@@ -12,6 +12,7 @@ class SportingGood < ActiveRecord::Base
 
 	belongs_to :user
 	has_many :images, :as => :imageable, dependent: :destroy
+	has_many :ratings, :as => :rateable, dependent: :destroy
 	has_many :rentals, dependent: :destroy, inverse_of: :sporting_good
 
 	accepts_nested_attributes_for :images

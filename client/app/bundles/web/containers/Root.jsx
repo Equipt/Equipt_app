@@ -40,6 +40,7 @@ const session = createSession({
 });
 
 // Set up api
+// history, dispatch, store
 const api = new Api(history);
 
 // Thunk setup
@@ -52,17 +53,8 @@ const store = createStore(
 	applyMiddleware(middleware, thunkMiddleware, session)
 );
 
-// add dispatch to api
-api.dispatch = store.dispatch;
-
-// Add apiKey on each request
-axios.interceptors.request.use(config => {
-	const state = store.getState();
-	if (state.session.token) {
-		config.headers.authorization = state.session.token;
-	}
-	return config;
-});
+// add store to api
+api.store = store;
 
 // Root Template
 const Root = (props, railsContext) => {
