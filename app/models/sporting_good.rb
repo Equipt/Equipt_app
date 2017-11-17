@@ -63,4 +63,14 @@ class SportingGood < ActiveRecord::Base
 		self.deposit = 0 if self.deposit.blank?
 	end
 
+	def overall_rating
+		self.ratings.pluck(:score).inject(&:+).to_f / self.ratings.size
+ 	end
+
+	def primary_image
+		image = self.images.find_by(primary: true)
+		image = self.images.first unless image
+		image.file.url if image
+	end
+
 end

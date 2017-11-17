@@ -10,12 +10,7 @@ class SportingGoodsSerializer < ActiveModel::Serializer
 						:price_per_week,
 						:deposit,
 						:slug,
-						:primary_image
-
-	def primary_image
-		image = @object.images.find_by(primary: true)
-		image = @object.images.first unless image
-		image.file.url if image
-	end
+						:primary_image,
+						:overall_rating
 
 end

@@ -12,7 +12,8 @@ class SportingGoodSerializer < ActiveModel::Serializer
 						:errors,
 						:slug,
 						:images,
-						:overall_rating
+						:overall_rating,
+						:primary_image
 
 	has_many :rentals
 	has_many :ratings
@@ -27,11 +28,7 @@ class SportingGoodSerializer < ActiveModel::Serializer
 	end
 
 	def include_associations!
-			include! :rentals unless @instance_options[:exclude_rentals]
-	end
-
-	def overall_rating
-		@object.ratings.pluck(:score).inject(&:+).to_f / @object.ratings.size
+		include! :rentals unless @instance_options[:exclude_rentals]
 	end
 
 end

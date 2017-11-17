@@ -11,7 +11,8 @@ const RentalConfirmation = ({
 
     return (
         <div className="container">
-          <h3>{ rental.confirmed ? content.rentals.confirmed_title : content.rentals.waiting_for_confirmation_title }</h3>
+          <h3>{ content.rentals.confirmed_title }</h3>
+          <h5>{ content.rentals.confirmed_details }</h5>
           <RentalDetails rental={ rental } cancelRental={ actions.cancelRental }/>
         </div>
     )

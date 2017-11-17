@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Slider from 'react-slick';
+import GoogleMapReact from 'google-map-react';
 
 const RentalDetails = ({
     rental = {},
@@ -19,12 +20,16 @@ const RentalDetails = ({
     const sportingGood = rental.sportingGood || {};
     const images       = sportingGood.images || [];
 
+    const defaultProps = {
+      center: {lat: 59.95, lng: 30.33},
+      zoom: 11
+    };
+
+
     return (
         <div className="rental-details-container">
 
-            <div className="col-xs-7">
-                <h4>{ sportingGood.title }</h4>
-                <p>{ sportingGood.description }</p>
+            <div className="col-xs-4">
                 <p>Pick Up Date: { rental.startDate }</p>
                 <p>Drop Off Date: { rental.endDate }</p>
                 <p>Total Days Renting: { rental.totalDays }</p>
@@ -33,7 +38,19 @@ const RentalDetails = ({
                 <p>Total: ${ rental.total }</p>
             </div>
 
-            <div className="col-xs-5">
+            <div className="col-xs-6">
+              <GoogleMapReact
+                defaultCenter={defaultProps.center}
+                defaultZoom={defaultProps.zoom}
+              />
+            </div>
+
+            <div className="col-xs-4">
+              <h4>{ sportingGood.title }</h4>
+              <p>{ sportingGood.description }</p>
+            </div>
+
+            <div className="col-xs-6">
                 <Slider {...settings}>
                    {
                        images.map((image, index) => {
@@ -44,6 +61,8 @@ const RentalDetails = ({
                    }
                 </Slider>
             </div>
+
+
 
             <div className="col-xs-12">
 

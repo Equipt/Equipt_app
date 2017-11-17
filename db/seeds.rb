@@ -60,7 +60,7 @@ def create_users
 			create_sporting_good(user) if user.save!
       create_address(user) if user.save!
       create_phone(user) if user.save!
-			# create_ratings(user) if user.save!
+			create_ratings(user) if user.save!
 		end
 
 	end
@@ -135,9 +135,9 @@ def create_sporting_good(user)
 
 end
 
-def create_ratings sporting_good
+def create_ratings instance
 
-  rating = sporting_good.ratings.create!(
+  rating = instance.ratings.create!(
     score: (1..5).to_a.sample
   )
 
@@ -145,11 +145,13 @@ def create_ratings sporting_good
 
 end
 
-def create_comments rating
+def create_comments instance
 
-  rating.comments.create!(
+  comment = instance.comments.create!(
     comment: Faker::Lorem.sentence(2)
   )
+
+  comment.save!
 
 end
 
@@ -202,33 +204,3 @@ def create_rentals(sporting_good, user)
 end
 
 create_users
-
-admin = User.create!(
-	firstname: 'tom',
-	lastname: 'tom',
-	email: 'tom@tom.com',
-	username: 'tommy',
-	restricted_availability: [true, false].sample,
-	password: 'tom'
-)
-
-Address.create!(
-  user_id: admin.id,
-  street: '123 fake street',
-  city: 'Vancouver',
-  state: 'BC',
-  zip: '10002',
-  country: 'Canada',
-  latitude: '-123.1280044',
-  longitude: '49.2841339',
-)
-
-Phone.create!(
-  user_id: admin.id,
-  number: '333.333.3333',
-  verified: true
-)
-
-10.times do |i|
-	create_sporting_good(admin)
-end

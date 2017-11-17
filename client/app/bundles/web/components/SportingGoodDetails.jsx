@@ -7,6 +7,7 @@ import { UsersContactForm } from 'components/UsersContactForm';
 import Modal from 'components/Modal';
 import Slider from 'react-slick';
 import BigCalendar from 'react-big-calendar';
+import StarRatings from 'react-star-ratings';
 import { DateCell } from 'components/partials/DateCell.jsx';
 
 export class SportingGoodDetails extends React.Component {
@@ -116,36 +117,80 @@ export class SportingGoodDetails extends React.Component {
 
 	}
 
+	ratingMarkup(rating, index) {
+		return (<li key={ `rating_${ index }` } className="ratings-container">
+							<i>{ rating.createdAt }</i>
+							<StarRatings rating={ rating.score } starWidthAndHeight={ '15px' }/>
+					 		<p>{ rating.comment }</p>
+					 </li>);
+	}
+
 	render() {
 
 		const { sportingGood, rental, content, showModal, actions } = this.props;
 		const { agreedToTerms } = this.state;
-		const { images = [], rentals = [] } = sportingGood;
+		const { images = [], rentals = [], ratings = [] } = sportingGood;
 
 		const totalDays = this.totalDays();
 		const subTotal = this.subTotal();
 		const weeklyRentalDiscount = this.weeklyRentalDiscount();
 
+		const slider = () => {
+			<div className="slider-container col-xs-12">
+				<Slider { ...SportingGoodDetails.sliderSettings }>
+				{
+					images.map((image, index) => {
+						if (image) {
+							return (
+								<div className="image-container" key={ `${ sportingGood.slug }_image_${ index }` }>
+									<div className="image" style={{
+										backgroundImage: `url(${ image.file.url })`
+									}}/>
+								</div>
+							)
+						}
+					})
+				}
+				</Slider>
+			</div>
+		}
+
 		return (
 
 			<section className="container sporting-goods-show">
 
-				<Link to="/sporting_goods" className="pull-right">Go Back</Link>
-
-				<div className="col-xs-12 col-md-8">
-					<BigCalendar
-					events={ rentals.concat([ rental ]) }
-					selectable
-					views={ ['month', 'agenda'] }
-					onSelectSlot={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }
-					components={{
-						dateCellWrapper: DateCell
+				<div className="image-container">
+					<button className="btn btn-default">See Images</button>
+					<div className="image" style={{
+						backgroundImage: `url(${ sportingGood.primaryImage })`
 					}}/>
 				</div>
 
-				<div className="col-xs-12 col-md-4">
+				<div className="image-spacer"/>
 
-					<h3>{ sportingGood.title }</h3>
+				<Link to="/sporting_goods" className="pull-right go-back">Go Back</Link>
+
+				<div className="col-xs-12 col-md-8">
+
+					<BigCalendar
+						events={ rentals.concat([ rental ]) }
+						selectable
+						views={ ['month', 'agenda'] }
+						onSelectSlot={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }
+						components={{
+						dateCellWrapper: DateCell
+					}}/>
+
+					<ul>{ ratings.map((rating, index) => this.ratingMarkup(rating, index)) }</ul>
+
+				</div>
+
+				<div className="col-xs-12 col-md-4 pricing-container">
+
+					<h3>
+						{ sportingGood.title }
+						<StarRatings rating={ sportingGood.overallRating } starWidthAndHeight={ '25px' }/>
+					</h3>
 					<h4>{ sportingGood.model }</h4>
 					<p>{ sportingGood.description }</p>
 
@@ -178,18 +223,6 @@ export class SportingGoodDetails extends React.Component {
 
 					</div>
 
-				</div>
-
-				<div className="slider-container col-xs-12 col-md-4 col-md-offset-">
-					<Slider { ...SportingGoodDetails.sliderSettings }>
-					{
-						images.map((image, index) => {
-							if (image) {
-								return <img key={ `${ sportingGood.slug }_image_${ index }` } src={ image.file.url }/>
-							}
-						})
-					}
-					</Slider>
 				</div>
 
 				<Modal contentLabel="rental-terms"

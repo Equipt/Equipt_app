@@ -28,6 +28,8 @@ export class SportingGoodsForm extends React.Component {
 		this.PREVIEW_SIZE = 200;
 		this.IMAGES_LIMIT = 5;
 
+		debugger;
+
 		this.state = {
 			sportingGood: props.sportingGood || {},
 			images: props.sportingGood.images || [],

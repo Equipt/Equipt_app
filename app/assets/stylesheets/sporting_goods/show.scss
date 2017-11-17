@@ -1,13 +1,42 @@
 .sporting-goods-show {
 
+  padding-top: 0;
+
   .terms-container {
     float: left;
     clear: left;
     margin-top: 10px;
   }
 
-  .slider-container {
-    margin-top: 40px;
+  .pricing-container {
+    margin-top: 20px;
+    border: solid 1px #E4E4E4;
+    padding-bottom: 20px;
+  }
+
+  .image-spacer {
+    margin-top: 400px;
+  }
+
+  .image-container {
+    position: absolute;
+    top: 72px;
+    left: 70px;
+    height: 400px;
+    width: 100%;
+
+    button {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+    }
+    .image {
+      height: 400px;
+      width: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 0 33%;
+    }
   }
 
   .rent-btn {
