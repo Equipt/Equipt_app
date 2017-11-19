@@ -57,7 +57,7 @@
                 tag: "input",
                 type: "text",
                 error: "address.number",
-                fieldsetClass: "col-xs-1"
+                fieldsetClass: "col-xs-2"
               },
               {
                 name: "street",
@@ -65,7 +65,7 @@
                 tag: "input",
                 type: "text",
                 error: "address.street",
-                fieldsetClass: "col-xs-10"
+                fieldsetClass: "col-xs-9"
               },
               {
                 name: "city",

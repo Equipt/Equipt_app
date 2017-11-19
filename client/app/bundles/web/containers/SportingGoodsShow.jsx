@@ -11,7 +11,6 @@ import * as alertActions from 'actions/alerts';
 import * as currentUserActions from 'actions/session';
 import * as rentalActions from 'actions/rental';
 
-import Loader from 'components/Loader';
 import { SportingGoodDetails } from 'components/SportingGoodDetails';
 
 const moment = extendMoment(Moment);
@@ -43,12 +42,10 @@ export class SportingGoodsShow extends React.Component {
 
 	render() {
 
-		const { sportingGood } = this.props;
+		const { sportingGood, loader } = this.props;
 
 		return(
-			<div>
-				{ Object.keys(sportingGood).length ? <SportingGoodDetails { ...this.props }/> : <Loader/> }
-			</div>
+			<SportingGoodDetails { ...this.props }/>
 		)
 	}
 
@@ -58,7 +55,8 @@ function mapStateToProps(state, ownProps) {
 	return {
 		currentUser: state.session.currentUser,
 		sportingGood: state.sportingGood,
-		rental: state.rental || {}
+		rental: state.rental || {},
+		loader: state.loader
 	}
 }
 

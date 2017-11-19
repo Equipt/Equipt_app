@@ -195,11 +195,13 @@ export const verifyPhonePin = (pin, callback) => {
 	return (dispatch, getState, api) => {
 
 		api.post('/phone/verify', {pin: pin})
-		.then(phone => {
+		.then((phone = {}) => {
 
 			const { currentUser } = getState().session;
+			const { address = {} } = currentUser;
 
 			currentUser.phone = phone;
+			currentUser.isVerified = address.verified && phone.verified;
 
 			// Set Current User
 			dispatch(setCurrentUser(currentUser));

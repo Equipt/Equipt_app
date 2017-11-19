@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Slider from 'react-slick';
+import BigCalendar from 'react-big-calendar';
+import StarRatings from 'react-star-ratings';
 
 import { Link } from 'react-router-dom';
 import { UsersContactForm } from 'components/UsersContactForm';
 
+import Loader from 'components/Loader';
 import Modal from 'components/Modal';
-import Slider from 'react-slick';
-import BigCalendar from 'react-big-calendar';
-import StarRatings from 'react-star-ratings';
 import Map from 'components/Map.jsx';
 import { DateCell } from 'components/partials/DateCell.jsx';
 
@@ -18,7 +19,8 @@ export class SportingGoodDetails extends React.Component {
 		currentUser: PropTypes.object.isRequired,
 	  sportingGood: PropTypes.object.isRequired,
 		rental: PropTypes.object.isRequired,
-		actions: PropTypes.object.isRequired
+		actions: PropTypes.object.isRequired,
+		loader: PropTypes.bool.isRequired
 	}
 
 	static sliderSettings = {
@@ -82,7 +84,7 @@ export class SportingGoodDetails extends React.Component {
 		const { rental } = this.props;
 
 		if (rental.end && rental.start && rental.end.diff) {
-			return rental.end.diff(rental.start, 'days') || 1;
+			return rental.end.diff(rental.start, 'days') + 1;
 		}
 
 		if (rental.end && rental.start) {
@@ -192,13 +194,15 @@ export class SportingGoodDetails extends React.Component {
 
 	render() {
 
-		const { sportingGood, rental, content, showModal, actions } = this.props;
+		const { sportingGood, rental = {}, content, showModal, actions, loader } = this.props;
 		const { agreedToTerms } = this.state;
 		const { images = [], rentals = [], ratings = [], user = {} } = sportingGood;
 
 		const totalDays = this.totalDays();
 		const subTotal = this.subTotal();
 		const weeklyRentalDiscount = this.weeklyRentalDiscount();
+
+		if (loader) return <Loader/>;
 
 		return (
 
@@ -223,7 +227,7 @@ export class SportingGoodDetails extends React.Component {
 					<BigCalendar
 						events={ rentals.concat([ rental ]) }
 						selectable
-						views={ ['month', 'agenda'] }
+						views={ ['month'] }
 						onSelectSlot={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }
 						components={{
 						dateCellWrapper: DateCell
@@ -244,11 +248,11 @@ export class SportingGoodDetails extends React.Component {
 
 					<div className="price-container">
 
-						<h4>Rental days: { totalDays }</h4>
-						<h4>Sub total: ${ subTotal }</h4>
-						<h4>Deposit: ${ sportingGood.deposit }</h4>
-						<h4>Discount: ${ weeklyRentalDiscount }</h4>
-						<h4>Total: ${ subTotal - weeklyRentalDiscount }</h4>
+						<h4>{ totalDays > 0 ? `${ totalDays } Rental Days` : `` }</h4>
+						<h4>${ sportingGood.pricePerDay } Price Per Day</h4>
+						<h4>{ sportingGood.deposit > 0 ? `$${ sportingGood.deposit } Deposit` : `` }</h4>
+						<h4>{ weeklyRentalDiscount > 0 ? `$${ weeklyRentalDiscount } Discount` : `` }</h4>
+						<h3>{ subTotal > 0 ? `$${ subTotal - weeklyRentalDiscount } Total*` : `` }</h3>
 
 						<label onClick={ e => this.setState({ agreedToTerms: e.target.checked }) }>
 							{ content.rentals.agree_wth_terms }

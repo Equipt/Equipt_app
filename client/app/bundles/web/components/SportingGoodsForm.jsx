@@ -28,8 +28,6 @@ export class SportingGoodsForm extends React.Component {
 		this.PREVIEW_SIZE = 200;
 		this.IMAGES_LIMIT = 5;
 
-		debugger;
-
 		this.state = {
 			sportingGood: props.sportingGood || {},
 			images: props.sportingGood.images || [],
@@ -43,7 +41,8 @@ export class SportingGoodsForm extends React.Component {
 			this.setState({
 				sportingGood: newProps.sportingGood || {},
 				images: newProps.sportingGood.images || [],
-				currentUser: newProps.currentUser || {}
+				currentUser: newProps.currentUser || {},
+				showContactModal: !newProps.currentUser.isVerified
 			});
 
 	}
@@ -122,6 +121,20 @@ export class SportingGoodsForm extends React.Component {
 		return this.state.showLimitMessage ? <p className="alert alert-info">{ content.imageLimit }</p> : '';
 	}
 
+	contactModalMarkup() {
+
+		const { content } = this.props;
+
+		return (
+			<Modal contentLabel="sporting-goods-terms"
+				isVisible={ this.state.showContactModal }
+				onClose={ () => this.showModal('showContactModal', false) }>
+				<h4>{ content.profile.contact.need_contact }</h4>
+				<UsersContactForm { ...this.props } completedContactForm={ () => this.showModal('showContactModal', false) }/>
+			</Modal>
+		)
+	}
+
 	render() {
 
 		const { sportingGood, images } 	= this.state;
@@ -170,12 +183,7 @@ export class SportingGoodsForm extends React.Component {
 
 				</div>
 
-				<Modal contentLabel="sporting-goods-terms"
-							 isVisible={ this.state.showContactModal }
-							 onClose={ () => this.showModal('showContactModal', false) }>
-							 <h4>{ content.profile.contact.need_contact }</h4>
-							 <UsersContactForm { ...this.props } completedContactForm={ () => this.showModal('showContactModal', false) }/>
-				</Modal>
+				{ this.contactModalMarkup() }
 
 			</section>
 		)

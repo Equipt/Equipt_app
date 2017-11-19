@@ -1,11 +1,13 @@
 import types from './types';
 
 import * as alertActions from './alerts';
-import * as loaderActions from './loader';
+import { showLoader } from './loader';
 
 export const fetchSportingGood = (pathname, rentalHashId = null) => {
 
 	return function(dispatch, getState, api) {
+
+		dispatch(showLoader(true));
 
 		api.get(pathname)
 		.then(data => {
@@ -17,10 +19,12 @@ export const fetchSportingGood = (pathname, rentalHashId = null) => {
 			}
 
 			dispatch(setSportingGood(data));
+			dispatch(showLoader(false));
 
 		})
 		.catch(err => {
 			dispatch(alertActions.showErrorAlert(err));
+			dispatch(showLoader(false));
 		});
 
 	}
@@ -67,12 +71,12 @@ export const editSportingGood = (slug) => {
 
 	return function(dispatch, getState, api) {
 
-		dispatch(loaderActions.showLoader(true));
+		dispatch(showLoader(true));
 
 		api.get(`/owner/sporting_goods/${slug}/edit`)
 		.then(data => {
-			dispatch(loaderActions.showLoader(false));
 			dispatch(setSportingGood(data))
+			dispatch(showLoader(false));
 		});
 
 	}
