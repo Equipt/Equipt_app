@@ -13,7 +13,8 @@ class UserSerializer < ActiveModel::Serializer
 			:rentals,
 			:notify_by_sms,
 			:notify_by_email,
-			:isVerified
+			:isVerified,
+			:coordinates
 
 	has_one :phone
 	has_one :address
@@ -35,6 +36,15 @@ class UserSerializer < ActiveModel::Serializer
 
 	def isVerified
 		@object.address.present? && @object.address.verified && @object.phone.present? && @object.phone.verified
+	end
+
+	def coordinates
+		if @object.address
+			{
+				lat: @object.address.latitude,
+				lng: @object.address.longitude
+			}
+		end
 	end
 
 end

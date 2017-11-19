@@ -7,6 +7,11 @@ $grey: #AFAFAF;
 $sprite: url(image-path('sprite.png')) no-repeat;
 $main-logo: url(image-path('logo.png')) no-repeat;
 
+body {
+	overflow-x: hidden;
+	width: 100%;
+}
+
 li {
 		list-style: none;
 }
@@ -27,7 +32,9 @@ li {
 	margin-top: 105px;
 }
 
-.no-margin {
+
+
+.no-padding {
 	padding-left: 0;
 	padding-right: 0;
 }

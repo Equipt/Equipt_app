@@ -78,8 +78,8 @@ def create_address(user)
     state: Faker::Address.state,
     zip: Faker::Address.zip,
     country: Faker::Address.country,
-    latitude: Faker::Address.latitude,
-    longitude: Faker::Address.longitude
+    latitude: 49.28,
+    longitude: -123.12
   )
 
   address.save(validate: false)

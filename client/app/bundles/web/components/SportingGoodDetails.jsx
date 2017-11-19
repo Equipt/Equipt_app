@@ -8,6 +8,7 @@ import Modal from 'components/Modal';
 import Slider from 'react-slick';
 import BigCalendar from 'react-big-calendar';
 import StarRatings from 'react-star-ratings';
+import Map from 'components/Map.jsx';
 import { DateCell } from 'components/partials/DateCell.jsx';
 
 export class SportingGoodDetails extends React.Component {
@@ -39,19 +40,23 @@ export class SportingGoodDetails extends React.Component {
 
 		this.state = {
 			showContactModal: false,
-			showRentalTermsModal: false
+			showRentalTermsModal: false,
+			showImagesModal: false,
+			agreedToTerms: false
 		}
 
 		this.showModal = this.showModal.bind(this);
+		this.imagesModalMarkup = this.imagesModalMarkup.bind(this);
 
 	}
 
 	rent() {
 
 		const { currentUser, sportingGood, rental, actions } = this.props;
+		const { agreedToTerms } = this.state;
+		const { phone, address } = currentUser;
 
-		const address = currentUser.address || {};
-		const phone = currentUser.phone || {};
+		rental.agreedToTerms = agreedToTerms;
 
 		// Must have completed address and phone number to rent
 		if (currentUser.isVerified) {
@@ -125,42 +130,85 @@ export class SportingGoodDetails extends React.Component {
 					 </li>);
 	}
 
-	render() {
+	termsModalMarkup() {
 
-		const { sportingGood, rental, content, showModal, actions } = this.props;
-		const { agreedToTerms } = this.state;
-		const { images = [], rentals = [], ratings = [] } = sportingGood;
+		const { content } = this.props;
 
-		const totalDays = this.totalDays();
-		const subTotal = this.subTotal();
-		const weeklyRentalDiscount = this.weeklyRentalDiscount();
-
-		const slider = () => {
-			<div className="slider-container col-xs-12">
-				<Slider { ...SportingGoodDetails.sliderSettings }>
+		return (
+			<Modal contentLabel="rental-terms"
+					 isVisible={ this.state.showRentalTermsModal }
+					 onClose={ () => this.showModal('showRentalTermsModal', false) }>
+				<h4>{ content.rentals.rental_terms_title }</h4>
+				<ol>
 				{
+					content.rentals.rental_terms.map((term, index) => {
+						return <li key={ `rental_terms_${ index }` }>{ term }</li>;
+					})
+				}
+				</ol>
+			</Modal>
+		);
+
+	}
+
+	imagesModalMarkup() {
+
+		const { sportingGood = {} } = this.props;
+		const { images = [] } = sportingGood;
+
+		return (
+			<Modal contentLabel="sportingGoodModal"
+				 isVisible={ this.state.showImagesModal }
+				 onClose={ () => this.showModal('showImagesModal', false) }>
+				 <Slider { ...SportingGoodDetails.sliderSettings }>
+				 {
 					images.map((image, index) => {
 						if (image) {
 							return (
-								<div className="image-container" key={ `${ sportingGood.slug }_image_${ index }` }>
-									<div className="image" style={{
-										backgroundImage: `url(${ image.file.url })`
-									}}/>
-								</div>
+								<img key={ `${ sportingGood.slug }_image_${ index }` } src={ image.file.url }/>
 							)
 						}
 					})
 				}
 				</Slider>
-			</div>
-		}
+			</Modal>
+		);
+	}
+
+	addressModalMarkup() {
+
+		const { content } = this.props;
+
+		return (
+			<Modal contentLabel="address-modal"
+				isVisible={ this.state.showContactModal }
+				onClose={ () => this.showModal('showContactModal', false) }>
+				<h4>{ content.profile.contact.need_contact }</h4>
+				<UsersContactForm { ...this.props } completedContactForm={ () => this.showModal('showContactModal', false) }/>
+			</Modal>
+		);
+
+	}
+
+	render() {
+
+		const { sportingGood, rental, content, showModal, actions } = this.props;
+		const { agreedToTerms } = this.state;
+		const { images = [], rentals = [], ratings = [], user = {} } = sportingGood;
+
+		const totalDays = this.totalDays();
+		const subTotal = this.subTotal();
+		const weeklyRentalDiscount = this.weeklyRentalDiscount();
 
 		return (
 
 			<section className="container sporting-goods-show">
 
 				<div className="image-container">
-					<button className="btn btn-default">See Images</button>
+					<button className="btn btn-default"
+									onClick={ () => this.showModal('showImagesModal', true) }>
+									See Images
+					</button>
 					<div className="image" style={{
 						backgroundImage: `url(${ sportingGood.primaryImage })`
 					}}/>
@@ -202,11 +250,13 @@ export class SportingGoodDetails extends React.Component {
 						<h4>Discount: ${ weeklyRentalDiscount }</h4>
 						<h4>Total: ${ subTotal - weeklyRentalDiscount }</h4>
 
-						<label onClick={ e => actions.aggreedToRentalTerms(e.target.checked) }>
+						<label onClick={ e => this.setState({ agreedToTerms: e.target.checked }) }>
 							{ content.rentals.agree_wth_terms }
 						</label>
 
-						<input 	type="checkbox" onChange={ e => actions.aggreedToRentalTerms(e.target.checked) }/>
+						<input 	type="checkbox"
+										value={ agreedToTerms }
+										onChange={ e => this.setState({ agreedToTerms: e.target.checked }) }/>
 
 						<a href="#" className="display-block" onClick={ e => {
 							e.preventDefault();
@@ -225,25 +275,13 @@ export class SportingGoodDetails extends React.Component {
 
 				</div>
 
-				<Modal contentLabel="rental-terms"
-							 isVisible={ this.state.showRentalTermsModal }
-							 onClose={ () => this.showModal('showRentalTermsModal', false) }>
-					<h4>{ content.rentals.rental_terms_title }</h4>
-					<ol>
-					{
-						this.props.content.rentals.rental_terms.map((term, index) => {
-							return <li key={ `rental_terms_${ index }` }>{ term }</li>;
-						})
-					}
-					</ol>
-				</Modal>
+				<div className="col-xs-12 col-md-4 no-padding">
+					<Map { ...user.coordinates }/>
+				</div>
 
-				<Modal contentLabel="address-modal"
-							 isVisible={ this.state.showContactModal }
-							 onClose={ () => this.showModal('showContactModal', false) }>
-					<h4>{ content.profile.contact.need_contact }</h4>
-					<UsersContactForm { ...this.props } completedContactForm={ () => this.showModal('showContactModal', false) }/>
-				</Modal>
+				{ this.imagesModalMarkup() }
+				{ this.termsModalMarkup() }
+				{ this.addressModalMarkup() }
 
 			</section>
 
