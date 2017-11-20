@@ -38,13 +38,4 @@ class UserSerializer < ActiveModel::Serializer
 		@object.address.present? && @object.address.verified && @object.phone.present? && @object.phone.verified
 	end
 
-	def coordinates
-		if @object.address
-			{
-				lat: @object.address.latitude,
-				lng: @object.address.longitude
-			}
-		end
-	end
-
 end

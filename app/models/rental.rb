@@ -8,6 +8,8 @@ class Rental < ActiveRecord::Base
   belongs_to :user
   belongs_to :sporting_good, inverse_of: :rentals
 
+  delegate :user, to: :sporting_good, prefix: :owner, :allow_nil => true
+
   before_save :set_total_days, :set_rental_cost
   validate :dates_are_vacant?, :has_agreed_to_terms, :dates_not_today?, :dates_not_in_past?
 
@@ -18,7 +20,12 @@ class Rental < ActiveRecord::Base
   # TODO change database to sql and update this to use the built in overlap function overlap
   @@dates_taken_sql = "(start BETWEEN ? AND ? OR end BETWEEN ? AND ?) OR (start <= ? AND end >= ?)";
 
-    # validates methods
+  # NOTE Get the owner of the rental
+  def owner
+    OwnerSerializer.new(self.sporting_good.user)
+  end
+
+  # validates methods
 	def dates_are_vacant?
     rentals = self.sporting_good.rentals
 		if (self.start? || self.end?)
@@ -55,13 +62,13 @@ class Rental < ActiveRecord::Base
 	# before create methods
 
 	def set_total_days
-		self.total_days = (self.start - self.end).to_i.abs
+		self.total_days = (self.start - self.end).to_i.abs + 1
 	end
 
 	def set_rental_cost
 		sporting_good = SportingGood.find(self.sporting_good_id)
 		self.sub_total = sporting_good.price_per_day * self.total_days
-		self.total   = self.sub_total + sporting_good.deposit
+		self.total   = self.sub_total
 		self.deposit = sporting_good.deposit
 	end
 

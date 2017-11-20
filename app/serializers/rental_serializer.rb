@@ -17,20 +17,22 @@ class RentalSerializer < ActiveModel::Serializer
                 :total,
                 :confirmed,
                 :all_day,
-                :errors
+                :errors,
+                :owner
 
     belongs_to :sporting_good
+    belongs_to :user, serializer: OwnerSerializer
 
     def all_day
         @@all_day
     end
 
     def start_date
-      @object.start.to_date
+      @object.start.strftime("%A, %B %d %Y")
     end
 
     def end_date
-      @object.end.to_date
+      @object.end.strftime("%A, %B %d %Y")
     end
 
     def start

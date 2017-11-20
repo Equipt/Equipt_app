@@ -17,7 +17,7 @@ class Api::RentalsController < ApiController
     def show
       rental = current_user.rentals.find_by_hash_id(params[:hash_id])
       if rental
-        render json: rental, status: 200
+        render json: rental, include_owner: true, status: 200
       else
         render json: { error: I18n.t('rentals.not_found') }, status: 404
       end

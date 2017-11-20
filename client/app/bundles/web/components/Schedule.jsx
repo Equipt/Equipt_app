@@ -12,49 +12,22 @@ BigCalendar.setLocalizer(
 
 export class Schedule extends React.Component {
 
+	static contextTypes = {
+			router: PropTypes.shape({
+				history: PropTypes.object.isRequired
+			})
+	};
+
   static propTypes = {
     content: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
 		rentals: PropTypes.array.isRequired
   }
 
-  constructor(props) {
-		super(props);
-		this.state = {
-			showRentalModal: false,
-			showCancelRentalModal: false,
-			rental: {}
-		}
-	}
-
 	onSelectEvent(rental) {
-		this.setState({
-			showRentalModal: true,
-			rental: rental
-		});
-	}
-
-	closeModal() {
-		this.setState({
-			showRentalModal: false,
-			showCancelRentalModal: false,
-			rental: {}
-		});
-	}
-
-	cancelRental(hasConfirmed) {
-
-		const { rental } = this.state;
-    const { actions } = this.props;
-
-
-		actions.cancelRental(rental, () => {
-				this.setState({
-					showCancelRentalModal: false,
-					showRentalModal: false
-				});
-		});
-
+		const { slug } = rental.sportingGood;
+		const { hashId, owned } = rental;
+		this.context.router.history.push(`${ owned ? '/owner' : '' }/sporting_goods/${ slug }/rentals/${ hashId }`);
 	}
 
 	render() {
@@ -69,20 +42,6 @@ export class Schedule extends React.Component {
 					onSelectEvent={ this.onSelectEvent.bind(this) }
 					views={ ['month', 'agenda', 'day'] }
 				/>
-
-				<Modal 	isVisible={ this.state.showRentalModal }
-						onClose={ this.closeModal.bind(this) }
-						contentLabel="Rental Modal">
-					<RentalDetails { ...this.state } { ...this.props } cancelRental={ this.cancelRental.bind(this) }/>
-				</Modal>
-
-				<Modal 	isVisible={ this.state.showCancelRentalModal }
-					 	onClose={ this.closeModal.bind(this) }
-						contentLabel="Cancel Rental Modal">
-					<h4 className="text-danger">{ content.rentals.cancel_rental }</h4>
-					<button className="btn btn-success pull-left" onClick={ () => this.cancelRental(true) }>Yes</button>
-					<button className="btn btn-danger pull-left" onClick={ () => this.closeModal() }>Cancel</button>
-				</Modal>
 			</div>
 		)
 	}

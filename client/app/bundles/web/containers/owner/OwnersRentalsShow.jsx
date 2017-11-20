@@ -8,7 +8,7 @@ import * as rentalActions from 'actions/rental';
 
 import RentalConfirmation from 'components/RentalConfirmation';
 
-class RentalsShow extends React.Component {
+class OwnersRentalsShow extends React.Component {
 
 	static contextTypes = {
   		router: PropTypes.shape({
@@ -22,7 +22,7 @@ class RentalsShow extends React.Component {
 		const { params } = this.context.router.route.match;
 
 		// Should be fetching the rental here
-		actions.fetchRental(params.slug, params.id);
+		actions.fetchRental(params.slug, params.id, true);
 
 	}
 
@@ -39,7 +39,7 @@ class RentalsShow extends React.Component {
 function mapStateToProps(state, ownProps) {
 	return {
 		rental: state.rental,
-		loader: state.loader
+    loader: state.loader
 	}
 }
 
@@ -47,4 +47,4 @@ function matchDispatchToProps(dispatch) {
 	return {actions: bindActionCreators(rentalActions, dispatch)}
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(RentalsShow);
+export default connect(mapStateToProps, matchDispatchToProps)(OwnersRentalsShow);

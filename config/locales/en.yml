@@ -43,7 +43,8 @@ en:
     cancel_error: "Issue cancelling rental, please try again later"
     cant_be_today: "Pickup date cant be today"
   frontend:
-    logo: https://s3-us-west-2.amazonaws.com/equipt-assets/logo.png
+    logo: https://s3-us-west-2.amazonaws.com/equipt-assets/logo.
+    go_back: Go Back
     nav:
       login: 'Login'
       signup: 'Signup'

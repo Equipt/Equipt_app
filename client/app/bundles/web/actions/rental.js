@@ -4,16 +4,25 @@ import {extendMoment} from 'moment-range';
 import types from 'actions/types';
 import * as alertActions from 'actions/alerts';
 import * as sportingGoodActions from 'actions/sportingGood';
+import { showLoader } from 'actions/loader';
 
 const moment = extendMoment(Moment);
 
-export const fetchRental = (slug, id) => {
+export const fetchRental = (slug, id, isOwned = false) => {
 
 	return (dispatch, getState, api) => {
 
-		api.get(`/sporting_goods/${ slug }/rentals/${ id }`)
-		.then(rental => dispatch(setRental(rental)))
-		.catch(err => dispatch(alertActions.showErrorAlert(err)));
+		dispatch(showLoader(true));
+
+		api.get(`${ isOwned ? '/owner' : '' }/sporting_goods/${ slug }/rentals/${ id }`)
+		.then(rental => {
+			dispatch(setRental(rental));
+			dispatch(showLoader(false));
+		})
+		.catch(err => {
+			dispatch(alertActions.showErrorAlert(err));
+			dispatch(showLoader(false));
+		});
 
 	}
 

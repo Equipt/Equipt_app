@@ -17,26 +17,74 @@ const RentalDetails = ({
       slidesToScroll: 1
     };
 
-    const { sportingGood = {} } = rental;
+    const { sportingGood = {}, owner = {}, user = {}, owned } = rental;
     const { images = [] } = sportingGood;
 
+    const pickupLocationMarkup = () => {
+      return (
+        <div>
+
+          <h4 className="header">Pickup Location</h4>
+
+          <div className="col-xs-6 no-padding">
+            <h5 className="capitalize">{ owner.firstname } { owner.lastname }</h5>
+            <a href="email:{owner.email}"><h5>{ owner.email }</h5></a>
+            <a href="phone:{owner.email}"><h5>{ owner.phone }</h5></a>
+          </div>
+
+          <div className="col-xs-6 no-padding">
+            <h5 className="capitalize">{ owner.unit ? `${ owner.unit } - ` : '' }{ owner.street_number } { owner.street }</h5>
+            <h5 className="capitalize">{ owner.city }, { owner.state }</h5>
+            <h5 className="capitalize">{ owner.country }, { owner.zip }</h5>
+          </div>
+
+          <div className="clearfix"/>
+
+          <Map { ...owner.coordinates }/>
+
+        </div>
+      )
+    }
+
+    const rentersDetailsMarkup = () => {
+      return (
+        <div>
+          <h4 className="header">Renters Details</h4>
+          <h5 className="capitalize">{ user.firstname } { user.lastname }</h5>
+          <a href="email:{user.email}"><h5>{ user.email }</h5></a>
+          <a href="phone:{user.email}"><h5>{ user.phone }</h5></a>
+        </div>
+      )
+    }
+
     return (
-        <div className="rental-details-container">
+        <div className="rental-show">
 
             <div className="row">
 
                 <div className="col-xs-6">
 
-                  <p>Pick Up Date: { rental.startDate }</p>
-                  <p>Drop Off Date: { rental.endDate }</p>
-                  <p>Total Days Renting: { rental.totalDays }</p>
-                  <p>Deposit: ${ rental.deposit }</p>
-                  <p>Sub Total: ${ rental.subTotal }</p>
-                  <p>Total: ${ rental.total }</p>
+                  <h4 className="col-xs-7 no-padding header">Dates</h4>
+
+                  <button className="btn btn-danger pull-right" onClick={ () => cancelRental(rental) }>Cancel Rental</button>
+
+                  <div className="clearfix"/>
+
+                  <h5>{ rental.startDate } - { rental.endDate }</h5>
+                  <h5>{ rental.totalDays } Days Renting</h5>
 
                   <hr/>
 
-                  <Map/>
+                  <h4 className="header">Price</h4>
+
+                  <h5>${ sportingGood.pricePerDay } Price Per Day</h5>
+      						<h5>${ rental.deposit } Deposit (Will place a hold, will not be charged*)</h5>
+                  <h5>${ rental.subTotal } Sub Total</h5>
+      						<h4>${ rental.total } Total</h4>
+
+                  <hr/>
+
+                  { owned ? rentersDetailsMarkup() : pickupLocationMarkup() }
 
                 </div>
 
@@ -56,12 +104,6 @@ const RentalDetails = ({
                   </Slider>
 
                 </div>
-
-            </div>
-
-            <div className="col-xs-12">
-
-                <button className="btn btn-danger pull-left" onClick={ () => cancelRental(rental) }>Cancel Rental</button>
 
             </div>
 

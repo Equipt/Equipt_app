@@ -30,9 +30,10 @@ li {
 	width: 95%;
 	max-width: 1500px;
 	margin-top: 105px;
+	&.reduce-margin-top {
+		margin-top: 50px;
+	}
 }
-
-
 
 .no-padding {
 	padding-left: 0;
@@ -41,6 +42,15 @@ li {
 
 .display-block {
 	display: block;
+}
+
+.header {
+	text-decoration: underline;
+	margin-bottom: 15px;
+}
+
+.capitalize {
+	text-transform: capitalize;
 }
 
 // Forms

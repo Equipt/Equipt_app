@@ -74,4 +74,13 @@ class User < ActiveRecord::Base
 		phone.verified && address.verified
 	end
 
+	def coordinates
+		if self.address
+			{
+				lat: self.address.latitude,
+				lng: self.address.longitude
+			}
+		end
+	end
+
 end

@@ -17,7 +17,7 @@ class SportingGoodSerializer < ActiveModel::Serializer
 
 	has_many :rentals
 	has_many :ratings
-	belongs_to :user
+	belongs_to :user, serializer: OwnerSerializer
 
 	def include_rentals?
 		@options[:exclude_rentals]
