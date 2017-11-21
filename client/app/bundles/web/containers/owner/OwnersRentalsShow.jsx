@@ -38,7 +38,7 @@ class OwnersRentalsShow extends React.Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		rental: state.rental,
+		rental: state.rental || {},
     loader: state.loader
 	}
 }

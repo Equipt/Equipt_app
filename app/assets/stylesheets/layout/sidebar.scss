@@ -8,6 +8,13 @@
 	background: $secondary_color;
 	z-index: 4;
 
+	&.absolute {
+		position: absolute;
+		top: inherit;
+		bottom: 400px;
+		left: -51px;
+	}
+
 	i {
 		cursor: pointer;
 		color: #D64E33;
@@ -42,5 +49,12 @@
 		&.axe {
 			background-position: 0 -95px;
 		}
+	}
+	.back {
+		position: absolute;
+		bottom: 80px;
+		width: 100%;
+		text-align: center;
+		cursor: pointer;
 	}
 }

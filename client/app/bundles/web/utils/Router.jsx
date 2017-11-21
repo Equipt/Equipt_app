@@ -7,6 +7,7 @@ import { RouteTransition } from 'react-router-transition';
 // Components
 import Home from 'components/Home';
 import NotFoundPage from 'components/NotFoundPage';
+import Footer from 'components/Footer';
 
 // Containers
 import Session from 'containers/Session';
@@ -55,7 +56,7 @@ export default (props, store) => {
 	}
 
 	return (
-		<div className="main-wrapper">
+		<div className="main-wrapper" id="mainWrapper">
 			<Session { ...props }/>
 			<Alert/>
 
@@ -104,6 +105,8 @@ export default (props, store) => {
 					</Switch>
 				</RouteTransition>
 			)} />
+
+			<Footer { ...props }/>
 		</div>
 	);
 };

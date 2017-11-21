@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {connect} from 'react-redux';  
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import { Link } from 'react-router-dom';
 
-import * as sessionActions from 'actions/session'; 
+import * as sessionActions from 'actions/session';
 
 import Nav from 'components/Nav';
-import SideBar from 'components/SideBar';
 import MobileNav from 'components/MobileNav';
+import { SideBar } from 'components/SideBar';
 
 class Session extends React.Component {
 
@@ -33,7 +33,7 @@ class Session extends React.Component {
 
 	render() {
 
-		const session = this.props.session || {}; 
+		const session = this.props.session || {};
 
 		return (
 			<div>
@@ -52,9 +52,8 @@ function mapStateToProps(state, ownProps) {
 	}
 }
 
-function matchDispatchToProps(dispatch) {  
+function matchDispatchToProps(dispatch) {
 	return {actions: bindActionCreators(sessionActions, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Session);
-

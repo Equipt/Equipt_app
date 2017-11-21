@@ -53,6 +53,11 @@ en:
       add_good: 'Add A Sporting Good'
       your_goods: 'Your Goods'
       calendar: 'Calendar'
+    footer:
+      about:
+        title: About
+      how_it_works:
+        title: Renting
     login:
       title: Login
       password_reset: Need help logging in?

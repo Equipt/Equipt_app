@@ -206,7 +206,7 @@ export class SportingGoodDetails extends React.Component {
 
 		return (
 
-			<section className="container sporting-goods-show">
+			<section className="sporting-goods-show">
 
 				<div className="image-container">
 					<button className="btn btn-default"
@@ -218,69 +218,73 @@ export class SportingGoodDetails extends React.Component {
 					}}/>
 				</div>
 
-				<div className="image-spacer"/>
+				<div className="container">
 
-				<Link to="/sporting_goods" className="pull-right go-back">Go Back</Link>
+					<div className="image-spacer"/>
 
-				<div className="col-xs-12 col-md-8">
+					<Link to="/sporting_goods" className="pull-right go-back">Go Back</Link>
 
-					<BigCalendar
-						events={ rentals.concat([ rental ]) }
-						selectable
-						views={ ['month'] }
-						onSelectSlot={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }
-						components={{
-						dateCellWrapper: DateCell
-					}}/>
+					<div className="col-xs-12 col-md-8">
 
-					<ul>{ ratings.map((rating, index) => this.ratingMarkup(rating, index)) }</ul>
+						<BigCalendar
+							events={ rentals.concat([ rental ]) }
+							selectable
+							views={ ['month'] }
+							onSelectSlot={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }
+							components={{
+							dateCellWrapper: DateCell
+						}}/>
 
-				</div>
-
-				<div className="col-xs-12 col-md-4 pricing-container">
-
-					<h3>
-						{ sportingGood.title }
-						<StarRatings rating={ sportingGood.overallRating } starWidthAndHeight={ '25px' }/>
-					</h3>
-					<h4>{ sportingGood.model }</h4>
-					<p>{ sportingGood.description }</p>
-
-					<div className="price-container">
-
-						<h4>{ totalDays > 0 ? `${ totalDays } Rental Days` : `` }</h4>
-						<h4>${ sportingGood.pricePerDay } Price Per Day</h4>
-						<h4>{ sportingGood.deposit > 0 ? `$${ sportingGood.deposit } Deposit` : `` }</h4>
-						<h4>{ weeklyRentalDiscount > 0 ? `$${ weeklyRentalDiscount } Discount` : `` }</h4>
-						<h3>{ subTotal > 0 ? `$${ subTotal - weeklyRentalDiscount } Total*` : `` }</h3>
-
-						<label onClick={ e => this.setState({ agreedToTerms: e.target.checked }) }>
-							{ content.rentals.agree_wth_terms }
-						</label>
-
-						<input 	type="checkbox"
-										value={ agreedToTerms }
-										onChange={ e => this.setState({ agreedToTerms: e.target.checked }) }/>
-
-						<a href="#" className="display-block" onClick={ e => {
-							e.preventDefault();
-							this.showModal('showRentalTermsModal', true);
-						}}>
-							{ content.rentals.read_rental_terms }
-						</a>
-
-						<button className="btn btn-success rent-btn"
-										onClick={ () => this.rent(rental, sportingGood) }
-										disabled={ !rental.start }>
-										Rent
-						</button>
+						<ul>{ ratings.map((rating, index) => this.ratingMarkup(rating, index)) }</ul>
 
 					</div>
 
-				</div>
+					<div className="col-xs-12 col-md-4 pricing-container">
 
-				<div className="col-xs-12 col-md-4 no-padding">
-					<Map { ...user.coordinates }/>
+						<h3>
+							{ sportingGood.title }
+							<StarRatings rating={ sportingGood.overallRating } starWidthAndHeight={ '25px' }/>
+						</h3>
+						<h4>{ sportingGood.model }</h4>
+						<p>{ sportingGood.description }</p>
+
+						<div className="price-container">
+
+							<h4>{ totalDays > 0 ? `${ totalDays } Rental Days` : `` }</h4>
+							<h4>${ sportingGood.pricePerDay } Price Per Day</h4>
+							<h4>{ sportingGood.deposit > 0 ? `$${ sportingGood.deposit } Deposit` : `` }</h4>
+							<h4>{ weeklyRentalDiscount > 0 ? `$${ weeklyRentalDiscount } Discount` : `` }</h4>
+							<h3>{ subTotal > 0 ? `$${ subTotal - weeklyRentalDiscount } Total*` : `` }</h3>
+
+							<label onClick={ e => this.setState({ agreedToTerms: e.target.checked }) }>
+								{ content.rentals.agree_wth_terms }
+							</label>
+
+							<input 	type="checkbox"
+											value={ agreedToTerms }
+											onChange={ e => this.setState({ agreedToTerms: e.target.checked }) }/>
+
+							<a href="#" className="display-block" onClick={ e => {
+								e.preventDefault();
+								this.showModal('showRentalTermsModal', true);
+							}}>
+								{ content.rentals.read_rental_terms }
+							</a>
+
+							<button className="btn btn-success rent-btn"
+											onClick={ () => this.rent(rental, sportingGood) }
+											disabled={ !rental.start }>
+											Rent
+							</button>
+
+						</div>
+
+					</div>
+
+					<div className="col-xs-12 col-md-4 no-padding">
+						<Map { ...user.coordinates }/>
+					</div>
+
 				</div>
 
 				{ this.imagesModalMarkup() }

@@ -30,11 +30,11 @@ $primary_color: #8FC485;
 }
 
 .loader {
-    position: fixed;
+    position: absolute;
     width: 100px;
     height: 100px;
     left: 50%;
-    top: 65%;
+    top: 50%;
     margin-left: -50px;
     margin-top: -50px;
     z-index: 100;

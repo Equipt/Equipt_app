@@ -17,6 +17,7 @@ li {
 }
 
 .main-wrapper {
+	position: relative;
 	.transition .container {
 		padding-top: 40px;
 	}
@@ -27,9 +28,12 @@ li {
 }
 
 .container {
+	position: relative;
 	width: 95%;
+	min-height: 100vh;
 	max-width: 1500px;
 	margin-top: 105px;
+	margin-bottom: 50px;
 	&.reduce-margin-top {
 		margin-top: 50px;
 	}
