@@ -17,7 +17,6 @@ import ForgotPassword from 'containers/ForgotPassword';
 import ResetPassword from 'containers/ResetPassword';
 import Profile from 'containers/Profile';
 import Alert from 'containers/Alert';
-import FaceBook from 'containers/FaceBook';
 import SportingGoodsIndex from 'containers/SportingGoodsIndex';
 import SportingGoodsShow from 'containers/SportingGoodsShow';
 import OwnersSportingGoodsIndex from 'containers/owner/OwnersSportingGoodsIndex';
@@ -48,10 +47,7 @@ export default (props, store) => {
 		if (isAuthenticated()) {
 			return <ProtectedComponent { ...props }/>;
 		} else {
-			return 	(<div>
-						{  AlternativeSessionComponent ? <AlternativeSessionComponent { ...props }/> : <Login { ...props }/>}
-						<FaceBook { ...props }/>
-					</div>);
+			return AlternativeSessionComponent ? <AlternativeSessionComponent { ...props }/> : <Login { ...props }/>;
 		}
 	}
 
@@ -60,20 +56,22 @@ export default (props, store) => {
 			<Session { ...props }/>
 			<Alert/>
 
-			<Route path="(/|/home)" exact={ true } render={ () => {
-				return protectedRoute(SportingGoodsIndex, Home);
-			}}/>
-			<Route path="/signup" render={ () => {
-				return protectedRoute(SportingGoodsIndex, Signup);
-			}}/>
-			<Route path="/login" render={ () => {
-				return protectedRoute(SportingGoodsIndex);
-			}}/>
-			<Route path="/forgot_password" component={ ForgotPassword }/>
-			<Route path="/reset_password/:reset_token" component={ ResetPassword }/>
 			<Route render={({ location }) => (
 				<RouteTransition { ...RouteTransitionSettings }>
 					<Switch key={location.key} location={location}>
+						<Route path="(/|/home)" exact={ true } render={ () => {
+							return protectedRoute(SportingGoodsIndex, Home);
+						}}/>
+						<Route path="/signup" render={ () => {
+							return protectedRoute(SportingGoodsIndex, Signup);
+						}}/>
+						<Route path="/login" render={ () => {
+							return protectedRoute(SportingGoodsIndex);
+						}}/>
+
+						<Route path="/forgot_password" component={ ForgotPassword }/>
+						<Route path="/reset_password/:reset_token" component={ ResetPassword }/>
+
 						<Route exact path="/sporting_goods/:slug/rentals/:id" render={ () => {
 							return protectedRoute(RentalsShow);
 						}}/>
@@ -101,7 +99,7 @@ export default (props, store) => {
 						<Route exact path="/profile" render={ () => {
 							return protectedRoute(Profile);
 						}}/>
-						<Route exact path="/not_found" component={ NotFoundPage } />
+						<Route path="*" component={ NotFoundPage } />
 					</Switch>
 				</RouteTransition>
 			)} />

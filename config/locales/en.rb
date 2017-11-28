@@ -23,6 +23,29 @@
             we_appreciate_any_feedback: 'We appreciate any feedback'
           }
         },
+        :basic => {
+          title: "Signup",
+          :formFields => [
+            {
+              name: 'firstname',
+              label: 'First Name',
+              tag: 'input',
+              type: 'text'
+            },
+            {
+              name: 'lastname',
+              label: 'Last Name',
+              tag: 'input',
+              type: 'text'
+            },
+            {
+              name: 'email',
+              label: 'Email',
+              tag: 'input',
+              type: 'email'
+            }
+          ]
+        },
         :contact => {
           title: 'Enter your contact details below',
           button: 'Update Contact Info',

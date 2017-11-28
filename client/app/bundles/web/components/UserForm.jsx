@@ -75,14 +75,14 @@ export class UserForm extends React.Component {
   render() {
 
     const user = this.state.user;
-    const content = this.props.formContent;
+    const { formFields, title } = this.props.formContent;
 
     return (
       <form onSubmit={ this.submit.bind(this) }>
 
-        <title>{ content.title }</title>
+        <title>{ title }</title>
 
-        { FormFieldsHelper.call(this, content.formFields, user) }
+        { FormFieldsHelper.call(this, formFields, user) }
 
         <br/>
 

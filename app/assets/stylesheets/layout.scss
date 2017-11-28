@@ -6,6 +6,7 @@ $grey: #AFAFAF;
 
 $sprite: url(image-path('sprite.png')) no-repeat;
 $main-logo: url(image-path('logo.png')) no-repeat;
+$not-found-image: url(image-path('404.jpeg')) no-repeat;
 
 body {
 	overflow-x: hidden;
@@ -81,4 +82,30 @@ label {
 	label {
 		margin: 0 5px;
 	}
+}
+
+.main-logo {
+	display: inline-block;
+	height: 54px;
+	width: 54px;
+	background: $main-logo;
+	background-size: cover;
+	margin-left: 7px;
+}
+
+.price-input {
+
+	position: relative;
+
+	&:before {
+		content: '$';
+		position: absolute;
+		bottom: 7px;
+		left: 25px;
+	}
+
+	input {
+		padding-left: 20px;
+	}
+
 }

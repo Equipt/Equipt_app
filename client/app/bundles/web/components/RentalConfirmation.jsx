@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import RentalDetails from 'components/RentalDetails';
+import { RentalDetails } from 'components/RentalDetails';
 import Loader from 'components/Loader';
 
 const RentalConfirmation = ({
@@ -18,7 +18,7 @@ const RentalConfirmation = ({
           <h3>{ content.rentals.confirmed_title }</h3>
           <h5>{ content.rentals.confirmed_details }</h5>
           <br/>
-          <RentalDetails rental={ rental } cancelRental={ actions.cancelRental }/>
+          <RentalDetails rental={ rental } { ...actions }/>
         </div>
     )
 

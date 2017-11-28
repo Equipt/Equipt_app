@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 
 import FacebookLogin from 'react-facebook-login';
 
-import {connect} from 'react-redux';  
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as sessionActions from 'actions/session';
 
-class FaceBook extends React.Component {
+export class FaceBookLogin extends Component {
 
 	static contextTypes = {
   		router: PropTypes.shape({
@@ -16,9 +16,14 @@ class FaceBook extends React.Component {
   		})
 	};
 
+  static propTypes = {
+    loginWithFacebook: PropTypes.func.isRequired,
+    facebookAppId: PropTypes.string.isRequired
+  }
+
 	login(facebookData) {
 
-		const {loginWithFacebook} = this.props.actions;
+		const { loginWithFacebook } = this.props;
 
 		loginWithFacebook(facebookData, () => {
 			this.context.router.history.push('/sporting_goods');
@@ -27,29 +32,18 @@ class FaceBook extends React.Component {
 
 	render() {
 
+    const { facebookAppId } = this.props;
+
 		return (
-			<div className='container'>
+			<div>
 				<hr/>
 				<FacebookLogin
-    				appId={ this.props.appId }
+    				appId={ facebookAppId }
     				autoLoad={true}
     				fields="name,email,picture"
     				callback={ this.login.bind(this) }/>
-    		</div>
+    	</div>
 		);
 	}
 
 }
-
-function mapStateToProps(state, ownProps) {
-	return {
-		alerts: state.alerts,
-		appId: ownProps.appId
-	}
-}
-
-function matchDispatchToProps(dispatch) {  
-	return {actions: bindActionCreators(sessionActions, dispatch)}
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(FaceBook);

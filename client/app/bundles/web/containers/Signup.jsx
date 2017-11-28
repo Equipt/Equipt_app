@@ -7,6 +7,7 @@ import { SignupForm } from 'components/SignupForm';
 
 import * as userActions from 'actions/user';
 import * as alertActions from 'actions/alerts';
+import * as sessionActions from 'actions/session';
 
 class Signup extends React.Component {
 
@@ -28,7 +29,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators({ ...userActions, ...alertActions }, dispatch)}
+	return {actions: bindActionCreators({ ...userActions, ...alertActions, ...sessionActions }, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Signup);

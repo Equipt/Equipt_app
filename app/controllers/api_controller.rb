@@ -14,6 +14,13 @@ class ApiController < ApplicationController
 		end
 	end
 
+	# NOTE returns error if user has no address and phone
+	def is_current_user_verified?
+		return true if current_user.verified?
+		render json: { error: I18n.t('user.not_verified') }, status: 403
+		false
+	end
+
 	protected
 
 	# gets token from headers

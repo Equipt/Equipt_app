@@ -14,22 +14,26 @@ export class SideBar extends Component {
 	componentDidMount() {
 
 		const { sideBar } = this.refs;
+		const footer = document.getElementsByTagName('footer')[0];
+		const nav = document.getElementsByTagName('nav')[0];
 
 		window.addEventListener("scroll", () => {
-
-			const footer = document.getElementsByTagName('footer')[0];
 
 			const scrollTop = window.pageYOffset;
 			const bodyHeight = document.body.clientHeight;
 			const footerHeight = footer.clientHeight;
+			const sideBarHeight = sideBar.clientHeight;
+			const navHeight = nav.clientHeight;
 
-			console.log(scrollTop)
+			const overflowHeight = bodyHeight - footerHeight - sideBarHeight + navHeight - 38;
 
-			if (scrollTop > (bodyHeight - 890)) {
+			if (scrollTop > overflowHeight) {
 				sideBar.classList.add('absolute');
 			} else {
 				sideBar.classList.remove('absolute');
 			}
+
+			document.body.scrollTo(window.scrollX, window.scrollY + 2);
 
 		});
 	}

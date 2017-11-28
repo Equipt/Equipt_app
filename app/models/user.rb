@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 	has_many :api_keys, dependent: :destroy
 	has_many :ratings, :as => :rateable, dependent: :destroy
 	has_many :owned_rentals, :through => :sporting_goods, source: 'rentals'
+	has_many :images, :as => :imageable, dependent: :destroy
 
 	has_one :address, :dependent => :destroy
 	has_one :phone, :dependent => :destroy
@@ -53,6 +54,15 @@ class User < ActiveRecord::Base
     	user.password              ||=  password
     	user.password_confirmation ||=  password
   		user.save!
+
+			url = auth['picture']['data']['url']
+
+			user.images.first_or_initialize(url: url) do |image|
+				image.url = url
+				image.primary = true
+				image.save!
+			end
+
 		end
 
 	end
@@ -71,7 +81,8 @@ class User < ActiveRecord::Base
 
 	# user has completed contact info
 	def verified?
-		phone.verified && address.verified
+		return true if phone && phone.verified && address && address.verified
+		false
 	end
 
 	def coordinates

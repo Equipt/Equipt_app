@@ -3,6 +3,8 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
+import { FaceBookLogin } from 'components/FaceBookLogin';
+
 import * as alertActions from 'actions/alerts';
 
 export class LoginForm extends React.Component {
@@ -12,6 +14,12 @@ export class LoginForm extends React.Component {
     		history: PropTypes.object.isRequired,
   		})
 	};
+
+	static propTypes = {
+		content: PropTypes.object.isRequired,
+		actions: PropTypes.object.isRequired,
+		facebookAppId: PropTypes.string.isRequired
+	}
 
 	submit(e) {
 
@@ -33,6 +41,7 @@ export class LoginForm extends React.Component {
 	render() {
 
 		const { login } = this.props.content;
+		const { facebookAppId, content, actions } = this.props;
 
 		return (
 			<section className="container">
@@ -44,16 +53,15 @@ export class LoginForm extends React.Component {
 					{
 						login.formFields.map((field, index) => {
 
-							return 	<div key={ `field_${ index }` }
-										 className="form-group">
-										<br/>
-										<label>{ field.label }</label>
-										<input  ref={ field.name }
-												name={ field.name }
-												className="form-control"
-												type={ field.type }
-										/>
-								   	</div>;
+							return 	(<div key={ `field_${ index }` }
+										 			 className="form-group">
+													 <br/>
+													 <label>{ field.label }</label>
+													 <input  ref={ field.name }
+													 				 name={ field.name }
+																	 className="form-control"
+																	 type={ field.type }/>
+								   	</div>);
 						})
 					}
 
@@ -62,6 +70,8 @@ export class LoginForm extends React.Component {
 				</form>
 
 				<Link to="/forgot_password" className="pull-right">{ login.password_reset }</Link>
+
+				<FaceBookLogin loginWithFacebook={ actions.loginWithFacebook } facebookAppId={ facebookAppId }/>
 
 			</section>
 		)

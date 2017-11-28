@@ -59,12 +59,11 @@ export const createSportingGood = (sportingGood = {}, images = [], slug = '', ca
 			isMultipart: true,
 			data: formData
 		})
-		.then(data => {
-			callback();
-		})
+		.then(data => callback())
 		.catch(data => dispatch(setSportingGood(data)));
 
 	}
+
 }
 
 export const editSportingGood = (slug) => {

@@ -31,8 +31,9 @@ export class UsersProfile extends React.Component {
 	getCurrentTab() {
 
 		const { currentUser } = this.props;
-		const { signup } = this.props.content;
+		const { basic } = this.props.content.profile;
 		const { currentTab } = this.state;
+
 
 		switch(currentTab) {
 			case this.state.tabs[1]:
@@ -45,7 +46,7 @@ export class UsersProfile extends React.Component {
 				return <Reviews reviews={ currentUser.reviews || [] }/>;
 			break;
 			default:
-				return <UserForm { ...this.props } formContent={ signup } isUpdating={ true }/>;
+				return <UserForm { ...this.props } formContent={ basic } isUpdating={ true }/>;
 		}
 
 	}

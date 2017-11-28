@@ -14,7 +14,8 @@ class UserSerializer < ActiveModel::Serializer
 			:notify_by_sms,
 			:notify_by_email,
 			:isVerified,
-			:coordinates
+			:coordinates,
+			:profile
 
 	has_one :phone
 	has_one :address
@@ -36,6 +37,10 @@ class UserSerializer < ActiveModel::Serializer
 
 	def isVerified
 		@object.address.present? && @object.address.verified && @object.phone.present? && @object.phone.verified
+	end
+
+	def profile
+		@object.images.first.url if @object.images.first 
 	end
 
 end

@@ -23,13 +23,13 @@ class SportingGood < ActiveRecord::Base
 
 	validates_presence_of :category, :title, :brand, :model, :price_per_day
 	validates :price_per_day, :price_per_week, :age, :numericality => { greater_than: 0 }
-	validate :weekly_price_is_a_discount
 	validates :user, :presence => true
+	validate :is_weekly_price_a_discount?
 
 	before_save :set_deposits_default
 
 	def slug_candidates
-  		[ :title,[:title,:id] ]
+  	[ :title,[:title,:id] ]
 	end
 
 	def store_images(images = [])
@@ -49,7 +49,7 @@ class SportingGood < ActiveRecord::Base
 
 	end
 
-	def weekly_price_is_a_discount
+	def is_weekly_price_a_discount?
 
 		full_weekly_cost = self.price_per_day.to_i * DAYS_IN_WEEK
 

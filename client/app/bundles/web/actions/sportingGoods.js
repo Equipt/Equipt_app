@@ -37,8 +37,6 @@ export const fetchOwnersSportingGoods = (query = {}) => {
 
 	return function(dispatch, getState, api) {
 
-		api.token = getState().session.token;
-
 		dispatch(loaderActions.showLoader(true));
 
 		api.get('/owner/sporting_goods', query)
@@ -71,29 +69,17 @@ export const setSportingGoodsTotal = (data) => {
 	}
 }
 
-// Remove Sporting Good from list
-export const detachSportingGoods = (data) => {
-	return {
-		type: types.DETACH_SPORTING_GOOD,
-		payload: data
-	}
-}
-
 // Delete sporting good
-export const deleteSportingGood = id => {
+export const deleteSportingGood = (slug, callback) => {
 
 	return function(dispatch, getState, api) {
 
-		api.token = getState().session.token;
-
-		api.delete(`/owner/sporting_goods/${ id }`)
+		api.delete(`/owner/sporting_goods/${ slug }`)
 		.then(res => {
+			dispatch(fetchOwnersSportingGoods());
 			dispatch(alertActions.showSuccessAlert(res));
-			dispatch(detachSportingGoods(id));
 		})
-		.catch(err => {
-			dispatch(alertActions.showErrorAlert(err));
-		});
+		.catch(err => dispatch(alertActions.showErrorAlert(err)));
 
 	}
 }

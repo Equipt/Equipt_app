@@ -8,21 +8,37 @@ const Nav = ({
 	content
 }) => {
 
+	const { currentUser } = session;
+
 	let sessionHtml = (<div className="pull-right session-container">
-    	<Link className="btn btn-success" to="/login">Login</Link>
-    	<Link className="btn btn-success" to="/signup">Signup</Link>
+    	<Link className="btn btn-success login" to="/login">Login</Link>
+    	<Link className="btn btn-success signup" to="/signup">Signup</Link>
 	</div>);
 
 	// Set logged in html
-	if (session.currentUser) {
+	if (currentUser) {
 
-		sessionHtml = (<div className="pull-right session-container">
-			<Link to="/profile" className="profile">{ session.currentUser.firstname }</Link>
-			<div onClick={ clearSession } className="logoout-container">
-				<i className="fa fa-power-off power-off" aria-hidden="true"></i>
-				<p>Logout</p>
+		sessionHtml = (
+			<div className="session-container">
+				<div className="profile-container">
+				{
+					currentUser.profile ?
+					(<Link to="/profile">
+						<img src={ currentUser.profile } className="profile-image"/>:
+					</Link>)
+					:
+					(<Link to="/profile">
+						<i className="fa fa-user-o" aria-hidden="true"/>
+						<p>{ currentUser.firstname }</p>
+					</Link>)
+				}
+				</div>
+				<div onClick={ clearSession } className="logout-container">
+					<i className="fa fa-power-off power-off" aria-hidden="true"></i>
+					<p>Logout</p>
+				</div>
 			</div>
-		</div>)
+		)
 	}
 
 	return (

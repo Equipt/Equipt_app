@@ -69,6 +69,7 @@ export class UsersContactForm extends React.Component {
   countryChanged() {
 
     const { value } = this.refs['country'];
+
     const { contact } = this.props.content.profile;
     const stateField = contact.address.formFields[4];
 
@@ -160,7 +161,8 @@ export class UsersContactForm extends React.Component {
     const { address, phone } = this.state;
     const { currentUser } = this.props;
 
-    const contact = this.props.content.profile.contact;
+    const { contact } = this.props.content.profile;
+
     const phoneField = contact.phone.formFields[0];
     const countryField = contact.address.formFields[6];
 

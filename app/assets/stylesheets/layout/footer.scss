@@ -2,4 +2,10 @@ footer {
   min-height: 400px;
   margin: 0 -50px;
   background: $primary-color;
+  padding: 50px 50px;
+
+  .main-logo {
+    width: 100px;
+    height: 100px;
+  }
 }

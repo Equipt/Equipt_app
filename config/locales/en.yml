@@ -34,7 +34,7 @@ en:
   user:
     deleted: 'Sorry you decided to cancel you account %{name}'
     phone_verification: '"Hey, Equipt here. Your PIN is %{pin}!"'
-    not_verified: "Sorry you have not yey verifed your contact information with us!"
+    not_verified: "Sorry you have not yet verified your contact information with us!"
   rentals:
     dates_are_taken: "Sorry, %{item} is unavailable between these dates"
     dates_in_past: "Rental Dates cannot be in the past!"
@@ -140,23 +140,20 @@ en:
           label: How much do you want to charge per day?
           tag: input
           type: number
-          default: 1
-          min: 1
-          fieldsetClass: 'col-xs-6'
+          min: 0
+          fieldsetClass: 'col-xs-6 price-input'
         - name: price_per_week
           label: How much do you want to charge per week?
           tag: input
           type: number
-          default: 1
-          min: 1
-          fieldsetClass: 'col-xs-6'
+          min: 0
+          fieldsetClass: 'col-xs-6 price-input'
         - name: deposit
           label: How much is the deposit?
           tag: input
           type: number
-          default: 1
-          min: 1
-          fieldsetClass: 'col-xs-6'
+          min: 0
+          fieldsetClass: 'col-xs-6 price-input'
       update:
         title: Update Sporting Form
         dropZone: Drop images here!

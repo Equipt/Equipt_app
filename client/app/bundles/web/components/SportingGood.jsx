@@ -51,11 +51,13 @@ export class SportingGood extends React.Component {
 						onClose={ this.showModal.bind(this, 'showDeleteModal', false) }>
 						<div className="delete-modal">
 
-							<h4 dangerouslySetInnerHTML={{__html: content.delete.title}}></h4>
+							<h4>{ content.delete.title }</h4>
 
 							<p className="text-danger">{ content.delete.warning }</p>
 
-							<button onClick={ actions.deleteSportingGood.bind(this, sportingGood.slug) }
+							<button onClick={ actions.deleteSportingGood.bind(this, sportingGood.slug, () => {
+								this.showModal.bind(this, 'showDeleteModal', false)
+							}) }
 											className="btn btn-danger">
 											{ content.delete.im_sure }
 							</button>

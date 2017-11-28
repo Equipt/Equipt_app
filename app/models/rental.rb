@@ -11,7 +11,7 @@ class Rental < ActiveRecord::Base
   delegate :user, to: :sporting_good, prefix: :owner, :allow_nil => true
 
   before_save :set_total_days, :set_rental_cost
-  validate :dates_are_vacant?, :has_agreed_to_terms, :dates_not_today?, :dates_not_in_past?
+  validate :dates_are_vacant?, :has_agreed_to_terms?, :dates_not_today?, :dates_not_in_past?
 
   # after_save :send_confirmation_email, if: :rental_confirmed_changed?
   # after_create :send_create_emails
@@ -49,7 +49,7 @@ class Rental < ActiveRecord::Base
     false
   end
 
-  def has_agreed_to_terms
+  def has_agreed_to_terms?
     return true if self.agreed_to_terms
     errors.add(:error, I18n.t('rentals.terms_not_agreed_to'))
     false

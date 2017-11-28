@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import * as sessionActions from 'actions/session';
+import * as alertActions from 'actions/alerts';
 
 export default class Api {
 
@@ -11,6 +12,7 @@ export default class Api {
 
 		this.basePath = "/api";
 
+		// Set api key header
 		axios.interceptors.request.use(config => {
 			const state = this.store.getState();
 			if (state.session.token) {
@@ -18,6 +20,35 @@ export default class Api {
 			}
 			return config;
 		});
+
+		axios.interceptors.response.use(
+			response => response,
+		 	error => {
+
+				const { status, data } = error.response;
+
+				switch(status) {
+					// Server error
+					case 500:
+					// Unauthorized
+					case 401:
+						localStorage.clear();
+						this.store.dispatch(sessionActions.clearSession());
+						this.history.push('/login');
+					break;
+					// Forbidden
+					case 403:
+						this.store.dispatch(alertActions.showErrorAlert(data));
+					break;
+					// Not found
+					case 404:
+						this.history.push('/not_found');
+					break;
+				}
+
+				return Promise.reject(error);
+
+			})
 
 	}
 
@@ -82,21 +113,7 @@ export default class Api {
 
 			axios(ajaxObj)
 			.then((res, status, xhr) => resolve(res.data))
-			.catch(err => {
-
-				const { data, status } = err.response;
-
-				if (status === 500 || status === 401) {
-					localStorage.clear();
-					this.store.dispatch(sessionActions.clearSession());
-					return this.history.push('/login');
-				} else if (status === 404) {
-					this.history.push('/not_found');
-				}
-
-				reject(data);
-
-			});
+			.catch(({ response }) => reject(response.data));
 
 		});
 

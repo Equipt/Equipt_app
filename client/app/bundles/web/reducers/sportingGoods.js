@@ -8,9 +8,6 @@ const sportingGoods = (state = [], action) => {
 				total: action.payload.total
 			})
 		break;
-		case types.DETACH_SPORTING_GOOD:
-			return state.filter(sportingGood => action.payload != sportingGood.slug);
-		break;
     default:
     	return state;
 	}
