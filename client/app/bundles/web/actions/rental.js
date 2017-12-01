@@ -10,7 +10,7 @@ const moment = extendMoment(Moment);
 
 export const fetchRental = (slug, id, isOwned = false) => {
 
-	return (dispatch, getState, api) => {
+	return (dispatch, getState, { api }) => {
 
 		dispatch(showLoader(true));
 
@@ -30,7 +30,7 @@ export const fetchRental = (slug, id, isOwned = false) => {
 
 export const rent = (rental, sportingGood, callback) => {
 
-	return (dispatch, getState, api) => {
+	return (dispatch, getState, { api }) => {
 
     const { slug } = sportingGood;
     const { showErrorAlert } = alertActions;
@@ -79,7 +79,7 @@ export const selectRental = (rental, sportingGood, agreedToTerms) => {
   const { slug } = sportingGood;
   const { showErrorAlert, clearAlerts } = alertActions;
 
-	return (dispatch, getState, api) => {
+	return (dispatch, getState, { api }) => {
 
 		const endDate = Moment(end, "DD-MM-YYYY").add(1, 'minute');
 
@@ -109,7 +109,7 @@ export const selectRental = (rental, sportingGood, agreedToTerms) => {
 
 export const cancelRental = (rental, callback) => {
 
-    return function(dispatch, getState, api) {
+    return function(dispatch, getState, { api, history }) {
 
         api.token = getState().session.token;
 
@@ -117,7 +117,7 @@ export const cancelRental = (rental, callback) => {
         .then(res => {
 						dispatch(sportingGoodActions.detachRental(rental));
             dispatch(alertActions.showSuccessAlert(res));
-						if (callback) callback();
+						if (callback) callback(history);
         }).catch(err => {
             dispatch(alertActions.showErrorAlert(err));
         });

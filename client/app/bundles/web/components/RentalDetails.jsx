@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Slider from 'react-slick';
 import Map from 'components/Map.jsx';
 
-export class RentalDetails extends Component {
+const RentalDetails = ({
+  rental
+}) => {
 
-  static propTypes = {
-    rental: PropTypes.object.isRequired,
-    cancelRental: PropTypes.func.isRequired
-  }
-
-  static sliderSettings = {
+  const sliderSettings = {
     dots: true,
     infinite: true,
     speed: 500,
@@ -19,15 +16,11 @@ export class RentalDetails extends Component {
     slidesToScroll: 1
   }
 
-  static contextTypes = {
-      router: PropTypes.shape({
-        history: PropTypes.object.isRequired,
-      })
-  }
+  const { sportingGood = {}, owned } = rental;
+  const { images = [] } = sportingGood;
 
-  pickupLocationMarkup() {
+  const pickupLocationMarkup = () => {
 
-    const { rental = {} } = this.props;
     const { owner = {} } = rental;
 
     return (
@@ -55,9 +48,8 @@ export class RentalDetails extends Component {
     )
   }
 
-  rentersDetailsMarkup() {
+  const rentersDetailsMarkup = () => {
 
-    const { rental = {} } = this.props;
     const { user = {} } = rental;
 
     return (
@@ -71,30 +63,14 @@ export class RentalDetails extends Component {
 
   }
 
-  render() {
+  return (
+    <div className="rental-show">
 
-    const { rental = {}, actions = {}, cancelRental } = this.props;
-    const { sportingGood = {}, owned } = rental;
-    const { images = [] } = sportingGood;
+      <div className="row">
 
-    return (
-      <div className="rental-show">
+        <div className="col-xs-6">
 
-        <button className="cancel btn btn-danger pull-right" onClick={ () => cancelRental(rental, () => {
-          this.context.router.history.push('/owner/schedule');
-        }) }>
-        Cancel Rental
-        </button>
-
-        <button className="edit btn btn-info pull-right" onClick={ () => cancelRental(rental) }>
-        Edit Rental
-        </button>
-
-        <div className="row">
-
-          <div className="col-xs-6">
-
-            <h4 className="col-xs-7 no-padding header">Dates</h4>
+          <h4 className="col-xs-7 no-padding header">Dates</h4>
 
             <div className="clearfix"></div>
 
@@ -112,7 +88,7 @@ export class RentalDetails extends Component {
 
             <hr/>
 
-            { owned ? this.rentersDetailsMarkup() : this.pickupLocationMarkup() }
+            { owned ? rentersDetailsMarkup() : pickupLocationMarkup() }
 
           </div>
 
@@ -121,7 +97,7 @@ export class RentalDetails extends Component {
             <h4>{ sportingGood.title }</h4>
             <p>{ sportingGood.description }</p>
 
-            <Slider { ...this.sliderSettings }>
+            <Slider { ...sliderSettings }>
             {
               images.map((image, index) => {
                 if (image) {
@@ -133,11 +109,14 @@ export class RentalDetails extends Component {
 
           </div>
 
-        </div>
-
       </div>
-    )
 
-  }
+    </div>)
 
 }
+
+RentalDetails.PropTypes = {
+  rental: PropTypes.object.isRequired
+}
+
+export default RentalDetails;

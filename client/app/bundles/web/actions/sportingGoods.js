@@ -10,7 +10,7 @@ export const fetchSportingGoods = ({
 	per_page = 12
 }) => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		dispatch(loaderActions.showLoader(true));
 
@@ -35,7 +35,7 @@ export const fetchSportingGoods = ({
 // Get all sporting goods belonging to user
 export const fetchOwnersSportingGoods = (query = {}) => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		dispatch(loaderActions.showLoader(true));
 
@@ -72,7 +72,7 @@ export const setSportingGoodsTotal = (data) => {
 // Delete sporting good
 export const deleteSportingGood = (slug, callback) => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		api.delete(`/owner/sporting_goods/${ slug }`)
 		.then(res => {

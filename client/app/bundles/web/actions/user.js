@@ -6,7 +6,7 @@ import * as sessionActions from 'actions/session';
 
 export const signup = (user, callback) => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		api.token = getState().session.token;
 

@@ -18,7 +18,8 @@ class RentalSerializer < ActiveModel::Serializer
                 :confirmed,
                 :all_day,
                 :errors,
-                :owner
+                :owner,
+                :is_complete
 
     belongs_to :sporting_good
     belongs_to :user, serializer: OwnerSerializer
@@ -56,6 +57,10 @@ class RentalSerializer < ActiveModel::Serializer
     def owned
         return true if current_user.owned_rentals.find_by_id(@object.id)
         false
+    end
+
+    def is_complete
+      @object.end.past?
     end
 
     def destroyed_message

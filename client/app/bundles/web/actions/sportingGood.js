@@ -5,7 +5,7 @@ import { showLoader } from './loader';
 
 export const fetchSportingGood = (pathname, rentalHashId = null) => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		dispatch(showLoader(true));
 
@@ -40,7 +40,7 @@ export const setSportingGood = (data) => {
 
 export const newSportingGood = () => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		api.get('/owner/sporting_goods/new')
 		.then(data => dispatch(setSportingGood(data)));
@@ -51,7 +51,7 @@ export const newSportingGood = () => {
 
 export const createSportingGood = (sportingGood = {}, images = [], slug = '', callback) => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		const formData = buildFormData('sporting_good', sportingGood, images);
 
@@ -68,7 +68,7 @@ export const createSportingGood = (sportingGood = {}, images = [], slug = '', ca
 
 export const editSportingGood = (slug) => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		dispatch(showLoader(true));
 
@@ -84,7 +84,7 @@ export const editSportingGood = (slug) => {
 
 export const updateSportingGood = (sportingGood = {}, images = [], slug = '', callback) => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		const formData = buildFormData('sporting_good', sportingGood, images);
 

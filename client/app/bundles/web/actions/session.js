@@ -6,7 +6,7 @@ import * as alertActions from './alerts';
 // Fetch current user
 export const fetchCurrentUser = () => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		const session = getState().session || {};
 
@@ -24,7 +24,7 @@ export const fetchCurrentUser = () => {
 // Login
 export const login = (data, callback) => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		api.post('/session', data).then(user => {
 
@@ -77,7 +77,7 @@ export const clearStoredData = (data) => {
 // Forgot Password
 export const forgotPassword = data => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		api.post('/forgot_password', data).then(message => {
 
@@ -93,7 +93,7 @@ export const forgotPassword = data => {
 // Submit Users Profile Information
 export const updateCurrentUser = (currentUser, callback) => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		api.put(`/user/${ currentUser.id }`, currentUser)
 		.then(user => {
@@ -119,7 +119,7 @@ export const updateCurrentUser = (currentUser, callback) => {
 // Delete users account
 export const deleteCurrentUser = (currentUser = {}, feedback = '', callback) => {
 
-	return (dispatch, getState, api) => {
+	return (dispatch, getState, { api }) => {
 
 		api.delete(`/user/${ currentUser.id }`, {
 			feedback: feedback
@@ -136,7 +136,7 @@ export const deleteCurrentUser = (currentUser = {}, feedback = '', callback) => 
 // Reset Password
 export const resetPassword = (resetToken, data, callback) => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		api.post(`/reset_password/${ resetToken }`, data)
 		.then(message => {
@@ -171,7 +171,7 @@ export const resetErrors = errors => {
 // Login With Facebook
 export const loginWithFacebook = (data, callback) => {
 
-	return function(dispatch, getState, api) {
+	return function(dispatch, getState, { api }) {
 
 		api.post('/auth/facebook/callback', data).then(user => {
 
@@ -192,7 +192,7 @@ export const loginWithFacebook = (data, callback) => {
 // Verify the users phone number pin
 export const verifyPhonePin = (pin, callback) => {
 
-	return (dispatch, getState, api) => {
+	return (dispatch, getState, { api }) => {
 
 		api.post('/phone/verify', {pin: pin})
 		.then((phone = {}) => {
@@ -222,7 +222,7 @@ export const verifyPhonePin = (pin, callback) => {
 // Resend pin
 export const resendPin = () => {
 
-	return (dispatch, getState, api) => {
+	return (dispatch, getState, { api }) => {
 
 			api.get('/phone/resend_pin')
 			.then(message => dispatch(alertActions.showSuccessAlert(message)));

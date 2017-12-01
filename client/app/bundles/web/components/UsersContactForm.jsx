@@ -24,8 +24,9 @@ export class UsersContactForm extends React.Component {
   }
 
   componentDidMount() {
+    const { phone } = this.state;
     // Set default country and state
-    this.countryChanged();
+    phone.verifying || this.countryChanged();
   }
 
   submitContact(e) {
@@ -143,7 +144,7 @@ export class UsersContactForm extends React.Component {
     const { actions } = this.props;
 
     return (
-      <form>
+      <form className="phone-pin-verification">
 
         <h4>{ this.props.content.profile.contact.need_pin }</h4>
 
