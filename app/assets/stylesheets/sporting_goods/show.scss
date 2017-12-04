@@ -8,8 +8,9 @@
     margin-top: 10px;
   }
 
-  .star-ratings {
+  .dv-star-rating {
     float: right;
+    margin-top: 5px;
   }
 
   .pricing-container {
@@ -53,6 +54,13 @@
 
   .date-cell {
     cursor: pointer;
+  }
+
+  .ratings-container {
+    .dv-star-rating {
+      margin-right: 5px;
+      margin-top: 0;
+    }
   }
 
 }

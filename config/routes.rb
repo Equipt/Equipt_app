@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
     match 'api/phone/resend_pin', to: 'api/phone#resend_pin', via: 'GET'
     match 'api/session/fetch_user', to: 'api/session#fetch_user', via: 'GET'
+    match 'api/sporting_goods/:slug/ratings', to: 'api/sporting_goods#ratings', via: 'POST'
 
     get '/', to: 'home#index'
     get '*path', to: 'home#index'

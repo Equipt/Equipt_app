@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import Map from 'components/Map.jsx';
 
+import { RatingForm } from 'components/RatingForm';
+
 const RentalDetails = ({
-  rental
+  rental,
+  rate
 }) => {
 
   const sliderSettings = {
@@ -94,6 +97,8 @@ const RentalDetails = ({
 
           <div className="col-xs-6">
 
+             { rental.isComplete && <RatingForm title={ `How was ${ sportingGood.title }?` } sportingGood={ sportingGood } rate={ rate }/> }
+
             <h4>{ sportingGood.title }</h4>
             <p>{ sportingGood.description }</p>
 
@@ -116,7 +121,8 @@ const RentalDetails = ({
 }
 
 RentalDetails.PropTypes = {
-  rental: PropTypes.object.isRequired
+  rental: PropTypes.object.isRequired,
+  rate: PropTypes.object.isRequired
 }
 
 export default RentalDetails;

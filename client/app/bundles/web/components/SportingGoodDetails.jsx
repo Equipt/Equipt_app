@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Slider from 'react-slick';
 import BigCalendar from 'react-big-calendar';
-import StarRatings from 'react-star-ratings';
+import StarRatings from 'react-star-rating-component';
 
 import { Link } from 'react-router-dom';
 import { UsersContactForm } from 'components/UsersContactForm';
@@ -127,7 +127,9 @@ export class SportingGoodDetails extends React.Component {
 	ratingMarkup(rating, index) {
 		return (<li key={ `rating_${ index }` } className="ratings-container">
 							<i>{ rating.createdAt }</i>
-							<StarRatings rating={ rating.score } starWidthAndHeight={ '15px' }/>
+							<StarRatings
+								name='sportingGoodRating'
+								value={ rating.score }/>
 					 		<p>{ rating.comment }</p>
 					 </li>);
 	}
@@ -241,10 +243,13 @@ export class SportingGoodDetails extends React.Component {
 
 					<div className="col-xs-12 col-md-4 pricing-container">
 
-						<h3>
-							{ sportingGood.title }
-							<StarRatings rating={ sportingGood.overallRating } starWidthAndHeight={ '25px' }/>
-						</h3>
+						<StarRatings
+								name="sportingGoodRating"
+								starCount={ 5 }
+								value={ sportingGood.overallRating }
+						/>
+
+						<h3>{ sportingGood.title }</h3>
 						<h4>{ sportingGood.model }</h4>
 						<p>{ sportingGood.description }</p>
 

@@ -7,7 +7,7 @@ class RatingSerializer < ActiveModel::Serializer
              :comment
 
   def comment
-    @object.comments.first.comment if @object.comments.first
+    @object.comment.comment if @object.comment
   end
 
   def created_at

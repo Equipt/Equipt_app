@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 import Modal from 'components/Modal';
-import StarRatings from 'react-star-ratings';
+import StarRatings from 'react-star-rating-component';
 
 export class SportingGood extends React.Component {
 
@@ -102,8 +102,11 @@ export class SportingGood extends React.Component {
 
 						<h5 className="title"><span>${ sportingGood.price_per_day } per day (CAN)</span> - { sportingGood.title }</h5>
 						<p>{ sportingGood.model } - { sportingGood.brand }</p>
-						<StarRatings rating={ sportingGood.overall_rating } starWidthAndHeight={ '20px' }/>
-
+						<StarRatings
+								name="sportingGoodRating"
+								starCount={ 5 }
+								value={ sportingGood.overall_rating }
+						/>
 					</Link>
 
 					{ this.sportingGoodIsOwners() }

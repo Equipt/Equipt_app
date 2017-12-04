@@ -34,7 +34,7 @@ export default class Api {
 					case 401:
 						localStorage.clear();
 						this.store.dispatch(sessionActions.clearSession());
-						this.history.push('/login');
+						return this.history.push('/login');
 					break;
 					// Forbidden
 					case 403:
@@ -42,7 +42,7 @@ export default class Api {
 					break;
 					// Not found
 					case 404:
-						this.history.push('/not_found');
+						return this.history.push('/not_found');
 					break;
 				}
 

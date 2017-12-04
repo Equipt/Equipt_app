@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import RentalDetails from 'components/RentalDetails';
-import { RatingForm } from 'components/RatingForm';
 import Loader from 'components/Loader';
 
 const RentalConfirmation = ({
@@ -33,11 +32,11 @@ const RentalConfirmation = ({
             <h5>{ content.rentals.confirmed_details }</h5>
           </div>
           <div className="col-xs-12 col-md-6">
-             { rental.isComplete ? <RatingForm title={ `How was ${ sportingGood.title }?` }/> : rentalControls() }
+             { !rental.isComplete && rentalControls() }
           </div>
         </div>
         <br/>
-        <RentalDetails rental={ rental }/>
+        <RentalDetails rental={ rental } { ...actions }/>
       </div>
     )
 

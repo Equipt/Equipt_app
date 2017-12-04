@@ -42,6 +42,9 @@ en:
     cancel_success: "Rental has been cancelled"
     cancel_error: "Issue cancelling rental, please try again later"
     cant_be_today: "Pickup date cant be today"
+  ratings:
+    contribution: "Thankyou for your rating"
+    error: "There was a issue processing your rating"
   frontend:
     logo: https://s3-us-west-2.amazonaws.com/equipt-assets/logo.
     go_back: Go Back

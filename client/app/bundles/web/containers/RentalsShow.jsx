@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as rentalActions from 'actions/rental';
+import * as ratingsActions from 'actions/ratings';
 
 import RentalConfirmation from 'components/RentalConfirmation';
 
@@ -44,7 +45,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators(rentalActions, dispatch)}
+	return {actions: bindActionCreators({ ...rentalActions, ...ratingsActions }, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(RentalsShow);
