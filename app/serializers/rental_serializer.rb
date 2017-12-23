@@ -45,18 +45,18 @@ class RentalSerializer < ActiveModel::Serializer
     end
 
     def title
-        if current_user.rentals.find_by_id(@object.id)
-          "Your renting #{ @object.sporting_good.title.capitalize } from #{ @object.sporting_good.user.firstname.capitalize }"
-        elsif owned
-          "#{ @object.user.firstname.capitalize } is renting #{ @object.sporting_good.title.capitalize } from you"
-        else
-          @@unavailable
-        end
+      if current_user.rentals.find_by_id(@object.id)
+        "Your renting #{ @object.sporting_good.title.capitalize } from #{ @object.sporting_good.user.firstname.capitalize }"
+      elsif owned
+        "#{ @object.user.firstname.capitalize } is renting #{ @object.sporting_good.title.capitalize } from you"
+      else
+        @@unavailable
+      end
     end
 
     def owned
-        return true if current_user.owned_rentals.find_by_id(@object.id)
-        false
+      return true if current_user.owned_rentals.find_by_id(@object.id)
+      false
     end
 
     def is_complete

@@ -27,7 +27,8 @@ class OwnersSportingGoodsIndex extends React.Component {
 			<SportingGoodsList 	{ ...this.props}
 					content={ content }
 					isOwner={ true }
-					search={ fetchOwnersSportingGoods }/>
+					search={ fetchOwnersSportingGoods }
+					hasSearch={ false }/>
 		);
 
 	}

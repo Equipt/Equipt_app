@@ -8,31 +8,26 @@ export class SearchBar extends React.Component {
     search: PropTypes.func.isRequired
   }
 
-  static MAX_PAGES_SHOWN = 5
-
   constructor(props) {
     super(props);
     this.state = {
       keyword: '',
-      page: 1,
-      per_page: 30
+      page: 1
     }
   }
 
   onChange(key) {
-    this.setState({
-      [key]: this.refs[key].value
-    });
+    const { search } = this.props;
+    this.state[key] = this.refs[key].value;
+    this.setState(this.state);
+    search(this.state);
   }
 
   setPage(page) {
-
-    this.setState({
-      page: page
-    })
-
-    this.props.search(this.state);
-
+    const { search } = this.props;
+    this.state.page = page;
+    this.setState(this.state);
+    search(this.state);
   }
 
   clear() {
@@ -46,10 +41,9 @@ export class SearchBar extends React.Component {
 
   render() {
 
-    const { search } = this.props;
 
-    const { page, per_page } = this.state;
-    const { pagesTotal } = this.props;
+    const { search, totalResults = 0, totalPages = 0, totalPerPage = 0  } = this.props;
+    const { page } = this.state;
 
     return (
       <div className="col-xs-12 search-bar">
@@ -64,25 +58,23 @@ export class SearchBar extends React.Component {
                     onChange={ this.onChange.bind(this, "keyword") }/>
           </div>
 
-          <div className="col-xs-2 col-md-1 search-field">
-            <input  className="btn btn-success"
-                    type="submit"
-                    value="Search"
-                    onClick={ search.bind(this, this.state) }/>
+          <div className="col-xs-3 pull-right">
+          {
+            totalResults > 20 ?
+            <Paginate activePage={ page }
+            itemsCountPerPage={ totalPerPage }
+            totalItemsCount={ totalResults }
+            onChange={ this.setPage.bind(this) }/>
+            : null
+          }
+
+          {
+            totalResults > 20 ?
+            <span>{ totalPerPage * page } out of { totalResults }</span> :
+            <span>{ totalResults } Results</span>
+          }
           </div>
 
-          <div className="col-xs-2 col-md-1 search-field">
-            <button className="btn btn-success btn-info" onClick={ this.clear.bind(this) }>
-              <i className="fa fa-times" aria-hidden="true"></i>
-                Clear
-            </button>
-          </div>
-
-          <Paginate activePage={ page }
-                    itemsCountPerPage={ per_page }
-                    totalItemsCount={ pagesTotal }
-                    pageRangeDisplayed={ this.MAX_PAGES_SHOWN }
-                    onChange={ this.setPage.bind(this) }/>
 
         </div>
 

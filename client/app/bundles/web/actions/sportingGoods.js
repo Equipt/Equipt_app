@@ -7,25 +7,34 @@ import * as loaderActions from './loader';
 export const fetchSportingGoods = ({
 	keyword = '',
 	page = 1,
-	per_page = 12
+	per_page = 20
 }) => {
 
-	return function(dispatch, getState, { api }) {
+	return function(dispatch, getState, { api, algoliaClient }) {
 
 		dispatch(loaderActions.showLoader(true));
 
-		api.get('/sporting_goods', {
-			keyword: keyword,
-			page: page,
-			per_page: per_page
-		})
-		.then(data => {
-			dispatch(setSportingGoods(data));
-			dispatch(loaderActions.showLoader(false));
+		const index = algoliaClient.initIndex('SportingGood_development');
+
+		index.search({ query: keyword }, { page: page, hitsPerPage: per_page })
+		.then(({
+			hits,
+			nbHits,
+			nbPages,
+			hitsPerPage
+		}) => {
+				dispatch(setSportingGoods({
+					results: hits,
+					totalResults: nbHits,
+					totalPages: nbPages,
+					totalPerPage: hitsPerPage,
+					page
+				}));
+				dispatch(loaderActions.showLoader(false));
 		})
 		.catch(err => {
-			dispatch(alertActions.showErrorAlert(err));
-			dispatch(loaderActions.showLoader(false));
+				dispatch(alertActions.showErrorAlert(err));
+				dispatch(loaderActions.showLoader(false));
 		});
 
 	}
@@ -40,8 +49,11 @@ export const fetchOwnersSportingGoods = (query = {}) => {
 		dispatch(loaderActions.showLoader(true));
 
 		api.get('/owner/sporting_goods', query)
-		.then(sportingGoods => {
-			dispatch(setSportingGoods(sportingGoods));
+		.then(({sporting_goods, total}) => {
+			dispatch(setSportingGoods({
+				results: sporting_goods,
+				totalResults: total
+			}));
 			dispatch(loaderActions.showLoader(false));
 		})
 		.catch(err => {

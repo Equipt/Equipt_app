@@ -1,6 +1,9 @@
 <%= react_component("Root", props: {
 	mapZenKey: ENV['MAP_ZEN_KEY'],
 	facebookAppId: ENV['FACEBOOK_APP_ID'],
+	agolia_id: ENV['AGOLIA_ID'],
+	agolia_search_only_key: ENV['AGOLIA_SEARCH_ONLY_KEY'],
+	rails_env: Rails.env,
 	content: @content
 }) %>
 

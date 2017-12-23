@@ -15,25 +15,22 @@ const SportingGoodsList = ({
 	content,
 	search,
 	actions,
-	isOwner
+	isOwner,
+	hasSearch = true
 }) => {
 
 	const { results = [], total = 0 } = sportingGoods;
-
-	if (!results.length && !loader) {
-		return <NoSportingGoods content={ content }/>;
-	}
 
 	return (
 		<section className="container sporting-goods-index-wrapper">
 
 			<h3>{ content.title }</h3>
 
-			<SearchBar search={ search } pagesTotal={ total }/>
+			{ hasSearch ? <SearchBar { ...sportingGoods } search={ search }/> : '' }
 
 			{
-				loader ?
-				<Loader/> :
+				!results.length ?
+				<NoSportingGoods content={ content }/> :
 				results.map((sportingGood, index) => {
 
 					return <SportingGood key={ `${ sportingGood.title }_${ index }` }

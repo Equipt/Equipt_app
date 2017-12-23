@@ -128,7 +128,6 @@ def create_sporting_good(user)
 		5.times do |i|
 			create_rentals(sporting_good, user) if sporting_good.save!
 			sporting_good_image(sporting_good) if sporting_good.save!
-      create_ratings(sporting_good) if sporting_good.save!
 		end
 
 	end
@@ -138,7 +137,7 @@ end
 def create_ratings instance
 
   rating = instance.ratings.create!(
-    score: (1..5).to_a.sample
+    rating: (1..5).to_a.sample
   )
 
   create_comments(rating) if rating.save!
@@ -147,11 +146,9 @@ end
 
 def create_comments instance
 
-  comment = instance.comments.create!(
+  instance.comments.create!(
     comment: Faker::Lorem.sentence(2)
   )
-
-  comment.save!
 
 end
 
@@ -198,6 +195,10 @@ def create_rentals(sporting_good, user)
     rescue ActiveRecord::RecordInvalid => invalid
       rental.save(validate: false)
     end
+
+    rental.ratings.create!(
+      rating: (1..5).to_a.sample
+    )
 
 	end
 

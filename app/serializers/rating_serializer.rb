@@ -2,13 +2,10 @@ class RatingSerializer < ActiveModel::Serializer
 
   include ActionView::Helpers::DateHelper
 
-  attributes :score,
-             :created_at,
-             :comment
+  attributes :rating,
+             :created_at
 
-  def comment
-    @object.comment.comment if @object.comment
-  end
+  has_many :comments
 
   def created_at
     time_ago_in_words(@object.created_at).capitalize

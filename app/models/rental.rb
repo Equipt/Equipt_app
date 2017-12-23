@@ -13,6 +13,8 @@ class Rental < ActiveRecord::Base
   before_save :set_total_days, :set_rental_cost
   validate :dates_are_vacant?, :has_agreed_to_terms?, :dates_not_today?, :dates_not_in_past?
 
+  has_many :ratings, :as => :rateable, dependent: :destroy
+
   # after_save :send_confirmation_email, if: :rental_confirmed_changed?
   # after_create :send_create_emails
   # after_destroy :send_destroy_email

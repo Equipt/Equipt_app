@@ -1,10 +1,13 @@
 import types from 'actions/types';
-import { showErrorAlert } from 'actions/alerts';
+import { showErrorAlert, showSuccessAlert } from 'actions/alerts';
 
 export const rate = (sportingGood, rating) => {
   return function(dispatch, getState, { api }) {
     api.post(`/sporting_goods/${ sportingGood.slug }/ratings`, rating)
-    .then(rating => dispatch(setRating(rating)))
+    .then(message => {
+      dispatch(setRating(rating));
+      dispatch(showSuccessAlert(message));
+    })
     .catch(err => dispatch(showErrorAlert(err)));
   }
 }

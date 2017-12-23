@@ -1,5 +1,8 @@
 class SportingGood < ActiveRecord::Base
 
+	include AlgoliaSearch
+	extend FriendlyId
+
 	acts_as_paranoid
 
 	attr_accessor :page, :per_page
@@ -12,12 +15,11 @@ class SportingGood < ActiveRecord::Base
 
 	belongs_to :user
 	has_many :images, :as => :imageable, dependent: :destroy
-	has_many :ratings, :as => :rateable, dependent: :destroy
 	has_many :rentals, dependent: :destroy, inverse_of: :sporting_good
 
-	accepts_nested_attributes_for :images
+	has_many :ratings, through: :rentals
 
-	extend FriendlyId
+	accepts_nested_attributes_for :images
 
   friendly_id :title, use: :slugged
 
@@ -27,6 +29,10 @@ class SportingGood < ActiveRecord::Base
 	validate :is_weekly_price_a_discount?
 
 	before_save :set_deposits_default
+
+  algoliasearch per_environment: true do
+		add_attribute :primary_image
+  end
 
 	def slug_candidates
   	[ :title,[:title,:id] ]
@@ -64,7 +70,7 @@ class SportingGood < ActiveRecord::Base
 	end
 
 	def overall_rating
-		self.ratings.pluck(:score).inject(&:+).to_f / self.ratings.size
+		self.ratings.pluck(:rating).inject(&:+).to_f / self.ratings.size
  	end
 
 	def primary_image
