@@ -20,6 +20,9 @@ import * as sessionActions from 'actions/session';
 // Root Template
 const Root = (props, railsContext) => {
 
+	// variables
+	const environment = props.rails_env || 'production';
+
 	// Create a browser history
 	const history = createHistory();
 
@@ -51,7 +54,7 @@ const Root = (props, railsContext) => {
 	const algoliaClient = algoliasearch(props.agolia_id, props.agolia_search_only_key);
 
 	// Thunk setup
-	const thunkMiddleware = thunk.withExtraArgument({api, history, algoliaClient});
+	const thunkMiddleware = thunk.withExtraArgument({api, history, algoliaClient, environment});
 
 	// Create Redux Store
 	const store = createStore(

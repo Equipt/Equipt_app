@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Paginate from 'react-js-pagination';
+import Geosuggest from 'react-geosuggest';
 
 export class SearchBar extends React.Component {
 
@@ -10,10 +11,13 @@ export class SearchBar extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       keyword: '',
-      page: 1
+      page: 0,
+      location: []
     }
+
   }
 
   onChange(key) {
@@ -25,24 +29,34 @@ export class SearchBar extends React.Component {
 
   setPage(page) {
     const { search } = this.props;
-    this.state.page = page;
+    // NOTE: must start at 0
+    this.state.page = page - 1;
+    this.setState(this.state);
+    search(this.state);
+  }
+
+  searchByLocation(suggestion) {
+    const { search } = this.props;
+    if (suggestion) {
+      this.state.location = suggestion.location;
+    } else {
+      this.state.location = {}
+    }
     this.setState(this.state);
     search(this.state);
   }
 
   clear() {
-
     this.setState({
       keyword: ''
     });
-
     this.props.search(this.state);
   }
 
   render() {
 
 
-    const { search, totalResults = 0, totalPages = 0, totalPerPage = 0  } = this.props;
+    const { search, totalResults = 0, totalPerPage = 0  } = this.props;
     const { page } = this.state;
 
     return (
@@ -58,10 +72,17 @@ export class SearchBar extends React.Component {
                     onChange={ this.onChange.bind(this, "keyword") }/>
           </div>
 
+          <div className="col-sm-12 col-md-3 search-field">
+            <Geosuggest inputClassName="form-control"
+            suggestsHiddenClassName="hide"
+            onSuggestSelect={ this.searchByLocation.bind(this) }
+            />
+          </div>
+
           <div className="col-xs-3 pull-right">
           {
             totalResults > 20 ?
-            <Paginate activePage={ page }
+            <Paginate activePage={ page + 1 }
             itemsCountPerPage={ totalPerPage }
             totalItemsCount={ totalResults }
             onChange={ this.setPage.bind(this) }/>
@@ -74,7 +95,6 @@ export class SearchBar extends React.Component {
             <span>{ totalResults } Results</span>
           }
           </div>
-
 
         </div>
 

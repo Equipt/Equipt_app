@@ -5,6 +5,8 @@ ActiveRecord::Base.connection.tables.each do |table|
    ActiveRecord::Base.connection.execute("DELETE FROM #{table}") unless table == "schema_migrations"
 end
 
+SportingGood.reindex
+
 # Skip callbacks
 Phone.skip_callback(:save, :before, :send_verification_pin, raise: false)
 
@@ -57,8 +59,8 @@ def create_users
     sleep 2
 
 		(0..6).to_a.sample.times do |i|
-			create_sporting_good(user) if user.save!
       create_address(user) if user.save!
+			create_sporting_good(user) if user.save!
       create_phone(user) if user.save!
 			create_ratings(user) if user.save!
 		end
@@ -78,11 +80,11 @@ def create_address(user)
     state: Faker::Address.state,
     zip: Faker::Address.zip,
     country: Faker::Address.country,
-    latitude: 49.28,
-    longitude: -123.12
+    latitude: rand(49.28...49.88),
+    longitude: rand(-122.12...-118.49)
   )
 
-  address.save(validate: false)
+  address.save!(skip_geocoded_valiation: true)
 
 end
 
@@ -120,7 +122,7 @@ def create_sporting_good(user)
 		)
 
     begin
-        sporting_good.save!
+        sporting_good.save!(:validate => false)
     rescue ActiveRecord::RecordInvalid => invalid
         next
     end

@@ -3,34 +3,50 @@ import types from './types';
 import * as alertActions from './alerts';
 import * as loaderActions from './loader';
 
+const perPage = 20;
+
 // Get all sporting goods
 export const fetchSportingGoods = ({
 	keyword = '',
 	page = 1,
-	per_page = 20
+	location = {}
 }) => {
 
-	return function(dispatch, getState, { api, algoliaClient }) {
+	return function(dispatch, getState, { api, algoliaClient, environment }) {
 
 		dispatch(loaderActions.showLoader(true));
 
-		const index = algoliaClient.initIndex('SportingGood_development');
+		const index = algoliaClient.initIndex(`SportingGood_${ environment }`);
+		const userId = getState().session.currentUser.id;
 
-		index.search({ query: keyword }, { page: page, hitsPerPage: per_page })
+		const params = {
+			query: keyword,
+			hitsPerPage: perPage,
+			page: page,
+			filters: `user_id != ${ userId }`
+		};
+
+		if (location.lat && location.lng) {
+			params.aroundLatLng =  `${ location.lat }, ${ location.lng }`;
+			params.aroundRadius = 100000;
+		}
+
+		index.search(params)
 		.then(({
 			hits,
 			nbHits,
 			nbPages,
 			hitsPerPage
 		}) => {
-				dispatch(setSportingGoods({
-					results: hits,
-					totalResults: nbHits,
-					totalPages: nbPages,
-					totalPerPage: hitsPerPage,
-					page
-				}));
-				dispatch(loaderActions.showLoader(false));
+
+			dispatch(setSportingGoods({
+				results: hits,
+				totalResults: nbHits,
+				totalPerPage: hitsPerPage,
+				page
+			}));
+
+			dispatch(loaderActions.showLoader(false));
 		})
 		.catch(err => {
 				dispatch(alertActions.showErrorAlert(err));

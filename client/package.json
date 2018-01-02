@@ -39,6 +39,7 @@
     "react-dropzone": "^3.13.4",
     "react-event-calendar": "^0.3.0",
     "react-facebook-login": "^3.6.2",
+    "react-geosuggest": "^2.7.0",
     "react-js-pagination": "^2.3.0",
     "react-on-rails": "8.0.0",
     "react-paginate": "^5.0.0",
