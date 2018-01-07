@@ -10,12 +10,9 @@ class Address < ApplicationRecord
 
   geocoded_by :full_address do |address, results|
     if results.present?
-     address.latitude = results.first.latitude
-     address.longitude = results.first.longitude
-     address.verified = true
-    else
-     address.latitude = nil
-     address.longitude = nil
+      address.latitude = results.first.latitude
+      address.longitude = results.first.longitude
+      address.verified = true
     end
   end
 
