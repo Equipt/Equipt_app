@@ -9,7 +9,8 @@ const perPage = 20;
 export const fetchSportingGoods = ({
 	keyword = '',
 	page = 1,
-	location = {}
+	location = {},
+	distance = 50
 }) => {
 
 	return function(dispatch, getState, { api, algoliaClient, environment }) {
@@ -26,9 +27,10 @@ export const fetchSportingGoods = ({
 			filters: `user_id != ${ userId }`
 		};
 
-		if (location.lat && location.lng) {
+		if (location && location.lat && location.lng) {
 			params.aroundLatLng =  `${ location.lat }, ${ location.lng }`;
-			params.aroundRadius = 100000;
+			console.log(distance);
+			params.aroundRadius = distance;
 		}
 
 		index.search(params)

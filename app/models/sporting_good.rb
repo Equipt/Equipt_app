@@ -14,10 +14,10 @@ class SportingGood < ActiveRecord::Base
 	scope :search, -> params { search_by_keyword(params[:keyword]) }
 
 	belongs_to :user
-	has_many :images, :as => :imageable, dependent: :destroy
+	has_many :images, :as => :imageable, dependent: :destroy, after_add: :reindex_sporting_good, after_remove: :reindex_sporting_good
 	has_many :rentals, dependent: :destroy, inverse_of: :sporting_good
 
-	has_many :ratings, through: :rentals
+	has_many :ratings, through: :rentals, after_add: :reindex_sporting_good, after_remove: :reindex_sporting_good
 
 	accepts_nested_attributes_for :images
 
@@ -30,11 +30,11 @@ class SportingGood < ActiveRecord::Base
 
 	before_save :set_deposits_default
 
-  algoliasearch per_environment: true do
+	algoliasearch per_environment: true do
 		add_attribute :primary_image
 		add_attribute :overall_rating
 		geoloc :lat, :lng
-  end
+	end
 
 	def slug_candidates
   	[ :title,[:title,:id] ]
@@ -64,9 +64,11 @@ class SportingGood < ActiveRecord::Base
 		self.deposit = 0 if self.deposit.blank?
 	end
 
+	private
+
 	def overall_rating
 		self.ratings.pluck(:rating).inject(&:+).to_f / self.ratings.size
- 	end
+	end
 
 	def primary_image
 		image = self.images.find_by(primary: true)
@@ -80,6 +82,10 @@ class SportingGood < ActiveRecord::Base
 
 	def lng
 		self.user.address.longitude if self.user
+	end
+
+	def reindex_sporting_good child
+		self.index!
 	end
 
 end

@@ -41,7 +41,7 @@ Phone.skip_callback(:save, :before, :send_verification_pin, raise: false)
 
 def create_users
 
-	5.times do |i|
+	3.times do |i|
 
 		# Create Users
 		email = Faker::Internet.email

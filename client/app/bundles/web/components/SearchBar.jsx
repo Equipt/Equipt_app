@@ -11,13 +11,12 @@ export class SearchBar extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       keyword: '',
       page: 0,
-      location: []
+      location: null,
+      distance: 50000
     }
-
   }
 
   onChange(key) {
@@ -46,6 +45,13 @@ export class SearchBar extends React.Component {
     search(this.state);
   }
 
+  changeGeoDistance() {
+    const { distanceSelect } = this.refs;
+    this.state.distance = distanceSelect.value;
+    this.setState(this.state);
+    this.props.search(this.state);
+  }
+
   clear() {
     this.setState({
       keyword: ''
@@ -54,7 +60,6 @@ export class SearchBar extends React.Component {
   }
 
   render() {
-
 
     const { search, totalResults = 0, totalPerPage = 0  } = this.props;
     const { page } = this.state;
@@ -72,11 +77,25 @@ export class SearchBar extends React.Component {
                     onChange={ this.onChange.bind(this, "keyword") }/>
           </div>
 
-          <div className="col-sm-12 col-md-3 search-field">
+          <div className="col-sm-12 col-md-3 search-field ">
             <Geosuggest inputClassName="form-control"
             suggestsHiddenClassName="hide"
             onSuggestSelect={ this.searchByLocation.bind(this) }
             />
+          </div>
+
+          <div className="col-sm-12 col-md-2 distance-field form-inline">
+            <label className="col-md-4">Within</label>
+            <select className="form-control col-md-8"
+              ref="distanceSelect"
+              onChange={ this.changeGeoDistance.bind(this) }
+              disabled={ !this.state.location }
+              value={ this.state.distance }>
+              <option value={ 50000 }>50km</option>
+              <option value={ 20000 }>20km</option>
+              <option value={ 10000 }>10km</option>
+              <option value={ 5000 }>5km</option>
+            </select>
           </div>
 
           <div className="col-xs-3 pull-right">
