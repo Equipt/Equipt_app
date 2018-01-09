@@ -33,6 +33,7 @@ class SportingGood < ActiveRecord::Base
 	algoliasearch per_environment: true do
 		add_attribute :primary_image
 		add_attribute :overall_rating
+		add_attribute :total_ratings
 		geoloc :lat, :lng
 	end
 
@@ -68,6 +69,10 @@ class SportingGood < ActiveRecord::Base
 
 	def overall_rating
 		self.ratings.pluck(:rating).inject(&:+).to_f / self.ratings.size
+	end
+
+	def total_ratings
+		self.ratings.count
 	end
 
 	def primary_image

@@ -21,6 +21,7 @@ import SportingGoodsIndex from 'containers/SportingGoodsIndex';
 import SportingGoodsShow from 'containers/SportingGoodsShow';
 import OwnersSportingGoodsIndex from 'containers/owner/OwnersSportingGoodsIndex';
 import OwnersSportingGoodsEdit from 'containers/owner/OwnersSportingGoodsEdit';
+import OwnersSportingGoodsShow from 'containers/owner/OwnersSportingGoodsShow';
 import OwnersRentalsShow from 'containers/owner/OwnersRentalsShow';
 import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
 import OwnersSchedule from 'containers/owner/OwnersSchedule';
@@ -86,6 +87,9 @@ export default (props, store) => {
 						}}/>
 						<Route exact path="/owner/sporting_goods" render={ () => {
 							return protectedRoute(OwnersSportingGoodsIndex);
+						}}/>
+						<Route exact path="/owner/sporting_goods/:slug" render={ () => {
+							return protectedRoute(OwnersSportingGoodsShow);
 						}}/>
 						<Route exact path="/owner/schedule" render={ () => {
 							return protectedRoute(OwnersSchedule);

@@ -16,7 +16,9 @@ class SportingGoodsNew extends React.Component {
 
 		const { actions } = this.props;
 
-		actions.setSportingGood({});
+		actions.setSportingGood({
+			category: 'snow'
+		});
 
 	}
 

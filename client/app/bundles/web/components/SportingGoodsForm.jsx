@@ -37,14 +37,12 @@ export class SportingGoodsForm extends React.Component {
 	}
 
 	componentWillReceiveProps(newProps) {
-
-			this.setState({
-				sportingGood: newProps.sportingGood || {},
-				images: newProps.sportingGood.images || [],
-				currentUser: newProps.currentUser || {},
-				showContactModal: !newProps.currentUser.isVerified
-			});
-
+		this.setState({
+			sportingGood: newProps.sportingGood || {},
+			images: newProps.sportingGood.images || [],
+			currentUser: newProps.currentUser || {},
+			showContactModal: !newProps.currentUser.isVerified
+		});
 	}
 
 	isValid() {

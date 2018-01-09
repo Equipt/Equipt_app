@@ -17,6 +17,11 @@ class Api::Owner::SportingGoodsController < ApiController
 		render json: sporting_good, status: 200
 	end
 
+	def show
+		sporting_good = current_user.sporting_goods.find_by_slug(params[:slug])
+		render json: sporting_good, status: 200
+	end
+
 	def create
 		sporting_good = current_user.sporting_goods.new(sporting_good_params)
 		if sporting_good.save
