@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
         namespace :owner do
             resources :sporting_goods, param: :slug do
-              resources :rentals, only: [:show]
+              resources :rentals, only: [:show, :create]
             end
             resources :rentals, param: :hash_id
         end

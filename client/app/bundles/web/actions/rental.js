@@ -111,8 +111,6 @@ export const cancelRental = (rental, callback) => {
 
     return function(dispatch, getState, { api, history }) {
 
-        api.token = getState().session.token;
-
         api.delete(`/rentals/${ rental.hashId }`)
         .then(res => {
 						dispatch(sportingGoodActions.detachRental(rental));
@@ -123,5 +121,27 @@ export const cancelRental = (rental, callback) => {
         });
 
     }
+
+}
+
+// Owner whats to set sporting_good as used
+export const ownerIsUsingSportingGood = (rental, sportingGood) => {
+
+	const { start, end } = rental;
+	const { showErrorAlert, clearAlerts } = alertActions;
+	const endDate = Moment(end, "DD-MM-YYYY").add(1, 'minute');
+
+	return function(dispatch, getState, { api }) {
+
+		api.post(`/owner/sporting_goods/${ sportingGood.slug }/rentals`, {
+			rental: {
+				start: start,
+				end: endDate
+			}
+		})
+		.then(rental => dispatch(setRental(rental)))
+		.catch(data => dispatch(showErrorAlert(data.errors)))
+
+	}
 
 }

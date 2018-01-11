@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import { Link } from 'react-router-dom';
 
 import * as sportingGoodActions from 'actions/sportingGood';
+import * as rentalActions from 'actions/rental';
 
 import OwnersSportingGoodUsage from 'components/OwnersSportingGoodUsage';
 
@@ -43,7 +44,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators(sportingGoodActions, dispatch)}
+	return {actions: bindActionCreators({ ...sportingGoodActions, ...rentalActions }, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(OwnersSportingGoodsShow);
