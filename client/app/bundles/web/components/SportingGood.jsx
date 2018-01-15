@@ -44,7 +44,6 @@ export class SportingGood extends React.Component {
 					</Link>
 					<i onClick={ this.showModal.bind(this, 'showDeleteModal', true) }
 					className="fa fa-trash text-danger" aria-hidden="true"></i>
-
 					<Modal
 						contentLabel="delete-sporting-good"
 						isVisible={ showDeleteModal }

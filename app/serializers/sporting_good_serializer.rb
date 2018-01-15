@@ -13,6 +13,7 @@ class SportingGoodSerializer < ActiveModel::Serializer
 						:slug,
 						:images,
 						:overall_rating,
+						:total_ratings,
 						:primary_image
 
 	has_many :rentals

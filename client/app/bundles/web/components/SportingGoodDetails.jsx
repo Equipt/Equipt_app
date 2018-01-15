@@ -243,11 +243,15 @@ export class SportingGoodDetails extends React.Component {
 
 					<div className="col-xs-12 col-md-4 pricing-container">
 
-						<StarRatings
-								name="sportingGoodRating"
-								starCount={ 5 }
-								value={ sportingGood.overallRating }
-						/>
+						<div className="pull-right">
+							<StarRatings
+									name="sportingGoodRating"
+									starCount={ 5 }
+									value={ sportingGood.overallRating }
+							/>
+							<p>{ sportingGood.totalRatings } reviews</p>
+						</div>
+
 
 						<h3>{ sportingGood.title }</h3>
 						<h4>{ sportingGood.model }</h4>

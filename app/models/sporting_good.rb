@@ -68,6 +68,7 @@ class SportingGood < ActiveRecord::Base
 	private
 
 	def overall_rating
+		0 if self.ratings.empty?
 		self.ratings.pluck(:rating).inject(&:+).to_f / self.ratings.size
 	end
 

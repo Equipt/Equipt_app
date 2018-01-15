@@ -11,6 +11,7 @@ class SportingGoodsSerializer < ActiveModel::Serializer
 						:deposit,
 						:slug,
 						:primary_image,
-						:overall_rating
+						:overall_rating,
+						:total_ratings
 
 end
