@@ -99,6 +99,8 @@ en:
     sporting_goods:
       index:
         title: Rent Equipment
+        no_sporting_goods: Sorry, we cant find any sporting goods at this time
+        add_a_sporting_good: Do you want to add one?
         default_image: https://s3-us-west-2.amazonaws.com/equipt-assets/equipment-default.png
       create:
         title: Create Sporting Form

@@ -25,6 +25,7 @@ class OwnersSportingGoodsShow extends React.Component {
     const { pathname } = this.context.router.route.location;
 
     actions.fetchSportingGood(pathname);
+    actions.clearRental();
 
   }
 
@@ -39,6 +40,7 @@ class OwnersSportingGoodsShow extends React.Component {
 function mapStateToProps(state, ownProps) {
 	return {
 		sportingGood: state.sportingGood,
+    rental: state.rental,
 		loader: state.loader
 	}
 }

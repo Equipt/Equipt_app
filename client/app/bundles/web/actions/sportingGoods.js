@@ -40,14 +40,12 @@ export const fetchSportingGoods = ({
 			nbPages,
 			hitsPerPage
 		}) => {
-
 			dispatch(setSportingGoods({
 				results: hits,
 				totalResults: nbHits,
 				totalPerPage: hitsPerPage,
 				page
 			}));
-
 			dispatch(loaderActions.showLoader(false));
 		})
 		.catch(err => {

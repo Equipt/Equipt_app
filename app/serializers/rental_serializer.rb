@@ -2,10 +2,12 @@ class RentalSerializer < ActiveModel::Serializer
 
     @@all_day = false
     @@unavailable = 'unavailable'
+    @@using = 'using'
+    @@renting = 'renting'
+    @@owned = 'owned'
 
     attributes  :hash_id,
                 :title,
-                :owned,
                 :start,
                 :end,
                 :start_date,
@@ -19,7 +21,8 @@ class RentalSerializer < ActiveModel::Serializer
                 :all_day,
                 :errors,
                 :owner,
-                :is_complete
+                :is_complete,
+                :status
 
     belongs_to :sporting_good
     belongs_to :user, serializer: OwnerSerializer
@@ -44,19 +47,28 @@ class RentalSerializer < ActiveModel::Serializer
       @object.end.to_date + 1.day
     end
 
-    def title
-      if current_user.rentals.find_by_id(@object.id)
-        "Your renting #{ @object.sporting_good.title.capitalize } from #{ @object.sporting_good.user.firstname.capitalize }"
-      elsif owned
-        "#{ @object.user.firstname.capitalize } is renting #{ @object.sporting_good.title.capitalize } from you"
+    def status
+      if current_user.rentals.find_by_id(@object.id) && current_user.owned_rentals.find_by_id(@object.id)
+        @@using
+      elsif current_user.rentals.find_by_id(@object.id)
+        @@renting
+      elsif current_user.owned_rentals.find_by_id(@object.id)
+        @@owned
       else
         @@unavailable
       end
     end
 
-    def owned
-      return true if current_user.owned_rentals.find_by_id(@object.id)
-      false
+    def title
+      if status == @@using
+        "Your using #{ @object.sporting_good.title.capitalize } at this time"
+      elsif status  == @@renting
+        "Your renting #{ @object.sporting_good.title.capitalize } from #{ @object.sporting_good.user.firstname.capitalize }"
+      elsif status == @@owned
+        "#{ @object.user.firstname.capitalize } is renting #{ @object.sporting_good.title.capitalize } from you"
+      else
+        @@unavailable
+      end
     end
 
     def is_complete

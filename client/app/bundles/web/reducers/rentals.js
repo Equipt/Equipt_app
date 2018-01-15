@@ -4,6 +4,7 @@ const rentals = (state = [], action) => {
   switch (action.type) {
     case types.SET_RENTALS:
       return action.payload;
+    break;
     case types.DETACH_RENTAL:
       return state.filter(rental => rental.hashId != action.payload.hashId);
     break;

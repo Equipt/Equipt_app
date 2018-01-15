@@ -126,10 +126,10 @@ export class SportingGoodDetails extends React.Component {
 
 	ratingMarkup(rating, index) {
 		return (<li key={ `rating_${ index }` } className="ratings-container">
-							<i>{ rating.createdAt }</i>
+							<i>{ rating.createdAt } ago</i>
 							<StarRatings
 								name='sportingGoodRating'
-								value={ rating.score }/>
+								value={ rating.rating }/>
 					 		<p>{ rating.comment }</p>
 					 </li>);
 	}

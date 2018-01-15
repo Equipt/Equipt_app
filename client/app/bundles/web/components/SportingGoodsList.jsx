@@ -7,8 +7,6 @@ import { SportingGood } from 'components/SportingGood';
 import { SearchBar } from 'components/SearchBar';
 import NoSportingGoods from 'components/NoSportingGoods';
 
-import Loader from 'components/Loader';
-
 const SportingGoodsList = ({
 	sportingGoods,
 	loader,
@@ -20,7 +18,6 @@ const SportingGoodsList = ({
 }) => {
 
 	const { results = [], total = 0 } = sportingGoods;
-
 	return (
 		<section className="container sporting-goods-index-wrapper">
 
@@ -32,13 +29,11 @@ const SportingGoodsList = ({
 				!results.length ?
 				<NoSportingGoods content={ content }/> :
 				results.map((sportingGood, index) => {
-
 					return <SportingGood key={ `${ sportingGood.title }_${ index }` }
 															 sportingGood={ sportingGood }
 															 content={ content }
 															 isOwner={ isOwner }
 															 actions={ actions }/>
-
 				})
 			}
 

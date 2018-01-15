@@ -15,23 +15,30 @@ const Nav = ({
     	<Link className="btn btn-success signup" to="/signup">Signup</Link>
 	</div>);
 
+	const profileSectionMarkup = () => {
+		if (currentUser.profile) {
+			return (
+				<Link to="/profile">
+					<img src={ currentUser.profile } className="profile-image"/>
+				</Link>
+			)
+		} else {
+			return (
+				<Link to="/profile">
+					<i className="fa fa-user-o" aria-hidden="true"/>
+					<p>{ currentUser.firstname }</p>
+				</Link>
+			)
+		}
+	}
+
 	// Set logged in html
 	if (currentUser) {
 
 		sessionHtml = (
 			<div className="session-container">
 				<div className="profile-container">
-				{
-					currentUser.profile ?
-					(<Link to="/profile">
-						<img src={ currentUser.profile } className="profile-image"/>:
-					</Link>)
-					:
-					(<Link to="/profile">
-						<i className="fa fa-user-o" aria-hidden="true"/>
-						<p>{ currentUser.firstname }</p>
-					</Link>)
-				}
+				{ profileSectionMarkup() }
 				</div>
 				<div onClick={ clearSession } className="logout-container">
 					<i className="fa fa-power-off power-off" aria-hidden="true"></i>

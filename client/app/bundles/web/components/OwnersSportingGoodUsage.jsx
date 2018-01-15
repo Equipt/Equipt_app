@@ -6,12 +6,16 @@ import { DateCell } from 'components/partials/DateCell.jsx';
 
 const OwnersSportingGoodUsage = ({
   sportingGood,
+  rental,
   actions
 }) => {
 
   if (!sportingGood) return <Loader/>;
 
-  const { rentals = [] } = sportingGood
+  const { rentals = [] } = sportingGood;
+
+  // Add newly created rental to rentals
+  if (rental) rentals.push(rental);
 
 	return (
 		<section className="container owners-sporting-good-usage">

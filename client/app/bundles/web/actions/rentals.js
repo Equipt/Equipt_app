@@ -19,6 +19,13 @@ export const setRentals = data => {
 	}
 }
 
+export const addRental = data => {
+  return {
+    type: types.ADD_RENTAL,
+    payload: data
+  }
+}
+
 // Cancel Owners Rental
 export const cancelRental = (rental, callback) => {
 

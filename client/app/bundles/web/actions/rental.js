@@ -4,6 +4,7 @@ import {extendMoment} from 'moment-range';
 import types from 'actions/types';
 import * as alertActions from 'actions/alerts';
 import * as sportingGoodActions from 'actions/sportingGood';
+import * as rentalsActions from 'actions/rentals';
 import { showLoader } from 'actions/loader';
 
 const moment = extendMoment(Moment);
