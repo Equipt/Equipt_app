@@ -74,6 +74,10 @@ class Rental < ActiveRecord::Base
 		self.deposit = sporting_good.deposit
 	end
 
+  def reindex_parent
+    self.sporting_good.index!
+  end
+
 	# =============
 	# EMAIL ALERTS
 	# =============

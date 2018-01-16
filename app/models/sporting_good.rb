@@ -14,10 +14,10 @@ class SportingGood < ActiveRecord::Base
 	scope :search, -> params { search_by_keyword(params[:keyword]) }
 
 	belongs_to :user
-	has_many :images, :as => :imageable, dependent: :destroy, after_add: :reindex_sporting_good, after_remove: :reindex_sporting_good
+	has_many :images, :as => :imageable, dependent: :destroy, after_add: :reindex_item, after_remove: :reindex_item
 	has_many :rentals, dependent: :destroy, inverse_of: :sporting_good
 
-	has_many :ratings, through: :rentals, after_add: :reindex_sporting_good, after_remove: :reindex_sporting_good
+	has_many :ratings, through: :rentals
 
 	accepts_nested_attributes_for :images
 
@@ -90,7 +90,7 @@ class SportingGood < ActiveRecord::Base
 		self.user.address.longitude if self.user
 	end
 
-	def reindex_sporting_good child
+	def reindex_item child
 		self.index!
 	end
 
