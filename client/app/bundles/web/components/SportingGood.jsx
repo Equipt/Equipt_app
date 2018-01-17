@@ -99,7 +99,7 @@ export class SportingGood extends React.Component {
 								starCount={ 5 }
 								value={ sportingGood.overall_rating }
 						/>
-						<span>{ sportingGood.total_ratings || 0 } ratings</span>
+						<span className="sporting_good_rating">{ sportingGood.total_ratings || 0 } ratings</span>
 					</Link>
 					{ this.sportingGoodIsOwners() }
 					<div className="clearfix"></div>

@@ -9,19 +9,28 @@ export class SearchBar extends React.Component {
     search: PropTypes.func.isRequired
   }
 
+  static DEFAULT_GEO_DISTANCE = 5000
+
   constructor(props) {
     super(props);
     this.state = {
       keyword: '',
       page: 0,
       location: null,
-      distance: 50000
+      distance: this.DEFAULT_GEO_DISTANCE
     }
   }
 
   onChange(key) {
     const { search } = this.props;
     this.state[key] = this.refs[key].value;
+    this.setState(this.state);
+    search(this.state);
+  }
+
+  clearKeyword() {
+    const { search } = this.props;
+    this.state.keyword = '';
     this.setState(this.state);
     search(this.state);
   }
@@ -46,10 +55,20 @@ export class SearchBar extends React.Component {
   }
 
   changeGeoDistance() {
+    const { search } = this.props;
     const { distanceSelect } = this.refs;
     this.state.distance = distanceSelect.value;
     this.setState(this.state);
-    this.props.search(this.state);
+    search(this.state);
+  }
+
+  clearGeoSearch() {
+    const { search } = this.props;
+    this._geoSearch.clear();
+    this.state.location = null;
+    this.state.distance = this.DEFAULT_GEO_DISTANCE;
+    this.setState(this.state);
+    search(this.state);
   }
 
   clear() {
@@ -75,13 +94,30 @@ export class SearchBar extends React.Component {
                     ref="keyword"
                     value={ this.state.keyword }
                     onChange={ this.onChange.bind(this, "keyword") }/>
+            {
+              this.state.keyword ?
+              <i className="fa fa-times close pull-right"
+                 aria-hidden="true"
+                 onClick={ this.clearKeyword.bind(this) }
+              ></i> :
+              null
+            }
           </div>
 
           <div className="col-sm-12 col-md-3 search-field ">
-            <Geosuggest inputClassName="form-control"
-            suggestsHiddenClassName="hide"
-            onSuggestSelect={ this.searchByLocation.bind(this) }
+            <Geosuggest ref={el => this._geoSearch = el}
+                        inputClassName="form-control"
+                        suggestsHiddenClassName="hide"
+                        onSuggestSelect={ this.searchByLocation.bind(this) }
             />
+            {
+              this.state.location ?
+              <i  className="fa fa-times close pull-right"
+                  aria-hidden="true"
+                  onClick={ this.clearGeoSearch.bind(this) }
+              ></i> :
+              null
+            }
           </div>
 
           <div className="col-sm-12 col-md-2 distance-field form-inline">
@@ -120,4 +156,5 @@ export class SearchBar extends React.Component {
       </div>
     )
   }
+
 }

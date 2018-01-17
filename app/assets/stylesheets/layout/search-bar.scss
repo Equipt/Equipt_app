@@ -10,24 +10,29 @@
     margin: 0;
   }
 
-  .geosuggest {
-
-    position: relative;
-
-    .geosuggest__suggests-wrapper {
-        ul:not(.hide) {
-          position: absolute;
-          width: 100%;
-          top: 12px;
-          z-index: 1;
-          background: #fff;
-          border: solid 1px #CCC;
-          li {
-            padding-left: 5px;
-          }
-        }
+  .search-field {
+    i {
+      position: absolute;
+      right: 23px;
+      top: 9px;
     }
+  }
 
+  .geosuggest {
+    position: relative;
+    .geosuggest__suggests-wrapper {
+      ul:not(.hide) {
+        position: absolute;
+        width: 100%;
+        top: 12px;
+        z-index: 1;
+        background: #fff;
+        border: solid 1px #CCC;
+        li {
+          padding-left: 5px;
+        }
+      }
+    }
   }
 
 }

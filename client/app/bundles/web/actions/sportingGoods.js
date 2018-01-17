@@ -10,7 +10,7 @@ export const fetchSportingGoods = ({
 	keyword = '',
 	page = 1,
 	location = {},
-	distance = 50
+	distance = 50000
 }) => {
 
 	return function(dispatch, getState, { api, algoliaClient, environment }) {
