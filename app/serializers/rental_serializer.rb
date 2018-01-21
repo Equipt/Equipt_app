@@ -8,8 +8,8 @@ class RentalSerializer < ActiveModel::Serializer
 
     attributes  :hash_id,
                 :title,
-                :start,
-                :end,
+                :start_date,
+                :end_date,
                 :start_date,
                 :end_date,
                 :pick_up_time,
@@ -32,19 +32,19 @@ class RentalSerializer < ActiveModel::Serializer
     end
 
     def start_date
-      @object.start.strftime("%A, %B %d %Y")
+      @object.start_date.strftime("%A, %B %d %Y")
     end
 
     def end_date
-      @object.end.strftime("%A, %B %d %Y")
+      @object.end_date.strftime("%A, %B %d %Y")
     end
 
     def start
-      @object.start.to_date + 1.day
+      @object.start_date.to_date + 1.day
     end
 
     def end
-      @object.end.to_date + 1.day
+      @object.end_date.to_date + 1.day
     end
 
     def status
@@ -72,7 +72,7 @@ class RentalSerializer < ActiveModel::Serializer
     end
 
     def is_complete
-      @object.end.past?
+      @object.end_date.past?
     end
 
     def destroyed_message

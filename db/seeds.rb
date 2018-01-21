@@ -181,8 +181,8 @@ def create_rentals(sporting_good, user)
 
 		rental = sporting_good.rentals.new(
       user_id: user.id,
-      start: start_date,
-      end: start_date + days_rented.days,
+      start_date: start_date,
+      end_date: start_date + days_rented.days,
       pick_up_time: (0..24).to_a.sample,
       total_days: days_rented,
       sub_total: sub_total,

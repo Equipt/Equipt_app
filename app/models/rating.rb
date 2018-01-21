@@ -5,7 +5,7 @@ class Rating < ApplicationRecord
   has_many :comments, :as => :commentable, dependent: :destroy
 
   after_save do
-    self.rateable.reindex_parent
+    rateable.reindex_parent if rateable.methods.include? :reindex_parent
   end
 
 end

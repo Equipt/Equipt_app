@@ -86,8 +86,8 @@ export const selectRental = (rental, sportingGood, agreedToTerms) => {
 
 		api.post(`/sporting_goods/${ slug }/rentals/check_availability`, {
 			rental: {
-				start: start,
-				end: endDate
+				start_date: start,
+				end_date: endDate
 			}
 		})
 		.then(data => {
@@ -95,8 +95,8 @@ export const selectRental = (rental, sportingGood, agreedToTerms) => {
 				type: types.SELECTED_RENTAL,
 				payload: {
 		      title: 'selected',
-		      start: rental.start,
-		      end: endDate,
+		      start_date: rental.start,
+		      end_date: endDate,
 		      agreedToTerms: agreedToTerms
 		    }
 			})
@@ -136,8 +136,8 @@ export const ownerIsUsingSportingGood = (rental, sportingGood) => {
 
 		api.post(`/owner/sporting_goods/${ sportingGood.slug }/rentals`, {
 			rental: {
-				start: start,
-				end: endDate
+				start_date: start,
+				end_date: endDate
 			}
 		})
 		.then(rental => dispatch(setRental(rental)))

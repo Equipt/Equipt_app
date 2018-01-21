@@ -83,11 +83,11 @@ export class SportingGoodDetails extends React.Component {
 
 		const { rental } = this.props;
 
-		if (rental.end && rental.start && rental.end.diff) {
-			return rental.end.diff(rental.start, 'days') + 1;
+		if (rental.end_date && rental.start_date && rental.end_date.diff) {
+			return rental.end_date.diff(rental.start_date, 'days') + 1;
 		}
 
-		if (rental.end && rental.start) {
+		if (rental.end_date && rental.start_date) {
 			return 1;
 		}
 
@@ -231,6 +231,8 @@ export class SportingGoodDetails extends React.Component {
 						<BigCalendar
 							events={ rentals.concat([ rental ]) }
 							selectable
+							startAccessor='start_date'
+							endAccessor='end_date'
 							views={ ['month'] }
 							onSelectSlot={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }
 							components={{
@@ -282,7 +284,7 @@ export class SportingGoodDetails extends React.Component {
 
 							<button className="btn btn-success rent-btn"
 											onClick={ () => this.rent(rental, sportingGood) }
-											disabled={ !rental.start }>
+											disabled={ !rental.start_date && !rental.end_date }>
 											Rent
 							</button>
 

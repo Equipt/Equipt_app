@@ -45,7 +45,7 @@ class Api::RentalsController < ApiController
     private
 
     def rental_params
-      params.require(:rental).permit(:start, :end, :pick_up_time, :agreed_to_terms)
+      params.require(:rental).permit(:start_date, :end_date, :pick_up_time, :agreed_to_terms)
     end
 
 end

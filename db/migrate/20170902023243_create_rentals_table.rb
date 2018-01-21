@@ -4,8 +4,8 @@ class CreateRentalsTable < ActiveRecord::Migration[5.0]
             t.string :hash_id, index: true
             t.references :sporting_good, foreign_key: true
             t.references :user, foreign_key: true
-            t.date :start
-            t.date :end
+            t.date :start_date
+            t.date :end_date
             t.float :pick_up_time
             t.float :sub_total, default: 0
             t.float :deposit, default: 0

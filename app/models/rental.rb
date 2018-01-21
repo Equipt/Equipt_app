@@ -20,7 +20,7 @@ class Rental < ActiveRecord::Base
   # after_destroy :send_destroy_email
 
   # TODO change database to sql and update this to use the built in overlap function overlap
-  @@dates_taken_sql = "(start BETWEEN ? AND ? OR end BETWEEN ? AND ?) OR (start <= ? AND end >= ?)";
+  @@dates_taken_sql = "start_date >= ? AND end_date < ?";
 
   # NOTE Get the owner of the rental
   def owner
@@ -30,8 +30,8 @@ class Rental < ActiveRecord::Base
   # validates methods
 	def dates_are_vacant?
     rentals = self.sporting_good.rentals
-		if (self.start? || self.end?)
-			if rentals.where(@@dates_taken_sql, self.start, self.end, self.start, self.end, self.start, self.end).any?
+		if (self.start_date? || self.end_date?)
+			if rentals.where(@@dates_taken_sql, self.start_date, self.end_date).any?
 				errors.add(:error, I18n.t('rentals.dates_are_taken', item: self.sporting_good.title))
         return false
 			end
@@ -40,13 +40,13 @@ class Rental < ActiveRecord::Base
 	end
 
   def dates_not_in_past?
-    return true unless self.start.past?
+    return true unless self.start_date.past?
     errors.add(:error, I18n.t('rentals.dates_in_past'))
     false
   end
 
   def dates_not_today?
-    return true unless self.start.today?
+    return true unless self.start_date.today?
     errors.add(:error, I18n.t('rentals.cant_be_today'))
     false
   end
@@ -64,7 +64,7 @@ class Rental < ActiveRecord::Base
 	# before create methods
 
 	def set_total_days
-		self.total_days = (self.start - self.end).to_i.abs + 1
+		self.total_days = (self.start_date - self.end_date).to_i.abs + 1
 	end
 
 	def set_rental_cost
