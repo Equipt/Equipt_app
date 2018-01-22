@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import BigCalendar from 'react-big-calendar';
-import moment from 'moment';
+// import BigCalendar from 'react-big-calendar';
+// import moment from 'moment';
 import Modal from 'components/Modal';
 import RentalDetails from 'components/RentalDetails';
-
-BigCalendar.setLocalizer(
-	BigCalendar.momentLocalizer(moment)
-);
+import DatePicker from 'components/DatePicker';
 
 export class Schedule extends React.Component {
 
@@ -24,7 +21,7 @@ export class Schedule extends React.Component {
 		rentals: PropTypes.array.isRequired
   }
 
-	onSelectEvent(rental) {
+	selectedEvent(rental) {
 		const { slug } = rental.sportingGood;
 		const { hashId, owned } = rental;
 		this.context.router.history.push(`${ owned ? '/owner' : '' }/sporting_goods/${ slug }/rentals/${ hashId }`);
@@ -36,12 +33,13 @@ export class Schedule extends React.Component {
 
 		return (
 			<div className="container">
-				<BigCalendar
+
+				<DatePicker
 					events={ rentals }
 					selectable={ true }
-					onSelectEvent={ this.onSelectEvent.bind(this) }
-					views={ ['month', 'agenda', 'day'] }
+					onSelectEvent={ this.selectedEvent.bind(this) }
 				/>
+
 			</div>
 		)
 	}

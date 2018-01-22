@@ -15,12 +15,15 @@ class Rental < ActiveRecord::Base
 
   has_many :ratings, :as => :rateable, dependent: :destroy
 
+  scope :between_range, -> (start_date, end_date) { where('(start_date, end_date) overlaps (timestamp :start_date, timestamp :end_date)',
+    :start_date => start_date, :end_date => end_date) }
+
   # after_save :send_confirmation_email, if: :rental_confirmed_changed?
   # after_create :send_create_emails
   # after_destroy :send_destroy_email
 
   # TODO change database to sql and update this to use the built in overlap function overlap
-  @@dates_taken_sql = "start_date >= ? AND end_date < ?";
+  @@dates_taken_sql = "start_date >= ? AND end_date =< ?";
 
   # NOTE Get the owner of the rental
   def owner
@@ -30,11 +33,9 @@ class Rental < ActiveRecord::Base
   # validates methods
 	def dates_are_vacant?
     rentals = self.sporting_good.rentals
-		if (self.start_date? || self.end_date?)
-			if rentals.where(@@dates_taken_sql, self.start_date, self.end_date).any?
-				errors.add(:error, I18n.t('rentals.dates_are_taken', item: self.sporting_good.title))
-        return false
-			end
+		if rentals.between_range(self.start_date, self.end_date).any?
+			errors.add(:error, I18n.t('rentals.dates_are_taken', item: self.sporting_good.title))
+      return false
 		end
     true
 	end

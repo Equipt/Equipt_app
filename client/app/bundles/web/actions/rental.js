@@ -38,8 +38,8 @@ export const rent = (rental, sportingGood, callback) => {
 
 		api.post(`/sporting_goods/${ slug }/rentals`, rental)
 		.then(rental => {
-			callback(rental);
       dispatch(setRental(rental));
+			callback(rental);
 		})
 		.catch((data) => {
 			if (data.errors) {
@@ -95,8 +95,8 @@ export const selectRental = (rental, sportingGood, agreedToTerms) => {
 				type: types.SELECTED_RENTAL,
 				payload: {
 		      title: 'selected',
-		      start_date: rental.start,
-		      end_date: endDate,
+		      startDate: rental.start,
+		      endDate: endDate,
 		      agreedToTerms: agreedToTerms
 		    }
 			})

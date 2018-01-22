@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Slider from 'react-slick';
-import BigCalendar from 'react-big-calendar';
 import StarRatings from 'react-star-rating-component';
 
 import { Link } from 'react-router-dom';
 import { UsersContactForm } from 'components/UsersContactForm';
 
+import DatePicker from 'components/DatePicker';
 import Loader from 'components/Loader';
 import Modal from 'components/Modal';
 import Map from 'components/Map.jsx';
-import { DateCell } from 'components/partials/DateCell.jsx';
 
 export class SportingGoodDetails extends React.Component {
 
@@ -228,16 +227,11 @@ export class SportingGoodDetails extends React.Component {
 
 					<div className="col-xs-12 col-md-8">
 
-						<BigCalendar
+						<DatePicker
 							events={ rentals.concat([ rental ]) }
-							selectable
-							startAccessor='start_date'
-							endAccessor='end_date'
-							views={ ['month'] }
-							onSelectSlot={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }
-							components={{
-							dateCellWrapper: DateCell
-						}}/>
+							selectable={ true }
+							onAddEvent={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }
+						/>
 
 						<ul>{ ratings.map((rating, index) => this.ratingMarkup(rating, index)) }</ul>
 
@@ -253,7 +247,6 @@ export class SportingGoodDetails extends React.Component {
 							/>
 							<p>{ sportingGood.totalRatings } reviews</p>
 						</div>
-
 
 						<h3>{ sportingGood.title }</h3>
 						<h4>{ sportingGood.model }</h4>
@@ -284,7 +277,7 @@ export class SportingGoodDetails extends React.Component {
 
 							<button className="btn btn-success rent-btn"
 											onClick={ () => this.rent(rental, sportingGood) }
-											disabled={ !rental.start_date && !rental.end_date }>
+											disabled={ !rental.startDate && !rental.endDate }>
 											Rent
 							</button>
 

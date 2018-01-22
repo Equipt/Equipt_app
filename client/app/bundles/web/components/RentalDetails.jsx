@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Moment from 'moment';
 
 import Slider from 'react-slick';
 import Map from 'components/Map.jsx';
@@ -77,7 +78,7 @@ const RentalDetails = ({
 
             <div className="clearfix"></div>
 
-            <h5>{ rental.startDate } - { rental.endDate }</h5>
+            <h5>{ Moment(rental.startDate).add(1, 'days').format('dddd, Do MMMM YYYY') } - { Moment(rental.endDate).format('dddd, Do MMMM YYYY') }</h5>
             <h5>{ rental.totalDays } Days Renting</h5>
 
             <hr/>

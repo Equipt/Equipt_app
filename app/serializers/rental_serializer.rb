@@ -10,8 +10,6 @@ class RentalSerializer < ActiveModel::Serializer
                 :title,
                 :start_date,
                 :end_date,
-                :start_date,
-                :end_date,
                 :pick_up_time,
                 :total_days,
                 :deposit,
@@ -31,21 +29,13 @@ class RentalSerializer < ActiveModel::Serializer
         @@all_day
     end
 
-    def start_date
-      @object.start_date.strftime("%A, %B %d %Y")
-    end
-
-    def end_date
-      @object.end_date.strftime("%A, %B %d %Y")
-    end
-
-    def start
-      @object.start_date.to_date + 1.day
-    end
-
-    def end
-      @object.end_date.to_date + 1.day
-    end
+    # def start_date
+    #   @object.start_date.strftime("%A, %B %d %Y")
+    # end
+    #
+    # def end_date
+    #   @object.end_date.strftime("%A, %B %d %Y")
+    # end
 
     def status
       if current_user.rentals.find_by_id(@object.id) && current_user.owned_rentals.find_by_id(@object.id)

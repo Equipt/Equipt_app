@@ -37,9 +37,9 @@ class Api::Owner::RentalsController < ApiController
     private
 
     def rental_params
-      # Force agreed_to_terms as this is not a actual rental
+      # Force agreed_to_terms as this is not an actual rental
       params[:rental][:agreed_to_terms] = true
-      params.require(:rental).permit(:start, :end, :agreed_to_terms)
+      params.require(:rental).permit(:start_date, :end_date, :agreed_to_terms)
     end
 
     def sporting_good

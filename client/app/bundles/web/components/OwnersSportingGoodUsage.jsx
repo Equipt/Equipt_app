@@ -4,6 +4,8 @@ import BigCalendar from 'react-big-calendar';
 import Loader from 'components/Loader';
 import { DateCell } from 'components/partials/DateCell.jsx';
 
+import DatePicker from 'components/DatePicker';
+
 const OwnersSportingGoodUsage = ({
   sportingGood,
   rental,
@@ -24,14 +26,11 @@ const OwnersSportingGoodUsage = ({
 
       <br/>
 
-      <BigCalendar
+      <DatePicker
         events={ rentals }
-        selectable
-        views={ ['month'] }
-        onSelectSlot={ rental => actions.ownerIsUsingSportingGood(rental, sportingGood) }
-        components={{
-        dateCellWrapper: DateCell
-      }}/>
+        selectable={ true }
+        onAddEvent={ rental => actions.ownerIsUsingSportingGood(rental, sportingGood) }
+      />
 
 		</section>
 	)
