@@ -13,7 +13,8 @@ class Api::PhoneController < ApiController
 
   def resend_pin
     phone = current_user.phone
-    if phone.send_verification_pin && phone.save
+    phone.send_verification_pin
+    if phone.save!
       render json: { info: "Pin has been reset"}, status: 200
     end
   end

@@ -8,7 +8,7 @@ const perPage = 20;
 // Get all sporting goods
 export const fetchSportingGoods = ({
 	keyword = '',
-	page = 1,
+	page = 0,
 	location = {},
 	distance = 50000
 }) => {
@@ -22,14 +22,17 @@ export const fetchSportingGoods = ({
 
 		const params = {
 			query: keyword,
-			hitsPerPage: perPage,
-			page: page,
 			filters: `user_id != ${ userId }`
 		};
 
+		// Set pagination if no search
+		if (!keyword.length && !location) {
+			params.hitsPerPage = perPage;
+			params.page = page;
+		}
+
 		if (location && location.lat && location.lng) {
 			params.aroundLatLng =  `${ location.lat }, ${ location.lng }`;
-			console.log(distance);
 			params.aroundRadius = distance;
 		}
 
