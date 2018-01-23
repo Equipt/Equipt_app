@@ -15,7 +15,7 @@ export const fetchRental = (slug, id, isOwned = false) => {
 
 		dispatch(showLoader(true));
 
-		api.get(`${ isOwned ? '/owner' : '' }/sporting_goods/${ slug }/rentals/${ id }`)
+		api.get(`${ isOwned  ? 'owner' : '' }/sporting_goods/${ slug }/rentals/${ id }`)
 		.then(rental => {
 			dispatch(setRental(rental));
 			dispatch(showLoader(false));

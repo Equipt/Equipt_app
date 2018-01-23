@@ -18,7 +18,7 @@ class Rental < ActiveRecord::Base
   scope :between_range, -> (start_date, end_date) { where('(start_date, end_date) overlaps (timestamp :start_date, timestamp :end_date)',
     :start_date => start_date, :end_date => end_date) }
 
-  # after_save :send_confirmation_email, if: :rental_confirmed_changed?
+  after_save :send_confirmation_email
   # after_create :send_create_emails
   # after_destroy :send_destroy_email
 
@@ -92,8 +92,9 @@ class Rental < ActiveRecord::Base
 	# 	RentalMailer.rental_destroyed( self ).deliver
 	# end
     #
-	# def send_confirmation_email
-	# 	RentalMailer.owner_confirmed( self ).deliver if self.rental_confirmed
-	# end
+	def send_confirmation_email
+		RentalMailer.renters_confirmation( self ).deliver
+    RentalMailer.owners_confirmation( self ).deliver
+	end
 
 end

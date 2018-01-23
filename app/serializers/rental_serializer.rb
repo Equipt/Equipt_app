@@ -20,7 +20,8 @@ class RentalSerializer < ActiveModel::Serializer
                 :errors,
                 :owner,
                 :is_complete,
-                :status
+                :status,
+                :owned
 
     belongs_to :sporting_good
     belongs_to :user, serializer: OwnerSerializer
@@ -36,6 +37,10 @@ class RentalSerializer < ActiveModel::Serializer
     # def end_date
     #   @object.end_date.strftime("%A, %B %d %Y")
     # end
+
+    def owned
+      current_user.sporting_goods.where(id: @object.sporting_good.id).any?
+    end
 
     def status
       if current_user.rentals.find_by_id(@object.id) && current_user.owned_rentals.find_by_id(@object.id)

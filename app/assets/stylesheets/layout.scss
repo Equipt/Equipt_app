@@ -20,7 +20,7 @@ li {
 .main-wrapper {
 	position: relative;
 	.transition .container {
-		padding-top: 40px;
+		padding-top: 20px;
 	}
 	margin: 74px 0 0 50px;
 	@media (max-width: $tablet-size) {
@@ -33,7 +33,6 @@ li {
 	width: 95%;
 	min-height: 100vh;
 	max-width: 1500px;
-	margin-top: 105px;
 	margin-bottom: 50px;
 	&.reduce-margin-top {
 		margin-top: 50px;
