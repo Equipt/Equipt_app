@@ -25,6 +25,13 @@ Rails.application.routes.draw do
         end
     end
 
+    # Create ratings through emails
+    resources :ratings, only: [:create]
+
+    namespace :owners do
+      resources :ratings, only: [:create]
+    end
+
     match 'api/phone/resend_pin', to: 'api/phone#resend_pin', via: 'GET'
     match 'api/session/fetch_user', to: 'api/session#fetch_user', via: 'GET'
     match 'api/sporting_goods/:slug/ratings', to: 'api/sporting_goods#ratings', via: 'POST'

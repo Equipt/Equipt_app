@@ -18,9 +18,7 @@ class Rental < ActiveRecord::Base
   scope :between_range, -> (start_date, end_date) { where('(start_date, end_date) overlaps (timestamp :start_date, timestamp :end_date)',
     :start_date => start_date, :end_date => end_date) }
 
-  after_save :send_confirmation_email
-  # after_create :send_create_emails
-  # after_destroy :send_destroy_email
+  after_save :send_confirmation_email, :send_rating_emails_when_ends
 
   # TODO change database to sql and update this to use the built in overlap function overlap
   @@dates_taken_sql = "start_date >= ? AND end_date =< ?";
@@ -83,18 +81,15 @@ class Rental < ActiveRecord::Base
 	# EMAIL ALERTS
 	# =============
 
-	# def send_create_emails
-	# 	RentalMailer.needs_confirmation( self ).deliver
-	# 	RentalMailer.waiting_on_owners_confirmation( self ).deliver
-	# end
-    #
-	# def send_destroy_email
-	# 	RentalMailer.rental_destroyed( self ).deliver
-	# end
-    #
 	def send_confirmation_email
 		RentalMailer.renters_confirmation( self ).deliver
     RentalMailer.owners_confirmation( self ).deliver
 	end
+
+  # NOTE Send a email when the rental has ended to Renter and Owner to rate their experience
+  def send_rating_emails_when_ends
+    RateRentalJob.set(wait_until: self.end_date.tomorrow.noon).perform_later(self)
+    RateSportingGoodJob.set(wait_until: self.end_date.tomorrow.noon).perform_later(self)
+  end
 
 end
