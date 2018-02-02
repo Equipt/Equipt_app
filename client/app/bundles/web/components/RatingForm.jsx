@@ -29,12 +29,12 @@ export class RatingForm extends Component {
 
   submitRating() {
 
-    const { sportingGood, rate } = this.props;
+    const { rental, rate } = this.props;
 
     const comment = this.refs['comment'].value;
     const { rating } = this.state;
 
-    rate(sportingGood, {
+    rate(rental, {
       rating: {
         comment: comment,
         rating: rating

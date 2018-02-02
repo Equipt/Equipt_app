@@ -1,9 +1,14 @@
 import types from 'actions/types';
 import { showErrorAlert, showSuccessAlert } from 'actions/alerts';
 
-export const rate = (sportingGood, rating) => {
+export const rate = (rental, rating) => {
   return function(dispatch, getState, { api }) {
-    api.post(`/sporting_goods/${ sportingGood.slug }/ratings`, rating)
+
+    const endPoint = rental.sportingGood.owned ?
+                     `/user/${ rental.user_id }/ratings` :
+                     `/sporting_goods/${ rental.sportingGood.slug }/ratings`;
+                     
+    api.post(endPoint, rating)
     .then(message => {
       dispatch(setRating(rating));
       dispatch(showSuccessAlert(message));

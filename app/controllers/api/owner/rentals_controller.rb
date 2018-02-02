@@ -7,7 +7,7 @@ class Api::Owner::RentalsController < ApiController
 
     # NOTE: When owner wants to use their own sporting_good
     def create
-      rental = sporting_good.rentals.new(rental_params)
+      rental = sporting_goods.rentals.new(rental_params)
       rental.user_id = current_user.id
       if rental.save
         render json: rental, status: 200
@@ -34,7 +34,7 @@ class Api::Owner::RentalsController < ApiController
         end
     end
 
-    private
+    protected
 
     def rental_params
       # Force agreed_to_terms as this is not an actual rental
@@ -42,7 +42,7 @@ class Api::Owner::RentalsController < ApiController
       params.require(:rental).permit(:start_date, :end_date, :agreed_to_terms)
     end
 
-    def sporting_good
+    def sporting_goods
       current_user.sporting_goods.find_by_slug(params[:sporting_good_slug])
     end
 

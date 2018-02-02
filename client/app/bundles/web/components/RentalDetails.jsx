@@ -98,7 +98,7 @@ const RentalDetails = ({
 
           <div className="col-xs-6">
 
-            { rental.isComplete && <RatingForm title={ `How was ${ sportingGood.title }?` } sportingGood={ sportingGood } rate={ rate }/> }
+            { rental.isComplete && <RatingForm title={ `How was ${ sportingGood.title }?` } rental={ rental } rate={ rate }/> }
 
             <h4>{ sportingGood.title }</h4>
             <p>{ sportingGood.description }</p>
