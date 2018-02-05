@@ -2,11 +2,15 @@ Rails.application.routes.draw do
 
     namespace :api do
 
-        resources :user
+        resources :user do
+          resources :ratings, only: [:create]
+        end
+
         resources :session, only: [:create, :destroy]
         resources :rentals, exclude: [:create], param: :hash_id
 
         resources :sporting_goods, only: [:index, :show], param: :slug do
+            resources :ratings, only: [:create]
             resources :rentals, only: [:create, :show], param: :hash_id
         end
 
@@ -14,7 +18,9 @@ Rails.application.routes.draw do
             resources :sporting_goods, param: :slug do
               resources :rentals, only: [:show, :create]
             end
-            resources :rentals, param: :hash_id
+            resources :rentals, param: :hash_id do
+              resources :ratings, only: [:create]
+            end
         end
 
     end
@@ -34,7 +40,6 @@ Rails.application.routes.draw do
 
     match 'api/phone/resend_pin', to: 'api/phone#resend_pin', via: 'GET'
     match 'api/session/fetch_user', to: 'api/session#fetch_user', via: 'GET'
-    match 'api/sporting_goods/:slug/ratings', to: 'api/sporting_goods#ratings', via: 'POST'
 
     get '/', to: 'home#index'
     get '*path', to: 'home#index'

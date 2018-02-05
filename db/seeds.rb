@@ -148,7 +148,7 @@ end
 
 def create_comments instance
 
-  instance.comments.create!(
+  instance.comment = Comment.create!(
     comment: Faker::Lorem.sentence(2)
   )
 

@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
 	acts_as_paranoid
 	has_secure_password
 
+	# hashable id
+	include Friendlyable
+
 	attr_accessor :notice, :api_key, :updating_password
 
 	has_many :sporting_goods, dependent: :destroy

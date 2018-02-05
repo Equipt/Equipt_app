@@ -13,8 +13,13 @@ export class RatingForm extends Component {
   constructor(props) {
     super(props);
 
+    const { rental } = props;
+    const { rating = {} } = rental;
+    const { comment = {} } = rating;
+
     this.state = {
-      rating: 0
+      rating: rating.rating || 0,
+      comment: comment.comment || ""
     };
 
     this.onStarClick = this.onStarClick.bind(this);
@@ -46,7 +51,7 @@ export class RatingForm extends Component {
   render() {
 
     const { title } = this.props;
-    const { rating } = this.state;
+    const { rating, comment } = this.state;
 
     return (
       <div className="rating-form-wrapper">
@@ -57,7 +62,7 @@ export class RatingForm extends Component {
                   value={ rating }
                   onStarClick={this.onStarClick.bind(this)}
               />
-        <textarea className="form-control" ref="comment"/>
+        <textarea className="form-control" ref="comment" defaultValue={ comment }/>
         <br/>
         <button className="btn btn-success pull-right" onClick={ this.submitRating }>Rate</button>
         <br className="clearfix"/>

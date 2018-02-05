@@ -18,16 +18,6 @@ class Api::SportingGoodsController < ApiController
 		end
 	end
 
-	def ratings
-		sporting_good = SportingGood.find_by_slug(params[:slug])
-		rating = sporting_good.ratings.new(rating_params)
-		if rating.save
-			render json: { info: I18n.t('ratings.contribution') }, status: 200
-		else
-			render json: { error: I18n.t('rating.error') }, status: 400
-		end
-	end
-
 	private
 
 	def pagination_params
@@ -49,19 +39,6 @@ class Api::SportingGoodsController < ApiController
 			:image_attributes,
 			:page,
 			:per_page
-		)
-	end
-
-	def rating_params
-		params[:rating][:comment_attributes] = {
-				comment: params[:rating].delete(:comment)
-		}
-		params.require(:rating).permit(
-			:rating,
-			comment_attributes: [
-				:comment,
-				:_destroy
-			]
 		)
 	end
 

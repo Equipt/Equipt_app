@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128074518) do
+ActiveRecord::Schema.define(version: 20180204010417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(version: 20171128074518) do
     t.string   "comment"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "author_id"
+    t.index ["author_id"], name: "index_ratings_on_author_id", using: :btree
   end
 
   create_table "rentals", force: :cascade do |t|
@@ -118,6 +120,7 @@ ActiveRecord::Schema.define(version: 20171128074518) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string   "hash_id"
     t.integer  "address_id"
     t.integer  "phone_id"
     t.string   "firstname"
@@ -140,11 +143,13 @@ ActiveRecord::Schema.define(version: 20171128074518) do
     t.boolean  "notify_by_sms",           default: false
     t.index ["address_id"], name: "index_users_on_address_id", using: :btree
     t.index ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
+    t.index ["hash_id"], name: "index_users_on_hash_id", using: :btree
     t.index ["phone_id"], name: "index_users_on_phone_id", using: :btree
   end
 
   add_foreign_key "addresses", "users"
   add_foreign_key "phones", "users"
+  add_foreign_key "ratings", "users", column: "author_id"
   add_foreign_key "rentals", "sporting_goods"
   add_foreign_key "rentals", "users"
   add_foreign_key "sporting_goods", "users"

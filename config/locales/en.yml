@@ -43,8 +43,9 @@ en:
     cancel_error: "Issue cancelling rental, please try again later"
     cant_be_today: "Pickup date cant be today"
   ratings:
-    contribution: "Thankyou for your rating"
+    contribution: "Thankyou for your feedback"
     error: "There was a issue processing your rating"
+    already_rated: "Sorry, you cant rate the same resource twice!"
   frontend:
     logo: https://s3-us-west-2.amazonaws.com/equipt-assets/logo.
     go_back: Go Back

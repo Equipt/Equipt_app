@@ -10,4 +10,8 @@ class RatingSerializer < ActiveModel::Serializer
     time_ago_in_words(@object.created_at).capitalize
   end
 
+  def comment
+    @object.comment.comment if @object.comment
+  end
+
 end

@@ -20,9 +20,6 @@ class Rental < ActiveRecord::Base
 
   after_save :send_confirmation_email, :send_rating_emails_when_ends
 
-  # TODO change database to sql and update this to use the built in overlap function overlap
-  @@dates_taken_sql = "start_date >= ? AND end_date =< ?";
-
   # NOTE Get the owner of the rental
   def owner
     OwnerSerializer.new(self.sporting_good.user)

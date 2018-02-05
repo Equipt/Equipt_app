@@ -1,6 +1,7 @@
 class OwnerSerializer < ActiveModel::Serializer
 
-  attributes :firstname,
+  attributes :hash_id,
+             :firstname,
              :lastname,
              :email,
              :unit,

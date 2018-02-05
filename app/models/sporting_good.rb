@@ -17,7 +17,7 @@ class SportingGood < ActiveRecord::Base
 	has_many :images, :as => :imageable, dependent: :destroy, after_add: :reindex_item, after_remove: :reindex_item
 	has_many :rentals, dependent: :destroy, inverse_of: :sporting_good
 
-	has_many :ratings, through: :rentals
+	has_many :ratings, :as => :rateable, dependent: :destroy
 
 	accepts_nested_attributes_for :images
 
@@ -65,6 +65,10 @@ class SportingGood < ActiveRecord::Base
 		self.deposit = 0 if self.deposit.blank?
 	end
 
+	def reindex_item
+		self.index!
+	end
+
 	private
 
 	def overall_rating
@@ -88,10 +92,6 @@ class SportingGood < ActiveRecord::Base
 
 	def lng
 		self.user.address.longitude if self.user
-	end
-
-	def reindex_item child
-		self.index!
 	end
 
 end

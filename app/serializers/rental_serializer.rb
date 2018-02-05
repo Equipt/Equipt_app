@@ -21,7 +21,8 @@ class RentalSerializer < ActiveModel::Serializer
                 :owner,
                 :is_complete,
                 :status,
-                :owned
+                :owned,
+                :rating
 
     belongs_to :sporting_good
     belongs_to :user, serializer: OwnerSerializer
@@ -29,14 +30,6 @@ class RentalSerializer < ActiveModel::Serializer
     def all_day
         @@all_day
     end
-
-    # def start_date
-    #   @object.start_date.strftime("%A, %B %d %Y")
-    # end
-    #
-    # def end_date
-    #   @object.end_date.strftime("%A, %B %d %Y")
-    # end
 
     def owned
       current_user.sporting_goods.where(id: @object.sporting_good.id).any?
@@ -67,7 +60,7 @@ class RentalSerializer < ActiveModel::Serializer
     end
 
     def is_complete
-      @object.end_date.past?
+      @object.end_date.past? || @object.end_date.today?
     end
 
     def destroyed_message
@@ -76,6 +69,11 @@ class RentalSerializer < ActiveModel::Serializer
 
     def include_associations!
         include! :sporting_good if @instance_options[:include_sporting_good]
+    end
+
+    def rating
+      return @object.user.ratings.find_by(author_id: current_user.id) if owned
+      @object.sporting_good.ratings.find_by(author_id: current_user.id)
     end
 
 end

@@ -4,10 +4,10 @@ import { showErrorAlert, showSuccessAlert } from 'actions/alerts';
 export const rate = (rental, rating) => {
   return function(dispatch, getState, { api }) {
 
-    const endPoint = rental.sportingGood.owned ?
+    const endPoint = rental.owned ?
                      `/user/${ rental.user_id }/ratings` :
                      `/sporting_goods/${ rental.sportingGood.slug }/ratings`;
-                     
+
     api.post(endPoint, rating)
     .then(message => {
       dispatch(setRating(rating));
