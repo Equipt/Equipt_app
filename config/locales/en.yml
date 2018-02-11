@@ -1,3 +1,4 @@
+
 # Files in the config/locales directory are used for internationalization
 # and are automatically loaded by Rails. If you want to use locales other
 # than English, add the necessary files in this directory.
@@ -235,6 +236,7 @@ en:
         rental_terms_title: Rental Terms
         not_found: Couldn't find this rental
         confirmed_title: Congrats, the rental has been confirmed
+        completed: This rental is complete!
         confirmed_details: You will not be charge untill the day of the rental
         cancel_rental: Are you sure you want to cancel this rental?
         rental_terms:

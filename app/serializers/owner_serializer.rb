@@ -12,7 +12,8 @@ class OwnerSerializer < ActiveModel::Serializer
              :country,
              :zip,
              :coordinates,
-             :phone
+             :phone,
+             :profile
 
   def unit
     @object.address.unit if @object.address
@@ -52,6 +53,11 @@ class OwnerSerializer < ActiveModel::Serializer
 
   def lng
     @object.address.lng if @object.address
+  end
+
+  def profile
+    return @object.images.first.url if @object.images.first
+    
   end
 
 end

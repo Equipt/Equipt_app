@@ -1,15 +1,6 @@
 $danger: #a94442;
 $greyBg: #e9e9e9;
 
-.rbc-calendar {
-
-    .rbc-event-content[title="unavailable"] {
-        background: $danger;
-        border-color: $danger;
-    }
-
-}
-
 .date-in-past {
   width: 14.3%;
   background: $greyBg;
@@ -17,6 +8,10 @@ $greyBg: #e9e9e9;
   &.saturday {
     border-right: none;
   }
+}
+
+.rbc-month-row {
+  overflow-y: scroll;
 }
 
 .date-cell {

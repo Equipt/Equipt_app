@@ -17,6 +17,40 @@ export default class DatePicker extends Component {
     onSelectEvent: PropTypes.func
   }
 
+	constructor(props) {
+		super(props);
+		this.getBkColor = this.getBkColor.bind(this);
+		this.getEventStyles = this.getEventStyles.bind(this);
+	}
+
+	getBkColor(event) {
+		switch(event.title) {
+			case 'selected':
+				return '#4173A8';
+			case 'unavailable':
+				return '#9D4A45';
+			default:
+				return '#4173A8';
+		}
+	}
+
+	getEventStyles(event, start, end, isSelected) {
+
+		console.log(event);
+
+		const style = {
+			height: '60px',
+			display: 'block',
+			fontSize: '16px',
+			background: this.getBkColor(event)
+		}
+
+		return {
+			style
+		}
+
+	}
+
   render() {
 
     const { events, selectable, onAddEvent, onSelectEvent } = this.props;
@@ -40,12 +74,13 @@ export default class DatePicker extends Component {
 					return event.endDate;
 				}
 			}}
-			views={ ['month'] }
+			views={ ['month', 'agenda'] }
 			onSelectSlot={ event => {
         event.start = Moment(event.start).subtract(1, 'days');
         onAddEvent(event);
       } }
       onSelectEvent={ onSelectEvent }
+			eventPropGetter={ this.getEventStyles }
 			components={{
 			dateCellWrapper: DateCell
 		}}/>

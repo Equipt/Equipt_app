@@ -11,6 +11,12 @@ export class SideBar extends Component {
 			})
 	};
 
+	componentWillReceiveProps() {
+
+		document.body.scrollTo(window.scrollX, window.scrollY + 2);
+		
+	}
+
 	componentDidMount() {
 
 		const { sideBar } = this.refs;
@@ -36,6 +42,7 @@ export class SideBar extends Component {
 			document.body.scrollTo(window.scrollX, window.scrollY + 2);
 
 		});
+
 	}
 
 	goBack() {

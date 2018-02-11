@@ -13,6 +13,18 @@
     margin-top: 5px;
   }
 
+  .profile-image {
+    font-size: 30px;
+    margin-top: 20px;
+    img {
+      display: block;
+      max-width: 75px;
+      border-radius: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+
   .pricing-container {
     margin-top: 20px;
     border: solid 1px #E4E4E4;

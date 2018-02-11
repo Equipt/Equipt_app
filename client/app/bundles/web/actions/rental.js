@@ -17,12 +17,12 @@ export const fetchRental = (slug, id, isOwned = false) => {
 
 		api.get(`${ isOwned  ? '/owner' : '' }/sporting_goods/${ slug }/rentals/${ id }`)
 		.then(rental => {
-			dispatch(setRental(rental));
 			dispatch(showLoader(false));
+			dispatch(setRental(rental));
 		})
 		.catch(err => {
-			dispatch(alertActions.showErrorAlert(err));
 			dispatch(showLoader(false));
+			dispatch(alertActions.showErrorAlert(err));
 		});
 
 	}

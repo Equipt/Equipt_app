@@ -5,7 +5,7 @@ export const rate = (rental, rating) => {
   return function(dispatch, getState, { api }) {
 
     const endPoint = rental.owned ?
-                     `/user/${ rental.user_id }/ratings` :
+                     `/user/${ rental.user.hashId }/ratings` :
                      `/sporting_goods/${ rental.sportingGood.slug }/ratings`;
 
     api.post(endPoint, rating)

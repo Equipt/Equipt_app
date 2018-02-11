@@ -240,12 +240,19 @@ export class SportingGoodDetails extends React.Component {
 					<div className="col-xs-12 col-md-4 pricing-container">
 
 						<div className="pull-right">
+							<div className="profile-image">
+							{
+								user.profile ?
+								<img src={ user.profile }/> :
+								null
+							}
+							</div>
 							<StarRatings
 									name="sportingGoodRating"
 									starCount={ 5 }
 									value={ sportingGood.overallRating }
 							/>
-							<p>{ sportingGood.totalRatings } reviews</p>
+							<p className="text-right">{ sportingGood.totalRatings } reviews</p>
 						</div>
 
 						<h3>{ sportingGood.title }</h3>
@@ -255,8 +262,7 @@ export class SportingGoodDetails extends React.Component {
 						<div className="price-container">
 
 							<h4>{ totalDays > 0 ? `${ totalDays } Rental Days` : `` }</h4>
-							<h4>${ sportingGood.pricePerDay } Price Per Day</h4>
-							<h4>{ sportingGood.deposit > 0 ? `$${ sportingGood.deposit } Deposit` : `` }</h4>
+							<h4>${ sportingGood.pricePerDay } per day</h4>
 							<h4>{ weeklyRentalDiscount > 0 ? `$${ weeklyRentalDiscount } Discount` : `` }</h4>
 							<h3>{ subTotal > 0 ? `$${ subTotal - weeklyRentalDiscount } Total*` : `` }</h3>
 

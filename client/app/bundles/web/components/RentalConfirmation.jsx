@@ -28,7 +28,7 @@ const RentalConfirmation = ({
       <div className="container reduce-margin-top rental-confirmation-wrapper">
         <div className="row">
           <div className="col-xs-12 col-md-6">
-            <h3>{ content.rentals.confirmed_title }</h3>
+            <h3>{ rental.isComplete ? content.rentals.completed : content.rentals.confirmed_title }</h3>
             <h5>{ content.rentals.confirmed_details }</h5>
           </div>
           <div className="col-xs-12 col-md-6">

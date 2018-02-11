@@ -2,7 +2,7 @@ class Api::RatingsController < ApiController
 
   def create
     if params[:user_id]
-      rating = User.find(params[:user_id]).ratings.authors_first_or_initialize(current_user, rating_params)
+      rating = User.find_by(hash_id: params[:user_id]).ratings.authors_first_or_initialize(current_user, rating_params)
     else
       rating = SportingGood.find_by_slug(params[:sporting_good_slug]).ratings.authors_first_or_initialize(current_user, rating_params)
     end

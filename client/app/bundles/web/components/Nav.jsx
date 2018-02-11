@@ -16,20 +16,18 @@ const Nav = ({
 	</div>);
 
 	const profileSectionMarkup = () => {
-		if (currentUser.profile) {
-			return (
-				<Link to="/profile">
-					<img src={ currentUser.profile } className="profile-image"/>
-				</Link>
-			)
-		} else {
-			return (
-				<Link to="/profile">
-					<i className="fa fa-user-o" aria-hidden="true"/>
-					<p>{ currentUser.firstname }</p>
-				</Link>
-			)
-		}
+		return (
+			<Link to="/profile">
+				{
+					currentUser.profile ?
+					<img src={ currentUser.profile } className="profile-image"/> :
+					<span>
+						<i className="fa fa-user-o" aria-hidden="true"/>
+						<p>{ currentUser.firstname }</p>
+					</span>
+				}
+			</Link>
+		)
 	}
 
 	// Set logged in html

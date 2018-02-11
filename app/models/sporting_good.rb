@@ -65,7 +65,7 @@ class SportingGood < ActiveRecord::Base
 		self.deposit = 0 if self.deposit.blank?
 	end
 
-	def reindex_item
+	def reindex_item item = nil
 		self.index!
 	end
 

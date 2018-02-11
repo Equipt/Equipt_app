@@ -13,9 +13,9 @@ export class RatingForm extends Component {
   constructor(props) {
     super(props);
 
-    const { rental } = props;
-    const { rating = {} } = rental;
-    const { comment = {} } = rating;
+    const { rental = {} } = props;
+    const rating = rental.rating || {};
+    const comment = rating.comment || {};
 
     this.state = {
       rating: rating.rating || 0,
