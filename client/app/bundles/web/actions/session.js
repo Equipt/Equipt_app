@@ -219,6 +219,11 @@ export const verifyPhonePin = (pin, callback) => {
 
 }
 
+// Update Profile image
+export const changeAvatar = image => {
+	debugger;
+}
+
 // Resend pin
 export const resendPin = () => {
 

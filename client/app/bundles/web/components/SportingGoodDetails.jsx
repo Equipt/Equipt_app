@@ -10,6 +10,7 @@ import DatePicker from 'components/DatePicker';
 import Loader from 'components/Loader';
 import Modal from 'components/Modal';
 import Map from 'components/Map.jsx';
+import RatingsList from 'components/RatingsList';
 
 export class SportingGoodDetails extends React.Component {
 
@@ -123,16 +124,6 @@ export class SportingGoodDetails extends React.Component {
 
 	}
 
-	ratingMarkup(rating, index) {
-		return (<li key={ `rating_${ index }` } className="ratings-container">
-							<i>{ rating.createdAt } ago</i>
-							<StarRatings
-								name='sportingGoodRating'
-								value={ rating.rating }/>
-					 		<p>{ rating.comment }</p>
-					 </li>);
-	}
-
 	termsModalMarkup() {
 
 		const { content } = this.props;
@@ -233,7 +224,7 @@ export class SportingGoodDetails extends React.Component {
 							onAddEvent={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }
 						/>
 
-						<ul>{ ratings.map((rating, index) => this.ratingMarkup(rating, index)) }</ul>
+						<RatingsList ratings={ ratings}/>
 
 					</div>
 

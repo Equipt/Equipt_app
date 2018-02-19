@@ -1,7 +1,7 @@
-class Api::RatingsController < ApiController
+class Api::Owner::RatingsController < ApiController
 
   def create
-    rating = rental.ratings.authors_first_or_initialize(current_user, rating_params)
+    rating = rental.user.ratings.authors_first_or_initialize(current_user, rating_params)
     if rating
       render json: { info: I18n.t('ratings.contribution') }, status: 200
     else

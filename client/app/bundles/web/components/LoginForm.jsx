@@ -26,6 +26,7 @@ export class LoginForm extends React.Component {
 		e.preventDefault();
 
 		const { login } = this.props.actions;
+		const { history, route } = this.context.router;
 
 		let email = this.refs.email.value;
 		let password = this.refs.password.value;
@@ -34,7 +35,13 @@ export class LoginForm extends React.Component {
 		login({
 			email: email,
 			password: password
-		}, () => this.context.router.history.push('/sporting_goods'));
+		}, () => {
+			if (route.location.pathname.indexOf('/login') > -1) {
+				this.context.router.history.push('/sporting_goods');
+			} else {
+				this.context.router.history.push(route.location.pathname);
+			}
+		});
 
 	}
 

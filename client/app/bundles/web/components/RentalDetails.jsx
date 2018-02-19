@@ -98,7 +98,12 @@ const RentalDetails = ({
 
           <div className="col-xs-6">
 
-            { rental.isComplete && <RatingForm title={ `How was ${ sportingGood.title }?` } rental={ rental } rate={ rate }/> }
+            { rental.isComplete ?
+              <RatingForm title={ rental.owned ? `How was renting to ${ rental.user.firstname }?` : `How was renting ${ sportingGood.title }?` }
+                          rental={ rental }
+                          rate={ rate }/>
+              : null }
+
 
             <h4>{ sportingGood.title }</h4>
             <p>{ sportingGood.description }</p>

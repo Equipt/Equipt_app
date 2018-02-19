@@ -2,17 +2,17 @@ Rails.application.routes.draw do
 
     namespace :api do
 
-        resources :user do
-          resources :ratings, only: [:create]
-        end
-
+        resources :user
         resources :session, only: [:create, :destroy]
         resources :rentals, exclude: [:create], param: :hash_id
 
         resources :sporting_goods, only: [:index, :show], param: :slug do
-            resources :ratings, only: [:create]
-            resources :rentals, only: [:create, :show], param: :hash_id
+            resources :rentals, only: [:create, :show], param: :hash_id do
+              resources :ratings, only: [:create]
+            end
         end
+
+
 
         namespace :owner do
             resources :sporting_goods, param: :slug do

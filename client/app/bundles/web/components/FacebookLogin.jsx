@@ -24,9 +24,14 @@ export default class FaceBookLogin extends Component {
 	login(facebookData) {
 
 		const { loginWithFacebook } = this.props;
+		const { history, route } = this.context.router;
 
 		loginWithFacebook(facebookData, () => {
-			this.context.router.history.push('/sporting_goods');
+			if (route.location.pathname.indexOf('/login') > -1) {
+				this.context.router.history.push('/sporting_goods');
+			} else {
+				this.context.router.history.push(route.location.pathname);
+			}
 		});
 	}
 

@@ -17,7 +17,7 @@ class SportingGood < ActiveRecord::Base
 	has_many :images, :as => :imageable, dependent: :destroy, after_add: :reindex_item, after_remove: :reindex_item
 	has_many :rentals, dependent: :destroy, inverse_of: :sporting_good
 
-	has_many :ratings, :as => :rateable, dependent: :destroy
+	has_many :ratings, :as => :rateable, :through => :rentals, dependent: :destroy
 
 	accepts_nested_attributes_for :images
 
@@ -42,16 +42,11 @@ class SportingGood < ActiveRecord::Base
 	end
 
 	def store_images(images = [])
-		excluded_image_ids = []
+		self.images.destroy_all
 		images ||= []
 		images.each do |image|
-			if image.instance_of?(String)
-				excluded_image_ids << image
-			else
-				excluded_image_ids << self.images.create(file: image).id
-			end
+			self.images.create!(file: image)
 		end
-		self.images.where.not(id: excluded_image_ids).destroy_all
 	end
 
 	def is_weekly_price_a_discount?
@@ -65,15 +60,12 @@ class SportingGood < ActiveRecord::Base
 		self.deposit = 0 if self.deposit.blank?
 	end
 
-	def reindex_item item = nil
-		self.index!
-	end
-
 	private
 
 	def overall_rating
-		0 if self.ratings.empty?
-		self.ratings.pluck(:rating).inject(&:+).to_f / self.ratings.size
+		ratings = self.rentals.map(&:ratings).reject(&:empty?).flatten
+		return 0 if ratings.empty?
+		ratings.pluck(:rating).inject(&:+).to_f / self.ratings.size
 	end
 
 	def total_ratings
@@ -92,6 +84,10 @@ class SportingGood < ActiveRecord::Base
 
 	def lng
 		self.user.address.longitude if self.user
+	end
+
+	def reindex_item(item)
+		self.index!
 	end
 
 end

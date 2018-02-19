@@ -1,83 +1,37 @@
 import React from 'react';
+import Dropzone from 'react-dropzone';
 
 import { UserForm } from 'components/UserForm';
 import { UsersContactForm } from 'components/UsersContactForm';
 import { Privacy } from 'components/Privacy';
-import Reviews from 'components/Reviews';
+import RatingsList from 'components/RatingsList';
 
-export class UsersProfile extends React.Component {
+import Flyout from 'components/Flyout';
 
-	constructor(props) {
-		super(props);
+const UsersProfile = props => {
 
-		const { tabs } = this.props.content.profile;
+	const { content, currentUser, actions } = props;
 
-		this.state = {
-			tabs: tabs,
-			currentTab: tabs[0]
-		}
-	}
+	return (
 
-	shouldComponentUpdate(newProps, newState) {
-		return newState.currentTab !== this.state.currentTab;
-	}
+		<section className="container">
 
-	clickedListItem(item) {
-		this.setState({
-			currentTab: item
-		})
-	}
-
-	getCurrentTab() {
-
-		const { currentUser } = this.props;
-		const { basic } = this.props.content.profile;
-		const { currentTab } = this.state;
-
-
-		switch(currentTab) {
-			case this.state.tabs[1]:
-				return <UsersContactForm { ...this.props } title={ this.props.content.profile.contact.title }/>;
-			break;
-			case this.state.tabs[2]:
-				return <Privacy { ...this.props }/>;
-			break;
-			case this.state.tabs[3]:
-				return <Reviews reviews={ currentUser.reviews || [] }/>;
-			break;
-			default:
-				return <UserForm { ...this.props } formContent={ basic } isUpdating={ true }/>;
-		}
-
-	}
-
-	render() {
-
-		return (
-
-			<section className="container">
-
-				<aside className="col-xs-2 selection-list">
-
-					<ul>
-						{
-							this.state.tabs.map(item => {
-								return <li 	key={ `list_item_${ item }` }
-														onClick={ this.clickedListItem.bind(this, item) }
-														className={ this.state.currentTab === item ? 'active' : '' }>
-														{ item }</li>
-							})
-						}
-
-					</ul>
-
-				</aside>
-
-				<div className="col-xs-10 box-container">
-					{ this.getCurrentTab.call(this) }
+			<Flyout defaultTab="Basic">
+				<div name="Basic">
+					<UserForm { ...props } formContent={ content.profile.basic } isUpdating={ true }/>
+					<Dropzone onDrop={ actions.changeAvatar.bind(this) } className="drop-area">
+						<p>{ content.profile.basic.add_profile }</p>
+						<i className="fa fa-arrow-circle-down" aria-hidden="true"></i>
+					</Dropzone>
 				</div>
+				<UsersContactForm name="Contact" { ...props } title={ content.profile.contact.title }/>
+				<Privacy name="Privacy" { ...props }/>
+				<RatingsList name="Ratings" ratings={ currentUser.ratings }/>
+			</Flyout>
 
-			</section>
-		)
-	}
+		</section>
+	)
+
 }
+
+export default UsersProfile;

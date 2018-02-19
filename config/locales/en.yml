@@ -155,12 +155,6 @@ en:
           type: number
           min: 0
           fieldsetClass: 'col-xs-6 price-input'
-        - name: deposit
-          label: How much is the deposit?
-          tag: input
-          type: number
-          min: 0
-          fieldsetClass: 'col-xs-6 price-input'
       update:
         title: Update Sporting Form
         dropZone: Drop images here!

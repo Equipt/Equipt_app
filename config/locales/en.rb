@@ -25,6 +25,7 @@
         },
         :basic => {
           title: "Signup",
+          add_profile: "Add your image here!", 
           :formFields => [
             {
               name: 'firstname',

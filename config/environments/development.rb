@@ -10,7 +10,7 @@ Rails.application.configure do
   config.eager_load = false
 
   config.active_job.queue_adapter = :inline
-  
+
   # Show full error reports.
   config.consider_all_requests_local = true
 
@@ -27,6 +27,8 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
+
+  config.action_mailer.delivery_method = :mailjet
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

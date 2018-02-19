@@ -26,7 +26,7 @@ export default class DatePicker extends Component {
 	getBkColor(event) {
 		switch(event.title) {
 			case 'selected':
-				return '#4173A8';
+				return '#73B566';
 			case 'unavailable':
 				return '#9D4A45';
 			default:

@@ -1,5 +1,7 @@
 class Rental < ActiveRecord::Base
 
+  RENTALS_LIMIT = 3
+
   acts_as_paranoid
 
   # hashable id
@@ -18,7 +20,7 @@ class Rental < ActiveRecord::Base
   scope :between_range, -> (start_date, end_date) { where('(start_date, end_date) overlaps (timestamp :start_date, timestamp :end_date)',
     :start_date => start_date, :end_date => end_date) }
 
-  after_save :send_confirmation_email, :send_rating_emails_when_ends
+  after_save :wait_to_complete, :send_confirmation_email, :send_rating_emails_when_ends
 
   # NOTE Get the owner of the rental
   def owner
@@ -70,8 +72,12 @@ class Rental < ActiveRecord::Base
 		self.deposit = sporting_good.deposit
 	end
 
-  def reindex_parent
+  def reindex_sporting_good item = nil
     self.sporting_good.index!
+  end
+
+  def wait_to_complete
+    CompleteRentalJob.set(wait_until: self.end_date.tomorrow.noon).perform_later(self)
   end
 
 	# =============
@@ -80,7 +86,7 @@ class Rental < ActiveRecord::Base
 
 	def send_confirmation_email
 		RentalMailer.renters_confirmation( self ).deliver
-    RentalMailer.owners_confirmation( self ).deliver
+    # RentalMailer.owners_confirmation( self ).deliver
 	end
 
   # NOTE Send a email when the rental has ended to Renter and Owner to rate their experience

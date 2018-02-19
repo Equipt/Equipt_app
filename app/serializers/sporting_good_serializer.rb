@@ -17,7 +17,7 @@ class SportingGoodSerializer < ActiveModel::Serializer
 						:primary_image
 
 	has_many :rentals
-	has_many :ratings
+	has_many :ratings, serializer: RatingSerializer
 	belongs_to :user, serializer: OwnerSerializer
 
 	def include_rentals?

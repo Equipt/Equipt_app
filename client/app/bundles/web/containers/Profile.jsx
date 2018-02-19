@@ -9,8 +9,7 @@ import { Link } from 'react-router-dom';
 import * as sessionActions from 'actions/session';
 import * as alertActions from 'actions/alerts';
 
-import { LoginForm } from 'components/LoginForm';
-import { UsersProfile } from 'components/UsersProfile';
+import UsersProfile from 'components/UsersProfile';
 
 class Profile extends React.Component {
 

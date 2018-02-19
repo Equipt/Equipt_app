@@ -26,6 +26,10 @@ export class UserForm extends React.Component {
 
   }
 
+  onDrop() {
+    debugger;
+  }
+
   componentWillReceiveProps(newProps) {
     this.setState({
       user: newProps.user
@@ -36,7 +40,7 @@ export class UserForm extends React.Component {
 
     e.preventDefault();
 
-    const { actions } = this.props;
+    const { actions, profileImg = false } = this.props;
     const { user } = this.state;
 
     if (Object.keys(user).length === 0) {

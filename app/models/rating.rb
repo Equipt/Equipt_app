@@ -19,7 +19,7 @@ class Rating < ApplicationRecord
   accepts_nested_attributes_for :comment, allow_destroy: true
 
   after_save do
-    rateable.reindex_item if rateable.methods.include? :reindex_item
+    rateable.reindex_sporting_good if rateable.methods.include? :reindex_sporting_good
   end
 
   def already_rated
