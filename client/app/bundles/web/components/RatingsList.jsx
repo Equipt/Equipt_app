@@ -11,7 +11,7 @@ const RatingsList = ({
       {
         ratings.map((rating, index) => {
           return (
-            <li key={`rating_${ rating.id }`}>
+            <li key={`rating_${ index }`}>
               <p className="pull-left">{ rating.comment }</p>
               <div className="pull-right">
                 <StarRatings value={ rating.rating } name="rating" className="pull-right"/>

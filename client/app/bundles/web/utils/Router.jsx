@@ -26,6 +26,7 @@ import OwnersRentalsShow from 'containers/owner/OwnersRentalsShow';
 import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
 import OwnersSchedule from 'containers/owner/OwnersSchedule';
 import RentalsShow from 'containers/RentalsShow';
+import ModalContainer from 'containers/ModalContainer';
 
 // Route transition settings
 const RouteTransitionSettings = {
@@ -56,6 +57,8 @@ export default (props, store) => {
 		<div className="main-wrapper" id="mainWrapper">
 			<Session { ...props }/>
 			<Alert/>
+
+			<ModalContainer/>
 
 			<Route render={({ location }) => (
 				<RouteTransition { ...RouteTransitionSettings }>

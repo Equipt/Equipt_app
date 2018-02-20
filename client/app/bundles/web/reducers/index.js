@@ -10,6 +10,7 @@ import sportingGood from './sportingGood';
 import rentals from './rentals';
 import rental from './rental';
 import user from './user';
+import modal from './modal';
 
 export default combineReducers({
 	alerts,
@@ -21,5 +22,6 @@ export default combineReducers({
 	rentals,
 	rental,
 	user,
+	modal,
 	routing
 });

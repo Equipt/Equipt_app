@@ -10,6 +10,7 @@ import * as sportingGoodActions from 'actions/sportingGood';
 import * as alertActions from 'actions/alerts';
 import * as currentUserActions from 'actions/session';
 import * as rentalActions from 'actions/rental';
+import * as modalActions from 'actions/modal';
 
 import { SportingGoodDetails } from 'components/SportingGoodDetails';
 
@@ -65,7 +66,8 @@ function matchDispatchToProps(dispatch) {
 																				...sportingGoodActions,
 																				...alertActions,
 																				...currentUserActions,
-																				...rentalActions
+																				...rentalActions,
+																				...modalActions
 																			},
 																			dispatch)}
 }

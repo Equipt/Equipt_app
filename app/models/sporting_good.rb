@@ -42,11 +42,16 @@ class SportingGood < ActiveRecord::Base
 	end
 
 	def store_images(images = [])
-		self.images.destroy_all
+		excluded_image_ids = []
 		images ||= []
 		images.each do |image|
-			self.images.create!(file: image)
+			if image.instance_of?(String)
+				excluded_image_ids << image
+			else
+				excluded_image_ids << self.images.create(file: image).id
+			end
 		end
+		self.images.where.not(id: excluded_image_ids).destroy_all
 	end
 
 	def is_weekly_price_a_discount?

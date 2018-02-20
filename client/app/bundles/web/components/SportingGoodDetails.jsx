@@ -12,6 +12,10 @@ import Modal from 'components/Modal';
 import Map from 'components/Map.jsx';
 import RatingsList from 'components/RatingsList';
 
+import Terms from 'components/modals/Terms';
+import Address from 'components/modals/Address';
+import LightBox from 'components/modals/LightBox';
+
 export class SportingGoodDetails extends React.Component {
 
 	static propTypes = {
@@ -21,14 +25,6 @@ export class SportingGoodDetails extends React.Component {
 		rental: PropTypes.object.isRequired,
 		actions: PropTypes.object.isRequired,
 		loader: PropTypes.bool.isRequired
-	}
-
-	static sliderSettings = {
-		dots: true,
-		infinite: true,
-		speed: 500,
-		slidesToShow: 1,
-		slidesToScroll: 1
 	}
 
 	static contextTypes = {
@@ -41,20 +37,14 @@ export class SportingGoodDetails extends React.Component {
 		super(props);
 
 		this.state = {
-			showContactModal: false,
-			showRentalTermsModal: false,
-			showImagesModal: false,
 			agreedToTerms: false
 		}
-
-		this.showModal = this.showModal.bind(this);
-		this.imagesModalMarkup = this.imagesModalMarkup.bind(this);
 
 	}
 
 	rent() {
 
-		const { currentUser, sportingGood, rental, actions } = this.props;
+		const { currentUser, sportingGood, rental, actions, content } = this.props;
 		const { agreedToTerms } = this.state;
 		const { phone, address } = currentUser;
 
@@ -67,16 +57,8 @@ export class SportingGoodDetails extends React.Component {
 			});
 		}
 
-		this.setState({
-			showContactModal: true
-		});
+		actions.openModal(<Address title={ content.profile.contact.need_contact } { ...this.props }/>);
 
-	}
-
-	showModal(showModal, state) {
-		this.setState({
-			[showModal]: state
-		});
 	}
 
 	totalDays() {
@@ -124,66 +106,6 @@ export class SportingGoodDetails extends React.Component {
 
 	}
 
-	termsModalMarkup() {
-
-		const { content } = this.props;
-
-		return (
-			<Modal contentLabel="rental-terms"
-					 isVisible={ this.state.showRentalTermsModal }
-					 onClose={ () => this.showModal('showRentalTermsModal', false) }>
-				<h4>{ content.rentals.rental_terms_title }</h4>
-				<ol>
-				{
-					content.rentals.rental_terms.map((term, index) => {
-						return <li key={ `rental_terms_${ index }` }>{ term }</li>;
-					})
-				}
-				</ol>
-			</Modal>
-		);
-
-	}
-
-	imagesModalMarkup() {
-
-		const { sportingGood = {} } = this.props;
-		const { images = [] } = sportingGood;
-
-		return (
-			<Modal contentLabel="sportingGoodModal"
-				 isVisible={ this.state.showImagesModal }
-				 onClose={ () => this.showModal('showImagesModal', false) }>
-				 <Slider { ...SportingGoodDetails.sliderSettings }>
-				 {
-					images.map((image, index) => {
-						if (image) {
-							return (
-								<img key={ `${ sportingGood.slug }_image_${ index }` } src={ image.file.url }/>
-							)
-						}
-					})
-				}
-				</Slider>
-			</Modal>
-		);
-	}
-
-	addressModalMarkup() {
-
-		const { content } = this.props;
-
-		return (
-			<Modal contentLabel="address-modal"
-				isVisible={ this.state.showContactModal }
-				onClose={ () => this.showModal('showContactModal', false) }>
-				<h4>{ content.profile.contact.need_contact }</h4>
-				<UsersContactForm { ...this.props } completedContactForm={ () => this.showModal('showContactModal', false) }/>
-			</Modal>
-		);
-
-	}
-
 	render() {
 
 		const { sportingGood, rental = {}, content, showModal, actions, loader } = this.props;
@@ -202,7 +124,7 @@ export class SportingGoodDetails extends React.Component {
 
 				<div className="image-container">
 					<button className="btn btn-default"
-									onClick={ () => this.showModal('showImagesModal', true) }>
+									onClick={ () => actions.openModal(<LightBox images={ sportingGood.images }/>) }>
 									See Images
 					</button>
 					<div className="image" style={{
@@ -267,7 +189,7 @@ export class SportingGoodDetails extends React.Component {
 
 							<a href="#" className="display-block" onClick={ e => {
 								e.preventDefault();
-								this.showModal('showRentalTermsModal', true);
+								actions.openModal(<Terms { ...content.rentals }/>);
 							}}>
 								{ content.rentals.read_rental_terms }
 							</a>
@@ -287,10 +209,6 @@ export class SportingGoodDetails extends React.Component {
 					</div>
 
 				</div>
-
-				{ this.imagesModalMarkup() }
-				{ this.termsModalMarkup() }
-				{ this.addressModalMarkup() }
 
 			</section>
 

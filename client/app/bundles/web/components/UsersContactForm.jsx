@@ -127,7 +127,7 @@ export class UsersContactForm extends React.Component {
         this.setState({
           phone: phone,
           isVerifingPhoneNumber: false
-        })
+        });
 
         // Finished updating user
         if ((phone && phone.verified) && (address && address.verified)) {

@@ -36,8 +36,6 @@ export default class DatePicker extends Component {
 
 	getEventStyles(event, start, end, isSelected) {
 
-		console.log(event);
-
 		const style = {
 			height: '60px',
 			display: 'block',

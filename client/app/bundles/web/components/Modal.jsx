@@ -1,31 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Modal = ({
-    contentLabel = '',
-    children = '',
-    isVisible = false,
-    onClose,
-}) => {
+const Modal = ({ modal = {}, actions }) => {
 
-    return (
-        <div className={ `modal ${ isVisible ? 'show' : 'hide' }` } title={ contentLabel }>
-            <div className="overlay" onClick={ onClose }></div>
-            <div className="content col-xs-10 col-xs-offset-1">
-                <a className="pull-right" onClick={ onClose }>
-                    <i className="fa fa-times" aria-hidden="true"></i>
-                </a>
-                { children }
-            </div>
-        </div>
-    )
+  const { content, isOpen } = modal;
+
+  return isOpen ? (
+    <div className="modal">
+      <div className="overlay" onClick={ actions.closeModal }></div>
+      <div className="content col-xs-10 col-xs-offset-1">
+          <a className="pull-right" onClick={ actions.closeModal }>
+              <i className="fa fa-times" aria-hidden="true"></i>
+          </a>
+          { content }
+      </div>
+      <style jsx>{`
+        .modal {
+          position: fixed;
+          display: block;
+          z-index: 999 !important;
+        }
+        .overlay {
+          height: 100vh;
+          width: 100vw;
+          background: #fff;
+          opacity: 0.7;
+        }
+        .content {
+          position: absolute;
+          top: 40px;
+          max-height: 90vh;
+          min-height: 400px;
+          overflow: scroll;
+          background: #fff;
+          padding: 40px;
+          border: solid 1px #ccc;
+        }
+      `}</style>
+    </div>
+    ) :
+    null
 
 };
-
-Modal.propTypes = {
-    contentLabel: PropTypes.string.isRequired,
-    isVisible: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired
-}
 
 export default Modal;

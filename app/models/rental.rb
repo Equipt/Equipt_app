@@ -68,7 +68,7 @@ class Rental < ActiveRecord::Base
 	def set_rental_cost
 		sporting_good = SportingGood.find(self.sporting_good_id)
 		self.sub_total = sporting_good.price_per_day * self.total_days
-		self.total   = self.sub_total
+		self.total = self.sub_total
 		self.deposit = sporting_good.deposit
 	end
 

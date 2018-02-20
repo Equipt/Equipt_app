@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 
-import {connect} from 'react-redux';  
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import { Link } from 'react-router-dom';
 
-import * as sessionActions from 'actions/session'; 
+import * as sessionActions from 'actions/session';
 
 import { LoginForm } from 'components/LoginForm';
 
-class Login extends React.Component {
+class Login extends Component {
 
 	render() {
 		return (
@@ -24,7 +24,7 @@ function mapStateToProps(state, ownProps) {
 	return {session: state.session}
 }
 
-function matchDispatchToProps(dispatch) {  
+function matchDispatchToProps(dispatch) {
 	return {actions: bindActionCreators(sessionActions, dispatch)}
 }
 
