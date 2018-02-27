@@ -62,7 +62,9 @@ en:
       about:
         title: About
       how_it_works:
-        title: Renting
+        title: How It Works
+      report_a_bug:
+        title: Report A Bug
     login:
       title: Login
       password_reset: Need help logging in?

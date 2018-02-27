@@ -85,8 +85,8 @@ class Rental < ActiveRecord::Base
 	# =============
 
 	def send_confirmation_email
-		RentalMailer.renters_confirmation( self ).deliver
-    # RentalMailer.owners_confirmation( self ).deliver
+		RentersConfirmationJob.perform_later self
+    OwnersConfirmationJob.perform_later self
 	end
 
   # NOTE Send a email when the rental has ended to Renter and Owner to rate their experience

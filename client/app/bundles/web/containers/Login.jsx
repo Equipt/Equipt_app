@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 import * as sessionActions from 'actions/session';
 
-import { LoginForm } from 'components/LoginForm';
+import LoginForm from 'components/LoginForm';
 
 class Login extends Component {
 

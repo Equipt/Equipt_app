@@ -40,7 +40,7 @@ export class Privacy extends React.Component {
 
   render() {
 
-    const { currentUser, content } = this.props;
+    const { currentUser, content, actions } = this.props;
 
     return (
       <section className="privacy-wrapper">
@@ -59,16 +59,10 @@ export class Privacy extends React.Component {
 
         </ul>
 
-        <button onClick={ this.showDeleteAccountModal.bind(this, true) }
+        <button onClick={ () => actions.openModal(<DeleteAccount { ...this.props }/>) }
                 className="btn btn-danger">
                 { content.profile.privacy.delete_account }
         </button>
-
-        <Modal contentLabel="delete-account"
-        isVisible={ this.state.deleteModalIsOpen }
-        onClose={ this.showDeleteAccountModal.bind(this, false) }>
-          <DeleteAccount { ...this.props } showModal={ this.showDeleteAccountModal.bind(this) }/>
-        </Modal>
 
       </section>
     )

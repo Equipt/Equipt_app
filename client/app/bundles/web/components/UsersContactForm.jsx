@@ -70,16 +70,17 @@ export class UsersContactForm extends React.Component {
   countryChanged() {
 
     const { value } = this.refs['country'];
+    const { state } = this.state.address;
 
     const { contact } = this.props.content.profile;
     const stateField = contact.address.formFields[4];
 
     if (value === 'CA') {
       stateField.tag = 'select';
-      this.state.address.state = Object.keys(stateField.options)[0];
+      this.state.address.state = state || Object.keys(stateField.options)[0];
       stateField.options = stateField.options;
     } else if (value === 'US') {
-      this.state.address.state = Object.keys(stateField.states)[0];
+      this.state.address.state = state || Object.keys(stateField.states)[0];
       stateField.options = stateField.states;
       stateField.tag = 'select';
     } else {

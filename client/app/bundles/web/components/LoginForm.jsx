@@ -7,7 +7,9 @@ import FaceBookLogin from 'components/FaceBookLogin';
 
 import * as alertActions from 'actions/alerts';
 
-export class LoginForm extends React.Component {
+import formDecorator from 'hocs/formDecorator';
+
+class LoginForm extends React.Component {
 
 	static contextTypes = {
   		router: PropTypes.shape({
@@ -85,3 +87,5 @@ export class LoginForm extends React.Component {
 	}
 
 }
+
+export default LoginForm;

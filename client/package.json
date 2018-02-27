@@ -24,7 +24,6 @@
     "babel-runtime": "^6.23.0",
     "es5-shim": "^4.5.9",
     "expose-loader": "^0.7.3",
-    "file-loader": "^0.11.2",
     "google-map-react": "^0.25.0",
     "history": "^4.6.1",
     "imports-loader": "^0.7.1",
@@ -59,5 +58,7 @@
     "webpack": "^2.3.3",
     "webpack-manifest-plugin": "^1.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "file-loader": "^0.11.2"
+  }
 }

@@ -8,6 +8,9 @@ import { RouteTransition } from 'react-router-transition';
 import Home from 'components/Home';
 import NotFoundPage from 'components/NotFoundPage';
 import Footer from 'components/Footer';
+import About from 'components/About';
+// import HowItWorks from 'components/HowItWorks';
+import ReportABug from 'components/ReportABug';
 
 // Containers
 import Session from 'containers/Session';
@@ -106,6 +109,7 @@ export default (props, store) => {
 						<Route exact path="/profile" render={ () => {
 							return protectedRoute(Profile);
 						}}/>
+						<Route path="/about" component={ About } />
 						<Route path="*" component={ NotFoundPage } />
 					</Switch>
 				</RouteTransition>

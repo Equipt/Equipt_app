@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 import * as sessionActions from 'actions/session';
 import * as alertActions from 'actions/alerts';
+import * as modalActions from 'actions/modal';
 
 import UsersProfile from 'components/UsersProfile';
 
@@ -28,7 +29,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators({ ...sessionActions, ...alertActions }, dispatch)}
+	return {actions: bindActionCreators({ ...sessionActions, ...alertActions, ...modalActions }, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Profile);

@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import BigCalendar from 'react-big-calendar';
-// import moment from 'moment';
-import Modal from 'components/Modal';
 import RentalDetails from 'components/RentalDetails';
 import DatePicker from 'components/DatePicker';
 

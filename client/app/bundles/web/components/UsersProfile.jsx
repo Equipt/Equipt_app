@@ -17,13 +17,7 @@ const UsersProfile = props => {
 		<section className="container">
 
 			<Flyout defaultTab="Basic">
-				<div name="Basic">
-					<UserForm { ...props } formContent={ content.profile.basic } isUpdating={ true }/>
-					<Dropzone onDrop={ actions.changeAvatar.bind(this) } className="drop-area">
-						<p>{ content.profile.basic.add_profile }</p>
-						<i className="fa fa-arrow-circle-down" aria-hidden="true"></i>
-					</Dropzone>
-				</div>
+				<UserForm { ...props } formContent={ content.profile.basic } isUpdating={ true } name="Basic"/>
 				<UsersContactForm name="Contact" { ...props } title={ content.profile.contact.title }/>
 				<Privacy name="Privacy" { ...props }/>
 				<RatingsList name="Ratings" ratings={ currentUser.ratings }/>

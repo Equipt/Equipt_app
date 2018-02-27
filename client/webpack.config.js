@@ -43,7 +43,9 @@ const config = {
       helpers: resolve(__dirname, './app/bundles/web/helpers'),
       reducers: resolve(__dirname, './app/bundles/web/reducers'),
       utils: resolve(__dirname, './app/bundles/web/utils'),
-      images: resolve(__dirname, './app/bundles/web/assets/images')
+      hocs: resolve(__dirname, './app/bundles/web/hocs'),
+      assets: resolve(__dirname, './app/assets'),
+      theme: resolve(__dirname, './app/bundles/web/theme')
     }
   },
 
@@ -58,25 +60,40 @@ const config = {
   module: {
     rules: [
       {
-          test: require.resolve('react'),
-            use: {
-            loader: 'imports-loader',
-            options: {
-              shim: 'es5-shim/es5-shim',
-                sham: 'es5-shim/es5-sham',
-            },
-            },
-        },
-        {
-            test: /\.jsx?$/,
-            use: 'babel-loader',
-            exclude: /node_modules/,
-        },
-        {
-            test: /\.svg$/,
-            loader: 'svg-inline-loader'
+        test: require.resolve('react'),
+          use: {
+          loader: 'imports-loader',
+          options: {
+            shim: 'es5-shim/es5-shim',
+              sham: 'es5-shim/es5-sham',
+          },
+          },
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style!css?modules!sass'
+      },
+      {
+        test: /\.jsx?$/,
+        use: 'babel-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
+      },
+      {
+        // The important stuff
+        test: /\.(jpg|jpeg|png)(\?.*)?$/, // Load only .jpg .jpeg, and .png files
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name][md5:hash].[ext]', // Name of bundled asset
+            outputPath: 'webpack-assets/', // Output location for assets. Final: `app/assets/webpack/webpack-assets/`
+            publicPath: '/assets/webpack-assets/' // Endpoint asset can be found at on Rails server
+          }
         }
-
+      }
     ],
   },
 };
