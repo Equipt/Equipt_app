@@ -1,5 +1,9 @@
+import React from 'react';
+
 const HowItWorks = () => (
-  <h1>How It Works</h1>
+  <section className="container">
+    How It Works
+  </section>
 )
 
 export default HowItWorks;

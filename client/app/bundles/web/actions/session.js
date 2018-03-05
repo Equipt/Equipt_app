@@ -2,7 +2,6 @@ import types from './types';
 
 import * as alertActions from './alerts';
 
-
 // Fetch current user
 export const fetchCurrentUser = () => {
 

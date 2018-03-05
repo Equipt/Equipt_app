@@ -4,6 +4,7 @@ class HomeController < ApplicationController
 
 	def index
 		@content = I18n.t('frontend')
+		@images = Dir.glob("app/assets/images/*")
 	end
 
 	private

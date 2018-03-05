@@ -86,8 +86,6 @@ const RentalDetails = ({
             <h4 className="header">Price</h4>
 
             <h5>${ sportingGood.pricePerDay } Price Per Day</h5>
-            <h5>${ rental.deposit } Deposit (Will place a hold, will not be charged*)</h5>
-            <h5>${ rental.subTotal } Sub Total</h5>
             <h4>${ rental.total } Total</h4>
 
             <hr/>

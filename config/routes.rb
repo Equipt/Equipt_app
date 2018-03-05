@@ -12,8 +12,6 @@ Rails.application.routes.draw do
             end
         end
 
-
-
         namespace :owner do
             resources :sporting_goods, param: :slug do
               resources :rentals, only: [:show, :create]
@@ -49,5 +47,6 @@ Rails.application.routes.draw do
     match 'api/reset_password/:reset_token', to: 'api/session#reset_password', via: 'POST'
     match 'api/phone/verify', to: 'api/phone#verify', via: 'POST'
     match 'api/sporting_goods/:slug/rentals/check_availability', to: 'api/rentals#check_availability', via: 'POST'
+    match 'api/report_a_bug', to: 'api/utils#report_a_bug', via: 'POST'
 
 end

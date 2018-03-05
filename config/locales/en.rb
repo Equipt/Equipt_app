@@ -1,6 +1,7 @@
 {
   :en => {
     :frontend => {
+      :logo => 'logo.png',
       :profile => {
         :tabs => [
             'Basic',
@@ -25,7 +26,7 @@
         },
         :basic => {
           title: "Signup",
-          add_profile: "Add your image here!", 
+          add_profile: "Add your image here!",
           :formFields => [
             {
               name: 'firstname',

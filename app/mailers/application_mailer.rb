@@ -11,7 +11,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def user_allows_emails
     user = User.find_by_email message.to
-    message.perform_deliveries = false unless user.notify_by_email
+    message.perform_deliveries = false unless user && user.notify_by_email
   end
 
 end

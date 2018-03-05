@@ -100,7 +100,7 @@ export class SideBar extends Component {
 					.sidebar-wrapper.absolute {
 						position: absolute;
 						top: inherit;
-						bottom: 400px;
+						bottom: 139px;
 						left: -50px;
 					}
 					i {

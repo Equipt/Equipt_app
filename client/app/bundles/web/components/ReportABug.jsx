@@ -1,6 +1,14 @@
-const ReportABug = () => {
+import React from 'react';
+import ReportABugForm from './forms/ReportABugForm';
+
+const ReportABug = ({ actions }) => {
+
   return (
-    <h1>Report A Bug</h1>
+    <section className="container">
+      <h3>Found A Bug?</h3>
+      <ReportABugForm onSubmit={ data => actions.reportBug(data) } />
+      <p>Thankyou for helping us make equipt awesome</p>
+    </section>
   )
 }
 

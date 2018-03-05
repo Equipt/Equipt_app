@@ -47,8 +47,9 @@ en:
     contribution: "Thankyou for your feedback"
     error: "There was a issue processing your rating"
     already_rated: "Sorry, you cant rate the same resource twice!"
+  utils:
+    report_a_bug: 'Thanks for making Equipt AWESOME!!'
   frontend:
-    logo: https://s3-us-west-2.amazonaws.com/equipt-assets/logo.
     go_back: Go Back
     nav:
       login: 'Login'

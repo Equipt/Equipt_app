@@ -9,8 +9,7 @@ import Home from 'components/Home';
 import NotFoundPage from 'components/NotFoundPage';
 import Footer from 'components/Footer';
 import About from 'components/About';
-// import HowItWorks from 'components/HowItWorks';
-import ReportABug from 'components/ReportABug';
+import HowItWorks from 'components/HowItWorks';
 
 // Containers
 import Session from 'containers/Session';
@@ -30,6 +29,7 @@ import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
 import OwnersSchedule from 'containers/owner/OwnersSchedule';
 import RentalsShow from 'containers/RentalsShow';
 import ModalContainer from 'containers/ModalContainer';
+import ReportABug from 'containers/ReportABug';
 
 // Route transition settings
 const RouteTransitionSettings = {
@@ -110,6 +110,8 @@ export default (props, store) => {
 							return protectedRoute(Profile);
 						}}/>
 						<Route path="/about" component={ About } />
+						<Route path="/how_it_works" component={ HowItWorks } />
+						<Route path="/report_a_bug" component={ ReportABug } />
 						<Route path="*" component={ NotFoundPage } />
 					</Switch>
 				</RouteTransition>
