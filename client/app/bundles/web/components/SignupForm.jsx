@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { UserForm } from 'components/UserForm';
-import { FaceBookLogin } from 'components/FaceBookLogin';
+import FaceBookLogin from 'components/FaceBookLogin';
 
 export class SignupForm extends React.Component {
 
