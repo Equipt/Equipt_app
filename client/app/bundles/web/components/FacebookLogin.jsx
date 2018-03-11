@@ -8,7 +8,7 @@ import {bindActionCreators} from 'redux';
 
 import * as sessionActions from 'actions/session';
 
-export default class FaceBookLogin extends Component {
+export class FaceBookLogin extends Component {
 
 	static contextTypes = {
   		router: PropTypes.shape({

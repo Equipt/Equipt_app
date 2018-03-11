@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import FaceBookLogin from 'components/FaceBookLogin';
+import { FaceBookLogin } from 'components/FaceBookLogin';
 
 import * as alertActions from 'actions/alerts';
 
