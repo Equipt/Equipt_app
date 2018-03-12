@@ -25,7 +25,7 @@ export class SignupForm extends React.Component {
 		return (
 			<section className="container">
 
-				<h2>{ content.signup.title }</h2>
+				<h2>{ I18n.t('frontend.signup.title') }</h2>
 
 				<UserForm { ...this.props } formContent={ content.signup } isCreating={ true }/>
 

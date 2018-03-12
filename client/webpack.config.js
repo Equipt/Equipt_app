@@ -44,7 +44,7 @@ const config = {
       reducers: resolve(__dirname, './app/bundles/web/reducers'),
       utils: resolve(__dirname, './app/bundles/web/utils'),
       hocs: resolve(__dirname, './app/bundles/web/hocs'),
-      assets: resolve(__dirname, './app/assets'),
+      assets: resolve(__dirname, './app/bundles/web/assets'),
       theme: resolve(__dirname, './app/bundles/web/theme')
     }
   },
@@ -90,7 +90,7 @@ const config = {
           options: {
             name: '[name][md5:hash].[ext]', // Name of bundled asset
             outputPath: 'webpack-assets/', // Output location for assets. Final: `app/assets/webpack/webpack-assets/`
-            publicPath: '/assets/webpack-assets/' // Endpoint asset can be found at on Rails server
+            publicPath: '/assets/' // Endpoint asset can be found at on Rails server
           }
         }
       }
