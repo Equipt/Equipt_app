@@ -1,6 +1,8 @@
 import React from 'react';
 import { Router, Route, Redirect, browserHistory, Switch } from 'react-router';
 
+import GlobalStyles from 'assets/global-styles.js';
+
 // Transition Component
 import { RouteTransition } from 'react-router-transition';
 
@@ -118,6 +120,9 @@ export default (props, store) => {
 			)} />
 
 			<Footer { ...props }/>
+
+			<GlobalStyles />
+
 		</div>
 	);
 };

@@ -6,6 +6,6 @@ import { showSuccessAlert, showErrorAlert } from './alerts';
 export const reportBug = data => {
   return function(dispatch, getState, { api }) {
     api.post('/report_a_bug', data)
-    .then(data => dispatch(showSuccessAlert(data.info)))
+    .then(data => dispatch(showSuccessAlert(data)))
   }
 }

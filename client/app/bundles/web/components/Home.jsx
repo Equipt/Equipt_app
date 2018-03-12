@@ -1,16 +1,26 @@
 import React from 'react';
+import logo from 'assets/images/logo.png';
+
+import { Link } from 'react-router-dom';
 
 const Home = ({ content = {} }) => {
 
 	return (
-		<section className="container">
+		<section className="container full-width">
 		<div className="logo-wrapper">
-			<h1>Equipt</h1>
-			<p>Peer to Peer Outdoor Sporting Equiptment Rentals</p>
+			<h1>
+				<img src={ logo } width="100px"/>
+				Equipt
+			</h1>
+			<p>Outdoor Sporting Equiptment Rentals</p>
+			<div className="session-container">
+				<Link className="login cta large" to="/login">Login</Link>
+				<Link className="signup cta large" to="/signup">Signup</Link>
+			</div>
 		</div>
 		<style jsx>{`
 			.logo-wrapper {
-				transform: translateY(50%);
+				transform: translateY(40%);
 			}
 			h1 {
 				font-size: 80px;
@@ -30,8 +40,12 @@ const Home = ({ content = {} }) => {
 				text-align: center;
 			}
 			p {
-				margin-top: 25px;
+				margin-top: 35px;
 				font-size: 30px;
+			}
+			.session-container {
+				width: 320px;
+				margin: 50px auto;
 			}
 		`}</style>
 		</section>
