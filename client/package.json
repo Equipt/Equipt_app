@@ -59,6 +59,8 @@
     "webpack-manifest-plugin": "^1.1.0"
   },
   "devDependencies": {
-    "file-loader": "^0.11.2"
+    "file-loader": "^0.11.2",
+    "node-sass": "^4.7.2",
+    "styled-jsx-plugin-sass": "^0.2.3"
   }
 }

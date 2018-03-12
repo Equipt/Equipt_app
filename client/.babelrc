@@ -1,6 +1,6 @@
 {
   "presets": ["es2015", "stage-2", "react"],
   "plugins": [
-    ["styled-jsx/babel", { "optimizeForSpeed": true }]
+    ["styled-jsx/babel", { "optimizeForSpeed": true, "plugins": ["styled-jsx-plugin-sass"]  }]
   ]
 }
