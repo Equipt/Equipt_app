@@ -9,6 +9,8 @@ development:
   # generated files for development, in /public/webpack/development
   webpack_public_output_dir: webpack/development
 
+  resolved_paths: ['app/assets']
+
   # Default is localhost:3500
   hot_reloading_host: localhost:3500
 
