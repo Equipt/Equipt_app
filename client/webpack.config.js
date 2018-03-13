@@ -83,17 +83,17 @@ const config = {
         loader: 'svg-inline-loader'
       },
       {
-        // The important stuff
-        test: /\.(jpg|jpeg|png)(\?.*)?$/, // Load only .jpg .jpeg, and .png files
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: '[name][md5:hash].[ext]', // Name of bundled asset
-            outputPath: 'webpack-assets/', // Output location for assets. Final: `app/assets/webpack/webpack-assets/`
-            publicPath: '/assets/' // Endpoint asset can be found at on Rails server
+          // The important stuff
+          test: /\.(jpg|jpeg|png)(\?.*)?$/, // Load only .jpg .jpeg, and .png files
+          use: {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]', // Name of bundled asset
+              outputPath: 'webpack-assets/', // Output location for assets. Final: `app/assets/webpack/webpack-assets/`
+              publicPath: '/assets/webpack-assets/' // Endpoint asset can be found at on Rails server
+            }
           }
         }
-      }
     ],
   },
 };
