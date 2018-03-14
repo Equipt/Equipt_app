@@ -12,6 +12,10 @@
     "postinstall": "cd client && yarn install",
     "start": "foreman start -f Procfile.dev"
   },
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
   "devDependencies": {
     "babel-plugin-dynamic-import-webpack": "^1.0.1",
     "react": "^15.5.4",
