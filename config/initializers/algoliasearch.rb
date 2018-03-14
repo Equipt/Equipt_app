@@ -1,4 +1,4 @@
 AlgoliaSearch.configuration = {
-  application_id: ENV['AGOLIA_ID'],
-  api_key: ENV['AGOLIA_KEY']
+  application_id: ENV['AGOLIA_ID'] || 0,
+  api_key: ENV['AGOLIA_KEY'] || 0
 }
