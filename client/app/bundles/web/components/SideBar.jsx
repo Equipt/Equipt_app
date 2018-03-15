@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import theme from 'assets/theme';
-import sprite from 'assets/images/sprite.png';
 
 import { Link } from 'react-router-dom';
 
@@ -125,7 +124,7 @@ export class SideBar extends Component {
 						display: block;
 						width: 40px;
 						height: 40px;
-						background: url(${ sprite }) no-repeat;
+						background: url('https://s3-us-west-2.amazonaws.com/equipt-assets/sprite.png') no-repeat;
 					}
 					.icon.compass {
 						background-position: 0 -190px;

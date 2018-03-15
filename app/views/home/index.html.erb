@@ -4,9 +4,8 @@
 	agolia_id: ENV['AGOLIA_ID'],
 	agolia_search_only_key: ENV['AGOLIA_SEARCH_ONLY_KEY'],
 	rails_env: Rails.env,
-	content: @content,
-	images: @images.collect { |image| [image.split('/').last, image_path(image)].flatten }.to_h
-}) %>
+	content: @content
+}, prerender: false) %>
 
 <script>
 

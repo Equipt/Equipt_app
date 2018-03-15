@@ -52,7 +52,7 @@ const Nav = ({
 	return (
 		<nav className="navbar fixed hidden-xs">
 			<Link to="/home">
-				<img src={ logo } width="55px" className="logo"/>
+				<img src={ 'https://s3-us-west-2.amazonaws.com/equipt-assets/logo.png' } width="55px" className="logo"/>
 			</Link>
 			{ sessionHtml }
 			<style jsx>{`

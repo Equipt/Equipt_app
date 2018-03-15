@@ -20,7 +20,7 @@ const Home = ({ content = {} }) => {
 				content: '';
 				display: inline-block;
 				vertical-align: top;
-				background: url(${ content.logo }) no-repeat;
+				background: url('https://s3-us-west-2.amazonaws.com/equipt-assets/logo.png') no-repeat;
 				width: 100px;
 				height: auto;
 			}
