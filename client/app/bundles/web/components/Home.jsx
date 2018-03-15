@@ -9,7 +9,7 @@ const Home = ({ content = {} }) => {
 		<section className="container full-width">
 		<div className="logo-wrapper">
 			<h1>
-				<img src={ logo } width="100px"/>
+				<img src={ 'https://s3-us-west-2.amazonaws.com/equipt-assets/logo.png' } width="100px"/>
 				Equipt
 			</h1>
 			<p>Outdoor Sporting Equiptment Rentals</p>
@@ -20,17 +20,14 @@ const Home = ({ content = {} }) => {
 		</div>
 		<style jsx>{`
 			.logo-wrapper {
-				transform: translateY(40%);
+				transform: translateY(30%);
 			}
 			h1 {
 				font-size: 80px;
 				margin-top: 50px;
 			}
-			h1:before {
-				content: '';
-				display: inline-block;
-				vertical-align: top;
-				background: url('https://s3-us-west-2.amazonaws.com/equipt-assets/logo.png') no-repeat;
+			img {
+				vertical-align: bottom;
 				width: 100px;
 				height: auto;
 			}
