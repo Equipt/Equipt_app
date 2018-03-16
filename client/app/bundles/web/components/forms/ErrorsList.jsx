@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ErrorsList = ({ errors }) => (
+const ErrorsList = ({ errors = [] }) => (
   <ul className="errors">
     { errors.map((error, index) => <li key={ `error_${ index }` } className="error">{ error}</li>) }
     <style jsx>{`

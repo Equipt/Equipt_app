@@ -7,16 +7,15 @@ const ReportABugForm = ({ fields: { title, desc }, form }) => (
   <form { ...form }>
     <form-group className="form-group">
       <input { ...title }/>
+      <ErrorsList errors={ title.errors }/>
     </form-group>
-    <form-group className="form-group">
+    <br/>
+    <form-group className="form-group" >
       <textarea { ...desc }/>
+      <ErrorsList errors={ desc.errors }/>
     </form-group>
+    <br/>
     <input type="submit" value="Report" className="btn btn-success pull-right"/>
-    <style jsx>{`
-      .form-group {
-        margin-top: 10px;
-      }
-    `}</style>
   </form>
 );
 
@@ -25,11 +24,13 @@ export default formDecorator({
   fields: {
     title: {
       className: 'form-control',
-      placeholder: 'Enter a short title'
+      placeholder: 'Enter a short title',
+      required: true
     },
     desc: {
       className: 'form-control',
-      placeholder: 'Enter a description of the issue'
+      placeholder: 'Enter a description of the issue',
+      required: true
     }
   }
 })(ReportABugForm);

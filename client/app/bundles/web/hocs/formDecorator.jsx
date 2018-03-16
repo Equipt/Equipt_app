@@ -14,7 +14,7 @@ const formDecorator = ({ fields }) => {
         super(props);
         this.state = {
           formData: [],
-          errors: props.errors
+          errors: {}
         };
         this.onChange = this.onChange.bind(this);
         this.onBlur = this.onBlur.bind(this);
@@ -29,9 +29,22 @@ const formDecorator = ({ fields }) => {
       }
 
       onBlur(name, value) {
+
         const { errors } = this.state;
-        errors[name] = [];
-        this.setState({ errors });
+        errors[name] = errors[name] || [];
+
+        if (fields[name].required && !value.length) {
+          errors[name].push('This field is required');
+        }
+
+        if (fields[name].valiations) {
+
+        }
+
+        this.setState({
+          errors: errors
+        });
+
       }
 
       onFocus(name, value) {
@@ -52,17 +65,19 @@ const formDecorator = ({ fields }) => {
       render() {
 
         const fieldsObj = this.buildFieldObj();
-        const errorsObj = this.buildErrorsObj();
 
-        return <WrapperFormComponent fields={ fieldsObj } errors={ errorsObj } form={{
+        console.log(fieldsObj);
+
+        return <WrapperFormComponent fields={ fieldsObj } form={{
           onSubmit: this.submitForm
         }}/>;
+
       }
 
       buildFieldObj() {
         const fieldsObj = {};
 
-        const { errors = {} } = this.props;
+        const { errors = {} } = this.state;
         // Change Fields
         for (let key in fields) {
           const fieldSettings = fields[key] || {};
@@ -76,21 +91,15 @@ const formDecorator = ({ fields }) => {
           // Set Placeholder
           fieldsObj[key]['placeholder'] = fieldSettings['placeholder'] || '';
           // Set on onBlur and onFocus Attribute
-          if (errors[key] || fieldSettings['valiations']) {
+          if (errors[key] || fieldSettings['valiations'] || fieldSettings['required']) {
             fieldsObj[key]['onBlur'] = e => this.onBlur(key, e.target.value);
             fieldsObj[key]['onFocus'] = e => this.onFocus(key, e.target.value);
           }
+
+          fieldsObj[key].errors = errors[key] || [];
+
         }
         return fieldsObj;
-      }
-
-      buildErrorsObj() {
-        const { errors = {} } = this.state;
-        const errorsObj = {};
-        for (let key in fields) {
-          errorsObj[key] = errors[key] || [];
-        }
-        return errorsObj;
       }
 
     }

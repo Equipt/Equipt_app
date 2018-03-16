@@ -102,6 +102,7 @@ export class SideBar extends Component {
 						top: inherit;
 						bottom: 139px;
 						left: -50px;
+						bottom: 139px;
 					}
 					i {
 						cursor: pointer;
