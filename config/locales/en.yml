@@ -43,6 +43,7 @@ en:
     cancel_success: "Rental has been cancelled"
     cancel_error: "Issue cancelling rental, please try again later"
     cant_be_today: "Pickup date cant be today"
+    confirmed_details: Pay on pickup from %{name}
   ratings:
     contribution: "Thankyou for your feedback"
     error: "There was a issue processing your rating"
@@ -233,7 +234,6 @@ en:
         not_found: Couldn't find this rental
         confirmed_title: Congrats, the rental has been confirmed
         completed: This rental is complete!
-        confirmed_details: You will not be charge untill the day of the rental
         cancel_rental: Are you sure you want to cancel this rental?
         terms_title: Rental Terms
         terms:

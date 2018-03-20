@@ -13,8 +13,8 @@ const formDecorator = ({ fields }) => {
       constructor(props) {
         super(props);
         this.state = {
-          formData: [],
-          errors: {}
+          errors: {},
+          fieldsObj: {}
         };
         this.onChange = this.onChange.bind(this);
         this.onBlur = this.onBlur.bind(this);
@@ -23,22 +23,31 @@ const formDecorator = ({ fields }) => {
         this.buildFieldObj = this.buildFieldObj.bind(this);
       }
 
+      componentWillMount() {
+        this.setState({
+          fieldsObj: this.buildFieldObj()
+        });
+      }
+
       onChange(name, value) {
-        this.state[name] = value;
-        this.setState(this.state);
+        const { fieldsObj } = this.state;
+        fieldsObj[name]['value'] = value;
+        this.setState({ fieldsObj });
       }
 
       onBlur(name, value) {
 
-        const { errors } = this.state;
-        errors[name] = errors[name] || [];
+        const { errors, fieldsObj } = this.state;
 
         if (fields[name].required && !value.length) {
+          errors[name] = errors[name] || [];
           errors[name].push('This field is required');
         }
 
         if (fields[name].valiations) {
+          fields[name].valiations.map(validate => {
 
+          });
         }
 
         this.setState({
@@ -49,28 +58,40 @@ const formDecorator = ({ fields }) => {
 
       onFocus(name, value) {
 
-      }
+        const { errors } = this.state;
+        delete errors[name];
 
-      validateFields() {
-        return true;
+        this.setState(errors);
+
       }
 
       submitForm(e) {
         e.preventDefault();
+        const { fieldsObj } = this.state;
         const { onSubmit } = this.props;
+
+        const data = {};
+
+        for (let key in fieldsObj) {
+          data[key] = fieldsObj[key]['value'];
+        }
+
         const isValid = this.validateFields();
-        onSubmit(this.state, isValid);
+        onSubmit(data, isValid);
+      }
+
+      validateFields() {
+
       }
 
       render() {
 
-        const fieldsObj = this.buildFieldObj();
+        const { errors, fieldsObj } = this.state;
 
-        console.log(fieldsObj);
-
-        return <WrapperFormComponent fields={ fieldsObj } form={{
-          onSubmit: this.submitForm
-        }}/>;
+        return <WrapperFormComponent fields={ fieldsObj }
+                                     errors={ errors }
+                                     form={{ onSubmit: this.submitForm }}
+                                     isValid={ Object.keys(errors).length === 0 && errors.constructor === Object }/>;
 
       }
 
@@ -80,14 +101,14 @@ const formDecorator = ({ fields }) => {
         const { errors = {} } = this.state;
         // Change Fields
         for (let key in fields) {
+
           const fieldSettings = fields[key] || {};
+
           fieldsObj[key] = fieldsObj[key] || {};
           // Set name attribute
           fieldsObj[key]['name'] = key;
           // Add onChange attribute
           fieldsObj[key]['onChange'] = e => this.onChange(key, e.target.value);
-          // Set className Attribute
-          fieldsObj[key]['className'] = fieldSettings['className'] || '';
           // Set Placeholder
           fieldsObj[key]['placeholder'] = fieldSettings['placeholder'] || '';
           // Set on onBlur and onFocus Attribute
@@ -95,8 +116,6 @@ const formDecorator = ({ fields }) => {
             fieldsObj[key]['onBlur'] = e => this.onBlur(key, e.target.value);
             fieldsObj[key]['onFocus'] = e => this.onFocus(key, e.target.value);
           }
-
-          fieldsObj[key].errors = errors[key] || [];
 
         }
         return fieldsObj;

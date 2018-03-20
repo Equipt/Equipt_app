@@ -100,9 +100,9 @@ export class SideBar extends Component {
 					.sidebar-wrapper.absolute {
 						position: absolute;
 						top: inherit;
-						bottom: 139px;
 						left: -50px;
-						bottom: 139px;
+						height: 94.8vh;
+    				bottom: 139.4px;
 					}
 					i {
 						cursor: pointer;

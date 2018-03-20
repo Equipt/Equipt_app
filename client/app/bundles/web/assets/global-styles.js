@@ -51,6 +51,13 @@ const GlobalStyles = () => (
         }
       }
 
+      form {
+        .error, .error::placeholder {
+          border-color: rgb(220, 53, 69);
+          color: rgb(220, 53, 69);
+        }
+      }
+
 
     `}</style>
   </div>

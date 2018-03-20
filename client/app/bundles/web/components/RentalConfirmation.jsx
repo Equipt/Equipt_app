@@ -29,7 +29,7 @@ const RentalConfirmation = ({
         <div className="row">
           <div className="col-xs-12 col-md-6">
             <h3>{ rental.isComplete ? content.rentals.completed : content.rentals.confirmed_title }</h3>
-            <h5>{ content.rentals.confirmed_details }</h5>
+            <h5>{ I18n.t('rentals.confirmed_details', { name: 'tom'}) }</h5>
           </div>
           <div className="col-xs-12 col-md-6">
              { !rental.isComplete && rentalControls() }

@@ -6,7 +6,9 @@ const ReportABug = ({ actions }) => {
   return (
     <section className="container">
       <h3>Found A Bug?</h3>
-      <ReportABugForm onSubmit={ data => actions.reportBug(data) } />
+      <ReportABugForm onSubmit={ data => {
+        actions.reportBug(data);
+      }} />
       <p>Thankyou for helping us make equipt awesome</p>
     </section>
   )
