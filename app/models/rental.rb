@@ -1,6 +1,6 @@
 class Rental < ActiveRecord::Base
 
-  RENTALS_LIMIT = 3
+  RENTALS_LIMIT_PER_USER = 5
 
   acts_as_paranoid
 
@@ -12,7 +12,7 @@ class Rental < ActiveRecord::Base
 
   delegate :user, to: :sporting_good, prefix: :owner, :allow_nil => true
 
-  before_save :set_total_days, :set_rental_cost
+  before_save :set_total_days, :set_rental_cost, :is_over_limit
   validate :dates_are_vacant?, :has_agreed_to_terms?, :dates_not_today?, :dates_not_in_past?
 
   has_many :ratings, :as => :rateable, dependent: :destroy
@@ -59,6 +59,10 @@ class Rental < ActiveRecord::Base
     dates_are_vacant? && dates_not_today? && dates_not_in_past?
   end
 
+  def is_over_limit
+    return true if self.user.rentals.where.not(completed: true).count <= RENTALS_LIMIT_PER_USER
+    errors.add(:error, I18n.t('rental.max_out_rentals'))
+  end
 	# before create methods
 
 	def set_total_days

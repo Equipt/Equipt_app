@@ -2,7 +2,9 @@ import React from 'react';
 
 const About = () => (
   <section className="container">
-    About
+    <div dangerouslySetInnerHTML={{
+      __html: I18n.t('about')
+    }}></div>
   </section>
 )
 

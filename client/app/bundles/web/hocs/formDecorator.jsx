@@ -44,9 +44,9 @@ const formDecorator = ({ fields }) => {
           errors[name].push('This field is required');
         }
 
-        if (fields[name].valiations) {
-          fields[name].valiations.map(validate => {
-
+        if (fields[name].validations) {
+          fields[name].validations.map(validate => {
+            if (!validate.testInput(value)) errors[name].push(validate.message);
           });
         }
 

@@ -44,12 +44,15 @@ en:
     cancel_error: "Issue cancelling rental, please try again later"
     cant_be_today: "Pickup date cant be today"
     confirmed_details: Pay on pickup from %{name}
+    max_out_rentals: Sorry, at this time you can only have 5 rentals active at a time 
   ratings:
     contribution: "Thankyou for your feedback"
     error: "There was a issue processing your rating"
     already_rated: "Sorry, you cant rate the same resource twice!"
   utils:
     report_a_bug: 'Thanks for making Equipt AWESOME!!'
+  about: '<p>Equipt is a platform for renting out sporting equiptment</p>
+  <p>From Vancouver B.C.</p>'
   frontend:
     go_back: Go Back
     nav:
