@@ -1,0 +1,60 @@
+.sidebar-wrapper {
+	position: fixed;
+	top: 72px;
+	left: 0;
+	width: 70px;
+	height: 100vh;
+	padding-top: 5px;
+	background: $secondary_color;
+	z-index: 4;
+
+	&.absolute {
+		position: absolute;
+		top: inherit;
+		bottom: 400px;
+		left: -50px;
+	}
+
+	i {
+		cursor: pointer;
+		color: #D64E33;
+		font-size: 25px;
+		margin: 5px auto;
+		&.bottom {
+			position: absolute;
+			bottom: 75px;
+		}
+	}
+	p {
+		font-size: 13px;
+		font-weight: bold;
+		padding: 0 2px;
+		color: #D64E33;
+		text-align: center;
+	}
+	.icon {
+		display: block;
+		width: 40px;
+		height: 40px;
+		background: $sprite;
+		&.compass {
+			background-position: 0 -190px;
+		}
+		&.backpack {
+			background-position: 0 -48px;
+		}
+		&.map {
+			background-position: 0 -142px;
+		}
+		&.axe {
+			background-position: 0 -95px;
+		}
+	}
+	.back {
+		position: absolute;
+		bottom: 80px;
+		width: 100%;
+		text-align: center;
+		cursor: pointer;
+	}
+}

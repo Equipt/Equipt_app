@@ -1,0 +1,48 @@
+<section class="container">
+
+	<h1><%= @user.firstname %> sporting goods Index</h1>
+
+	<table class="table">
+
+		<tr>
+			<th>id</th>
+			<th>category</th>
+			<th>title</th>
+			<th>brand</th>
+			<th>model</th>
+			<th>description</th>
+			<th>age</th>
+			<th>price_per_day</th>
+			<th>price_per_week</th>
+			<th>deposit</th>
+			<th>created_at</th>
+			<th>slug</th>
+			<th>Remove</th>
+		</tr>
+		
+		<% @sporting_goods.each do |sporting_good| %>
+		<tr>
+			<td><%= sporting_good.id %></td>
+			<td><%= sporting_good.category %></td>
+			<td><%= sporting_good.title %></td>
+			<td><%= sporting_good.brand %></td>
+			<td><%= sporting_good.model %></td>
+			<td><%= sporting_good.description %></td>
+			<td><%= sporting_good.age %></td>
+			<td><%= sporting_good.price_per_day %></td>
+			<td><%= sporting_good.price_per_week %></td>
+			<td><%= sporting_good.deposit %></td>
+			<td><%= sporting_good.created_at %></td>
+			<td><%= sporting_good.slug %></td>
+			<td>
+			<%= link_to admin_user_sporting_good_path(@user, sporting_good),
+	    		:data => { confirm: 'Are you sure?' }, :method => :delete do %>
+				<i class="fa fa-times text-danger" aria-hidden="true"></i>
+			<% end %>
+			</td>
+		</tr>
+		<% end %>
+
+	</table>
+
+</section>

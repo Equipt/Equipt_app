@@ -1,0 +1,248 @@
+
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  errors:
+    not_found: Sorry %{item} does not exist!
+  session:
+    incorrect_credentials: Incorrect credentials, try again!
+    sent_password_reset: A password reset link has been sent your email!
+    reset_expired: Password reset has expired
+    password_reset: Your password has been reset!
+    current_user_not_found: We had a issue finding you, please login again!
+  sporting_good:
+    deleted: ! '%{item} has been removed'
+    discount_error: 'Discounted price must be less than %{price}!'
+  user:
+    deleted: 'Sorry you decided to cancel you account %{name}'
+    phone_verification: '"Hey, Equipt here. Your PIN is %{pin}!"'
+    not_verified: "Sorry you have not yet verified your contact information with us!"
+    need_pin: "We text you a pin number, please enter to continue"
+  rentals:
+    dates_are_taken: "Sorry, %{item} is unavailable between these dates"
+    dates_in_past: "Rental Dates cannot be in the past!"
+    terms_not_agreed_to: "Terms must be agree too"
+    cancel_success: "Rental has been cancelled"
+    cancel_error: "Issue cancelling rental, please try again later"
+    cant_be_today: "Pickup date cant be today"
+    confirmed_details: Pay on pickup from %{name}
+    max_out_rentals: Sorry, at this time you can only have 5 rentals active at a time
+  ratings:
+    contribution: "Thankyou for your feedback"
+    error: "There was a issue processing your rating"
+    already_rated: "Sorry, you cant rate the same resource twice!"
+  utils:
+    report_a_bug: 'Found A Bug?'
+    report_a_bug_desc: 'Thanks for making Equipt AWESOME!!'
+  about: '<p>Equipt is a platform for renting out sporting equiptment</p>
+  <p>From Vancouver B.C.</p>'
+  frontend:
+    go_back: Go Back
+    nav:
+      login: 'Login'
+      signup: 'Signup'
+      logout: 'Logout'
+      all_goods: 'Rent Sporting Goods'
+      add_good: 'Add A Sporting Good'
+      your_goods: 'Your Goods'
+      calendar: 'Calendar'
+    footer:
+      about:
+        title: About
+      how_it_works:
+        title: How It Works
+      report_a_bug:
+        title: Report A Bug
+    login:
+      title: Login
+      password_reset: Need help logging in?
+      formFields:
+        - name: email
+          label: Email address
+          tag: input
+          type: email
+        - name: password
+          label: password
+          tag: input
+          type: password
+    signup:
+      title: Signup
+      formFields:
+        - name: firstname
+          label: First Name
+          tag: input
+          type: text
+        - name: lastname
+          label: Last Name
+          tag: input
+          type: text
+        - name: email
+          label: Email
+          tag: input
+          type: email
+        - name: password
+          label: Password
+          tag: input
+          type: password
+        - name: password_confirmation
+          label: Password Confirmation
+          tag: input
+          type: password
+    sporting_goods:
+      index:
+        title: Rent Equipment
+        no_sporting_goods: Sorry, we cant find any sporting goods at this time
+        add_a_sporting_good: Do you want to add one?
+        default_image: https://s3-us-west-2.amazonaws.com/equipt-assets/equipment-default.png
+      create:
+        title: Create Sporting Form
+        dropZone: Drop images here!
+        imageLimit: Exceeded Images limit!
+        formFields:
+        - name: category
+          label: Category
+          tag: select
+          options:
+            - Snow
+            - Bike
+            - Camp
+            - Water
+            - Rock
+          fieldsetClass: 'col-xs-12'
+        - name: title
+          label: Short Description
+          tag: input
+          type: text
+          fieldsetClass: 'col-xs-12'
+        - name: brand
+          label: brand
+          tag: input
+          type: text
+          fieldsetClass: 'col-xs-12'
+        - name: model
+          label: model
+          tag: input
+          type: text
+          fieldsetClass: 'col-xs-12'
+        - name: description
+          label: Extra Details
+          tag: textarea
+          fieldsetClass: 'col-xs-12'
+        - name: age
+          label: How old is it?
+          tag: input
+          type: number
+          fieldsetClass: 'col-xs-6'
+        - name: price_per_day
+          label: How much do you want to charge per day?
+          tag: input
+          type: number
+          min: 0
+          fieldsetClass: 'col-xs-6 price-input'
+        - name: price_per_week
+          label: How much do you want to charge per week?
+          tag: input
+          type: number
+          min: 0
+          fieldsetClass: 'col-xs-6 price-input'
+      update:
+        title: Update Sporting Form
+        dropZone: Drop images here!
+        imageLimit: Exceeded Images limit!
+        formFields:
+        - name: category
+          label: Category
+          tag: select
+          options:
+            - Snow
+            - Bike
+            - Camp
+            - Water
+            - Rock
+          fieldsetClass: 'col-xs-12'
+        - name: title
+          label: Short Description
+          tag: input
+          type: text
+          fieldsetClass: 'col-xs-12'
+        - name: brand
+          label: brand
+          tag: input
+          type: text
+          fieldsetClass: 'col-xs-12'
+        - name: model
+          label: model
+          tag: input
+          type: text
+          fieldsetClass: 'col-xs-12'
+        - name: description
+          label: Extra Details
+          tag: textarea
+          fieldsetClass: 'col-xs-12'
+        - name: age
+          label: How old is it?
+          tag: input
+          type: number
+          fieldsetClass: 'col-xs-6'
+        - name: price_per_day
+          label: How much do you want to charge per day?
+          tag: input
+          type: number
+          default: 1
+          min: 1
+          fieldsetClass: 'col-xs-6'
+          defaultValue: true
+        - name: price_per_week
+          label: How much do you want to charge per week?
+          tag: input
+          type: number
+          default: 1
+          min: 1
+          fieldsetClass: 'col-xs-6'
+        - name: deposit
+          label: How much is the deposit?
+          tag: input
+          type: number
+          default: 1
+          min: 1
+          fieldsetClass: 'col-xs-6'
+    owners_sporting_goods:
+      index:
+        title: You're Equipment
+        no_sporting_goods: Click here to add an item.
+      delete:
+        title: Are you sure you want to delete { sportingGood.title }?
+        warning: By deleting { sportingGood.title } you will forfeit all rentals and payments associated to it, any users with a rental will be notified of the removal.
+        im_sure: I'm sure!
+        dont_delete: No, I don't want to delete this
+    rentals:
+        agree_wth_terms: I agree with the terms of the rental
+        not_found: Couldn't find this rental
+        confirmed_title: Congrats, the rental has been confirmed
+        completed: This rental is complete!
+        cancel_rental: Are you sure you want to cancel this rental?
+        terms_title: Rental Terms
+        terms:
+            - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            - It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            - Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical
+        read_rental_terms: Click to read rental terms and conditions

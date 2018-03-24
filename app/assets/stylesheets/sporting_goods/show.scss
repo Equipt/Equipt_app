@@ -1,0 +1,78 @@
+.sporting-goods-show {
+
+  padding-top: 0;
+
+  .terms-container {
+    float: left;
+    clear: left;
+    margin-top: 10px;
+  }
+
+  .dv-star-rating {
+    float: right;
+    margin-top: 5px;
+  }
+
+  .profile-image {
+    font-size: 30px;
+    margin-top: 20px;
+    img {
+      display: block;
+      max-width: 75px;
+      border-radius: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+
+  .pricing-container {
+    margin-top: 20px;
+    border: solid 1px #E4E4E4;
+    padding-bottom: 20px;
+  }
+
+  .image-spacer {
+    margin-top: 400px;
+  }
+
+  .image-container {
+    position: absolute;
+    top: -33px;
+    right: 0;
+    left: 20px;
+    height: 400px;
+    width: 100%;
+    z-index: 1;
+
+    button {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+    }
+    .image {
+      height: 400px;
+      width: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 0 33%;
+    }
+  }
+
+  .rent-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .date-cell {
+    cursor: pointer;
+  }
+
+  .ratings-container {
+    .dv-star-rating {
+      margin-right: 5px;
+      margin-top: 0;
+    }
+  }
+
+}

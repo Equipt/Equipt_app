@@ -1,0 +1,3 @@
+<h2>How was you experience renting <%= @sporting_good.title %>, <%= time_ago_in_words( @rental.end_date ) %> ago?</h2>
+
+<a href="<%= "#{UserMailer.default_url_options[:host]}/sporting_goods/#{ @sporting_good.slug }/rentals/#{ @rental.hash_id }" %>">Click here to tell us how it went</a>

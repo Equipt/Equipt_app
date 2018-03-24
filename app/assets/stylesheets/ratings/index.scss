@@ -1,0 +1,20 @@
+ul {
+
+  padding: 0;
+  margin-top: 20px;
+  .ratings-container {
+    clear: both;
+    margin: 10px 0 0;
+    border-bottom: solid 1px #E4E4E4;
+
+    i {
+      float: right;
+    }
+
+    .star-ratings {
+      display: block !important;
+      margin-bottom: 20px;
+    }
+
+  }
+}
