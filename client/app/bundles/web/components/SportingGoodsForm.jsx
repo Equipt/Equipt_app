@@ -5,8 +5,6 @@ import Dropzone from 'react-dropzone';
 import FormFieldsHelper from 'helpers/FormFields';
 import Modal from 'components/Modal';
 
-import { UsersContactForm } from 'components/UsersContactForm';
-
 export class SportingGoodsForm extends React.Component {
 
 	static propTypes = {
@@ -119,20 +117,6 @@ export class SportingGoodsForm extends React.Component {
 		return this.state.showLimitMessage ? <p className="alert alert-info">{ content.imageLimit }</p> : '';
 	}
 
-	contactModalMarkup() {
-
-		const { content } = this.props;
-
-		return (
-			<Modal contentLabel="sporting-goods-terms"
-				isVisible={ this.state.showContactModal }
-				onClose={ () => this.showModal('showContactModal', false) }>
-				<h4>{ content.profile.contact.need_contact }</h4>
-				<UsersContactForm { ...this.props } completedContactForm={ () => this.showModal('showContactModal', false) }/>
-			</Modal>
-		)
-	}
-
 	render() {
 
 		const { sportingGood, images } 	= this.state;
@@ -180,8 +164,6 @@ export class SportingGoodsForm extends React.Component {
 					</div>
 
 				</div>
-
-				{ this.contactModalMarkup() }
 
 			</section>
 		)

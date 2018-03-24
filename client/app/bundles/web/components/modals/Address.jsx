@@ -1,5 +1,5 @@
 import React from 'react';
-import { UsersContactForm } from 'components/UsersContactForm';
+import UserContact from 'components/UserContact';
 
 const Address = (props, {
   title,
@@ -9,7 +9,7 @@ const Address = (props, {
   return (
     <div>
       <h4>{ title }</h4>
-      <UsersContactForm { ...props } completedContactForm={ props.actions.closeModal }/>
+      <UserContact { ...props } completedContactForm={ props.actions.closeModal }/>
     </div>
   )
 

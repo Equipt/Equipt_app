@@ -22,7 +22,7 @@ const GlobalStyles = () => (
       .container {
       	position: relative;
       	width: 95%;
-      	min-height: 83vh;
+      	min-height: 87vh;
       	max-width: 1500px;
       	margin-bottom: 50px;
       	&.reduce-margin-top {
@@ -48,6 +48,13 @@ const GlobalStyles = () => (
           font-size: 16px;
           padding: 15px 25px;
           width: 150px;
+        }
+      }
+
+      form {
+        .error, .error::placeholder {
+          border-color: rgb(220, 53, 69);
+          color: rgb(220, 53, 69);
         }
       }
 

@@ -4,7 +4,6 @@ import Slider from 'react-slick';
 import StarRatings from 'react-star-rating-component';
 
 import { Link } from 'react-router-dom';
-import { UsersContactForm } from 'components/UsersContactForm';
 
 import DatePicker from 'components/DatePicker';
 import Loader from 'components/Loader';
@@ -55,9 +54,10 @@ export class SportingGoodDetails extends React.Component {
 			return actions.rent(rental, sportingGood, rental => {
 				this.context.router.history.push(`/sporting_goods/${ sportingGood.slug }/rentals/${ rental.hashId }`);
 			});
+		} else {
+			actions.openModal(<Address title={ content.profile.contact.need_contact } { ...this.props }/>);
 		}
 
-		actions.openModal(<Address title={ content.profile.contact.need_contact } { ...this.props }/>);
 
 	}
 

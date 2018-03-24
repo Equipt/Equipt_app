@@ -61,8 +61,8 @@ export default (props, store) => {
 	return (
 		<div className="main-wrapper" id="mainWrapper">
 			<Session { ...props }/>
+			<GlobalStyles />
 			<Alert/>
-
 			<ModalContainer/>
 
 			<Route render={({ location }) => (
@@ -120,8 +120,6 @@ export default (props, store) => {
 			)} />
 
 			<Footer { ...props }/>
-
-			<GlobalStyles />
 
 		</div>
 	);

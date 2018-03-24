@@ -2,21 +2,22 @@ import React from 'react';
 import formDecorator from 'hocs/formDecorator';
 import ErrorsList from './ErrorsList';
 
+const getClassName = (errors = []) => {
+  return `form-control ${ errors.length ? 'error' : '' }`;
+}
+
 // Build Form
-const ReportABugForm = ({ fields: { title, desc }, form }) => (
+const ReportABugForm = ({ fields: { title, desc }, errors, form, isValid }) => (
   <form { ...form }>
-    <form-group className="form-group">
-      <input { ...title }/>
-    </form-group>
-    <form-group className="form-group">
-      <textarea { ...desc }/>
-    </form-group>
-    <input type="submit" value="Report" className="btn btn-success pull-right"/>
-    <style jsx>{`
-      .form-group {
-        margin-top: 10px;
-      }
-    `}</style>
+    <fieldset>
+      <input { ...title } className={ getClassName(errors.title) }/>
+      <ErrorsList errors={ errors.title }/>
+    </fieldset>
+    <fieldset>
+      <textarea { ...desc } className={ getClassName(errors.desc) }/>
+      <ErrorsList errors={ errors.desc }/>
+    </fieldset>
+    <input type="submit" value="Report" disabled={ !isValid } className="btn btn-success pull-right"/>
   </form>
 );
 
@@ -24,12 +25,18 @@ const ReportABugForm = ({ fields: { title, desc }, form }) => (
 export default formDecorator({
   fields: {
     title: {
-      className: 'form-control',
-      placeholder: 'Enter a short title'
+      placeholder: 'Enter a short title',
+      required: true
     },
     desc: {
-      className: 'form-control',
-      placeholder: 'Enter a description of the issue'
+      placeholder: 'Enter a description of the issue',
+      required: true,
+      validations: [
+        {
+          testInput: input => input.length > 10,
+          message: 'Description must be at least 10 characters long'
+        }
+      ]
     }
   }
 })(ReportABugForm);

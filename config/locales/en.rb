@@ -1,5 +1,9 @@
 {
   :en => {
+    states: CS.states(:us),
+    provinces: CS.states(:ca),
+    countries: CS.countries,
+
     :frontend => {
       :logo => 'logo.png',
       :profile => {

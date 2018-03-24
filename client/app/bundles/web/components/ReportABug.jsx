@@ -5,9 +5,9 @@ const ReportABug = ({ actions }) => {
 
   return (
     <section className="container">
-      <h3>Found A Bug?</h3>
-      <ReportABugForm onSubmit={ data => actions.reportBug(data) } />
-      <p>Thankyou for helping us make equipt awesome</p>
+      <h3>{ I18n.t('utils.report_a_bug') }</h3>
+      <ReportABugForm onSubmit={ data => actions.reportBug(data) }/>
+      <p>{ I18n.t('utils.report_a_bug_desc') }</p>
     </section>
   )
 }
