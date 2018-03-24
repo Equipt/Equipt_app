@@ -7,14 +7,12 @@ import { FaceBookLogin } from 'components/FacebookLogin';
 
 import * as alertActions from 'actions/alerts';
 
-import formDecorator from 'hocs/formDecorator';
-
 class LoginForm extends React.Component {
 
 	static contextTypes = {
-  		router: PropTypes.shape({
-    		history: PropTypes.object.isRequired,
-  		})
+		router: PropTypes.shape({
+  		history: PropTypes.object.isRequired,
+		})
 	};
 
 	static propTypes = {

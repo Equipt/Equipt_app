@@ -45,7 +45,7 @@ class UserSerializer < ActiveModel::Serializer
 	end
 
 	def ratings
-		ActiveModel::Serializer::CollectionSerializer.new( @object.ratings | @object.owned_rentals.map(&:ratings).flatten, each_serializer: RatingSerializer ) 
+		ActiveModel::Serializer::CollectionSerializer.new( @object.ratings | @object.owned_rentals.map(&:ratings).flatten, each_serializer: RatingSerializer )
 	end
 
 end

@@ -111,6 +111,8 @@ const formDecorator = ({ fields }) => {
           fieldsObj[key]['onChange'] = e => this.onChange(key, e.target.value);
           // Set Placeholder
           fieldsObj[key]['placeholder'] = fieldSettings['placeholder'] || '';
+          // Add Default Value
+          fieldsObj[key]['value'] = fieldSettings['defaultValue'] || '';
           // Set on onBlur and onFocus Attribute
           if (errors[key] || fieldSettings['valiations'] || fieldSettings['required']) {
             fieldsObj[key]['onBlur'] = e => this.onBlur(key, e.target.value);

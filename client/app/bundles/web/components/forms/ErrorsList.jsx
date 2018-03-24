@@ -10,7 +10,7 @@ const ErrorsList = ({ errors = [] }) => (
     <style jsx>{`
       .errors {
         margin: 0;
-        min-height: 30px;
+        min-height: 25px;
       }
       .errors li {
         color: #dc3545;

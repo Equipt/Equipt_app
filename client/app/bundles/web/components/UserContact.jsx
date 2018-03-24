@@ -4,7 +4,9 @@ import ReactCodeInput from 'react-code-input';
 
 import FormFieldsHelper from 'helpers/FormFields';
 
-export class UsersContactForm extends React.Component {
+import UserContactForm from './forms/UserContactForm';
+
+export default class UserContact extends React.Component {
 
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
@@ -21,6 +23,7 @@ export class UsersContactForm extends React.Component {
       isVerifingPhoneNumber: false
     }
 
+    this.submitContact = this.submitContact.bind(this);
   }
 
   componentDidMount() {
@@ -67,6 +70,7 @@ export class UsersContactForm extends React.Component {
 
   }
 
+  // Shouldn't need this when the formDecorator is implemented
   countryChanged() {
 
     const { value } = this.refs['country'];
@@ -147,7 +151,7 @@ export class UsersContactForm extends React.Component {
     return (
       <form className="phone-pin-verification">
 
-        <h4>{ this.props.content.profile.contact.need_pin }</h4>
+        <h4>{ I18n.t('user.need_pin') }</h4>
 
         <ReactCodeInput type='text' fields={ 4 } onChange={ this.updatePin.bind(this) }/>
 
@@ -180,20 +184,28 @@ export class UsersContactForm extends React.Component {
     phone.errors = currentUser.errors;
 
     return (
-      <form onSubmit={ this.submitContact.bind(this) }>
+      <div>
 
-        <h5>{ this.props.title || '' }</h5>
+        {/*
+          Started Refactoring this to use the formDecorator
+          <UserContactForm onSubmit={ this.submitContact }/>
+        */}
 
-        <div className="row">
-          { FormFieldsHelper.call(this, contact.phone.formFields, phone) }
-          { FormFieldsHelper.call(this, contact.address.formFields, address) }
-        </div>
+        <form onSubmit={ this.submitContact }>
 
-        <br/>
+          <h5>{ this.props.title || '' }</h5>
 
-        <input type="submit" className="btn btn-success clearfix" value={ contact.button }/>
+          <div className="row">
+            { FormFieldsHelper.call(this, contact.phone.formFields, phone) }
+            { FormFieldsHelper.call(this, contact.address.formFields, address) }
+          </div>
 
-      </form>
+          <br/>
+
+          <input type="submit" className="btn btn-success clearfix" value={ contact.button }/>
+
+        </form>
+      </div>
     )
   }
 

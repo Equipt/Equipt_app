@@ -9,14 +9,14 @@ const getClassName = (errors = []) => {
 // Build Form
 const ReportABugForm = ({ fields: { title, desc }, errors, form, isValid }) => (
   <form { ...form }>
-    <form-group>
+    <fieldset>
       <input { ...title } className={ getClassName(errors.title) }/>
       <ErrorsList errors={ errors.title }/>
-    </form-group>
-    <form-group>
+    </fieldset>
+    <fieldset>
       <textarea { ...desc } className={ getClassName(errors.desc) }/>
       <ErrorsList errors={ errors.desc }/>
-    </form-group>
+    </fieldset>
     <input type="submit" value="Report" disabled={ !isValid } className="btn btn-success pull-right"/>
   </form>
 );
