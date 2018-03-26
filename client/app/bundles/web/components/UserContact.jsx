@@ -18,82 +18,28 @@ export default class UserContact extends React.Component {
     super(props);
 
     this.state = {
-      address: props.currentUser.address || {},
-      phone: props.currentUser.phone || {},
       isVerifingPhoneNumber: false
     }
 
     this.submitContact = this.submitContact.bind(this);
   }
 
-  componentDidMount() {
-    const { phone } = this.state;
-    // Set default country and state
-    phone.verifying || this.countryChanged();
-  }
-
-  submitContact(e) {
-
-    e.preventDefault();
+  submitContact({ phone, address }) {
 
     const { actions, currentUser } = this.props;
-    const { address, phone } = this.state;
+    const user = Object.assign(currentUser, { phone }, { address });
 
-    // Set address params
-    currentUser.address = address;
-    // Set phone params
-    currentUser.phone = phone;
+    return actions.updateCurrentUser({ user }, currentUser => {
 
-    // Update user
-    return actions.updateCurrentUser({user: currentUser}, currentUser => {
+      const { phone, address } = currentUser;
 
-        const { phone, address } = currentUser;
-
+      if (phone && phone.verifying) {
         this.setState({
-          address: address || {},
-          phone: phone || {}
+          isVerifingPhoneNumber: true
         });
-
-        // Needs to verifying phone number pin
-        if (phone && phone.verifying) {
-          this.setState({
-            isVerifingPhoneNumber: true
-          });
-        }
-
-        // Show unfound address alert
-        if (currentUser.errors && currentUser.errors['address.address']) {
-          actions.showErrorAlert({error: currentUser.errors['address.address']});
-        }
+      }
 
     });
-
-  }
-
-  // Shouldn't need this when the formDecorator is implemented
-  countryChanged() {
-
-    const { value } = this.refs['country'];
-    const { state } = this.state.address;
-
-    const { contact } = this.props.content.profile;
-    const stateField = contact.address.formFields[4];
-
-    if (value === 'CA') {
-      stateField.tag = 'select';
-      this.state.address.state = state || Object.keys(stateField.options)[0];
-      stateField.options = stateField.options;
-    } else if (value === 'US') {
-      this.state.address.state = state || Object.keys(stateField.states)[0];
-      stateField.options = stateField.states;
-      stateField.tag = 'select';
-    } else {
-      this.state.address.state = '';
-      stateField.tag = 'input';
-    }
-
-    this.state.address.country = value;
-    this.setState(this.state);
 
   }
 
@@ -164,58 +110,19 @@ export default class UserContact extends React.Component {
 
   renderContactForm() {
 
-    const { address, phone } = this.state;
     const { currentUser } = this.props;
 
-    const { contact } = this.props.content.profile;
+    return <UserContactForm user={ currentUser } onSubmit={ this.submitContact }/>;
 
-    const phoneField = contact.phone.formFields[0];
-    const countryField = contact.address.formFields[6];
-
-    // On change of country
-    countryField.onChange = this.countryChanged.bind(this);
-
-    // HACK: Phone number work around
-    phoneField.name = 'phone';
-    phoneField.onChange = this.phoneNumberChanged.bind(this);
-    phone.phone = phone.number;
-
-    address.errors = currentUser.errors;
-    phone.errors = currentUser.errors;
-
-    return (
-      <div>
-
-        {/*
-          Started Refactoring this to use the formDecorator
-          <UserContactForm onSubmit={ this.submitContact }/>
-        */}
-
-        <form onSubmit={ this.submitContact }>
-
-          <h5>{ this.props.title || '' }</h5>
-
-          <div className="row">
-            { FormFieldsHelper.call(this, contact.phone.formFields, phone) }
-            { FormFieldsHelper.call(this, contact.address.formFields, address) }
-          </div>
-
-          <br/>
-
-          <input type="submit" className="btn btn-success clearfix" value={ contact.button }/>
-
-        </form>
-      </div>
-    )
   }
 
   render() {
 
-    const { phone } = this.state;
+    const { currentUser: { phone = {} } } = this.props;
 
     return (
       <section className="user-contact">
-        { phone.verifying ? this.renderVerifyingPhoneForm() : this.renderContactForm() }
+        { phone && phone.verifying ? this.renderVerifyingPhoneForm() : this.renderContactForm() }
       </section>
     )
 

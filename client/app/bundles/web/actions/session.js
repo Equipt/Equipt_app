@@ -91,28 +91,18 @@ export const forgotPassword = data => {
 
 // Submit Users Profile Information
 export const updateCurrentUser = (currentUser, callback) => {
-
 	return function(dispatch, getState, { api }) {
-
 		api.put(`/user/${ currentUser.id }`, currentUser)
 		.then(user => {
-
 			dispatch(setCurrentUser(user));
-
 			dispatch(alertActions.showSuccessAlert(user.notice));
-
 			if (callback) callback(user);
-
 		})
 		.catch(user => {
-
 			dispatch(setCurrentUser(user));
-
 			if (callback) callback(user);
 		});
-
 	}
-
 }
 
 // Delete users account
