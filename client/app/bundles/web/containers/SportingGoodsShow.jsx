@@ -42,12 +42,7 @@ export class SportingGoodsShow extends React.Component {
 	}
 
 	render() {
-
-		const { sportingGood, loader } = this.props;
-
-		return(
-			<SportingGoodDetails { ...this.props }/>
-		)
+		return <SportingGoodDetails { ...this.props }/>
 	}
 
 }

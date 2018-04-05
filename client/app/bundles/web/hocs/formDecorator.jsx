@@ -11,7 +11,7 @@ const formDecorator = ({ fields, multiPart = false }) => {
       constructor(props) {
         super(props);
         this.state = {
-          errors: {},
+          errors: [],
           fieldsObj: {}
         };
         this.onChange = this.onChange.bind(this);
@@ -22,6 +22,12 @@ const formDecorator = ({ fields, multiPart = false }) => {
       }
 
       componentWillMount() {
+        this.setState({
+          fieldsObj: this.buildFieldObj()
+        });
+      }
+
+      componentWillReceiveProps() {
         this.setState({
           fieldsObj: this.buildFieldObj()
         });
@@ -45,7 +51,6 @@ const formDecorator = ({ fields, multiPart = false }) => {
 
       submitForm(e) {
         e.preventDefault();
-        const { fieldsObj } = this.state;
         const { onSubmit } = this.props;
         onSubmit(multiPart ? this.buildMultiPart() : this.buildJsonData());
       }
@@ -70,17 +75,19 @@ const formDecorator = ({ fields, multiPart = false }) => {
       // Build Json data
       buildJsonData() {
         const { fieldsObj } = this.state;
-        const data = Object.assign({}, fieldsObj);
+        const formData = Object.assign({}, fieldsObj);
+
         for (let key in fields) {
           key.split('.').reduce((data, i) => {
-            if (typeof data[i]['value'] === 'string') {
+            if (data[i] && typeof data[i]['value'] === 'string') {
               return data[i] = data[i]['value'];
             } else {
               return data[i] = data[i] || {};
             }
-          }, data);
+          }, formData);
         }
-        return data;
+
+        return formData;
       }
 
       validateField(name, value) {
@@ -120,11 +127,11 @@ const formDecorator = ({ fields, multiPart = false }) => {
       buildFieldObj() {
 
         const { errors = {}, fieldsObj } = this.state;
+
         // Change Fields
         for (let key in fields) {
-
           const fieldSettings = fields[key] || {};
-          const fieldObj = this.get(key);
+          const fieldObj = typeof this.get(key) === 'object' ? this.get(key) : {};
 
           // Set name attribute
           fieldObj['name'] = key;
@@ -132,8 +139,16 @@ const formDecorator = ({ fields, multiPart = false }) => {
           fieldObj['onChange'] = e => this.onChange(key, e.target.value);
           // Set Placeholder
           fieldObj['placeholder'] = fieldSettings['placeholder'] || '';
+          // Set default values
+          if (typeof fieldSettings['defaultValue'] === 'function') {
+            fieldObj['value'] = fieldSettings['defaultValue'](this.props) || '';
+          }
+          // Set default errors
+          if (typeof fieldsObj['defaultError'] === 'function')  {
+            errors[key] = fieldsObj['defaultError'](this.props);
+          }
           // Add Default Value
-          this.setDefaultValues(fieldObj, fieldSettings);
+          // this.setDefaultValues(fieldObj, fieldSettings);
           // Set on onBlur and onFocus Attribute
           if (errors[key] || fieldSettings['valiations'] || fieldSettings['required']) {
             fieldObj['onBlur'] = e => this.onBlur(key, e.target.value);
@@ -141,29 +156,7 @@ const formDecorator = ({ fields, multiPart = false }) => {
           }
 
         }
-
         return fieldsObj;
-      }
-
-      // Make sure value and default value cannot be set together
-      setDefaultValues(fieldObj, fieldSettings) {
-
-        if (fieldSettings['value'] && fieldSettings['defaultValue']) {
-          return console.warn('FORM-DECORATOR: setting both a value and defaultValue is not allowed, please remove one!');
-        }
-
-        if (typeof fieldSettings['value'] === 'function') {
-          return fieldObj['value'] = fieldSettings['value'](this.props);
-        } else {
-          return fieldObj['value'] = fieldSettings['value'] || '';
-        }
-
-        if (typeof fieldSettings['defaultValue'] === 'function') {
-          return fieldObj['defaultValue'] = fieldSettings['defaultValue'](this.props);
-        } else {
-          return fieldObj['defaultValue'] = fieldSettings['defaultValue'] || '';
-        }
-
       }
 
     }

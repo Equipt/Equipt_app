@@ -11,3 +11,4 @@ A webpack sass product to manage rental appointments of outdoor / leisure equipm
 ## Email
 
 equipt.general@gmail.com
+school twice

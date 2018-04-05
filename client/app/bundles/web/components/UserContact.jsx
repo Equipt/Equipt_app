@@ -1,3 +1,4 @@
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactCodeInput from 'react-code-input';
@@ -27,7 +28,8 @@ export default class UserContact extends React.Component {
   submitContact({ phone, address }) {
 
     const { actions, currentUser } = this.props;
-    const user = Object.assign(currentUser, { phone }, { address });
+
+    const user = Object.assign({}, currentUser, { phone }, { address });
 
     return actions.updateCurrentUser({ user }, currentUser => {
 
@@ -70,19 +72,17 @@ export default class UserContact extends React.Component {
     const { actions } = this.props;
 
     if (pin.length === 4) {
-      actions.verifyPhonePin(pin, phone => {
 
-        const { address } = this.state;
-        const { completedContactForm } = this.props;
+      actions.verifyPhonePin(pin, user => {
 
         this.setState({
-          phone: phone,
+          phone: user.phone,
           isVerifingPhoneNumber: false
         });
 
         // Finished updating user
-        if ((phone && phone.verified) && (address && address.verified)) {
-          return completedContactForm && completedContactForm();
+        if (user.isVerified) {
+          actions.closeModal();
         }
 
       });
@@ -112,7 +112,7 @@ export default class UserContact extends React.Component {
 
     const { currentUser } = this.props;
 
-    return <UserContactForm user={ currentUser } onSubmit={ this.submitContact }/>;
+    return <UserContactForm currentUser={ currentUser } onSubmit={ this.submitContact }/>;
 
   }
 

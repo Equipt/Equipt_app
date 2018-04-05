@@ -95,7 +95,7 @@ export const updateCurrentUser = (currentUser, callback) => {
 		api.put(`/user/${ currentUser.id }`, currentUser)
 		.then(user => {
 			dispatch(setCurrentUser(user));
-			dispatch(alertActions.showSuccessAlert(user.notice));
+			// dispatch(alertActions.showSuccessAlert(user.notice));
 			if (callback) callback(user);
 		})
 		.catch(user => {
@@ -184,22 +184,16 @@ export const verifyPhonePin = (pin, callback) => {
 	return (dispatch, getState, { api }) => {
 
 		api.post('/phone/verify', {pin: pin})
-		.then((phone = {}) => {
-
-			const { currentUser } = getState().session;
-			const { address = {} } = currentUser;
-
-			currentUser.phone = phone;
-			currentUser.isVerified = address.verified && phone.verified;
+		.then(user => {
 
 			// Set Current User
-			dispatch(setCurrentUser(currentUser));
+			dispatch(setCurrentUser(user));
 
 			// Show Success alert
-			dispatch(alertActions.showSuccessAlert(phone.notice));
+			dispatch(alertActions.showSuccessAlert(user.notice));
 
 			// run success
-			if (callback) callback(phone);
+			if (callback) callback(user);
 
 		})
 		.catch(err => dispatch(alertActions.showErrorAlert(err)));
@@ -210,7 +204,7 @@ export const verifyPhonePin = (pin, callback) => {
 
 // Update Profile image
 export const changeAvatar = image => {
-	debugger;
+
 }
 
 // Resend pin
