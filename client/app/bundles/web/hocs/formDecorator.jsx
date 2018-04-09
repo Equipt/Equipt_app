@@ -18,18 +18,18 @@ const formDecorator = ({ fields, multiPart = false }) => {
         this.onBlur = this.onBlur.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.submitForm = this.submitForm.bind(this);
-        this.buildFieldObj = this.buildFieldObj.bind(this);
+        this.buildFieldsObj = this.buildFieldsObj.bind(this);
       }
 
       componentWillMount() {
         this.setState({
-          fieldsObj: this.buildFieldObj()
+          fieldsObj: this.buildFieldsObj(this.props)
         });
       }
 
-      componentWillReceiveProps() {
+      componentWillReceiveProps(newProps) {
         this.setState({
-          fieldsObj: this.buildFieldObj()
+          fieldsObj: this.buildFieldsObj(newProps)
         });
       }
 
@@ -74,13 +74,15 @@ const formDecorator = ({ fields, multiPart = false }) => {
 
       // Build Json data
       buildJsonData() {
-        const { fieldsObj } = this.state;
-        const formData = Object.assign({}, fieldsObj);
+
+        const formData = {};
 
         for (let key in fields) {
-          key.split('.').reduce((data, i) => {
-            if (data[i] && typeof data[i]['value'] === 'string') {
-              return data[i] = data[i]['value'];
+          const { name, value } = this.get(key);
+          const nestedKeys = name.split('.');
+          nestedKeys.reduce((data, i) => {
+            if (nestedKeys[nestedKeys.length-1] === i) {
+              return data[i] = value;
             } else {
               return data[i] = data[i] || {};
             }
@@ -124,14 +126,14 @@ const formDecorator = ({ fields, multiPart = false }) => {
 
       }
 
-      buildFieldObj() {
+      buildFieldsObj(parentsProps) {
 
         const { errors = {}, fieldsObj } = this.state;
 
         // Change Fields
         for (let key in fields) {
           const fieldSettings = fields[key] || {};
-          const fieldObj = typeof this.get(key) === 'object' ? this.get(key) : {};
+          const fieldObj = this.get(key) || {};
 
           // Set name attribute
           fieldObj['name'] = key;
@@ -141,14 +143,12 @@ const formDecorator = ({ fields, multiPart = false }) => {
           fieldObj['placeholder'] = fieldSettings['placeholder'] || '';
           // Set default values
           if (typeof fieldSettings['defaultValue'] === 'function') {
-            fieldObj['value'] = fieldSettings['defaultValue'](this.props) || '';
+            fieldObj['value'] = fieldSettings['defaultValue'](parentsProps) || '';
           }
           // Set default errors
           if (typeof fieldsObj['defaultError'] === 'function')  {
-            errors[key] = fieldsObj['defaultError'](this.props);
+            errors[key] = fieldsObj['defaultError'](parentsProps);
           }
-          // Add Default Value
-          // this.setDefaultValues(fieldObj, fieldSettings);
           // Set on onBlur and onFocus Attribute
           if (errors[key] || fieldSettings['valiations'] || fieldSettings['required']) {
             fieldObj['onBlur'] = e => this.onBlur(key, e.target.value);
@@ -156,6 +156,7 @@ const formDecorator = ({ fields, multiPart = false }) => {
           }
 
         }
+
         return fieldsObj;
       }
 

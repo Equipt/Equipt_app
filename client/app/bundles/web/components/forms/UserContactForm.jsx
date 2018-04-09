@@ -67,7 +67,7 @@ export default formDecorator({
       placeholder: '333-333-3333',
       required: true,
       defaultError: ({ currentUser }) => currentUser.errors['phone.number'],
-      defaultValue: ({ currentUser: { phone = {} } }) => phone.number
+      defaultValue: ({ currentUser: { phone = {} } = {} }) => phone.number
     },
     'address.unit': {
       placeholder: '1',
