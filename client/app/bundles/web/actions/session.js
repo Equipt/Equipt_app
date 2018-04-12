@@ -95,7 +95,6 @@ export const updateCurrentUser = (currentUser, callback) => {
 		api.put(`/user/${ currentUser.id }`, currentUser)
 		.then(user => {
 			dispatch(setCurrentUser(user));
-			// dispatch(alertActions.showSuccessAlert(user.notice));
 			if (callback) callback(user);
 		})
 		.catch(user => {

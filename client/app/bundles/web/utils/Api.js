@@ -32,17 +32,21 @@ export default class Api {
 					case 500:
 					// Unauthorized
 					case 401:
-						localStorage.clear();
-						this.store.dispatch(sessionActions.clearSession());
-						return this.history.push('/login');
-					break;
+						// localStorage.clear();
+						// this.store.dispatch(sessionActions.clearSession());
+						this.store.dispatch(alertActions.showErrorAlert({ error: 'Oh no, something went wrong. Try again later!'}));
+						
+						break;
 					// Forbidden
 					case 403:
 						this.store.dispatch(alertActions.showErrorAlert(data));
-					break;
+						break;
 					// Not found
 					case 404:
 						return this.history.push('/not_found');
+						break;
+					case 422:
+						alertActions.showErrorAlert(data);
 					break;
 				}
 

@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
 	accepts_nested_attributes_for :address
 	accepts_nested_attributes_for :phone
 
+	  # accepts_nested_attributes_for :offices, allow_destroy: true, reject_if: :office_name_invalid
+
 	validates_confirmation_of :password, if: :should_validate_password?
 	validates :password, :length=>{ :minimum => 6 }, if: :should_validate_password?
 	validates :password_confirmation, :length=>{ :minimum => 6 }, if: :should_validate_password?
