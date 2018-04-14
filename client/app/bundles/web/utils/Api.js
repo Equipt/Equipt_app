@@ -30,24 +30,25 @@ export default class Api {
 				switch(status) {
 					// Server error
 					case 500:
-					// Unauthorized
-					case 401:
-						// localStorage.clear();
-						// this.store.dispatch(sessionActions.clearSession());
-						this.store.dispatch(alertActions.showErrorAlert({ error: 'Oh no, something went wrong. Try again later!'}));
-						
-						break;
+						this.store.dispatch(alertActions.showErrorAlert({ error: I18n.t('errors.server_error')}));
+					break;
 					// Forbidden
 					case 403:
+					// Unprocessable Entity
+					case 422:
 						this.store.dispatch(alertActions.showErrorAlert(data));
+						break;
+					// Unauthorized
+					case 401:
+						localStorage.clear();
+						this.store.dispatch(sessionActions.clearSession());
+						this.store.dispatch(alertActions.showErrorAlert({ error: I18n.t('user.unauthorized')}));
 						break;
 					// Not found
 					case 404:
+						this.store.dispatch(alertActions.showErrorAlert(data));
 						return this.history.push('/not_found');
 						break;
-					case 422:
-						alertActions.showErrorAlert(data);
-					break;
 				}
 
 				return Promise.reject(error);

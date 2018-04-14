@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 
 import * as sessionActions from 'actions/session';
 import * as modalActions from 'actions/modal';
+import * as alertActions from 'actions/alerts';
 
 import UserContact from 'components/UserContact';
 
@@ -27,7 +28,8 @@ function matchDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators({
 			...sessionActions,
-			...modalActions
+			...modalActions,
+			...alertActions
 		}, dispatch )
 	}
 }

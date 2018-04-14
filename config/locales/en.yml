@@ -23,6 +23,7 @@
 en:
   errors:
     not_found: Sorry %{item} does not exist!
+    server_error: Something went wrong, please try again later!
   session:
     incorrect_credentials: Incorrect credentials, try again!
     sent_password_reset: A password reset link has been sent your email!
@@ -37,6 +38,8 @@ en:
     phone_verification: '"Hey, Equipt here. Your PIN is %{pin}!"'
     not_verified: "Sorry you have not yet verified your contact information with us!"
     need_pin: "We text you a pin number, please enter to continue"
+    unauthorized: "Sorry, you are unauthorized to see this. Please sign in!"
+    invalid_address: "Sorry, we couldn't find the address."
   rentals:
     dates_are_taken: "Sorry, %{item} is unavailable between these dates"
     dates_in_past: "Rental Dates cannot be in the past!"

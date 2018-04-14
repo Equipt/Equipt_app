@@ -18,10 +18,8 @@ class User < ActiveRecord::Base
 	has_one :address, :dependent => :destroy
 	has_one :phone, :dependent => :destroy
 
-	accepts_nested_attributes_for :address
-	accepts_nested_attributes_for :phone
-
-	  # accepts_nested_attributes_for :offices, allow_destroy: true, reject_if: :office_name_invalid
+	accepts_nested_attributes_for :address, allow_destroy: true
+	accepts_nested_attributes_for :phone, allow_destroy: true
 
 	validates_confirmation_of :password, if: :should_validate_password?
 	validates :password, :length=>{ :minimum => 6 }, if: :should_validate_password?

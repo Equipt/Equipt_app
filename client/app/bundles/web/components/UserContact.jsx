@@ -27,13 +27,19 @@ export default class UserContact extends React.Component {
 
   submitContact({ phone, address }) {
 
-    const { actions, currentUser } = this.props;
+    const { actions, currentUser} = this.props;
 
     const user = Object.assign({}, currentUser, { phone }, { address });
 
     return actions.updateCurrentUser({ user }, currentUser => {
 
-      const { phone, address } = currentUser;
+      const { phone, address, errors = {} } = currentUser;
+
+      // Problem with verifying address
+      if (errors['address.invalid']) {
+        actions.showErrorAlert({ error: errors['address.invalid'] });
+        return false;
+      }
 
       if (phone && phone.verifying) {
         this.setState({
