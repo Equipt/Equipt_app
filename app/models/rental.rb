@@ -27,6 +27,16 @@ class Rental < ActiveRecord::Base
     OwnerSerializer.new(self.sporting_good.user)
   end
 
+  def is_available?
+    dates_are_vacant? && dates_not_today? && dates_not_in_past?
+  end
+
+  def reindex_sporting_good item = nil
+    self.sporting_good.index!
+  end
+
+  private
+
   # validates methods
 	def dates_are_vacant?
     rentals = self.sporting_good.rentals
@@ -55,10 +65,6 @@ class Rental < ActiveRecord::Base
     false
   end
 
-  def is_available?
-    dates_are_vacant? && dates_not_today? && dates_not_in_past?
-  end
-
   def is_over_limit
     return true if self.user.rentals.where.not(completed: true).count <= RENTALS_LIMIT_PER_USER
     errors.add(:error, I18n.t('rental.max_out_rentals'))
@@ -71,14 +77,10 @@ class Rental < ActiveRecord::Base
 
 	def set_rental_cost
 		sporting_good = SportingGood.find(self.sporting_good_id)
-		self.sub_total = sporting_good.price_per_day * self.total_days
+		self.sub_total = sporting_good.price_per_day * (self.total_days - 1)
 		self.total = self.sub_total
 		self.deposit = sporting_good.deposit
 	end
-
-  def reindex_sporting_good item = nil
-    self.sporting_good.index!
-  end
 
   def wait_to_complete
     CompleteRentalJob.set(wait_until: self.end_date.tomorrow.noon).perform_later(self)
