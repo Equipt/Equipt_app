@@ -8,12 +8,9 @@ const Terms = ({
   return (
     <div>
       <h4>{ terms_title }</h4>
-      <ol>
-      {
-        terms.map((term, index) => {
-          return <li key={ `rental_terms_${ index }` }>{ term }</li>;
-        })
-      }
+      <ol  dangerouslySetInnerHTML={{
+        __html: I18n.t('rentals.terms')
+      }}>
       </ol>
     </div>
   )

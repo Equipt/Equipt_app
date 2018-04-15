@@ -58,6 +58,30 @@ const GlobalStyles = () => (
         }
       }
 
+      input[type=checkbox] {
+        appearance: none;
+      }
+
+      input[type=checkbox] + label {
+        &:before {
+          content: '';
+          display: inline-block;
+          height: 16px;
+          width: 16px;
+          margin-right: 5px;
+          vertical-align: middle;
+          border: solid 2px ${ theme.primaryColor };
+        }
+      }
+
+      input[type=checkbox]:checked + label {
+        &:before {
+          content: '✔';
+          line-height: 1;
+          color: ${ theme.primaryColor };
+          padding-right: 1px;
+        }
+      }
 
     `}</style>
   </div>

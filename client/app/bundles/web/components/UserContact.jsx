@@ -124,11 +124,12 @@ export default class UserContact extends React.Component {
 
   render() {
 
+    const { isVerifingPhoneNumber } = this.state;
     const { currentUser: { phone = {} } } = this.props;
 
     return (
       <section className="user-contact">
-        { phone && phone.verifying ? this.renderVerifyingPhoneForm() : this.renderContactForm() }
+        { isVerifingPhoneNumber ? this.renderVerifyingPhoneForm() : this.renderContactForm() }
       </section>
     )
 
