@@ -51,15 +51,15 @@ class Rental < ActiveRecord::Base
     if weeks_rented > 0
       weeks_price = weeks_rented * self.sporting_good.price_per_week
       weeks_days_price = (weeks_rented * 7) * self.sporting_good.price_per_day
-      return self.discount = weeks_days_price - weeks_price
+      return self.discount = (weeks_days_price - weeks_price).round(2)
     end
     self.discount = 0
   end
 
   def set_rental_cost
     sporting_good = SportingGood.find(self.sporting_good_id)
-    self.sub_total = sporting_good.price_per_day * (self.total_days - 1)
-    self.total = self.sub_total - self.discount
+    self.sub_total = (sporting_good.price_per_day * (self.total_days - 1)).round(2)
+    self.total = (self.sub_total - self.discount).round(2)
   end
 
   private
