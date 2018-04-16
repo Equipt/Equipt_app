@@ -101,7 +101,7 @@ export default formDecorator({
     'address.country': {
       placeholder: 'Canada',
       required: true,
-      defaultValue: ({ currentUser: { address = {} } = {} }) => address.country
+      defaultValue: ({ currentUser: { address = {} } = {} }) => address.country || 'CA'
     }
   }
 })(UsersContactForm);

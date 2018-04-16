@@ -9,7 +9,7 @@ const SelectTag = props => {
   </select>);
 };
 
-SelectTag.propTypes ={
+SelectTag.propTypes = {
   options: PropTypes.object.isRequired
 }
 

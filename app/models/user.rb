@@ -49,9 +49,9 @@ class User < ActiveRecord::Base
   	where(provider: 'facebook', uid: auth['user_id']).first_or_initialize.tap do |user|
 			user.provider           	= 'facebook'
 			user.uid                	= auth['user_id']
-			user.firstname          	= auth['name']
-			user.lastname          		= auth['name']
-    	user.email              	= auth['email']
+			user.firstname          	||= auth['name']
+			user.lastname          		||= auth['name']
+    	user.email              	||= auth['email']
 			user.oauth_token        	= auth['access_token']
 			user.oauth_expires_at   	= Time.at(auth['expires_in'])
     	user.password              ||=  password

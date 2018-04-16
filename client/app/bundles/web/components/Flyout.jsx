@@ -16,10 +16,6 @@ export default class Flyout extends Component {
     })
   }
 
-  shouldComponentUpdate(newProps, newState) {
-    return this.state.currentTab !== newState.currentTab
-  }
-
   render() {
     const { children } = this.props;
 

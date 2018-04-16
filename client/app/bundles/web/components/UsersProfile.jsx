@@ -1,9 +1,9 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 
-import { UserForm } from 'components/UserForm';
-import { Privacy } from 'components/Privacy';
+import UserBasic from 'components/UserBasic';
 import UserContact from 'components/UserContact';
+import { Privacy } from 'components/Privacy';
 import RatingsList from 'components/RatingsList';
 
 import Flyout from 'components/Flyout';
@@ -15,8 +15,8 @@ const UsersProfile = props => {
 	return (
 		<section className="container">
 			<Flyout defaultTab="Basic">
-				<UserForm { ...props } formContent={ content.profile.basic } isUpdating={ true } name="Basic"/>
-				<UserContact name="Contact" { ...props } title={ content.profile.contact.title }/>
+				<UserBasic { ...props } name="Basic"/>
+				<UserContact name="Contact" { ...props }/>
 				<Privacy name="Privacy" { ...props }/>
 				<RatingsList name="Ratings" ratings={ currentUser.ratings }/>
 			</Flyout>

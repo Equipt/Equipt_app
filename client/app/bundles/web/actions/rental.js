@@ -112,7 +112,7 @@ export const cancelRental = (rental, callback) => {
 
     return function(dispatch, getState, { api, history }) {
 
-        api.delete(`/rentals/${ rental.hashId }`)
+        api.delete(`${ rental.owned ? '/owner' : '' }/rentals/${ rental.hashId }`)
         .then(res => {
 						dispatch(sportingGoodActions.detachRental(rental));
             dispatch(alertActions.showSuccessAlert(res));

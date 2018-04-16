@@ -1,4 +1,4 @@
-class SportingGoodsSerializer < ActiveModel::Serializer
+class SportingGoodsSerializer < ApplicationSerializer
 
 	attributes :category,
 						:title,

@@ -41,6 +41,10 @@ en:
     unauthorized: "Sorry, you are unauthorized to see this. Please sign in!"
     invalid_address: "Sorry, we couldn't find the address."
     update_profile: "Please update your address details to rent."
+    form:
+      firstname: 'First Name'
+      lastname: 'Last Name'
+      email: 'Email'
   rentals:
     agree_wth_terms: I agree with the terms of the rental
     dates_are_taken: "Sorry, %{item} is unavailable between these dates"

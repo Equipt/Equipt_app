@@ -1,4 +1,4 @@
-class RatingSerializer < ActiveModel::Serializer
+class RatingSerializer < ApplicationSerializer
 
   include ActionView::Helpers::DateHelper
 

@@ -52,7 +52,9 @@ const formDecorator = ({ fields, multiPart = false }) => {
       submitForm(e) {
         e.preventDefault();
         const { onSubmit } = this.props;
-        onSubmit(multiPart ? this.buildMultiPart() : this.buildJsonData());
+        const formData = multiPart ? this.buildMultiPart() : this.buildJsonData();
+        if (onSubmit) onSubmit(formData);
+        return formData
       }
 
       // This allows to split a form references keys (data.one data.two)
@@ -121,7 +123,9 @@ const formDecorator = ({ fields, multiPart = false }) => {
         return <WrapperFormComponent { ...this.props }
                                      fields={ fieldsObj }
                                      errors={ errors }
+                                     getFormData={ this.getFormData }
                                      form={{ onSubmit: this.submitForm }}
+                                     submitForm={ this.submitForm }
                                      isValid={ Object.keys(errors).length === 0 && errors.constructor === Object }/>;
 
       }

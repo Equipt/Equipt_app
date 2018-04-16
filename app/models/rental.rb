@@ -54,7 +54,9 @@ class Rental < ActiveRecord::Base
   end
 
   def dates_not_today?
-    return true unless self.start_date.today?
+    # Deal with rails being a day off
+    start_date = self.start_date + 1
+    return true unless start_date.today?
     errors.add(:error, I18n.t('rentals.cant_be_today'))
     false
   end

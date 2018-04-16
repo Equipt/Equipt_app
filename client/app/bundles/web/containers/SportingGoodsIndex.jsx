@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import { Link } from 'react-router-dom';
 
 import * as sportingGoodsActions from 'actions/sportingGoods';
+import * as modalActions from 'actions/modal';
 
 import SportingGoodsList from 'components/SportingGoodsList';
 
@@ -37,7 +38,10 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators(sportingGoodsActions, dispatch)}
+	return {actions: bindActionCreators({
+		...sportingGoodsActions,
+		...modalActions
+	}, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(SportingGoodsIndex);

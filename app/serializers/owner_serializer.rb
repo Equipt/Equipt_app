@@ -1,4 +1,4 @@
-class OwnerSerializer < ActiveModel::Serializer
+class OwnerSerializer < ApplicationSerializer
 
   attributes :hash_id,
              :firstname,
@@ -57,7 +57,7 @@ class OwnerSerializer < ActiveModel::Serializer
 
   def profile
     return @object.images.first.url if @object.images.first
-    
+
   end
 
 end

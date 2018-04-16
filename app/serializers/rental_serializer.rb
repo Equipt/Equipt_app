@@ -1,4 +1,4 @@
-class RentalSerializer < ActiveModel::Serializer
+class RentalSerializer < ApplicationSerializer
 
     @@all_day = false
     @@unavailable = 'unavailable'

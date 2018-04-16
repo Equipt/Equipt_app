@@ -31,6 +31,7 @@ export default class Api {
 					// Server error
 					case 500:
 						this.store.dispatch(alertActions.showErrorAlert({ error: I18n.t('errors.server_error')}));
+						return Promise.reject({});
 					break;
 					// Forbidden
 					case 403:
