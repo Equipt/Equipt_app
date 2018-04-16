@@ -13,6 +13,7 @@ class RentalSerializer < ApplicationSerializer
                 :pick_up_time,
                 :total_days,
                 :deposit,
+                :discount,
                 :sub_total,
                 :total,
                 :confirmed,

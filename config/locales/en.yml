@@ -31,6 +31,11 @@ en:
     password_reset: Your password has been reset!
     current_user_not_found: We had a issue finding you, please login again!
   sporting_good:
+    delete:
+      header: 'Are you sure you want to delete %{item}?'
+      sub_header: 'All future rentals of this item will be cancelled!'
+      im_sure: 'Delete this item from my Inventory'
+      dont_delete: "I don't wish to delete this item"
     deleted: ! '%{item} has been removed'
     discount_error: 'Discounted price must be less than %{price}!'
   user:

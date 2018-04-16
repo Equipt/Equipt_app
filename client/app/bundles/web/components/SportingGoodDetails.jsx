@@ -58,48 +58,6 @@ export class SportingGoodDetails extends React.Component {
 			actions.openModal(<Address title={ content.profile.contact.need_contact } { ...this.props }/>);
 		}
 
-
-	}
-
-	totalDays() {
-
-		const { rental } = this.props;
-
-		if (rental.endDate && rental.startDate && rental.endDate.diff) {
-			return rental.endDate.diff(rental.startDate, 'days');
-		}
-
-		return 0;
-
-	}
-
-	subTotal() {
-
-		const { rental, sportingGood } = this.props;
-
-		return this.totalDays() * sportingGood.pricePerDay;
-
-	}
-
-	weeklyRentalDiscount() {
-
-		const { rental, sportingGood } = this.props;
-
-		const totalWeeks = Math.floor(this.totalDays() / 7);
-		const remainingDays = this.totalDays() % 7;
-
-		if (totalWeeks > 0) {
-
-			const priceOfWeeks = totalWeeks * sportingGood.pricePerWeek;
-			const remainingPrice = remainingDays * sportingGood.pricePerDay;
-			const totalSavingsPrice = priceOfWeeks + remainingPrice;
-
-			return Math.round(this.subTotal() - totalSavingsPrice).toFixed(2);
-
-		}
-
-		return 0;
-
 	}
 
 	render() {
@@ -108,11 +66,10 @@ export class SportingGoodDetails extends React.Component {
 		const { agreedToTerms } = this.state;
 		const { images = [], rentals = [], ratings = [], user = {} } = sportingGood;
 
-		const totalDays = this.totalDays();
-		const subTotal = this.subTotal();
-		const weeklyRentalDiscount = this.weeklyRentalDiscount();
-
 		if (loader) return <Loader/>;
+
+		// Conflict with a big-calendar setting
+		delete rental.totalDays;
 
 		return (
 
@@ -170,12 +127,13 @@ export class SportingGoodDetails extends React.Component {
 
 						<div className="price-container">
 
-							{ totalDays > 0 ? <h5>{ totalDays } Rental Days</h5> : null }
+							{ rental.totalDays > 0 ? <h5>{ rentaltotalDays } Rental Days</h5> : null }
 							<h5>${ sportingGood.pricePerDay } per day</h5>
+							<h5>${ sportingGood.pricePerWeek } per week</h5>
 
-							{ /* Added Totals */ }
-							{ weeklyRentalDiscount > 0 ? <h5>${ weeklyRentalDiscount } Discount</h5> : null }
-							{ subTotal > 0 ? <h4>${ subTotal - weeklyRentalDiscount } Total*</h4> : null }
+							{ rental.subTotal > 0 ? <h5>${ rental.subTotal } sub-total</h5> : null }
+							{ rental.discount > 0 ? <h5>${ rental.discount } discount</h5> : null }
+							{ rental.total > 0 ? <h4>${ rental.total } Total*</h4> : null }
 
 							<div className="terms-container" onClick={ () => this.setState({ agreedToTerms: true }) }>
 								<input type="checkbox" checked={ agreedToTerms }/>

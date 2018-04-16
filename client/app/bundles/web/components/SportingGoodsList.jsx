@@ -18,6 +18,7 @@ const SportingGoodsList = ({
 }) => {
 
 	const { results = [], total = 0 } = sportingGoods;
+
 	return (
 		<section className="container sporting-goods-index-wrapper">
 

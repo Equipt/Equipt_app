@@ -12,7 +12,7 @@ class Rental < ActiveRecord::Base
 
   delegate :user, to: :sporting_good, prefix: :owner, :allow_nil => true
 
-  before_save :set_total_days, :set_rental_cost, :is_over_limit
+  before_save :set_total_days, :set_discount, :set_rental_cost, :is_over_limit
   validate :dates_are_vacant?, :has_agreed_to_terms?, :dates_not_today?, :dates_not_in_past?
 
   has_many :ratings, :as => :rateable, dependent: :destroy
@@ -33,6 +33,33 @@ class Rental < ActiveRecord::Base
 
   def reindex_sporting_good item = nil
     self.sporting_good.index!
+  end
+
+  def get_price
+    self.set_total_days
+    self.set_discount
+    self.set_rental_cost
+  end
+
+
+  def set_total_days
+    self.total_days = (self.start_date - self.end_date).to_i.abs + 1
+  end
+
+  def set_discount
+    weeks_rented = (self.total_days - 1) / 7
+    if weeks_rented > 0
+      weeks_price = weeks_rented * self.sporting_good.price_per_week
+      weeks_days_price = (weeks_rented * 7) * self.sporting_good.price_per_day
+      return self.discount = weeks_days_price - weeks_price
+    end
+    self.discount = 0
+  end
+
+  def set_rental_cost
+    sporting_good = SportingGood.find(self.sporting_good_id)
+    self.sub_total = sporting_good.price_per_day * (self.total_days - 1)
+    self.total = self.sub_total - self.discount
   end
 
   private
@@ -72,17 +99,6 @@ class Rental < ActiveRecord::Base
     errors.add(:error, I18n.t('rental.max_out_rentals'))
   end
 	# before create methods
-
-	def set_total_days
-		self.total_days = (self.start_date - self.end_date).to_i.abs + 1
-	end
-
-	def set_rental_cost
-		sporting_good = SportingGood.find(self.sporting_good_id)
-		self.sub_total = sporting_good.price_per_day * (self.total_days - 1)
-		self.total = self.sub_total
-		self.deposit = sporting_good.deposit
-	end
 
   def wait_to_complete
     CompleteRentalJob.set(wait_until: self.end_date.tomorrow.noon).perform_later(self)

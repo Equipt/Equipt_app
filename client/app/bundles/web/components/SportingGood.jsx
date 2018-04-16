@@ -37,15 +37,14 @@ export class SportingGood extends React.Component {
 		const { content, sportingGood, isOwner, actions } = this.props;
 		const { showDeleteModal } = this.state;
 
-		debugger;
-
 		if (isOwner) {
 			return (
 				<div className="sporting-good-controls">
 					<Link to={ `/owner/sporting_goods/${ sportingGood.slug }/edit` }>
 					<i className="fa fa-pencil text-info" aria-hidden="true"></i>
 					</Link>
-					<i onClick={ () => actions.openModal(<DeleteSportingGood/>) } className="fa fa-trash text-danger" aria-hidden="true"></i>
+					<i onClick={ () => actions.openModal(<DeleteSportingGood { ...this.props }/>) }
+						 className="fa fa-trash text-danger" aria-hidden="true"></i>
 				</div>
 			);
 		}

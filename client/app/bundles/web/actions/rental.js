@@ -97,7 +97,11 @@ export const selectRental = (rental, sportingGood, agreedToTerms) => {
 		      title: 'selected',
 		      startDate: rental.start,
 		      endDate: endDate,
-		      agreedToTerms: agreedToTerms
+		      agreedToTerms: agreedToTerms,
+					totalDays: data.totalDays,
+					discount: data.discount,
+					subTotal: data.subTotal,
+					total: data.total
 		    }
 			})
 			clearAlerts();

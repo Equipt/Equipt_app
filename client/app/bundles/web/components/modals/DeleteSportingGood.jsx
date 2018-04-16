@@ -1,17 +1,16 @@
-const DeleteSportingGood = () => (
+import React from 'react';
+
+const DeleteSportingGood = ({ sportingGood, actions }) => (
 
   <section>
-    <h4>{ content.delete.title }</h4>
-    <p className="text-danger">{ content.delete.warning }</p>
-    <button onClick={ actions.deleteSportingGood.bind(this, sportingGood.slug, () => {
-      this.showModal.bind(this, 'showDeleteModal', false)
-    }) }
-    className="btn btn-danger">
-    { content.delete.im_sure }
+    <h4>{ I18n.t('sporting_good.delete.header', {item: sportingGood.title}) }</h4>
+    <p className="text-danger">{ I18n.t('sporting_good.delete.sub_header') }</p>
+    <button onClick={ () => actions.deleteSportingGood(sportingGood.slug, () => actions.closeModal()) } className="btn btn-danger">
+      { I18n.t('sporting_good.delete.im_sure') }
     </button>
-    <button className="btn btn-info"
-    onClick={ this.showModal.bind(this, 'showDeleteModal', false) }>
-    { content.delete.dont_delete }
+    <br/>
+    <button className="btn btn-info" onClick={ actions.closeModal }>
+      { I18n.t('sporting_good.delete.dont_delete') }
     </button>
   </section>
 

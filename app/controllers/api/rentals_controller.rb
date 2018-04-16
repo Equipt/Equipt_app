@@ -35,7 +35,7 @@ class Api::RentalsController < ApiController
 
     def check_availability
       rental = SportingGood.find_by_slug(params[:slug]).rentals.new(rental_params)
-      if rental.is_available?
+      if rental.is_available? && rental.get_price
         render json: rental, status: 200
       else
         render json: rental, status: 400
