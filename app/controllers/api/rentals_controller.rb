@@ -11,6 +11,7 @@ class Api::RentalsController < ApiController
       if rental.save
         render json: rental, status: 200
       else
+        binding.remote_pry
         render json: rental, status: 400
       end
     end
@@ -36,9 +37,9 @@ class Api::RentalsController < ApiController
     def check_availability
       rental = SportingGood.find_by_slug(params[:slug]).rentals.new(rental_params)
       if rental.is_available? && rental.get_price
-        render json: rental, status: 200
+        render json: rental, serializer: SimpleRentalSerializer, status: 200
       else
-        render json: rental, status: 400
+        render json: rental, serializer: SimpleRentalSerializer, status: 400
       end
     end
 

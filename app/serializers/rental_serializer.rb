@@ -37,31 +37,19 @@ class RentalSerializer < ApplicationSerializer
     end
 
     def status
-      if current_user.rentals.find_by_id(@object.id) && current_user.owned_rentals.find_by_id(@object.id)
-        @@using
-      elsif current_user.rentals.find_by_id(@object.id)
-        @@renting
-      elsif current_user.owned_rentals.find_by_id(@object.id)
-        @@owned
-      else
-        @@unavailable
-      end
+      @object.status current_user
     end
 
     def title
-      if status == @@using
-        "Your using #{ @object.sporting_good.title.capitalize } at this time"
-      elsif status  == @@renting
-        "Your renting #{ @object.sporting_good.title.capitalize } from #{ @object.sporting_good.user.firstname.capitalize }"
-      elsif status == @@owned
-        "#{ @object.user.firstname.capitalize } is renting #{ @object.sporting_good.title.capitalize } from you"
-      else
-        @@unavailable
-      end
+      @object.title current_user
     end
 
     def is_complete
       @object.end_date.past? || @object.end_date.today?
+    end
+
+    def total_days
+      @object.total_days - 1
     end
 
     def destroyed_message

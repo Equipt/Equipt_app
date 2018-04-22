@@ -1,5 +1,9 @@
 class Rental < ActiveRecord::Base
 
+  UNAVAILABLE = 'unavailable'
+  USING = 'using'
+  RENTING = 'renting'
+  OWNED = 'owned'
   RENTALS_LIMIT_PER_USER = 5
 
   acts_as_paranoid
@@ -62,6 +66,31 @@ class Rental < ActiveRecord::Base
     self.total = (self.sub_total - self.discount).round(2)
   end
 
+  def status user
+    if user.rentals.find_by_id(id) && user.owned_rentals.find_by_id(id)
+      USING
+    elsif user.rentals.find_by_id(id)
+      RENTING
+    elsif user.owned_rentals.find_by_id(id)
+      OWNED
+    else
+      UNAVAILABLE
+    end
+  end
+
+  def title user
+    status = status(user)
+    if status == USING
+      "Your using #{ sporting_good.title.capitalize } at this time"
+    elsif status == RENTING
+      "Your renting #{ sporting_good.title.capitalize } from #{ sporting_good.user.firstname.capitalize }"
+    elsif status == OWNED
+      "#{ user.firstname.capitalize } is renting #{ sporting_good.title.capitalize } from you"
+    else
+      UNAVAILABLE
+    end
+  end
+
   private
 
   # validates methods
@@ -97,6 +126,7 @@ class Rental < ActiveRecord::Base
   def is_over_limit
     return true if self.user.rentals.where.not(completed: true).count <= RENTALS_LIMIT_PER_USER
     errors.add(:error, I18n.t('rental.max_out_rentals'))
+    false
   end
 	# before create methods
 

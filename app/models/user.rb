@@ -97,4 +97,8 @@ class User < ActiveRecord::Base
 		end
 	end
 
+	def overall_rating
+		ratings.pluck(:rating).inject(&:+).to_f / ratings.size
+	end
+
 end

@@ -31,13 +31,15 @@ en:
     password_reset: Your password has been reset!
     current_user_not_found: We had a issue finding you, please login again!
   sporting_good:
+    user:
+      update_address: You just need to add some basic info to add items.
     delete:
       header: 'Are you sure you want to delete %{item}?'
       sub_header: 'All future rentals of this item will be cancelled!'
       im_sure: 'Delete this item from my Inventory'
       dont_delete: "I don't wish to delete this item"
     deleted: ! '%{item} has been removed'
-    discount_error: 'Discounted price must be less than %{price}!'
+    discount_error: 'Weekly price must be greater than %{price}!'
   user:
     deleted: 'Sorry you decided to cancel you account %{name}'
     phone_verification: '"Hey, Equipt here. Your PIN is %{pin}!"'
@@ -46,6 +48,7 @@ en:
     unauthorized: "Sorry, you are unauthorized to see this. Please sign in!"
     invalid_address: "Sorry, we couldn't find the address."
     update_profile: "Please update your address details to rent."
+    add_a_profile_image: "Add a profile picture here."
     form:
       firstname: 'First Name'
       lastname: 'Last Name'
@@ -57,14 +60,17 @@ en:
     terms_not_agreed_to: "Terms must be agree too"
     cancel_success: "Rental has been cancelled"
     cancel_error: "Issue cancelling rental, please try again later"
-    cant_be_today: "Pickup date cant be today"
-    confirmed_details: Pay on pickup from %{name}
+    cant_be_today: Pickup date can't be today
+    success: Congrats, your renting the %{item}!
+    confirmed: Make sure to arrange a pickup time with %{user} and pay on pickup
     max_out_rentals: Sorry, at this time you can only have 5 rentals active at a time
     read_rental_terms: Click to read rental terms and conditions
     terms:
       <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</li>
       <li>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
       <li>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical</li>
+    owner:
+      confirmed: Congrats, %{user} has rented %{sporting_good}
   ratings:
     contribution: "Thankyou for your feedback"
     error: "There was a issue processing your rating"

@@ -3,31 +3,32 @@ import PropTypes from 'prop-types';
 import formDecorator from 'hocs/formDecorator';
 import ErrorsList from './ErrorsList';
 
-const UserBasic = ({ fields: { firstname, lastname, email }, form, errors }) => (
+const UserBasic = ({ fields: { firstname, lastname, email }, form, errors, children }) => (
   <form { ...form }>
-    <fieldset className="col-xs-12">
-      <label>{ I18n.t('user.form.firstname') }</label>
-      <input className="form-control" { ...firstname }/>
-      <ErrorsList errors={ errors['firstname'] }/>
-    </fieldset>
-    <fieldset className="col-xs-12">
-      <label>{ I18n.t('user.form.lastname') }</label>
-      <input className="form-control" { ...lastname }/>
-      <ErrorsList errors={ errors['lastname'] }/>
-    </fieldset>
-    <fieldset className="col-xs-12">
-      <label>{ I18n.t('user.form.email') }</label>
-      <input className="form-control" { ...email }/>
-      <ErrorsList errors={ errors['email'] }/>
-    </fieldset>
-    <fieldset className="col-xs-12">
-      <input type="submit" value="Update Basic Info" className="btn btn-success clearfix"/>
-    </fieldset>
+    <div className="col-xs-12">
+      <fieldset className="col-xs-12">
+        <label>{ I18n.t('user.form.firstname') }</label>
+        <input className="form-control" { ...firstname }/>
+        <ErrorsList errors={ errors['firstname'] }/>
+      </fieldset>
+      <fieldset className="col-xs-12">
+        <label>{ I18n.t('user.form.lastname') }</label>
+        <input className="form-control" { ...lastname }/>
+        <ErrorsList errors={ errors['lastname'] }/>
+      </fieldset>
+      <fieldset className="col-xs-12">
+        <label>{ I18n.t('user.form.email') }</label>
+        <input className="form-control" { ...email }/>
+        <ErrorsList errors={ errors['email'] }/>
+      </fieldset>
+      <fieldset className="col-xs-12">
+        <input type="submit" value="Update Basic Info" className="btn btn-success clearfix"/>
+      </fieldset>
+    </div>
   </form>
 );
 
 export default formDecorator({
-  // multiPart: true,
   fields: {
     'firstname': {
       placeholder: 'John',

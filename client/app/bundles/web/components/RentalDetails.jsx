@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import Moment from 'moment';
 
 import Slider from 'react-slick';
-import Map from 'components/Map.jsx';
+import Map from 'components/Map.jsx'
 
 import { RatingForm } from 'components/RatingForm';
+import StarRatings from 'react-star-rating-component';
 
 const RentalDetails = ({
   rental,
@@ -32,13 +33,22 @@ const RentalDetails = ({
 
         <h4 className="header">Pickup Location</h4>
 
-        <div className="col-xs-6 no-padding">
+        <div className="col-xs-3">
+          {
+            owner.profile ?
+            <img src={ owner.profile } className="profile-image"/> :
+            <i className="fa fa-user-o" aria-hidden="true"/>
+          }
+          <StarRatings value={ sportingGood.overallRating } editing={ false } name="rental" className="ratings"/>
+        </div>
+
+        <div className="col-xs-4 no-padding">
           <h5 className="capitalize">{ owner.firstname } { owner.lastname }</h5>
           <a href="email:{owner.email}"><h5>{ owner.email }</h5></a>
           <a href="phone:{owner.email}"><h5>{ owner.phone }</h5></a>
         </div>
 
-        <div className="col-xs-6 no-padding">
+        <div className="col-xs-4 no-padding">
           <h5 className="capitalize">{ owner.unit ? `${ owner.unit } - ` : '' }{ owner.street_number } { owner.street }</h5>
           <h5 className="capitalize">{ owner.city }, { owner.state }</h5>
           <h5 className="capitalize">{ owner.country }, { owner.zip }</h5>
@@ -48,6 +58,20 @@ const RentalDetails = ({
 
         <Map { ...owner.coordinates }/>
 
+
+        <style jsx>{`
+          .profile-image {
+            display: block;
+            margin: 0 auto;
+            margin-top: 10px;
+          }
+          i {
+            display: block;
+            font-size: 40px;
+            text-align: center;
+            margin-top: 10px;
+          }
+        `}</style>
       </div>
     )
   }
@@ -59,9 +83,30 @@ const RentalDetails = ({
     return (
       <div>
         <h4 className="header">Renters Details</h4>
-        <h5 className="capitalize">{ user.firstname } { user.lastname }</h5>
-        <a href="email:{user.email}"><h5>{ user.email }</h5></a>
-        <a href="phone:{user.email}"><h5>{ user.phone }</h5></a>
+        <div className="col-xs-3">
+          {
+            user.profile ?
+            <img src={ user.profile } className="profile-image"/> :
+            <i className="fa fa-user-o" aria-hidden="true"/>
+          }
+          <StarRatings value={ user.overallRating } editing={ false } name="user" className="ratings"/>
+        </div>
+        <div className="col-xs-8">
+          <h5 className="capitalize">{ user.firstname } { user.lastname }</h5>
+          <a href="email:{user.email}"><h5>{ user.email }</h5></a>
+          <a href="phone:{user.email}"><h5>{ user.phone }</h5></a>
+        </div>
+        <style jsx>{`
+          i {
+            display: block;
+            font-size: 40px;
+            text-align: center;
+            margin-top: 10px;
+          }
+          img {
+            margin-top: 10px;
+          }
+        `}</style>
       </div>
     )
 
@@ -85,8 +130,13 @@ const RentalDetails = ({
 
             <h4 className="header">Price</h4>
 
-            <h5>${ sportingGood.pricePerDay } Price Per Day</h5>
-            <h4>${ rental.total } Total</h4>
+            <h5>${ sportingGood.pricePerDay } per day</h5>
+            <h5>${ sportingGood.pricePerWeek } per week</h5>
+
+            { rental.subTotal > 0 ? <h5>${ rental.subTotal } sub total</h5> : null }
+            { rental.discount > 0 ? <h5>${ rental.discount } discount</h5> : null }
+
+            <h4>${ rental.total } Total Price</h4>
 
             <hr/>
 
@@ -119,6 +169,12 @@ const RentalDetails = ({
           </div>
 
       </div>
+
+      <style jsx global>{`
+        .ratings {
+          margin: 15px 19px;
+        }
+      `}</style>
 
     </div>)
 

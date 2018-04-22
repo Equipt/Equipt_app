@@ -34,11 +34,9 @@ export class SportingGoodDetails extends React.Component {
 
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			agreedToTerms: false
 		}
-
 	}
 
 	rent() {
@@ -69,6 +67,7 @@ export class SportingGoodDetails extends React.Component {
 		if (loader) return <Loader/>;
 
 		// Conflict with a big-calendar setting
+		const totalDays = rental.totalDays;
 		delete rental.totalDays;
 
 		return (
@@ -131,7 +130,8 @@ export class SportingGoodDetails extends React.Component {
 							<h5>${ sportingGood.pricePerDay } per day</h5>
 							<h5>${ sportingGood.pricePerWeek } per week</h5>
 
-							{ rental.subTotal > 0 ? <h5>${ rental.subTotal } sub-total</h5> : null }
+							{ totalDays > 0 ? <h5>{ totalDays } days</h5> : null }
+							{ rental.subTotal > 0 ? <h5>${ rental.subTotal } sub total</h5> : null }
 							{ rental.discount > 0 ? <h5>${ rental.discount } discount</h5> : null }
 							{ rental.total > 0 ? <h4>${ rental.total } Total*</h4> : null }
 

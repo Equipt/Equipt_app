@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import * as sportingGoodActions from 'actions/sportingGood';
 import * as alertActions from 'actions/alerts';
 import * as sessionActions from 'actions/session';
+import * as modalActions from 'actions/modal';
 
 import { SportingGoodsForm } from 'components/SportingGoodsForm';
 
@@ -41,7 +42,12 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators({ ...sportingGoodActions, ...alertActions, ...sessionActions}, dispatch)}
+	return {actions: bindActionCreators({
+		...sportingGoodActions,
+		...alertActions,
+		...sessionActions,
+		...modalActions
+	}, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(SportingGoodsNew);

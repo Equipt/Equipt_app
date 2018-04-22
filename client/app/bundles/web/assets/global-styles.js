@@ -83,6 +83,11 @@ const GlobalStyles = () => (
         }
       }
 
+      .profile-image {
+        border-radius: 100%;
+        vertical: middle;
+      }
+
     `}</style>
   </div>
 );
