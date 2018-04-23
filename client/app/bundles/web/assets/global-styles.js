@@ -88,6 +88,53 @@ const GlobalStyles = () => (
         vertical: middle;
       }
 
+      nav {
+        height: 72px;
+        background: rgb(73, 146, 82);
+        padding: 5px 25px 5px 0;
+        z-index: 5;
+        border-radius: 0;
+
+        .signup {
+          margin-left: 5px;
+        }
+
+        &.fixed {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+        }
+
+        .profile-image {
+          max-width: 50px;
+          border-radius: 100%;
+          margin-top: -4px;
+        }
+
+        .session-container {
+          float: right;
+          width: 150px;
+          padding: 10px 0;
+          .profile-container,
+          .logout-container {
+            display: inline-block;
+            width: 50%;
+            vertical-align: top;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            p {
+              margin: 2px 0 0;
+            }
+            i {
+              font-size: 20px;
+            }
+          }
+        }
+
+      }
+
     `}</style>
   </div>
 );

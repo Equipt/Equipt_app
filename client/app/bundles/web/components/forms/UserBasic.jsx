@@ -4,8 +4,8 @@ import formDecorator from 'hocs/formDecorator';
 import ErrorsList from './ErrorsList';
 
 const UserBasic = ({ fields: { firstname, lastname, email }, form, errors, children }) => (
-  <form { ...form }>
-    <div className="col-xs-12">
+  <div className="row">
+    <form { ...form }>
       <fieldset className="col-xs-12">
         <label>{ I18n.t('user.form.firstname') }</label>
         <input className="form-control" { ...firstname }/>
@@ -24,8 +24,8 @@ const UserBasic = ({ fields: { firstname, lastname, email }, form, errors, child
       <fieldset className="col-xs-12">
         <input type="submit" value="Update Basic Info" className="btn btn-success clearfix"/>
       </fieldset>
-    </div>
-  </form>
+    </form>
+  </div>
 );
 
 export default formDecorator({

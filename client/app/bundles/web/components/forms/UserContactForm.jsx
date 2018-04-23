@@ -7,31 +7,32 @@ import SelectTag from './SelectTag';
 const UsersContactForm = ({ fields: { address, phone }, form, errors, isValid, currentUser }) => (
   <div className="row">
     <form { ...form }>
-      <fieldset className="col-xs-12">
+      <fieldset className="col-md-12">
         <label>Phone Number</label>
         <input className="form-control" { ...phone.number }/>
         <ErrorsList errors={ errors['phone.number'] }/>
       </fieldset>
-      <fieldset className="col-xs-1">
+      <fieldset className="col-md-1">
         <label>Unit</label>
         <input className="form-control" { ...address.unit }/>
+        <br/>
       </fieldset>
-      <fieldset className="col-xs-2">
+      <fieldset className="col-md-2">
         <label>Street Number</label>
         <input className="form-control" { ...address.number }/>
         <ErrorsList errors={ currentUser.errors ? currentUser.errors['address.number']: errors['address.number'] }/>
       </fieldset>
-      <fieldset className="col-xs-9">
+      <fieldset className="col-md-9">
         <label>Street Name</label>
         <input className="form-control" { ...address.street }/>
         <ErrorsList errors={ currentUser.errors ? currentUser.errors['address.street']: errors['address.street'] }/>
       </fieldset>
-      <fieldset className="col-xs-6">
+      <fieldset className="col-md-6">
         <label>City</label>
         <input className="form-control" { ...address.city }/>
         <ErrorsList errors={ currentUser.errors ? currentUser.errors['address.city']: errors['address.city'] }/>
       </fieldset>
-      <fieldset className="col-xs-6">
+      <fieldset className="col-md-6">
         <label>State</label>
         {
           address.country.value === 'CA' || !address.country.value ?
@@ -43,17 +44,17 @@ const UsersContactForm = ({ fields: { address, phone }, form, errors, isValid, c
         }
         <ErrorsList errors={ currentUser.errors ? currentUser.errors['address.state']: errors['address.state'] }/>
       </fieldset>
-      <fieldset className="col-xs-6">
+      <fieldset className="col-md-6">
         <label>Zip / Postal Code</label>
         <input className="form-control" { ...address.zip }/>
         <ErrorsList errors={ currentUser.errors ? currentUser.errors['address.zip']: errors['address.zip'] }/>
       </fieldset>
-      <fieldset className="col-xs-6">
+      <fieldset className="col-md-6">
         <label>Country</label>
         <SelectTag { ...address.country } className="form-control" options={ I18n.t('countries') }/>
         <ErrorsList errors={ currentUser.errors ? currentUser.errors['address.country']: errors['address.country'] }/>
       </fieldset>
-      <fieldset className="col-xs-12">
+      <fieldset className="col-md-12">
         <input type="submit" value="Update Contact Info" className="btn btn-success clearfix"/>
       </fieldset>
     </form>

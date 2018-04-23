@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { Link } from 'react-router-dom';
+
+import theme from 'assets/theme.js';
 
 const Footer = ({
   content
@@ -30,12 +31,15 @@ const Footer = ({
         footer {
           min-height: 100px;
           margin: 0 -50px;
-          background: #8FC485;
+          background: ${ theme.primaryColor };
           padding: 50px 50px;
         }
         .main-logo {
           width: 100px;
           height: 100px;
+        }
+        h4, p {
+          color: #fff;
         }
       `}</style>
     </footer>

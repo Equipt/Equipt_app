@@ -16,26 +16,30 @@ export default class Flyout extends Component {
     })
   }
 
+  getLiClassName(childName) {
+    const { currentTab } = this.state;
+    return `list-item col-xs-2 col-md-12 ${ currentTab === childName ? 'active' : '' }`;
+  }
+
   render() {
     const { children } = this.props;
 
     return (
       <div className="flyout-container container">
         <div className="row">
-          <ul className="col-xs-2">
+          <ul className="col-xs-12 col-md-2 list-items">
           {
             React.Children.map(children, child => {
               const { name } = child.props;
-              const { currentTab } = this.state;
               return (
-                  <li onClick={ () => this.change(name) } className={ `list-item ${ currentTab === name ? 'active' : '' }` }>
+                  <li onClick={ () => this.change(name) } className={ this.getLiClassName(name) }>
                   { name }
                 </li>
               );
             })
           }
           </ul>
-          <div className="col-xs-10">
+          <div className="col-xs-12 col-md-10">
           {
             React.Children.map(children, child => {
               const { currentTab } = this.state;

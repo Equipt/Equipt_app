@@ -80,6 +80,14 @@ en:
     report_a_bug_desc: 'Thanks for making Equipt AWESOME!!'
   about: '<p>Equipt is a platform for renting out sporting equiptment</p>
   <p>From Vancouver B.C.</p>'
+  nav:
+    login: 'Login'
+    signup: 'Signup'
+    logout: 'Logout'
+    all_goods: 'Rent Sporting Goods'
+    add_good: 'Add A Sporting Good'
+    your_goods: 'Your Goods'
+    schedule: 'Calendar'
 
 
 
@@ -92,7 +100,7 @@ en:
       all_goods: 'Rent Sporting Goods'
       add_good: 'Add A Sporting Good'
       your_goods: 'Your Goods'
-      calendar: 'Calendar'
+      schedule: 'Calendar'
     footer:
       about:
         title: About
