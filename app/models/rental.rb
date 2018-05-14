@@ -4,7 +4,7 @@ class Rental < ActiveRecord::Base
   USING = 'using'
   RENTING = 'renting'
   OWNED = 'owned'
-  RENTALS_LIMIT_PER_USER = 5
+  DAYS_LIMIT = 14
 
   acts_as_paranoid
 
@@ -16,8 +16,8 @@ class Rental < ActiveRecord::Base
 
   delegate :user, to: :sporting_good, prefix: :owner, :allow_nil => true
 
-  before_save :set_total_days, :set_discount, :set_rental_cost, :is_over_limit
-  validate :dates_are_vacant?, :has_agreed_to_terms?, :dates_not_today?, :dates_not_in_past?
+  before_save :set_total_days, :set_discount, :set_rental_cost
+  validate :dates_are_vacant?, :has_agreed_to_terms?, :dates_not_today?, :dates_not_in_past?, :not_past_days_limit?
 
   has_many :ratings, :as => :rateable, dependent: :destroy
 
@@ -44,7 +44,6 @@ class Rental < ActiveRecord::Base
     self.set_discount
     self.set_rental_cost
   end
-
 
   def set_total_days
     self.total_days = (self.start_date - self.end_date).to_i.abs + 1
@@ -123,12 +122,11 @@ class Rental < ActiveRecord::Base
     false
   end
 
-  def is_over_limit
-    return true if self.user.rentals.where.not(completed: true).count <= RENTALS_LIMIT_PER_USER
-    errors.add(:error, I18n.t('rental.max_out_rentals'))
+  def not_past_days_limit?
+    return true if (end_date.to_date - start_date.to_date).to_i <= DAYS_LIMIT
+    errors.add(:error, I18n.t('rentals.exceeds_days_limit', { days: DAYS_LIMIT }))
     false
   end
-	# before create methods
 
   def wait_to_complete
     CompleteRentalJob.set(wait_until: self.end_date.tomorrow.noon).perform_later(self)

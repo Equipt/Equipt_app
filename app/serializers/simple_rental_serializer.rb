@@ -15,7 +15,7 @@ class SimpleRentalSerializer < ApplicationSerializer
   end
 
   def total_days
-    @object.total_days - 1
+    @object.total_days - 1 if @object.total_days 
   end
-  
+
 end

@@ -1,5 +1,7 @@
 class Phone < ApplicationRecord
 
+  attr_accessor :old_number
+
   has_one :user, dependent: :destroy
 
   before_save :send_verification_pin, :if => :new_record?
@@ -12,7 +14,6 @@ class Phone < ApplicationRecord
     self.pin = twillio.generate_pin
     self.verifying = true
     self.verified = false
-    print "PIN: #{ self.pin }"
     twillio.send_pin( self.number, self.pin )
   end
 
