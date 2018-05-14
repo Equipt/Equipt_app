@@ -1,4 +1,4 @@
-class SportingGoodSerializer < ActiveModel::Serializer
+class SportingGoodSerializer < ApplicationSerializer
 
 	attributes :category,
 						:title,
@@ -18,7 +18,7 @@ class SportingGoodSerializer < ActiveModel::Serializer
 
 	has_many :rentals
 	has_many :ratings, serializer: RatingSerializer
-	belongs_to :user, serializer: OwnerSerializer
+	belongs_to :user, serializer: SimpleOwnerSerializer
 
 	def include_rentals?
 		@options[:exclude_rentals]

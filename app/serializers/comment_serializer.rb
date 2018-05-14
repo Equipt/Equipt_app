@@ -1,4 +1,4 @@
-class CommentSerializer < ActiveModel::Serializer
+class CommentSerializer < ApplicationSerializer
 
   attributes :comment,
              :created_at

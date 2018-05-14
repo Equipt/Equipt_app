@@ -1,4 +1,4 @@
-class UserSerializer < ActiveModel::Serializer
+class UserSerializer < ApplicationSerializer
 
 	attributes :id,
 			:firstname,
@@ -7,7 +7,6 @@ class UserSerializer < ActiveModel::Serializer
 			:username,
 			:created_at,
 			:updated_at,
-			:notice,
       :api_key,
       :errors,
 			:rentals,
@@ -16,16 +15,26 @@ class UserSerializer < ActiveModel::Serializer
 			:isVerified,
 			:coordinates,
 			:profile,
-			:ratings
+			:ratings,
+			:phone,
+			:address,
+			:notice
 
-	has_one :phone
-	has_one :address
 	has_many :rentals
 
+	def phone
+		@object.phone || {}
+	end
+
+	def address
+		@object.address || {}
+	end
+
   def notice
-		{ info: "Welcome, #{ @object.firstname.capitalize }" } if @instance_options[:create_notice]
-    { info: "Welcome back, #{ @object.firstname.capitalize }"} if @instance_options[:session_notice]
-		{ info: "You successfully updated your profile"} if @instance_options[:update_notice]
+		return { info: "Welcome, #{ @object.firstname.capitalize }" } if @instance_options[:create_notice]
+    return { info: "Welcome back, #{ @object.firstname.capitalize }"} if @instance_options[:session_notice]
+		return { info: "You successfully updated your profile"} if @instance_options[:update_notice]
+		return { info: "#{ @object.phone.number } has been verified" } if @instance_options[:verify_notice]
   end
 
   def api_key

@@ -49,6 +49,7 @@ class Api::UserController < ApiController
 			:notify_by_email,
 			phone_attributes: [
 				:number,
+				:old_number,
 				:_destroy
 			],
 			address_attributes: [

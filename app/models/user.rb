@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
 	has_one :address, :dependent => :destroy
 	has_one :phone, :dependent => :destroy
 
-	accepts_nested_attributes_for :address
-	accepts_nested_attributes_for :phone
+	accepts_nested_attributes_for :address, allow_destroy: true
+	accepts_nested_attributes_for :phone, allow_destroy: true
 
 	validates_confirmation_of :password, if: :should_validate_password?
 	validates :password, :length=>{ :minimum => 6 }, if: :should_validate_password?
@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
 	validates_uniqueness_of :email
 
 	after_create :session_api_key
+	after_update :session_api_key
 
 	def generate_token(column)
   		begin
@@ -47,22 +48,23 @@ class User < ActiveRecord::Base
 		password = SecureRandom.hex(9)
 
   	where(provider: 'facebook', uid: auth['user_id']).first_or_initialize.tap do |user|
-			user.provider           	= 'facebook'
-			user.uid                	= auth['user_id']
-			user.firstname          	= auth['name']
-			user.lastname          		= auth['name']
-    	user.email              	= auth['email']
-			user.oauth_token        	= auth['access_token']
-			user.oauth_expires_at   	= Time.at(auth['expires_in'])
-    	user.password              ||=  password
+
+			user.provider = 'facebook'
+			user.uid = auth['user_id']
+			user.firstname ||= auth['name']
+			user.lastname ||= auth['name']
+    	user.email ||= auth['email']
+			user.oauth_token = auth['access_token']
+			user.oauth_expires_at = Time.at(auth['expires_in'])
+    	user.password ||=  password
     	user.password_confirmation ||=  password
   		user.save!
 
 			url = auth['picture']['data']['url']
 
 			user.images.first_or_initialize(url: url) do |image|
-				image.url = url
-				image.primary = true
+				image.url ||= url
+				image.primary ||= true
 				image.save!
 			end
 
@@ -95,6 +97,10 @@ class User < ActiveRecord::Base
 				lng: self.address.longitude
 			}
 		end
+	end
+
+	def overall_rating
+		ratings.pluck(:rating).inject(&:+).to_f / ratings.size
 	end
 
 end

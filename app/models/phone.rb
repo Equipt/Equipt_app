@@ -1,5 +1,7 @@
 class Phone < ApplicationRecord
 
+  attr_accessor :old_number
+
   has_one :user, dependent: :destroy
 
   before_save :send_verification_pin, :if => :new_record?

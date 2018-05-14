@@ -55,9 +55,8 @@ class SportingGood < ActiveRecord::Base
 	end
 
 	def is_weekly_price_a_discount?
-		full_weekly_cost = self.price_per_day.to_i * DAYS_IN_WEEK
-		if (self.price_per_week && ( self.price_per_week.to_i > full_weekly_cost))
-			errors.add(:price_per_week, I18n.t('sporting_good.discount_error', price: full_weekly_cost))
+		if (self.price_per_week <= self.price_per_day)
+			errors.add(:price_per_week, I18n.t('sporting_good.discount_error', price: self.price_per_day))
 		end
 	end
 

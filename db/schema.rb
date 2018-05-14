@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180204010417) do
+ActiveRecord::Schema.define(version: 20180416024232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20180204010417) do
     t.datetime "deleted_at"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.float    "discount",         default: 0.0
     t.index ["deleted_at"], name: "index_rentals_on_deleted_at", using: :btree
     t.index ["hash_id"], name: "index_rentals_on_hash_id", using: :btree
     t.index ["sporting_good_id"], name: "index_rentals_on_sporting_good_id", using: :btree

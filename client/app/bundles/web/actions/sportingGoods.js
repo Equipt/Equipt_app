@@ -109,6 +109,7 @@ export const deleteSportingGood = (slug, callback) => {
 		.then(res => {
 			dispatch(fetchOwnersSportingGoods());
 			dispatch(alertActions.showSuccessAlert(res));
+			if (callback) callback();
 		})
 		.catch(err => dispatch(alertActions.showErrorAlert(err)));
 

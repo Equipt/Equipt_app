@@ -1,4 +1,4 @@
-class OwnerSerializer < ActiveModel::Serializer
+class OwnerSerializer < ApplicationSerializer
 
   attributes :hash_id,
              :firstname,
@@ -13,7 +13,8 @@ class OwnerSerializer < ActiveModel::Serializer
              :zip,
              :coordinates,
              :phone,
-             :profile
+             :profile,
+             :overall_rating
 
   def unit
     @object.address.unit if @object.address
@@ -56,8 +57,11 @@ class OwnerSerializer < ActiveModel::Serializer
   end
 
   def profile
-    return @object.images.first.url if @object.images.first
-    
+    @object.images.first.url if @object.images.first
+  end
+
+  def overall_rating
+    @object.overall_rating
   end
 
 end

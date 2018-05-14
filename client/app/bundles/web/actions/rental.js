@@ -97,7 +97,11 @@ export const selectRental = (rental, sportingGood, agreedToTerms) => {
 		      title: 'selected',
 		      startDate: rental.start,
 		      endDate: endDate,
-		      agreedToTerms: agreedToTerms
+		      agreedToTerms: agreedToTerms,
+					totalDays: data.totalDays,
+					discount: data.discount,
+					subTotal: data.subTotal,
+					total: data.total
 		    }
 			})
 			clearAlerts();
@@ -112,7 +116,7 @@ export const cancelRental = (rental, callback) => {
 
     return function(dispatch, getState, { api, history }) {
 
-        api.delete(`/rentals/${ rental.hashId }`)
+        api.delete(`${ rental.owned ? '/owner' : '' }/rentals/${ rental.hashId }`)
         .then(res => {
 						dispatch(sportingGoodActions.detachRental(rental));
             dispatch(alertActions.showSuccessAlert(res));

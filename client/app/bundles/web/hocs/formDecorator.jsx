@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const formDecorator = ({ fields }) => {
-
-  const valiationObj = {};
+const formDecorator = ({ fields, multiPart = false }) => {
 
   // Render WrapperFormComponent
   return WrapperFormComponent => {
@@ -13,38 +11,100 @@ const formDecorator = ({ fields }) => {
       constructor(props) {
         super(props);
         this.state = {
-          errors: {},
+          errors: [],
           fieldsObj: {}
         };
         this.onChange = this.onChange.bind(this);
         this.onBlur = this.onBlur.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.submitForm = this.submitForm.bind(this);
-        this.buildFieldObj = this.buildFieldObj.bind(this);
+        this.buildFieldsObj = this.buildFieldsObj.bind(this);
       }
 
       componentWillMount() {
         this.setState({
-          fieldsObj: this.buildFieldObj()
+          fieldsObj: this.buildFieldsObj(this.props)
+        });
+      }
+
+      componentWillReceiveProps(newProps) {
+        this.setState({
+          fieldsObj: this.buildFieldsObj(newProps)
         });
       }
 
       onChange(name, value) {
         const { fieldsObj } = this.state;
-        fieldsObj[name]['value'] = value;
+        this.get(name)['value'] = value;
         this.setState({ fieldsObj });
       }
 
       onBlur(name, value) {
+        this.validateField(name, value);
+      }
 
-        const { errors, fieldsObj } = this.state;
+      onFocus(name, value) {
+        const { errors } = this.state;
+        delete errors[name];
+        this.setState(errors);
+      }
 
+      submitForm(e) {
+        e.preventDefault();
+        const { onSubmit } = this.props;
+        const formData = multiPart ? this.buildMultiPart() : this.buildJsonData();
+        if (onSubmit) onSubmit(formData);
+        return formData
+      }
+
+      // This allows to split a form references keys (data.one data.two)
+      get(key) {
+        const { fieldsObj } = this.state;
+        return key.split('.').reduce((fieldsObj, i) => {
+          return fieldsObj[i] = fieldsObj[i] || {};
+        }, fieldsObj);
+      }
+
+      // Build as multi-part
+      buildMultiPart() {
+        const formData = new FormData();
+        for (let key in fields) {
+          formData.append(key, this.get(key)['value'] || '');
+        }
+        return formData;
+      }
+
+      // Build Json data
+      buildJsonData() {
+
+        const formData = {};
+
+        for (let key in fields) {
+          const { name, value } = this.get(key);
+          const nestedKeys = name.split('.');
+          nestedKeys.reduce((data, i) => {
+            if (nestedKeys[nestedKeys.length-1] === i) {
+              return data[i] = value;
+            } else {
+              return data[i] = data[i] || {};
+            }
+          }, formData);
+        }
+
+        return formData;
+      }
+
+      validateField(name, value) {
+        const { errors } = this.state;
+
+        // Is Required?
         if (fields[name].required && !value.length) {
           errors[name] = errors[name] || [];
           errors[name].push('This field is required');
         }
 
-        if (fields[name].validations) {
+        // Custom Validation?
+        if (fields[name].validations && errors[name]) {
           fields[name].validations.map(validate => {
             if (!validate.testInput(value)) errors[name].push(validate.message);
           });
@@ -56,70 +116,51 @@ const formDecorator = ({ fields }) => {
 
       }
 
-      onFocus(name, value) {
-
-        const { errors } = this.state;
-        delete errors[name];
-
-        this.setState(errors);
-
-      }
-
-      submitForm(e) {
-        e.preventDefault();
-        const { fieldsObj } = this.state;
-        const { onSubmit } = this.props;
-
-        const data = {};
-
-        for (let key in fieldsObj) {
-          data[key] = fieldsObj[key]['value'];
-        }
-
-        const isValid = this.validateFields();
-        onSubmit(data, isValid);
-      }
-
-      validateFields() {
-
-      }
-
       render() {
 
         const { errors, fieldsObj } = this.state;
 
-        return <WrapperFormComponent fields={ fieldsObj }
+        return <WrapperFormComponent { ...this.props }
+                                     fields={ fieldsObj }
                                      errors={ errors }
+                                     getFormData={ this.getFormData }
                                      form={{ onSubmit: this.submitForm }}
+                                     submitForm={ this.submitForm }
                                      isValid={ Object.keys(errors).length === 0 && errors.constructor === Object }/>;
 
       }
 
-      buildFieldObj() {
-        const fieldsObj = {};
+      buildFieldsObj(parentsProps) {
 
-        const { errors = {} } = this.state;
+        const { errors = {}, fieldsObj } = this.state;
+
         // Change Fields
         for (let key in fields) {
-
           const fieldSettings = fields[key] || {};
+          const fieldObj = this.get(key) || {};
 
-          fieldsObj[key] = fieldsObj[key] || {};
           // Set name attribute
-          fieldsObj[key]['name'] = key;
+          fieldObj['name'] = key;
           // Add onChange attribute
-          fieldsObj[key]['onChange'] = e => this.onChange(key, e.target.value);
+          fieldObj['onChange'] = e => this.onChange(key, e.target.value);
           // Set Placeholder
-          fieldsObj[key]['placeholder'] = fieldSettings['placeholder'] || '';
-          // Add Default Value
-          fieldsObj[key]['value'] = fieldSettings['defaultValue'] || '';
+          fieldObj['placeholder'] = fieldSettings['placeholder'] || '';
+          // Set default values
+          if (typeof fieldSettings['defaultValue'] === 'function') {
+            fieldObj['value'] = fieldSettings['defaultValue'](parentsProps) || '';
+          }
+          // Set default errors
+          if (typeof fieldsObj['defaultError'] === 'function')  {
+            errors[key] = fieldsObj['defaultError'](parentsProps);
+          }
           // Set on onBlur and onFocus Attribute
           if (errors[key] || fieldSettings['valiations'] || fieldSettings['required']) {
-            fieldsObj[key]['onBlur'] = e => this.onBlur(key, e.target.value);
-            fieldsObj[key]['onFocus'] = e => this.onFocus(key, e.target.value);
+            fieldObj['onBlur'] = e => this.onBlur(key, e.target.value);
+            fieldObj['onFocus'] = e => this.onFocus(key, e.target.value);
           }
 
         }
+
         return fieldsObj;
       }
 

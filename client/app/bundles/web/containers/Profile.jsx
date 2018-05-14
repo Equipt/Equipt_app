@@ -29,7 +29,11 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators({ ...sessionActions, ...alertActions, ...modalActions }, dispatch)}
+	return {actions: bindActionCreators({
+		...sessionActions,
+		...alertActions,
+		...modalActions
+	}, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Profile);

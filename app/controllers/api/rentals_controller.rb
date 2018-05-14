@@ -1,5 +1,7 @@
 class Api::RentalsController < ApiController
 
+    RENTALS_LIMIT_PER_USER = 5
+
     before_action :ensure_authenticated_user
     before_action :verified_user, only: [:create, :destroy]
     before_action :is_current_user_verified?, only: :create
@@ -8,7 +10,9 @@ class Api::RentalsController < ApiController
       sporting_good = SportingGood.find_by_slug(params[:sporting_good_slug])
       rental = sporting_good.rentals.new(rental_params)
       rental.user_id = current_user.id
-      if rental.save
+      if current_user.rentals.where.not(completed: true).count > RENTALS_LIMIT_PER_USER
+        render json: { error: I18n.t('rentals.max_out_rentals') }, status: 400
+      elsif rental.save
         render json: rental, status: 200
       else
         render json: rental, status: 400
@@ -35,10 +39,10 @@ class Api::RentalsController < ApiController
 
     def check_availability
       rental = SportingGood.find_by_slug(params[:slug]).rentals.new(rental_params)
-      if rental.is_available?
-        render json: rental, status: 200
+      if rental.is_available? && rental.get_price
+        render json: rental, serializer: SimpleRentalSerializer, status: 200
       else
-        render json: rental, status: 400
+        render json: rental, serializer: SimpleRentalSerializer, status: 400
       end
     end
 

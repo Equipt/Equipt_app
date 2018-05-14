@@ -29,6 +29,11 @@ const Nav = ({
 						<p>{ currentUser.firstname }</p>
 					</span>
 				}
+				<style jsx>{`
+					i, p {
+						color: #fff;
+					}
+				`}</style>
 			</Link>
 		)
 	}
@@ -59,7 +64,7 @@ const Nav = ({
 
 				nav {
 					height: 72px;
-					background: ${ theme.lightGreen };
+					background: ${ theme.primaryColor };
 					padding: 5px 25px 5px 0;
 					z-index: 5;
 					border-radius: 0;

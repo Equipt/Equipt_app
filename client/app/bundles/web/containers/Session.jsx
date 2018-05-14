@@ -39,7 +39,7 @@ class Session extends React.Component {
 			<div>
 				<Nav { ...this.props } clearSession={ this.clearSession.bind(this) }/>
 				<MobileNav { ...this.props } clearSession={ this.clearSession.bind(this) }/>
-				{ session.token ? <SideBar/> : null }
+				{ session.token ? <SideBar { ...this.props }/> : null }
 			</div>
 		)
 	}
@@ -48,7 +48,9 @@ class Session extends React.Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		session: state.session
+		session: state.session,
+		location: state.routing.location,
+		sportingGood: state.sportingGood
 	}
 }
 

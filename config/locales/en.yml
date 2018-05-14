@@ -23,6 +23,7 @@
 en:
   errors:
     not_found: Sorry %{item} does not exist!
+    server_error: Something went wrong, please try again later!
   session:
     incorrect_credentials: Incorrect credentials, try again!
     sent_password_reset: A password reset link has been sent your email!
@@ -30,22 +31,47 @@ en:
     password_reset: Your password has been reset!
     current_user_not_found: We had a issue finding you, please login again!
   sporting_good:
+    user:
+      update_address: You just need to add some basic info to add items.
+    delete:
+      header: 'Are you sure you want to delete %{item}?'
+      sub_header: 'All future rentals of this item will be cancelled!'
+      im_sure: 'Delete this item from my Inventory'
+      dont_delete: "I don't wish to delete this item"
     deleted: ! '%{item} has been removed'
-    discount_error: 'Discounted price must be less than %{price}!'
+    discount_error: 'Weekly price must be greater than %{price}!'
   user:
     deleted: 'Sorry you decided to cancel you account %{name}'
     phone_verification: '"Hey, Equipt here. Your PIN is %{pin}!"'
     not_verified: "Sorry you have not yet verified your contact information with us!"
-    need_pin: "We text you a pin number, please enter to continue"
+    need_pin: "Nearly there, we texted you a pin."
+    unauthorized: "Sorry, you are unauthorized to see this. Please sign in!"
+    invalid_address: "Sorry, we couldn't find the address."
+    update_profile: "Please update your address details to rent."
+    add_a_profile_image: "Add a profile picture here."
+    form:
+      firstname: 'First Name'
+      lastname: 'Last Name'
+      email: 'Email'
   rentals:
+    agree_wth_terms: I agree with the terms of the rental
     dates_are_taken: "Sorry, %{item} is unavailable between these dates"
     dates_in_past: "Rental Dates cannot be in the past!"
     terms_not_agreed_to: "Terms must be agree too"
     cancel_success: "Rental has been cancelled"
     cancel_error: "Issue cancelling rental, please try again later"
-    cant_be_today: "Pickup date cant be today"
-    confirmed_details: Pay on pickup from %{name}
+    cant_be_today: Pickup date can't be today
+    success: Congrats, your renting the %{item}!
+    confirmed: Make sure to arrange a pickup time with %{user} and pay on pickup
     max_out_rentals: Sorry, at this time you can only have 5 rentals active at a time
+    read_rental_terms: Click to read rental terms and conditions
+    exceeds_days_limit: Sorry, a single rental cannot exceed %{days} days.
+    terms:
+      <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</li>
+      <li>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
+      <li>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical</li>
+    owner:
+      confirmed: Congrats, %{user} has rented %{sporting_good}
   ratings:
     contribution: "Thankyou for your feedback"
     error: "There was a issue processing your rating"
@@ -55,6 +81,17 @@ en:
     report_a_bug_desc: 'Thanks for making Equipt AWESOME!!'
   about: '<p>Equipt is a platform for renting out sporting equiptment</p>
   <p>From Vancouver B.C.</p>'
+  nav:
+    login: 'Login'
+    signup: 'Signup'
+    logout: 'Logout'
+    all_goods: 'Rent Sporting Goods'
+    add_good: 'Add A Sporting Good'
+    your_goods: 'Your Goods'
+    schedule: 'Calendar'
+
+
+
   frontend:
     go_back: Go Back
     nav:
@@ -64,7 +101,7 @@ en:
       all_goods: 'Rent Sporting Goods'
       add_good: 'Add A Sporting Good'
       your_goods: 'Your Goods'
-      calendar: 'Calendar'
+      schedule: 'Calendar'
     footer:
       about:
         title: About

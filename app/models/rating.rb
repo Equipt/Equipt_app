@@ -5,16 +5,15 @@ class Rating < ApplicationRecord
     return rental.update_attributes(params) if rental
     rating = self.new(params)
     rating.author = author
-    rating.save
+    rating
   }
 
   belongs_to :rateable, :polymorphic => true
-
+  belongs_to :author, class_name: "User"
+  before_save :already_rated
   has_one :comment, :as => :commentable, dependent: :destroy
 
-  belongs_to :author, class_name: "User"
-
-  before_save :already_rated
+  validates_presence_of :rating, :comment
 
   accepts_nested_attributes_for :comment, allow_destroy: true
 

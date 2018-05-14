@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 
 import FormFieldsHelper from 'helpers/FormFields';
 import Modal from 'components/Modal';
+import UserContact from 'components/UserContact';
 
 export class SportingGoodsForm extends React.Component {
 
@@ -120,9 +121,19 @@ export class SportingGoodsForm extends React.Component {
 	render() {
 
 		const { sportingGood, images } 	= this.state;
-		const { currentUser, content } = this.props;
+		const { currentUser, content, actions } = this.props;
 
 		const formFields = content.sporting_goods.create.formFields || [];
+
+		// If User is not verified show address form
+		if (!currentUser.isVerified) {
+			actions.openModal(
+				<div>
+					<h3>{ I18n.t('sporting_good.user.update_address')}</h3>
+					<UserContact { ...this.props }/>
+				</div>
+			);
+		}
 
 		return (
 			<section className="container sporting-good-form">

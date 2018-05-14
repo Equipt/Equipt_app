@@ -34,11 +34,9 @@ export class SportingGoodDetails extends React.Component {
 
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			agreedToTerms: false
 		}
-
 	}
 
 	rent() {
@@ -58,52 +56,6 @@ export class SportingGoodDetails extends React.Component {
 			actions.openModal(<Address title={ content.profile.contact.need_contact } { ...this.props }/>);
 		}
 
-
-	}
-
-	totalDays() {
-
-		const { rental } = this.props;
-
-		if (rental.end_date && rental.start_date && rental.end_date.diff) {
-			return rental.end_date.diff(rental.start_date, 'days') + 1;
-		}
-
-		if (rental.end_date && rental.start_date) {
-			return 1;
-		}
-
-		return 0;
-
-	}
-
-	subTotal() {
-
-		const { rental, sportingGood } = this.props;
-
-		return this.totalDays() * sportingGood.pricePerDay;
-
-	}
-
-	weeklyRentalDiscount() {
-
-		const { rental, sportingGood } = this.props;
-
-		const totalWeeks = Math.floor(this.totalDays() / 7);
-		const remainingDays = this.totalDays() % 7;
-
-		if (totalWeeks > 0) {
-
-			const priceOfWeeks = totalWeeks * sportingGood.pricePerWeek;
-			const remainingPrice = remainingDays * sportingGood.pricePerDay;
-			const totalSavingsPrice = priceOfWeeks + remainingPrice;
-
-			return Math.round(this.subTotal() - totalSavingsPrice).toFixed(2);
-
-		}
-
-		return 0;
-
 	}
 
 	render() {
@@ -112,11 +64,11 @@ export class SportingGoodDetails extends React.Component {
 		const { agreedToTerms } = this.state;
 		const { images = [], rentals = [], ratings = [], user = {} } = sportingGood;
 
-		const totalDays = this.totalDays();
-		const subTotal = this.subTotal();
-		const weeklyRentalDiscount = this.weeklyRentalDiscount();
-
 		if (loader) return <Loader/>;
+
+		// Conflict with a big-calendar setting
+		const totalDays = rental.totalDays;
+		delete rental.totalDays;
 
 		return (
 
@@ -174,25 +126,23 @@ export class SportingGoodDetails extends React.Component {
 
 						<div className="price-container">
 
-							<h4>{ totalDays > 0 ? `${ totalDays } Rental Days` : `` }</h4>
-							<h4>${ sportingGood.pricePerDay } per day</h4>
-							<h4>{ weeklyRentalDiscount > 0 ? `$${ weeklyRentalDiscount } Discount` : `` }</h4>
-							<h3>{ subTotal > 0 ? `$${ subTotal - weeklyRentalDiscount } Total*` : `` }</h3>
+							{ rental.totalDays > 0 ? <h5>{ rentaltotalDays } Rental Days</h5> : null }
+							<h5>${ sportingGood.pricePerDay } per day</h5>
+							<h5>${ sportingGood.pricePerWeek } per week</h5>
 
-							<label onClick={ e => this.setState({ agreedToTerms: e.target.checked }) }>
-								{ content.rentals.agree_wth_terms }
-							</label>
+							{ totalDays > 0 ? <h5>{ totalDays } days</h5> : null }
+							{ rental.subTotal > 0 ? <h5>${ rental.subTotal } sub total</h5> : null }
+							{ rental.discount > 0 ? <h5>${ rental.discount } discount</h5> : null }
+							{ rental.total > 0 ? <h4>${ rental.total } Total*</h4> : null }
 
-							<input 	type="checkbox"
-											value={ agreedToTerms }
-											onChange={ e => this.setState({ agreedToTerms: e.target.checked }) }/>
-
-							<a href="#" className="display-block" onClick={ e => {
-								e.preventDefault();
-								actions.openModal(<Terms { ...content.rentals }/>);
-							}}>
-								{ content.rentals.read_rental_terms }
-							</a>
+							<div className="terms-container" onClick={ () => this.setState({ agreedToTerms: true }) }>
+								<input type="checkbox" checked={ agreedToTerms }/>
+								<label>{ I18n.t('rentals.agree_wth_terms') }</label>
+								<a href="#" className="display-block" onClick={ e => {
+									e.preventDefault();
+									actions.openModal(<Terms/>);
+								}}>{ I18n.t('rentals.read_rental_terms') }</a>
+							</div>
 
 							<button className="btn btn-success rent-btn"
 											onClick={ () => this.rent(rental, sportingGood) }
@@ -209,6 +159,97 @@ export class SportingGoodDetails extends React.Component {
 					</div>
 
 				</div>
+
+				<style jsx>{`
+					.sporting-goods-show {
+
+					  padding-top: 0;
+
+					  .terms-container {
+					    float: left;
+					    clear: left;
+					    margin-top: 10px;
+					  }
+
+					  .dv-star-rating {
+					    float: right;
+					    margin-top: 5px;
+					  }
+
+					  .profile-image {
+					    font-size: 30px;
+					    margin-top: 20px;
+					    img {
+					      display: block;
+					      max-width: 75px;
+					      border-radius: 100%;
+					      margin: 0 auto;
+					      text-align: center;
+					    }
+					  }
+
+					  .pricing-container {
+					    margin-top: 20px;
+					    border: solid 1px #E4E4E4;
+					    padding-bottom: 20px;
+							.terms-container {
+								label {
+									font-weight: normal;
+									font-style: italic;
+								}
+								a {
+									display: block;
+									color: #A9A9A9;
+								}
+							}
+					  }
+
+					  .image-spacer {
+					    margin-top: 400px;
+					  }
+
+					  .image-container {
+					    position: absolute;
+					    top: -33px;
+					    right: 0;
+					    left: 20px;
+					    height: 400px;
+					    width: 100%;
+					    z-index: 1;
+
+					    button {
+					      position: absolute;
+					      bottom: 5px;
+					      left: 5px;
+					    }
+					    .image {
+					      height: 400px;
+					      width: 100%;
+					      background-repeat: no-repeat;
+					      background-size: cover;
+					      background-position: 0 33%;
+					    }
+					  }
+
+					  .rent-btn {
+					    margin-top: 20px;
+					    width: 100%;
+					    padding: 10px 0;
+					  }
+
+					  .date-cell {
+					    cursor: pointer;
+					  }
+
+					  .ratings-container {
+					    .dv-star-rating {
+					      margin-right: 5px;
+					      margin-top: 0;
+					    }
+					  }
+
+					}
+				`}</style>
 
 			</section>
 

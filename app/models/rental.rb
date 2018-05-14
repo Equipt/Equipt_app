@@ -1,6 +1,10 @@
 class Rental < ActiveRecord::Base
 
-  RENTALS_LIMIT_PER_USER = 5
+  UNAVAILABLE = 'unavailable'
+  USING = 'using'
+  RENTING = 'renting'
+  OWNED = 'owned'
+  DAYS_LIMIT = 14
 
   acts_as_paranoid
 
@@ -12,8 +16,8 @@ class Rental < ActiveRecord::Base
 
   delegate :user, to: :sporting_good, prefix: :owner, :allow_nil => true
 
-  before_save :set_total_days, :set_rental_cost, :is_over_limit
-  validate :dates_are_vacant?, :has_agreed_to_terms?, :dates_not_today?, :dates_not_in_past?
+  before_save :set_total_days, :set_discount, :set_rental_cost
+  validate :dates_are_vacant?, :has_agreed_to_terms?, :dates_not_today?, :dates_not_in_past?, :not_past_days_limit?
 
   has_many :ratings, :as => :rateable, dependent: :destroy
 
@@ -26,6 +30,67 @@ class Rental < ActiveRecord::Base
   def owner
     OwnerSerializer.new(self.sporting_good.user)
   end
+
+  def is_available?
+    dates_are_vacant? && dates_not_today? && dates_not_in_past?
+  end
+
+  def reindex_sporting_good item = nil
+    self.sporting_good.index!
+  end
+
+  def get_price
+    self.set_total_days
+    self.set_discount
+    self.set_rental_cost
+  end
+
+  def set_total_days
+    self.total_days = (self.start_date - self.end_date).to_i.abs + 1
+  end
+
+  def set_discount
+    weeks_rented = (self.total_days - 1) / 7
+    if weeks_rented > 0
+      weeks_price = weeks_rented * self.sporting_good.price_per_week
+      weeks_days_price = (weeks_rented * 7) * self.sporting_good.price_per_day
+      return self.discount = (weeks_days_price - weeks_price).round(2)
+    end
+    self.discount = 0
+  end
+
+  def set_rental_cost
+    sporting_good = SportingGood.find(self.sporting_good_id)
+    self.sub_total = (sporting_good.price_per_day * (self.total_days - 1)).round(2)
+    self.total = (self.sub_total - self.discount).round(2)
+  end
+
+  def status user
+    if user.rentals.find_by_id(id) && user.owned_rentals.find_by_id(id)
+      USING
+    elsif user.rentals.find_by_id(id)
+      RENTING
+    elsif user.owned_rentals.find_by_id(id)
+      OWNED
+    else
+      UNAVAILABLE
+    end
+  end
+
+  def title user
+    status = status(user)
+    if status == USING
+      "Your using #{ sporting_good.title.capitalize } at this time"
+    elsif status == RENTING
+      "Your renting #{ sporting_good.title.capitalize } from #{ sporting_good.user.firstname.capitalize }"
+    elsif status == OWNED
+      "#{ user.firstname.capitalize } is renting #{ sporting_good.title.capitalize } from you"
+    else
+      UNAVAILABLE
+    end
+  end
+
+  private
 
   # validates methods
 	def dates_are_vacant?
@@ -44,7 +109,9 @@ class Rental < ActiveRecord::Base
   end
 
   def dates_not_today?
-    return true unless self.start_date.today?
+    # Deal with rails being a day off
+    start_date = self.start_date + 1
+    return true unless start_date.today?
     errors.add(:error, I18n.t('rentals.cant_be_today'))
     false
   end
@@ -55,29 +122,10 @@ class Rental < ActiveRecord::Base
     false
   end
 
-  def is_available?
-    dates_are_vacant? && dates_not_today? && dates_not_in_past?
-  end
-
-  def is_over_limit
-    return true if self.user.rentals.where.not(completed: true).count <= RENTALS_LIMIT_PER_USER
-    errors.add(:error, I18n.t('rental.max_out_rentals'))
-  end
-	# before create methods
-
-	def set_total_days
-		self.total_days = (self.start_date - self.end_date).to_i.abs + 1
-	end
-
-	def set_rental_cost
-		sporting_good = SportingGood.find(self.sporting_good_id)
-		self.sub_total = sporting_good.price_per_day * self.total_days
-		self.total = self.sub_total
-		self.deposit = sporting_good.deposit
-	end
-
-  def reindex_sporting_good item = nil
-    self.sporting_good.index!
+  def not_past_days_limit?
+    return true if (end_date.to_date - start_date.to_date).to_i <= DAYS_LIMIT
+    errors.add(:error, I18n.t('rentals.exceeds_days_limit', { days: DAYS_LIMIT }))
+    false
   end
 
   def wait_to_complete

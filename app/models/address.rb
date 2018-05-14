@@ -6,7 +6,9 @@ class Address < ApplicationRecord
 
   validates_presence_of :number, :street, :city, :state, :zip, :country
 
-  validate :real_address? unless :skip_geocoded_valiation
+  validate :real_address?
+
+  before_save :real_address? unless :skip_geocoded_valiation
 
   geocoded_by :full_address do |address, results|
     if results.present?
@@ -17,11 +19,9 @@ class Address < ApplicationRecord
   end
 
   def real_address?
-    if latitude.blank? || longitude.blank?
-      errors.add(:address, "We couldn't find the address")
-      return false
-    end
-    true
+    return true if verified
+    errors.add(:invalid, I18n.t('user.invalid_address'))
+    false
   end
 
   def full_address
