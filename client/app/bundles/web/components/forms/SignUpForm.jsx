@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import formDecorator from 'hocs/formDecorator';
 import ErrorsList from './ErrorsList';
 
-const UserBasic = ({ fields: { firstname, lastname, email }, form, errors, children }) => (
+const SignupForm = ({ fields: { firstname, lastname, email, password, passwordConfirmation }, form, errors, children }) => (
   <div className="row">
     <form { ...form }>
       <fieldset className="col-xs-12">
@@ -22,7 +22,18 @@ const UserBasic = ({ fields: { firstname, lastname, email }, form, errors, child
         <ErrorsList errors={ errors['email'] }/>
       </fieldset>
       <fieldset className="col-xs-12">
-        <input type="submit" value="Update Basic Info" className="btn btn-success clearfix"/>
+        <label>{ I18n.t('user.form.password') }</label>
+        <input className="form-control" { ...password }/>
+        <ErrorsList errors={ errors['password'] }/>
+      </fieldset>
+      <fieldset className="col-xs-12">
+        <label>{ I18n.t('user.form.password_confirmation') }</label>
+        <input className="form-control" { ...passwordConfirmation }/>
+        <ErrorsList errors={ errors['passwordConfirmation'] }/>
+      </fieldset>
+      { children }
+      <fieldset className="col-xs-12">
+        <input type="submit" value="Signup" className="btn btn-success clearfix"/>
       </fieldset>
     </form>
   </div>
@@ -33,19 +44,25 @@ export default formDecorator({
     'firstname': {
       placeholder: 'John',
       required: true,
-      defaultError: ({ currentUser }) => currentUser.errors['phone.number'],
+      defaultError: ({ user }) => user.errors['firstname']
     },
     'lastname': {
       placeholder: 'Smith',
       required: true,
-      defaultError: ({ currentUser }) => currentUser.errors['firstname'],
-      defaultValue: ({ currentUser: { lastname } = {} }) => lastname
+      defaultError: ({ user }) => user.errors['lastname']
     },
     'email': {
       placeholder: 'john@example.com',
       required: true,
-      defaultError: ({ currentUser }) => currentUser.errors['email'],
-      defaultValue: ({ currentUser: { email } = {} }) => email
+      defaultError: ({ user }) => user.errors['email']
+    },
+    'password': {
+      required: true,
+      defaultError: ({ user }) => user.errors['password']
+    },
+    'passwordConfirmation': {
+      required: true,
+      defaultError: ({ user }) => user.errors['passwordConfirmation']
     }
   }
-})(UserBasic);
+})(SignupForm);

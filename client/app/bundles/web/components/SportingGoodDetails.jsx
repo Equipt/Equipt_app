@@ -140,7 +140,7 @@ export class SportingGoodDetails extends React.Component {
 								<label>{ I18n.t('rentals.agree_wth_terms') }</label>
 								<a href="#" className="display-block" onClick={ e => {
 									e.preventDefault();
-									actions.openModal(<Terms/>);
+									actions.openModal(<Terms terms={I18n.t('rentals.terms')}/>);
 								}}>{ I18n.t('rentals.read_rental_terms') }</a>
 							</div>
 

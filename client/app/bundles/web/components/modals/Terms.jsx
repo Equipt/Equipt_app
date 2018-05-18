@@ -1,20 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Terms = ({
-  terms_title,
-  terms = []
+  title,
+  terms
 }) => {
 
   return (
     <div>
-      <h4>{ terms_title }</h4>
-      <ol  dangerouslySetInnerHTML={{
-        __html: I18n.t('rentals.terms')
-      }}>
-      </ol>
+      <h4>{ title }</h4>
+      <ol  dangerouslySetInnerHTML={{ __html: terms }}></ol>
     </div>
   )
 
+}
+
+Terms.propTypes = {
+  terms: PropTypes.string.isRequired
 }
 
 export default Terms;

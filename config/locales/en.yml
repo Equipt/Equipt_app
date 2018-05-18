@@ -53,6 +53,8 @@ en:
       firstname: 'First Name'
       lastname: 'Last Name'
       email: 'Email'
+      password: 'Password'
+      password_confirmation: 'Password Confirmation'
   rentals:
     agree_wth_terms: I agree with the terms of the rental
     dates_are_taken: "Sorry, %{item} is unavailable between these dates"
