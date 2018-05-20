@@ -26,28 +26,33 @@ export default class Api {
 		 	error => {
 
 				const { status, data } = error.response;
+				const { dispatch } = this.store;
 
 				switch(status) {
 					// Server error
 					case 500:
-						this.store.dispatch(alertActions.showErrorAlert({ error: I18n.t('errors.server_error')}));
+						dispatch(alertActions.showErrorAlert({ error: I18n.t('errors.server_error')}));
 						return Promise.reject({});
 					break;
+					// Bad Request
+					case 400:
+					 	if (data.notice) dispatch(alertActions.showErrorAlert(data.notice));
+						break;
 					// Forbidden
 					case 403:
 					// Unprocessable Entity
 					case 422:
-						this.store.dispatch(alertActions.showErrorAlert(data));
+						dispatch(alertActions.showErrorAlert(data));
 						break;
 					// Unauthorized
 					case 401:
 						localStorage.clear();
-						this.store.dispatch(sessionActions.clearSession());
-						this.store.dispatch(alertActions.showErrorAlert({ error: I18n.t('user.unauthorized')}));
+						dispatch(sessionActions.clearSession());
+						dispatch(alertActions.showErrorAlert({ error: I18n.t('user.unauthorized')}));
 						break;
 					// Not found
 					case 404:
-						this.store.dispatch(alertActions.showErrorAlert(data));
+						dispatch(alertActions.showErrorAlert(data));
 						return this.history.push('/not_found');
 						break;
 				}

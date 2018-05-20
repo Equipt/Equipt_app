@@ -13,11 +13,7 @@ import * as modalActions from 'actions/modal';
 class SignupContainer extends React.Component {
 
 	render() {
-
-		return (
-			<Signup { ...this.props }/>
-		)
-
+		return <Signup { ...this.props }/>
 	}
 
 }
@@ -30,12 +26,14 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators({
-		...userActions,
-		...alertActions,
-		...sessionActions,
-		...modalActions
-	}, dispatch)}
+	return {
+		actions: bindActionCreators({
+			...userActions,
+			...alertActions,
+			...sessionActions,
+			...modalActions
+		}, dispatch)
+	}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(SignupContainer);

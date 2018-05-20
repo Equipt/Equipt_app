@@ -84,7 +84,7 @@ const formDecorator = ({ fields, multiPart = false }) => {
           const nestedKeys = name.split('.');
           nestedKeys.reduce((data, i) => {
             if (nestedKeys[nestedKeys.length-1] === i) {
-              return data[i] = value;
+              return data[i] = value || '';
             } else {
               return data[i] = data[i] || {};
             }
@@ -150,8 +150,8 @@ const formDecorator = ({ fields, multiPart = false }) => {
             fieldObj['value'] = fieldSettings['defaultValue'](parentsProps) || '';
           }
           // Set default errors
-          if (typeof fieldsObj['defaultError'] === 'function')  {
-            errors[key] = fieldsObj['defaultError'](parentsProps);
+          if (typeof fieldSettings['defaultError'] === 'function')  {
+            errors[key] = fieldSettings['defaultError'](parentsProps);
           }
           // Set on onBlur and onFocus Attribute
           if (errors[key] || fieldSettings['valiations'] || fieldSettings['required']) {

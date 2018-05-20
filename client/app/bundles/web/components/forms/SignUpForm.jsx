@@ -31,7 +31,9 @@ const SignupForm = ({ fields: { firstname, lastname, email, password, passwordCo
         <input className="form-control" { ...passwordConfirmation }/>
         <ErrorsList errors={ errors['passwordConfirmation'] }/>
       </fieldset>
-      { children }
+      <fieldset className="col-xs-12">
+        { children }
+      </fieldset>
       <fieldset className="col-xs-12">
         <input type="submit" value="Signup" className="btn btn-success clearfix"/>
       </fieldset>
@@ -44,25 +46,25 @@ export default formDecorator({
     'firstname': {
       placeholder: 'John',
       required: true,
-      defaultError: ({ user }) => user.errors['firstname']
+      defaultError: ({ user: { errors = {} } = {} }) => errors['firstname']
     },
     'lastname': {
       placeholder: 'Smith',
       required: true,
-      defaultError: ({ user }) => user.errors['lastname']
+      defaultError: ({ user: { errors = {} } = {} }) => errors['lastname']
     },
     'email': {
       placeholder: 'john@example.com',
       required: true,
-      defaultError: ({ user }) => user.errors['email']
+      defaultError: ({ user: { errors = {} } = {} }) => errors['email']
     },
     'password': {
       required: true,
-      defaultError: ({ user }) => user.errors['password']
+      defaultError: ({ user: { errors = {} } = {} }) => errors['password']
     },
     'passwordConfirmation': {
       required: true,
-      defaultError: ({ user }) => user.errors['passwordConfirmation']
+      defaultError: ({ user: { errors = {} } = {} }) => errors['password_confirmation']
     }
   }
 })(SignupForm);

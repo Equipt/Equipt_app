@@ -23,16 +23,14 @@ export default class Signup extends React.Component {
 	constructor(props) {
 		super(props);
 		this.submit = this.submit.bind(this);
+		this.state = {
+			aggreedToTerms: false
+		}
 	}
 
 	submit(user) {
 
 		const { actions } = this.props;
-
-		if (Object.keys(user).length === 0) {
-			actions.showErrorAlert({error: 'Form cannot be empty!'});
-			return;
-		}
 
 		actions.signup(user, () => {
 				this.context.router.history.push('/sporting_goods');
@@ -47,13 +45,13 @@ export default class Signup extends React.Component {
 		return (
 			<section className="container">
 
-				<h2>{ I18n.t('frontend.signup.title') }</h2>
+				<h2>{ I18n.t('user.signup.title') }</h2>
 
-				<SignupForm user={ user } onSubmit={this.submit}>
+				<SignupForm user={user} onSubmit={this.submit}>
 					<a href="#" onClick={ e => {
 						e.preventDefault();
-						actions.openModal(<Terms terms="" title="End User License Aggreement"/>);
-					}}>See Terms and Conditions</a>
+						actions.openModal(<Terms terms={ I18n.t('user.terms.content') } title="End User License Aggreement"/>);
+					}}>{ I18n.t('user.terms.title') }</a>
 				</SignupForm>
 
 				{ /* <UserForm { ...this.props } formContent={ content.signup } isCreating={ true }></UserForm> */ }

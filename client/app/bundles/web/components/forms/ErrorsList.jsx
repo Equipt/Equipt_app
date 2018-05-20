@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ErrorsList = ({ errors = [] }) => (
-  <ul className="errors">
+const ErrorsList = ({ errors = [] }) => {
+  return (<ul className="errors">
     {
       errors ?
       errors.map((error, index) => <li key={ `error_${ index }` } className="error">{ error}</li>) :
@@ -16,7 +16,7 @@ const ErrorsList = ({ errors = [] }) => (
         color: #dc3545;
       }
     `}</style>
-  </ul>
-);
+  </ul>)
+};
 
 export default ErrorsList;

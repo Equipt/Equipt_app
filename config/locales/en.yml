@@ -49,6 +49,14 @@ en:
     invalid_address: "Sorry, we couldn't find the address."
     update_profile: "Please update your address details to rent."
     add_a_profile_image: "Add a profile picture here."
+    signup:
+      title: Signup
+    terms:
+      title: See Terms and Conditions
+      content:
+        <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</li>
+        <li>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
+        <li>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical</li>
     form:
       firstname: 'First Name'
       lastname: 'Last Name'
@@ -69,9 +77,15 @@ en:
     read_rental_terms: Click to read rental terms and conditions
     exceeds_days_limit: Sorry, a single rental cannot exceed %{days} days.
     terms:
-      <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</li>
-      <li>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
-      <li>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical</li>
+      <h5>1. Scope of Equipt’s Services</h5>
+      <p>1.1 The Equipts Platform is an online marketplace that allows registered users to publish Sporting Goods (Users that offer rentals of sporting goods are known as “Owners”) for rental on Equipt’s sporting good listings and to communicate and transact directly with users (An agreement made by a Owner and User for use of a particular sporting good is known as a “Rental”) seeking to rent these sporting goods (Users that are renting goods from Owners are known as “Renters”). </p>
+      <p>1.2 As the provider of the Equipt Platform, Equipt does not own, create, sell, resell, provide, control, manage, offer, deliver, or supply any Listings or Sporting Goods. Owners alone are responsible for their listing and Sporting Goods. When Members make or accept a rental, they are entering into a contract directly with each other. Equipt is not and does not become a party to or other participant in any contractual relationship between Users.</p>
+      <p>1.3 While we may help facilitate the resolution of disputes, Equipt has no control over and does not guarantee (i) the existence, quality, safety, suitability, or legality of any Listings or Sporting Goods, the truth or accuracy of any Listing descriptions, Ratings, Reviews, or other User Content. Any references to a User being "verified" (or similar language) only indicate that the User has completed a relevant verification or identification process and nothing else. Any such description is not an endorsement, certification or guarantee by Equipt’s about any User, including of the User identity or background or whether the User is trustworthy, safe or suitable. You should always exercise due diligence and care when deciding whether to rent a particular sporting good from the platform. </p>
+      <p>1.4 Equipt does not and will not take any responsibility for any damage, wear, theft or loss of sporting goods Rentals.</p>
+      <p>1.5 If you choose to use the Equipt Platform as a Owner or Renter your relationship with Equipt is limited to being an independent, third-party contractor, and not an employee, agent, joint venturer or partner of Equipt for any reason, and you act exclusively on your own behalf and for your own benefit, and not on behalf, or for the benefit, of Equipt.</p>
+      <p>1.6 To promote the Equipt Platform and to increase the exposure of Listings to potential Renters, Listings and other User Content may be displayed on other websites, in applications, within emails, and in online and offline advertisements. To assist Users who speak different languages, Listings and other Users Content may be translated, in whole or in part, into other languages. Equipt cannot guarantee the accuracy or quality of such translations and Members are responsible for reviewing and verifying the accuracy of such translations.</p>
+      <p>1.7 The Equipt Platform may contain links to third-party websites or resources. Such Third-Party Services may be subject to different terms and conditions and privacy practices. Equipt is not responsible or liable for the availability or accuracy of such Third-Party Services, or the content, products, or services available from such Third-Party Services. Links to such Third-Party Services are not an endorsement by Equipt of such Third-Party Services.</p>
+      <p>1.8 Due to the nature of the Internet, Equipt cannot guarantee the continuous and uninterrupted availability and accessibility of the Equipt Platform.</p>
     owner:
       confirmed: Congrats, %{user} has rented %{sporting_good}
   ratings:
