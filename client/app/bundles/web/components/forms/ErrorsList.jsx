@@ -13,7 +13,14 @@ const ErrorsList = ({ errors = [] }) => {
         min-height: 25px;
       }
       .errors li {
+        display: inline-block;
+        margin: 5px;
+        background: #f8d7da;
         color: #dc3545;
+        padding: 2px;
+        &:first-child {
+          margin-left: 0;
+        }
       }
     `}</style>
   </ul>)
