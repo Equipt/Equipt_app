@@ -28,14 +28,11 @@ class LoginForm extends React.Component {
 		const { login } = this.props.actions;
 		const { history, route } = this.context.router;
 
-		let email = this.refs.email.value;
-		let password = this.refs.password.value;
+		const email = this.refs.email.value;
+		const password = this.refs.password.value;
 
 		// Fetch Current User
-		login({
-			email: email,
-			password: password
-		}, () => {
+		login({ email, password }, () => {
 			if (route.location.pathname.indexOf('/login') > -1) {
 				this.context.router.history.push('/sporting_goods');
 			} else {
