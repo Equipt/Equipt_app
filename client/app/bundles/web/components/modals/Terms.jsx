@@ -9,7 +9,7 @@ const Terms = ({
   return (
     <div>
       <h4>{ title }</h4>
-      <ol  dangerouslySetInnerHTML={{ __html: terms }}></ol>
+      <ol  dangerouslySetInnerHTML={{ __html: I18n.t('terms') }}></ol>
     </div>
   )
 

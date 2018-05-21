@@ -9,9 +9,9 @@ import Terms from './modals/Terms.jsx';
 export default class Signup extends React.Component {
 
 	static contextTypes = {
-  		router: PropTypes.shape({
-    		history: PropTypes.object.isRequired,
-  		})
+		router: PropTypes.shape({
+  		history: PropTypes.object.isRequired,
+		})
 	};
 
 	static propTypes = {
@@ -23,19 +23,13 @@ export default class Signup extends React.Component {
 	constructor(props) {
 		super(props);
 		this.submit = this.submit.bind(this);
-		this.state = {
-			aggreedToTerms: false
-		}
 	}
 
 	submit(user) {
-
 		const { actions } = this.props;
-
 		actions.signup(user, () => {
-				this.context.router.history.push('/sporting_goods');
+			this.context.router.history.push('/sporting_goods');
 		});
-
 	}
 
 	render() {
@@ -48,15 +42,24 @@ export default class Signup extends React.Component {
 				<h2>{ I18n.t('user.signup.title') }</h2>
 
 				<SignupForm user={user} onSubmit={this.submit}>
-					<a href="#" onClick={ e => {
-						e.preventDefault();
-						actions.openModal(<Terms terms={ I18n.t('user.terms.content') } title="End User License Aggreement"/>);
-					}}>{ I18n.t('user.terms.title') }</a>
+					<span className="terms">
+						{ I18n.t('user.terms.by_clicking_submit') }
+						<a href="#" onClick={ e => {
+							e.preventDefault();
+							actions.openModal(<Terms terms={ I18n.t('user.terms.content') } title="End User License Aggreement"/>);
+						}}>{ I18n.t('user.terms.title') }</a>
+					</span>
 				</SignupForm>
 
-				{ /* <UserForm { ...this.props } formContent={ content.signup } isCreating={ true }></UserForm> */ }
-
 				<FaceBookLogin loginWithFacebook={ actions.loginWithFacebook } facebookAppId={ facebookAppId }/>
+
+				<style jsx>{`
+					.terms {
+						a {
+							margin: 0 2px;
+						}
+					}
+				`}</style>
 
 			</section>
 		)
