@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
     match 'api/phone/resend_pin', to: 'api/phone#resend_pin', via: 'GET'
     match 'api/session/fetch_user', to: 'api/session#fetch_user', via: 'GET'
+    match '.well-known/acme-challenge/:content', to: lambda { |env| [200, {}, [env["action_dispatch.request.path_parameters"][:content].to_s]] }, via: 'GET'
 
     get '/', to: 'home#index'
     get '*path', to: 'home#index'
@@ -48,5 +49,6 @@ Rails.application.routes.draw do
     match 'api/phone/verify', to: 'api/phone#verify', via: 'POST'
     match 'api/sporting_goods/:slug/rentals/check_availability', to: 'api/rentals#check_availability', via: 'POST'
     match 'api/report_a_bug', to: 'api/utils#report_a_bug', via: 'POST'
+
 
 end
