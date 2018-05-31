@@ -23,7 +23,6 @@ export default class Signup extends React.Component {
 	constructor(props) {
 		super(props);
 		this.submit = this.submit.bind(this);
-		debugger;
 	}
 
 	submit(user) {
