@@ -23,12 +23,12 @@ const SignupForm = ({ fields: { firstname, lastname, email, password, passwordCo
       </fieldset>
       <fieldset className="col-xs-12">
         <label>{ I18n.t('user.form.password') }</label>
-        <input className="form-control" { ...password }/>
+        <input type="password" className="form-control" { ...password }/>
         <ErrorsList errors={ errors['password'] }/>
       </fieldset>
       <fieldset className="col-xs-12">
         <label>{ I18n.t('user.form.password_confirmation') }</label>
-        <input className="form-control" { ...passwordConfirmation }/>
+        <input type="password" className="form-control" { ...passwordConfirmation }/>
         <ErrorsList errors={ errors['passwordConfirmation'] }/>
       </fieldset>
       <fieldset className="col-xs-12">
