@@ -25,9 +25,9 @@ export class SideBar extends Component {
 		this.stickyNav();
 	}
 
-	componentWillReceiveProps() {
-			window.scrollTo(window.scrollX, window.scrollY - 1);
-			window.scrollTo(window.scrollX, window.scrollY + 1);
+	componentDidUpdate() {
+		window.scrollTo(window.scrollX, window.scrollY - 1);
+		window.scrollTo(window.scrollX, window.scrollY + 1);
 	}
 
 	stickyNav() {
