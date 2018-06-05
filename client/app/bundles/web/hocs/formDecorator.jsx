@@ -146,7 +146,6 @@ const formDecorator = ({ fields, multiPart = false }) => {
           // Set Placeholder
           fieldObj['placeholder'] = fieldSettings['placeholder'] || '';
 					// Set type values
-					debugger;
 					fieldObj['type'] = fieldSettings['type'] || 'text';
           // Set default values
           if (typeof fieldSettings['defaultValue'] === 'function') {
