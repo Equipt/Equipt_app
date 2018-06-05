@@ -89,7 +89,7 @@ export class SideBar extends Component {
 				<style jsx>{`
 					.sidebar-wrapper {
 						position: fixed;
-						margin-top: 72px;
+						top: 72px;
 						left: 0;
 						width: 70px;
 						height: 100vh;
