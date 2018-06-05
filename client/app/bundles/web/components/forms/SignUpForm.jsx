@@ -60,10 +60,12 @@ export default formDecorator({
     },
     'password': {
       required: true,
+			type: 'password',
       defaultError: ({ user: { errors = {} } = {} }) => errors['password']
     },
     'passwordConfirmation': {
       required: true,
+			type: 'password',
       defaultError: ({ user: { errors = {} } = {} }) => errors['password_confirmation']
     }
   }
