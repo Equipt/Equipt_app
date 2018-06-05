@@ -22,7 +22,8 @@ const GlobalStyles = () => (
       .container {
       	position: relative;
       	width: 95%;
-      	min-height: 87vh;
+
+      	min-height: 100vh;
       	max-width: 1500px;
       	margin-bottom: 50px;
       	&.reduce-margin-top {
