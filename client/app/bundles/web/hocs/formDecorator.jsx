@@ -145,6 +145,9 @@ const formDecorator = ({ fields, multiPart = false }) => {
           fieldObj['onChange'] = e => this.onChange(key, e.target.value);
           // Set Placeholder
           fieldObj['placeholder'] = fieldSettings['placeholder'] || '';
+					// Set type values
+					debugger;
+					fieldObj['type'] = fieldSettings['type'] || 'text';
           // Set default values
           if (typeof fieldSettings['defaultValue'] === 'function') {
             fieldObj['value'] = fieldSettings['defaultValue'](parentsProps) || '';

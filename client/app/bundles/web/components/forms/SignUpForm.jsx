@@ -60,11 +60,13 @@ export default formDecorator({
     },
     'password': {
       required: true,
+			placeholder: 'xxxxxx',
 			type: 'password',
       defaultError: ({ user: { errors = {} } = {} }) => errors['password']
     },
     'passwordConfirmation': {
       required: true,
+			placeholder: 'xxxxxx',
 			type: 'password',
       defaultError: ({ user: { errors = {} } = {} }) => errors['password_confirmation']
     }
