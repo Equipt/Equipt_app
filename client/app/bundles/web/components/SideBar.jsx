@@ -26,10 +26,8 @@ export class SideBar extends Component {
 	}
 
 	componentWillReceiveProps() {
-		setTimeout(() => {
 			window.scrollTo(window.scrollX, window.scrollY - 1);
 			window.scrollTo(window.scrollX, window.scrollY + 1);
-		}, 300);
 	}
 
 	stickyNav() {
@@ -91,7 +89,7 @@ export class SideBar extends Component {
 				<style jsx>{`
 					.sidebar-wrapper {
 						position: fixed;
-						top: 72px;
+						margin-top: 72px;
 						left: 0;
 						width: 70px;
 						height: 100vh;
