@@ -9,17 +9,18 @@
 			<th>lastname</th>
 			<th>email</th>
 			<th>Home Phone</th>
-			<th>Cell Phone</th>
+			<th>Address Phone</th>
 			<th>Utils</th>
 		</tr>
-		
+
 		<% @users.each do |user| %>
 		<tr>
 			<td><%= user.firstname %></td>
 			<td><%= user.lastname %></td>
 			<td><%= user.email %></td>
-			<td><%= user.home_phone %></td>
-			<td><%= user.cell_phone %></td>
+
+			<td><%= user.phone ? user.phone.number : 'null' %></td>
+			<td><%= user.address ? user.address.number: 'null' %></td>
 			<td>
 				<%= link_to 'sporting_goods', admin_user_sporting_goods_path(user) %>
 			</td>
