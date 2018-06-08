@@ -84,7 +84,7 @@ class Rental < ActiveRecord::Base
     elsif status == RENTING
       "Your renting #{ sporting_good.title.capitalize } from #{ sporting_good.user.firstname.capitalize }"
     elsif status == OWNED
-      "#{ user.firstname.capitalize } is renting #{ sporting_good.title.capitalize } from you"
+      "#{ self.user.firstname.capitalize } is renting #{ sporting_good.title.capitalize } from you"
     else
       UNAVAILABLE
     end

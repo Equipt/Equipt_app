@@ -27,7 +27,9 @@ const RentalConfirmation = ({
     const header = rental.owned ? I18n.t('rentals.owner.confirmed', { user: firstname.capitalize(), sporting_good: title.capitalize() }) :
                    rental.isComplete ? content.rentals.completed : I18n.t('rentals.success', { item: title.capitalize() });
 
-    const subheader = I18n.t('rentals.confirmed', { user: owner.firstname && owner.firstname.capitalize() });
+    const subheader = rental.owned ?
+		'' :
+		I18n.t('rentals.confirmed', { user: owner.firstname && owner.firstname.capitalize() });
 
     const rentalControls = () => {
       return (

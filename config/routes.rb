@@ -25,7 +25,10 @@ Rails.application.routes.draw do
 
     namespace :admin do
         resources :users do
-            resources :sporting_goods
+            resources :sporting_goods do
+							resources :rentals
+						end
+						resources :rentals
         end
     end
 

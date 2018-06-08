@@ -5,27 +5,32 @@
 	<table class="table">
 
 		<tr>
-			<th>firstname</th>
-			<th>lastname</th>
-			<th>email</th>
+			<th>ID</th>
+			<th>Firstname</th>
+			<th>Lastname</th>
+			<th>Email</th>
 			<th>Home Phone</th>
-			<th>Address Phone</th>
-			<th>Utils</th>
+			<th>Address</th>
+			<th>Owned Sporting Goods</th>
+			<th>Rentals</th>
+			<th></th>
 		</tr>
 
 		<% @users.each do |user| %>
-		<tr>
-			<td><%= user.firstname %></td>
-			<td><%= user.lastname %></td>
-			<td><%= user.email %></td>
-
-			<td><%= user.phone ? user.phone.number : 'null' %></td>
-			<td><%= user.address ? user.address.number: 'null' %></td>
-			<td>
-				<%= link_to 'sporting_goods', admin_user_sporting_goods_path(user) %>
-			</td>
-		</tr>
+			<tr>
+				<td><%= user.hash_id %></td>
+				<td><%= user.firstname %></td>
+				<td><%= user.lastname %></td>
+				<td><%= user.email %></td>
+				<td><%= user.phone ? user.phone.number : 'null' %></td>
+				<td><%= user.address ? "#{user.address.unit}, #{user.address.number}, #{user.address.street}, \n #{user.address.city}, #{user.address.zip}, \n #{user.address.country}": 'null' %></td>
+				<td><%= link_to user.sporting_goods.count, admin_user_sporting_goods_path(user) %></td>
+				<td><%= link_to user.rentals.count, admin_user_rentals_path(user) %></td>
+				<td></td>
+			</tr>
 		<% end %>
+
+		<p class="pull-right">Users Count: <%= @users.count %></p>
 
 	</table>
 
