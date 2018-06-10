@@ -34,6 +34,7 @@ export default formDecorator({
       placeholder: 'John',
       required: true,
       defaultError: ({ currentUser }) => currentUser.errors['phone.number'],
+			defaultValue: ({ currentUser: { firstname } = {} }) => firstname
     },
     'lastname': {
       placeholder: 'Smith',

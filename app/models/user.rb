@@ -62,11 +62,10 @@ class User < ActiveRecord::Base
 
 			url = auth['picture']['data']['url']
 
-			user.images.first_or_initialize(url: url) do |image|
-				image.url ||= url
-				image.primary ||= true
-				image.save!
-			end
+			image = user.images.first_or_initialize
+			image.url = url
+			image.primary = true
+			image.save!
 
 		end
 
