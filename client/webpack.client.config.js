@@ -21,13 +21,13 @@ const config = {
       'es5-shim/es5-shim',
       'es5-shim/es5-sham',
       'babel-polyfill',
-      './app/bundles/web/startup/registration',
+      './app/bundles/web/startup/client',
     ],
   },
 
   output: {
     // Name comes from the entry section.
-    filename: '[name].js',
+    filename: 'webpack-bundle.js',
 
     // Leading slash is necessary
     publicPath: `/${webpackPublicOutputDir}`,

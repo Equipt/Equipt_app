@@ -11,9 +11,9 @@ const GlobalStyles = () => (
       		padding-top: 20px;
       	}
         .full-width {
-          margin: 74px 0 0 0;
+          margin: 90px 0 0 0;
         }
-      	margin: 74px 0 0 50px;
+      	margin: 90px 0 0 50px;
       	@media (max-width: ${ theme.tabletSize }) {
       		margin: 50px 0 0;
       	}

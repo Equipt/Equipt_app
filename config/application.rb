@@ -16,5 +16,6 @@ module EquiptApp
     # -- all .rb files in that directory are automatically loaded.
     config.time_zone = 'Pacific Time (US & Canada)'
     config.active_record.default_timezone = :local
+		config.encoding = "utf-8"
   end
 end
