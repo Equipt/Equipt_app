@@ -5,6 +5,8 @@ const GlobalStyles = () => (
   <div>
     <style jsx global>{`
 
+			$primary_color: #8FC485;
+
       .main-wrapper {
       	position: relative;
       	.transition .container {
@@ -22,7 +24,6 @@ const GlobalStyles = () => (
       .container {
       	position: relative;
       	width: 95%;
-
       	min-height: 100vh;
       	max-width: 1500px;
       	margin-bottom: 50px;

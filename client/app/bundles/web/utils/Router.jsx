@@ -16,6 +16,7 @@ import HowItWorks from 'components/HowItWorks';
 // Containers
 import Session from 'containers/Session';
 import Login from 'containers/Login';
+import Loader from 'containers/Loader';
 import Signup from 'containers/Signup';
 import ForgotPassword from 'containers/ForgotPassword';
 import ResetPassword from 'containers/ResetPassword';
@@ -56,6 +57,7 @@ export default (props, store) => {
 				<GlobalStyles />
 				<Alert/>
 				<ModalContainer/>
+				<Loader/>
 
 				<Route render={({ location }) => (
 					<Switch key={location.key} location={location}>

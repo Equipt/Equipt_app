@@ -24,10 +24,6 @@ export class UserForm extends React.Component {
     }
   }
 
-  onDrop() {
-    debugger;
-  }
-
   componentWillReceiveProps(newProps) {
     this.setState({
       user: newProps.user
