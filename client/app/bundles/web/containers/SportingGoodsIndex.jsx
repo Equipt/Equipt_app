@@ -30,10 +30,7 @@ class SportingGoodsIndex extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	return {
-		sportingGoods: state.sportingGoods,
-		loader: state.loader
-	}
+	return { sportingGoods: state.sportingGoods }
 }
 
 function matchDispatchToProps(dispatch) {

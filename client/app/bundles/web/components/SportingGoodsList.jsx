@@ -9,7 +9,6 @@ import NoSportingGoods from 'components/NoSportingGoods';
 
 const SportingGoodsList = ({
 	sportingGoods,
-	loader,
 	content,
 	search,
 	actions,
@@ -44,7 +43,6 @@ const SportingGoodsList = ({
 }
 
 SportingGoodsList.propTypes = {
-	loader: PropTypes.bool.isRequired,
 	sportingsGood: PropTypes.array,
 	content: PropTypes.object.isRequired,
 	search: PropTypes.func.isRequired,

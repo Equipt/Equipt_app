@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BigCalendar from 'react-big-calendar';
-import Loader from 'components/Loader';
 import { DateCell } from 'components/partials/DateCell.jsx';
 
 import DatePicker from 'components/DatePicker';
@@ -11,8 +10,6 @@ const OwnersSportingGoodUsage = ({
   rental,
   actions
 }) => {
-
-  if (!sportingGood) return <Loader/>;
 
   const { rentals = [] } = sportingGood;
 

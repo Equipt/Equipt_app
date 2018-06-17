@@ -3,7 +3,7 @@ import logo from 'assets/images/logo.png';
 
 import { Link } from 'react-router-dom';
 
-const Home = ({ content = {} }) => {
+const Home = () => {
 
 	return (
 		<section className="container full-width">

@@ -6,7 +6,6 @@ import StarRatings from 'react-star-rating-component';
 import { Link } from 'react-router-dom';
 
 import DatePicker from 'components/DatePicker';
-import Loader from 'components/Loader';
 import Modal from 'components/Modal';
 import Map from 'components/Map.jsx';
 import RatingsList from 'components/RatingsList';
@@ -22,8 +21,7 @@ export class SportingGoodDetails extends React.Component {
 		currentUser: PropTypes.object.isRequired,
 	  sportingGood: PropTypes.object.isRequired,
 		rental: PropTypes.object.isRequired,
-		actions: PropTypes.object.isRequired,
-		loader: PropTypes.bool.isRequired
+		actions: PropTypes.object.isRequired
 	}
 
 	static contextTypes = {
@@ -60,11 +58,9 @@ export class SportingGoodDetails extends React.Component {
 
 	render() {
 
-		const { sportingGood, rental = {}, content, showModal, actions, loader } = this.props;
+		const { sportingGood, rental = {}, content, showModal, actions } = this.props;
 		const { agreedToTerms } = this.state;
 		const { images = [], rentals = [], ratings = [], user = {} } = sportingGood;
-
-		if (loader) return <Loader/>;
 
 		// Conflict with a big-calendar setting
 		const totalDays = rental.totalDays;

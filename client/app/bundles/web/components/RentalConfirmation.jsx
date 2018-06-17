@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import RentalDetails from 'components/RentalDetails';
-import Loader from 'components/Loader';
 
 const RentalConfirmation = ({
     content,
@@ -16,11 +15,8 @@ const RentalConfirmation = ({
         title = ''
       } = {}
     } = {},
-    loader,
     actions
 }) => {
-
-    if (loader) return <Loader/>;
 
     const { sportingGood = {}, owner = {} } = rental;
 

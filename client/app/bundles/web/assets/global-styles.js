@@ -5,15 +5,17 @@ const GlobalStyles = () => (
   <div>
     <style jsx global>{`
 
+			$primary_color: #8FC485;
+
       .main-wrapper {
       	position: relative;
       	.transition .container {
       		padding-top: 20px;
       	}
         .full-width {
-          margin: 74px 0 0 0;
+          margin: 90px 0 0 0;
         }
-      	margin: 74px 0 0 50px;
+      	margin: 90px 0 0 50px;
       	@media (max-width: ${ theme.tabletSize }) {
       		margin: 50px 0 0;
       	}
@@ -22,7 +24,6 @@ const GlobalStyles = () => (
       .container {
       	position: relative;
       	width: 95%;
-
       	min-height: 100vh;
       	max-width: 1500px;
       	margin-bottom: 50px;
