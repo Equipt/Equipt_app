@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Loader = () => {
+const Loader = ({ loader }) => {
 
 	return (
-		<div className="container loader-wrapper">
+		<div className={ `container loader-wrapper ${ loader ? 'show' : 'hide' }` }>
 			<div className="loader">
 			  <div className="fire">
 		  		<div className="flame"></div>
@@ -145,11 +145,19 @@ const Loader = () => {
 			}
 
 			.loader-wrapper {
-			    position: fixed;
+					position: fixed;
+					overflow: hidden;
+					opacity: 0;
+					width: 100%;
+					height: 0;
 			    z-index: 100;
 					top: 72px;
 					left: 0;
 					padding: 0;
+					&.show {
+						height: auto;
+						opacity: 1;
+					}
 			    &:after {
 			        content: '';
 			        width: 100vw;

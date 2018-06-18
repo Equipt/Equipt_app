@@ -14,13 +14,7 @@ class Loader extends Component {
 
 	render() {
 		return (
-			<React.Fragment>
-			{
-				this.props.loader ?
-				<LoaderComponent { ...this.props }/> :
-				null
-			}
-			</React.Fragment>
+			<LoaderComponent { ...this.props }/>
 		)
 	}
 
