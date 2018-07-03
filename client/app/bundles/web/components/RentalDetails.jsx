@@ -180,7 +180,7 @@ const RentalDetails = ({
 
 }
 
-RentalDetails.PropTypes = {
+RentalDetails.propTypes = {
   rental: PropTypes.object.isRequired,
   rate: PropTypes.object.isRequired
 }
