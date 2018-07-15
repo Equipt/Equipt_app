@@ -122,6 +122,8 @@ export class SportingGoodDetails extends React.Component {
 
 						<div className="price-container">
 
+							<p>{rental.startDate && rental.startDate.format()} | {rental.endDate && rental.endDate.format()}</p>
+
 							{ rental.totalDays > 0 ? <h5>{ rentaltotalDays } Rental Days</h5> : null }
 							<h5>${ sportingGood.pricePerDay } per day</h5>
 							<h5>${ sportingGood.pricePerWeek } per week</h5>

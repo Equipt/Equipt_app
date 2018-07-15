@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import moment from 'moment';
+import BigCalendar from 'react-big-calendar';
 import RentalDetails from 'components/RentalDetails';
-import DatePicker from 'components/DatePicker';
+import { DateCell } from 'components/partials/DateCell.jsx';
+// import DatePicker from 'components/DatePicker';
 
 export class Schedule extends React.Component {
 
@@ -26,17 +29,39 @@ export class Schedule extends React.Component {
 
 	render() {
 
-		const { content, rentals = [] } = this.props;
+		const { rentals } = this.props;
 
-		return (
+	  return (
 			<div className="container">
-
-				<DatePicker
+				<BigCalendar
 					events={ rentals }
-					selectable={ true }
-					onSelectEvent={ this.selectedEvent.bind(this) }
-				/>
-
+					selectable={ false }
+					startAccessor={ event => {
+			      return moment(event.startDate, "YYYY/MM/DD").add(1, 'days').format('YYYY/MM/DD');
+					}}
+					endAccessor={ event => {
+						const endDate = moment(event.endDate, "YYYY/MM/DD");
+						// NOTE: fixes the full calendar date rounding
+						// Is a date that has already been save || is not a saturday
+						if (endDate.day() === 6) {
+							endDate.startOf('day').subtract(1, 'seconds');
+							return endDate.add(1, 'days');
+						} else if (event.hashId ) {
+							return endDate.add(1, 'days').format('YYYY/MM/DD');
+						} else {
+							return event.endDate;
+						}
+					}}
+					views={ ['month', 'agenda'] }
+					onSelectSlot={ event => {
+			      event.start = moment(event.start).subtract(1, 'days');
+			      onAddEvent(event);
+			    } }
+			    onSelectEvent={ this.onSelectEvent }
+					eventPropGetter={ this.getEventStyles }
+					components={{
+					dateCellWrapper: DateCell
+				}}/>
 			</div>
 		)
 	}
