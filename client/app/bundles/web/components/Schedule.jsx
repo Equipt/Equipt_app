@@ -5,9 +5,13 @@ import moment from 'moment';
 import BigCalendar from 'react-big-calendar';
 import RentalDetails from 'components/RentalDetails';
 import { DateCell } from 'components/partials/DateCell.jsx';
-// import DatePicker from 'components/DatePicker';
 
 export class Schedule extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.selectedEvent = this.selectedEvent.bind(this);
+	}
 
 	static contextTypes = {
 			router: PropTypes.shape({
@@ -35,7 +39,7 @@ export class Schedule extends React.Component {
 			<div className="container">
 				<BigCalendar
 					events={ rentals }
-					selectable={ false }
+					selectable={ true }
 					startAccessor={ event => {
 			      return moment(event.startDate, "YYYY/MM/DD").add(1, 'days').format('YYYY/MM/DD');
 					}}
@@ -53,15 +57,9 @@ export class Schedule extends React.Component {
 						}
 					}}
 					views={ ['month', 'agenda'] }
-					onSelectSlot={ event => {
-			      event.start = moment(event.start).subtract(1, 'days');
-			      onAddEvent(event);
-			    } }
-			    onSelectEvent={ this.onSelectEvent }
+			    onSelectEvent={ this.selectedEvent }
 					eventPropGetter={ this.getEventStyles }
-					components={{
-					dateCellWrapper: DateCell
-				}}/>
+					components={{ dateCellWrapper: DateCell }}/>
 			</div>
 		)
 	}
