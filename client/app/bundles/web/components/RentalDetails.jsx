@@ -123,7 +123,7 @@ const RentalDetails = ({
 
             <div className="clearfix"></div>
 
-            <h5>{ Moment(rental.startDate).add(1, 'days').format('dddd, Do MMMM YYYY') } - { Moment(rental.endDate).format('dddd, Do MMMM YYYY') }</h5>
+            <h5>{ Moment(rental.startDate).format('dddd, Do MMMM YYYY') } - { Moment(rental.endDate).subtract(1, 'days').format('dddd, Do MMMM YYYY') }</h5>
             <h5>{ rental.totalDays } Days Renting</h5>
 
             <hr/>
@@ -180,7 +180,7 @@ const RentalDetails = ({
 
 }
 
-RentalDetails.PropTypes = {
+RentalDetails.propTypes = {
   rental: PropTypes.object.isRequired,
   rate: PropTypes.object.isRequired
 }

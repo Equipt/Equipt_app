@@ -69,10 +69,10 @@ const config = {
           },
           },
       },
-      {
-        test: /\.scss$/,
-        loader: 'style!css?modules!sass'
-      },
+			{
+				test: /\.(scss|sass|css)$/i,
+				use: [ 'style-loader', 'css-loader', 'sass-loader']
+			},
       {
         test: /\.jsx?$/,
         use: 'babel-loader',
