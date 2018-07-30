@@ -13,9 +13,16 @@ import routes from 'utils/Router';
 import axios from 'axios';
 import algoliasearch from 'algoliasearch';
 import Api from 'utils/Api';
+import BigCalendar from 'react-big-calendar';
+import moment from 'moment';
 
 import reducers from '../reducers';
 import * as sessionActions from 'actions/session';
+
+// Start up big-calendar
+BigCalendar.setLocalizer(
+	BigCalendar.momentLocalizer(moment)
+);
 
 // Root Template
 const Root = (props, railsContext) => {

@@ -90,8 +90,7 @@ export class SportingGoodDetails extends React.Component {
 
 						<DatePicker
 							events={ rentals.concat([ rental ]) }
-							selectable={ true }
-							onAddEvent={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }
+							selectedDates={ rental => actions.selectRental(rental, sportingGood, agreedToTerms) }
 						/>
 
 						<RatingsList ratings={ ratings}/>

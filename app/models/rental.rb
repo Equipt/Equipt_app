@@ -46,6 +46,7 @@ class Rental < ActiveRecord::Base
   end
 
   def set_total_days
+		self.total_days = 1 if self.end_date == self.start_date
     self.total_days = (self.start_date - self.end_date).to_i.abs + 1
   end
 
@@ -61,7 +62,7 @@ class Rental < ActiveRecord::Base
 
   def set_rental_cost
     sporting_good = SportingGood.find(self.sporting_good_id)
-    self.sub_total = (sporting_good.price_per_day * (self.total_days - 1)).round(2)
+    self.sub_total = (sporting_good.price_per_day * self.total_days).round(2)
     self.total = (self.sub_total - self.discount).round(2)
   end
 
