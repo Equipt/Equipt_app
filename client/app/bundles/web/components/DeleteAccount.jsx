@@ -70,31 +70,23 @@ export class DeleteAccount extends React.Component {
 
     return (
       <div className="delete-account-container">
-
         <h4>{ content.profile.privacy.delete.are_you_sure }</h4>
-
         <form onSubmit={ this.deleteAccount.bind(this) }>
-
           <ul>
             {
-              content.profile.privacy.delete.consequences.map((consequence, index) => {
-                return  (<li className="radio-container" key={ `delete_account_consequence_${ index }` }>
-                          <input type="radio" ref={ `consequence_${ index }` }/>
-                          <span>{ consequence }</span>
-                        </li>);
-              })
+              content.profile.privacy.delete.consequences.map((consequence, index) => (
+								<li className="radio-container" key={ `delete_account_consequence_${ index }` }>
+                  <input type="radio" ref={ `consequence_${ index }` }/>
+                  <span>{ consequence }</span>
+                </li>
+							))
             }
           </ul>
-
           <h5>{ content.profile.privacy.delete.we_appreciate_any_feedback }</h5>
           <textarea name="feedback" ref="feedback" onChange={ this.updateFeedback.bind(this) }/>
-
           <br/>
-
           <button type="submit" className="btn btn-danger">{ content.profile.privacy.delete.im_sure }</button>
-
         </form>
-
       </div>
     )
 

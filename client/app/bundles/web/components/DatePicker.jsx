@@ -34,7 +34,7 @@ export default class DatePicker extends Component {
 				&& (!newStartDate.isSame(startDate) || !newEndDate.isSame(endDate))) {
 			selectedDates({
 				start: newStartDate,
-				end: newEndDate.add('day', 1)
+				end: newEndDate
 			});
 		}
 	}
