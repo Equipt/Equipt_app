@@ -14,7 +14,8 @@ class Phone < ApplicationRecord
     self.pin = twillio.generate_pin
     self.verifying = true
     self.verified = false
-    twillio.send_pin( self.number, self.pin )
+		puts "PIN NUMBER: #{self.pin}"
+		twillio.send_pin( self.number, self.pin )
   end
 
   def verify_pin pin

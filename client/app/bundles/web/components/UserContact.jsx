@@ -1,10 +1,8 @@
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ReactCodeInput from 'react-code-input';
-
+import PinInput from 'react-pin-input';
 import FormFieldsHelper from 'helpers/FormFields';
-
 import UserContactForm from './forms/UserContactForm';
 
 export default class UserContact extends React.Component {
@@ -23,6 +21,7 @@ export default class UserContact extends React.Component {
     }
 
     this.submitContact = this.submitContact.bind(this);
+		this.updatePin = this.updatePin.bind(this);
   }
 
   submitContact({ phone, address }) {
@@ -48,28 +47,6 @@ export default class UserContact extends React.Component {
       }
 
     });
-
-  }
-
-  onChange(field) {
-
-    const { value } = this.refs[field.name];
-
-    this.state.address[field.name] = value;
-
-    this.setState(this.state);
-
-  }
-
-  phoneNumberChanged(field) {
-
-    const { value } = this.refs['phone'];
-
-    this.state.phone = {
-      number: value
-    }
-
-    this.setState(this.state);
 
   }
 
@@ -105,7 +82,11 @@ export default class UserContact extends React.Component {
 
         <h4>{ I18n.t('user.need_pin') }</h4>
 
-        <ReactCodeInput type='text' fields={ 4 } onChange={ this.updatePin.bind(this) }/>
+				<PinInput
+				 length={4}
+				 type="numeric"
+				 onComplete={this.updatePin}
+				/>
 
         <span onClick={ actions.resendPin }>{ this.props.content.profile.contact.resend_pin }</span>
 

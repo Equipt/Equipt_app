@@ -2,6 +2,7 @@
   "name": "equipt_app",
   "private": true,
   "dependencies": {
+    "npm": "^6.4.0",
     "react-dates": "^17.0.0",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.1",
