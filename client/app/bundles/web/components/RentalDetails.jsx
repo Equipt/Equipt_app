@@ -156,16 +156,15 @@ const RentalDetails = ({
             <h4>{ sportingGood.title }</h4>
             <p>{ sportingGood.description }</p>
 
-            <Slider { ...sliderSettings }>
-            {
-              images.map((image, index) => {
-                if (image) {
-                  return <img key={ `${ sportingGood.slug }_image_${ index }` } height="auto" src={ image.file.url }/>
-                }
-              })
-            }
-            </Slider>
-
+						{
+							images.length > 1 ?
+							images.map((image, index) => (
+								<Slider { ...sliderSettings }>
+									<img key={ `${ sportingGood.slug }_image_${ index }` } height="auto" src={ image.file.url }/>
+								</Slider>
+							)) :
+							<img key={ `${ sportingGood.slug }_image_${ index }` } height="auto" src={ image.file.url }/>
+						}
           </div>
 
       </div>
@@ -174,6 +173,9 @@ const RentalDetails = ({
         .ratings {
           margin: 15px 19px;
         }
+				.slick-slider {
+					overflow: hidden;
+				}
       `}</style>
 
     </div>)
