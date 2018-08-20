@@ -116,15 +116,15 @@ const RentalDetails = ({
 
 		if (!images.length) return null;
 
-		if (images.length === 1) (
-			<img key={ `${ sportingGood.slug }_image_0` } height="auto" src={ image.file.url }/>
-		)
+		if (images.length === 1) {
+			return <img key={ `${ sportingGood.slug }_image_0` } height="auto" src={ image.file.url }/>;
+		}
 
 		return images.map((image, index) => (
 			<Slider { ...sliderSettings }>
 				<img key={ `${ sportingGood.slug }_image_${ index }` } height="auto" src={ image.file.url }/>
 			</Slider>
-		)	
+		))
 
 	}
 
@@ -173,6 +173,7 @@ const RentalDetails = ({
             <p>{ sportingGood.description }</p>
 
 						{ renderImageSlider(images) }
+						
           </div>
 
       </div>
