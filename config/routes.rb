@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
         namespace :owner do
             resources :sporting_goods, param: :slug do
-              resources :rentals, only: [:show, :create]
+              resources :rentals, only: [:show, :create, :destroy]
             end
             resources :rentals, param: :hash_id do
               resources :ratings, only: [:create]

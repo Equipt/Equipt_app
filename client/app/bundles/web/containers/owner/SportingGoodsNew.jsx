@@ -9,6 +9,7 @@ import * as alertActions from 'actions/alerts';
 import * as sessionActions from 'actions/session';
 import * as modalActions from 'actions/modal';
 
+import { SportingGoodsForm_v2 } from 'components/forms/SportingGoodsForm';
 import { SportingGoodsForm } from 'components/SportingGoodsForm';
 
 class SportingGoodsNew extends React.Component {

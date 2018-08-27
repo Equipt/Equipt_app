@@ -150,3 +150,17 @@ export const ownerIsUsingSportingGood = (rental, sportingGood) => {
 	}
 
 }
+
+export const removeOwnerUsage = (rental, sportingGood) => {
+
+	return (dispatch, getState, { api }) => {
+		api.delete(`/owner/sporting_goods/${ sportingGood.slug }/rentals/${ rental.hashId }`)
+		.then(res => {
+			debugger;
+		})
+		.catch(res => {
+			debugger;
+		})
+	}
+
+}
