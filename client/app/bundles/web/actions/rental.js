@@ -134,6 +134,7 @@ export const ownerIsUsingSportingGood = (rental, sportingGood) => {
 
 	const { start, end } = rental;
 	const { showErrorAlert, clearAlerts } = alertActions;
+	const { attachRental } = sportingGoodActions;
 	const endDate = Moment(end, "DD-MM-YYYY").add(1, 'minute');
 
 	return function(dispatch, getState, { api }) {
@@ -144,7 +145,7 @@ export const ownerIsUsingSportingGood = (rental, sportingGood) => {
 				end_date: endDate
 			}
 		})
-		.then(rental => dispatch(setRental(rental)))
+		.then(rental => dispatch(attachRental(rental)))
 		.catch(data => dispatch(showErrorAlert(data.errors)))
 
 	}
@@ -153,14 +154,16 @@ export const ownerIsUsingSportingGood = (rental, sportingGood) => {
 
 export const removeOwnerUsage = (rental, sportingGood) => {
 
+	const { showErrorAlert, clearAlerts } = alertActions;
+	const { detachRental } = sportingGoodActions;
+
 	return (dispatch, getState, { api }) => {
 		api.delete(`/owner/sporting_goods/${ sportingGood.slug }/rentals/${ rental.hashId }`)
 		.then(res => {
-			debugger;
+			dispatch(detachRental(rental));
+			// dispatch(showSuccessAlert(res.info));
 		})
-		.catch(res => {
-			debugger;
-		})
+		.catch(res => dispatch(showErrorAlert(res.error)))
 	}
 
 }

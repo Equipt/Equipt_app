@@ -107,6 +107,7 @@ en:
     contribution: "Thankyou for your feedback"
     error: "There was a issue processing your rating"
     already_rated: "Sorry, you cant rate the same resource twice!"
+    no_ratings: There are no review yet
   utils:
     report_a_bug: 'Found A Bug?'
     report_a_bug_desc: 'Thanks for making Equipt AWESOME!!'

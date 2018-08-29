@@ -14,9 +14,6 @@ const OwnersSportingGoodUsage = ({
 
   const { rentals = [] } = sportingGood;
 
-  // Add newly created rental to rentals
-  if (rental) rentals.push(rental);
-
 	return (
 		<section className="container usage-wrapper">
 
@@ -39,7 +36,7 @@ const OwnersSportingGoodUsage = ({
 				<ul className="rentals">
 				{
 					rentals.map((rental, index) => (
-						<li key={`owners_rental_${ index }`}>
+						<li className="rental" key={`owners_rental_${ index }`}>
 							{ Moment(rental.startDate).format('dddd, Do MMMM YYYY') }
 							-
 							{ Moment(rental.endDate).format('dddd, Do MMMM YYYY') }
@@ -58,11 +55,17 @@ const OwnersSportingGoodUsage = ({
 				.usage-container {
 					display: flex;
 					.rentals {
-
+						width: 40%;
+						.rental {
+							margin-bottom: 20px;
+							a {
+								float: right;
+							}
+						}
 					}
 				}
 				.usage-selection {
-					width: 40%;
+					width: 50%;
 				}
 			`}</style>
 

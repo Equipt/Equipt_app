@@ -103,7 +103,14 @@ export const updateSportingGood = (sportingGood = {}, images = [], slug = '', ca
 
 export const detachRental = data => {
 	return {
-		type: types.DETACH_RENTAL,
+		type: types.DETACH_SPORTING_GOOD_RENTAL,
+		payload: data
+	}
+}
+
+export const attachRental = data => {
+	return {
+		type: types.ATTACH_SPORTING_GOOD_RENTAL,
 		payload: data
 	}
 }
