@@ -130,7 +130,7 @@ export const cancelRental = (rental, callback) => {
 }
 
 // Owner whats to set sporting_good as used
-export const ownerIsUsingSportingGood = (rental, sportingGood) => {
+export const ownerIsUsingSportingGood = (rental, sportingGood, day_code) => {
 
 	const { start, end } = rental;
 	const { showErrorAlert, clearAlerts } = alertActions;
@@ -139,10 +139,15 @@ export const ownerIsUsingSportingGood = (rental, sportingGood) => {
 
 	return function(dispatch, getState, { api }) {
 
-		api.post(`/owner/sporting_goods/${ sportingGood.slug }/rentals`, {
+		const url = day_code ?
+		`/owner/sporting_goods/${ sportingGood.slug }/unavailabilities` :
+		`/owner/sporting_goods/${ sportingGood.slug }/rentals`;
+
+		api.post(url, {
 			rental: {
 				start_date: start,
-				end_date: endDate
+				end_date: endDate,
+				day_code: day_code
 			}
 		})
 		.then(rental => dispatch(attachRental(rental)))
@@ -161,7 +166,7 @@ export const removeOwnerUsage = (rental, sportingGood) => {
 		api.delete(`/owner/sporting_goods/${ sportingGood.slug }/rentals/${ rental.hashId }`)
 		.then(res => {
 			dispatch(detachRental(rental));
-			// dispatch(showSuccessAlert(res.info));
+			dispatch(showSuccessAlert(res));
 		})
 		.catch(res => dispatch(showErrorAlert(res.error)))
 	}

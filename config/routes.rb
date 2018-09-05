@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         namespace :owner do
             resources :sporting_goods, param: :slug do
               resources :rentals, param: :hash_id, only: [:show, :create, :destroy]
+							resources :unavailabilities, only: [:create]
             end
             resources :rentals, param: :hash_id do
               resources :ratings, only: [:create]

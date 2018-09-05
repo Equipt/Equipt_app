@@ -21,6 +21,23 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  day_names:
+    - code: 1
+      name: Monday
+    - code: 2
+      name: Tuesday
+    - code: 3
+      name: Wednesday
+    - code: 4
+      name: Thursday
+    - code: 5
+      name: Friday
+    - code: 6
+      name: Saturday
+    - code: 7
+      name: Sunday
+    - code: 8
+      name: Weekends
   errors:
     not_found: Sorry %{item} does not exist!
     server_error: Something went wrong, please try again later!

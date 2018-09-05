@@ -13,6 +13,7 @@ const OwnersSportingGoodUsage = ({
 }) => {
 
   const { rentals = [] } = sportingGood;
+	const dayNames = I18n.t('day_names');
 
 	return (
 		<section className="container usage-wrapper">
@@ -30,6 +31,19 @@ const OwnersSportingGoodUsage = ({
 		        selectable={ true }
 						selectedDates={ rental => actions.ownerIsUsingSportingGood(rental, sportingGood) }
 		      />
+
+					<hr/>
+
+					<h4>Or select days when your using { sportingGood.title }.</h4>
+
+					<ul className="day-names">
+					{
+						dayNames.map(day => (
+							<li onClick={ () => actions.ownerIsUsingSportingGood(rental, sportingGood, day.code) }>{ day.name }</li>
+						))
+					}
+					</ul>
+
 
 				</div>
 
@@ -55,7 +69,7 @@ const OwnersSportingGoodUsage = ({
 				.usage-container {
 					display: flex;
 					.rentals {
-						width: 40%;
+						width: 60%;
 						.rental {
 							margin-bottom: 20px;
 							a {
@@ -65,7 +79,16 @@ const OwnersSportingGoodUsage = ({
 					}
 				}
 				.usage-selection {
-					width: 50%;
+					width: 40%;
+				}
+				.day-names {
+					display: flex;
+					li {
+						justify-content: space-between;
+						margin: 0 5px;
+						padding: 5px;
+						border: solid 1px #ccc;
+					}
 				}
 			`}</style>
 
