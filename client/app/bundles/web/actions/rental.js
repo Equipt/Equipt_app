@@ -33,8 +33,8 @@ export const rent = (rental, sportingGood, callback) => {
 
 	return (dispatch, getState, { api }) => {
 
-    const { slug } = sportingGood;
-    const { showErrorAlert } = alertActions;
+		const { slug } = sportingGood;
+		const { showErrorAlert } = alertActions;
 
 		api.post(`/sporting_goods/${ slug }/rentals`, rental)
 		.then(rental => {
@@ -77,8 +77,8 @@ export const clearRental = () => {
 export const selectRental = (rental, sportingGood, agreedToTerms) => {
 
 	const { start, end } = rental;
-  const { slug } = sportingGood;
-  const { showErrorAlert, clearAlerts } = alertActions;
+	const { slug } = sportingGood;
+	const { showErrorAlert, clearAlerts } = alertActions;
 
 	return (dispatch, getState, { api }) => {
 
@@ -94,15 +94,15 @@ export const selectRental = (rental, sportingGood, agreedToTerms) => {
 			dispatch({
 				type: types.SELECTED_RENTAL,
 				payload: {
-		      title: 'selected',
-		      startDate: rental.start,
-		      endDate: endDate,
-		      agreedToTerms: agreedToTerms,
+					title: 'selected',
+					startDate: rental.start,
+					endDate: endDate,
+					agreedToTerms: agreedToTerms,
 					totalDays: data.totalDays,
 					discount: data.discount,
 					subTotal: data.subTotal,
 					total: data.total
-		    }
+				}
 			})
 			clearAlerts();
 		})
@@ -113,20 +113,16 @@ export const selectRental = (rental, sportingGood, agreedToTerms) => {
 }
 
 export const cancelRental = (rental, callback) => {
-
-    return function(dispatch, getState, { api, history }) {
-
-        api.delete(`${ rental.owned ? '/owner' : '' }/rentals/${ rental.hashId }`)
-        .then(res => {
-						dispatch(sportingGoodActions.detachRental(rental));
-            dispatch(alertActions.showSuccessAlert(res));
-						if (callback) callback(history);
-        }).catch(err => {
-            dispatch(alertActions.showErrorAlert(err));
-        });
-
-    }
-
+	return function(dispatch, getState, { api, history }) {
+		api.delete(`${ rental.owned ? '/owner' : '' }/rentals/${ rental.hashId }`)
+		.then(res => {
+			dispatch(sportingGoodActions.detachRental(rental));
+			dispatch(alertActions.showSuccessAlert(res));
+			if (callback) callback(history);
+		}).catch(err => {
+			dispatch(alertActions.showErrorAlert(err));
+		});
+	}
 }
 
 // Owner whats to set sporting_good as used

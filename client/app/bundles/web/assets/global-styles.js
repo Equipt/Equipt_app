@@ -7,13 +7,17 @@ const GlobalStyles = () => (
 
 			$primary_color: #8FC485;
 
+      html {
+        overflow-x: hidden;
+      }
+
       .main-wrapper {
       	position: relative;
       	.transition .container {
       		padding-top: 20px;
       	}
         .full-width {
-          margin: 90px 0 0 0;
+          margin: 20px 0 0 0;
         }
       	margin: 90px 0 0 50px;
       	@media (max-width: ${ theme.tabletSize }) {
@@ -24,6 +28,7 @@ const GlobalStyles = () => (
       .container {
       	position: relative;
       	width: 95%;
+        top: 40px;
       	min-height: 100vh;
       	max-width: 1500px;
       	margin-bottom: 50px;
@@ -57,6 +62,10 @@ const GlobalStyles = () => (
         .error, .error::placeholder {
           border-color: rgb(220, 53, 69);
           color: rgb(220, 53, 69);
+        }
+        .btn {
+          width: 100%;
+          margin-bottom: 20px;
         }
       }
 

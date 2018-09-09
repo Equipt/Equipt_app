@@ -34,16 +34,19 @@ const OwnersSportingGoodUsage = ({
 
 					<hr/>
 
-					<h4>Or select days when your using { sportingGood.title }.</h4>
+          {
+            /*
+            <h4>Or select days when your using { sportingGood.title }.</h4>
 
-					<ul className="day-names">
-					{
-						dayNames.map(day => (
-							<li onClick={ () => actions.ownerIsUsingSportingGood(rental, sportingGood, day.code) }>{ day.name }</li>
-						))
-					}
-					</ul>
-
+            <ul className="day-names">
+            {
+            dayNames.map(day => (
+            <li onClick={ () => actions.ownerIsUsingSportingGood(rental, sportingGood, day.code) }>{ day.name }</li>
+          ))
+        }
+        </ul>
+            */
+          }
 
 				</div>
 

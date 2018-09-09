@@ -46,6 +46,7 @@ export class FaceBookLogin extends Component {
     				appId={ facebookAppId }
     				autoLoad={true}
     				fields="name,email,picture"
+						disableMobileRedirect={ true }
     				callback={ this.login.bind(this) }/>
     	</div>
 		);
