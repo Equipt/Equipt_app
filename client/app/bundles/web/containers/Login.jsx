@@ -8,13 +8,14 @@ import { Link } from 'react-router-dom';
 
 import * as sessionActions from 'actions/session';
 
-import LoginForm from 'components/LoginForm';
+// import LoginForm from 'components/LoginForm';
+import Login from 'components/Login';
 
-class Login extends Component {
+class LoginContainer extends Component {
 
 	render() {
 		return (
-			<LoginForm { ...this.props }/>
+			<Login { ...this.props }/>
 		)
 	}
 
@@ -28,4 +29,4 @@ function matchDispatchToProps(dispatch) {
 	return {actions: bindActionCreators(sessionActions, dispatch)}
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(Login);
+export default connect(mapStateToProps, matchDispatchToProps)(LoginContainer);

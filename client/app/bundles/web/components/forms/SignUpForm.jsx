@@ -1,4 +1,4 @@
-import React,  { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import formDecorator from 'hocs/formDecorator';
 import ErrorsList from './ErrorsList';

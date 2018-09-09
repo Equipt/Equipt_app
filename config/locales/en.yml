@@ -21,6 +21,23 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  day_names:
+    - code: 1
+      name: Monday
+    - code: 2
+      name: Tuesday
+    - code: 3
+      name: Wednesday
+    - code: 4
+      name: Thursday
+    - code: 5
+      name: Friday
+    - code: 6
+      name: Saturday
+    - code: 7
+      name: Sunday
+    - code: 8
+      name: Weekends
   errors:
     not_found: Sorry %{item} does not exist!
     server_error: Something went wrong, please try again later!
@@ -107,21 +124,36 @@ en:
     contribution: "Thankyou for your feedback"
     error: "There was a issue processing your rating"
     already_rated: "Sorry, you cant rate the same resource twice!"
+    no_ratings: Sorry, reviews yet!!
   utils:
     report_a_bug: 'Found A Bug?'
     report_a_bug_desc: 'Thanks for making Equipt AWESOME!!'
   about: '<p>Equipt is a platform for renting out sporting equiptment</p>
   <p>From Vancouver B.C.</p>'
   nav:
-    login: 'Login'
-    signup: 'Signup'
-    logout: 'Logout'
-    all_goods: 'Rent Sporting Goods'
-    add_good: 'Add A Sporting Good'
-    your_goods: 'Your Goods'
-    schedule: 'Calendar'
-
-
+    menuList:
+      - name: Rent Sporting Goods
+        link: /sporting_goods
+      - name: Add A Sporting Good
+        link: /owner/sporting_goods/new
+      - name: Your Goods
+        link: /owner/sporting_goods
+      - name: Calendar
+        link: /owner/schedule
+    sessionList:
+      - name: Login
+        link: /login
+      - name: Signup
+        link: /signup
+  login:
+    title: Login
+    password_reset: Need help logging in?
+    email:
+      placeholder: Enter your email address
+      label: Email address
+    password:
+      placeholder: Enter  your password
+      label: Password
 
   frontend:
     go_back: Go Back
@@ -140,18 +172,6 @@ en:
         title: How It Works
       report_a_bug:
         title: Report A Bug
-    login:
-      title: Login
-      password_reset: Need help logging in?
-      formFields:
-        - name: email
-          label: Email address
-          tag: input
-          type: email
-        - name: password
-          label: password
-          tag: input
-          type: password
     signup:
       title: Signup
       formFields:

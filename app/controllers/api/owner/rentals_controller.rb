@@ -17,7 +17,7 @@ class Api::Owner::RentalsController < ApiController
     end
 
     def show
-      rental = sporting_goods.rentals.find_by_hash_id(params[:id])
+      rental = sporting_goods.rentals.find_by_hash_id(params[:hash_id])
       if rental
         render json: rental, status: 200
       else

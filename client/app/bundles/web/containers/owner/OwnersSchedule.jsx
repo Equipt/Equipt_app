@@ -30,10 +30,11 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-	return {actions: bindActionCreators({
-																				...sportingGoodActions,
-																				...rentalActions
-																			}, dispatch)}
+	return {
+		actions: bindActionCreators({
+		...sportingGoodActions,
+		...rentalActions
+	}, dispatch)}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(OwnersSchedule);

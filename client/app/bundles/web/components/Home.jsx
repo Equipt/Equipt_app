@@ -20,7 +20,7 @@ const Home = () => {
 		</div>
 		<style jsx>{`
 			.logo-wrapper {
-				transform: translateY(30%);
+				transform: translateY(0%);
 			}
 			h1 {
 				font-size: 80px;

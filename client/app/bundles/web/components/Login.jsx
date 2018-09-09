@@ -4,10 +4,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { FaceBookLogin } from 'components/FacebookLogin';
+import LoginForm from 'components/forms/LoginForm';
 
 import * as alertActions from 'actions/alerts';
 
-class LoginForm extends React.Component {
+class Login extends React.Component {
 
 	static contextTypes = {
 		router: PropTypes.shape({
@@ -16,20 +17,19 @@ class LoginForm extends React.Component {
 	};
 
 	static propTypes = {
-		content: PropTypes.object.isRequired,
 		actions: PropTypes.object.isRequired,
 		facebookAppId: PropTypes.string.isRequired
 	}
 
-	submit(e) {
+	constructor(props) {
+		super(props);
+		this.submit = this.submit.bind(this);
+	}
 
-		e.preventDefault();
+	submit({ email, password }) {
 
 		const { login } = this.props.actions;
 		const { history, route } = this.context.router;
-
-		const email = this.refs.email.value;
-		const password = this.refs.password.value;
 
 		// Fetch Current User
 		login({ email, password }, () => {
@@ -50,32 +50,22 @@ class LoginForm extends React.Component {
 		return (
 			<section className="container">
 
-				<h2>{ login.title }</h2>
+				<h2 className="title">{ I18n.t('login.title') }</h2>
 
-				<form onSubmit={ this.submit.bind(this) }>
+				<LoginForm onSubmit={ this.submit }/>
 
-					{
-						login.formFields.map((field, index) => {
-
-							return 	(<div key={ `field_${ index }` }
-										 			 className="form-group">
-													 <br/>
-													 <label>{ field.label }</label>
-													 <input  ref={ field.name }
-													 				 name={ field.name }
-																	 className="form-control"
-																	 type={ field.type }/>
-								   	</div>);
-						})
-					}
-
-					<input type="submit" value="login" className="btn btn-success"/>
-
-				</form>
-
-				<Link to="/forgot_password" className="pull-right">{ login.password_reset }</Link>
+				<Link to="/forgot_password" className="pull-right reset_password">{ I18n.t('login.password_reset') }</Link>
 
 				<FaceBookLogin loginWithFacebook={ actions.loginWithFacebook } facebookAppId={ facebookAppId }/>
+
+				<style jsx>{`
+					.reset_password {
+						clear: both;
+					}
+					.title {
+						margin-top: 20px;
+					}
+				`}</style>
 
 			</section>
 		)
@@ -83,4 +73,4 @@ class LoginForm extends React.Component {
 
 }
 
-export default LoginForm;
+export default Login;

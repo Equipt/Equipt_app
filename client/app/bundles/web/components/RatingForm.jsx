@@ -5,7 +5,7 @@ import StarRatings from 'react-star-rating-component';
 
 export class RatingForm extends Component {
 
-  static PropTypes = {
+  static propTypes = {
     rate: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired
   }

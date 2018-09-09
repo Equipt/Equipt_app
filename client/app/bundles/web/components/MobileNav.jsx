@@ -9,68 +9,70 @@ class MobileNav extends React.Component {
 		super(props);
 
 		this.state = {
-			menuVisible: false
+			isMenuVisible: false
 		};
+
+		this.renderDropDown = this.renderDropDown.bind(this);
+
 	}
 
 	toggleMenu() {
 		this.setState({
-			menuVisible: this.state.menuVisible ? false : true
+			isMenuVisible: this.state.isMenuVisible ? false : true
 		})
+	}
+
+	componentWillReceiveProps() {
+		this.setState({
+			isMenuVisible: false
+		});
+	}
+
+	renderDropDown() {
+
+		const { session, clearSession } = this.props;
+		const dropDownList = session.currentUser ? I18n.t('nav.menuList') : I18n.t('nav.sessionList');
+
+		return (
+			<ul className="dropdown-menu">
+				{
+					dropDownList.map((listItem, index) => (
+						<li key={ `drop_down_${ index }` }><Link to={ listItem.link }>{ listItem.name }</Link></li>
+					))
+				}
+				{
+					session.currentUser ?
+					<li onClick={ clearSession }>Logout</li> :
+					null
+				}
+				<style jsx>{`
+					.dropdown-menu {
+						display: block;
+						position: fixed;
+						top: 72px;
+						width: 100%;
+						margin-top: -1px;
+						> li {
+							padding: 0 5px 10px;
+							font-size: 20px;
+							color: ${ theme.textColor };
+						}
+					}
+				`}</style>
+				<style jsx global>{`
+					.dropdown-menu a {
+						padding: 0 !important;
+						margin: 0;
+					}
+				`}</style>
+			</ul>
+		)
 	}
 
 	render() {
 
-		const { session, clearSession, content } = this.props;
-
-		const styles = {
-			display: this.state.menuVisible ? 'block' : 'none'
-		};
-
-		let sessionHtml = (
-			<ul className="dropdown-menu" style={ styles }>
-				<li>
-					<Link to="/login">{ content.nav.login }</Link>
-				</li>
-				<li>
-					<Link to="/signup">{ content.nav.signup }</Link>
-				</li>
-			</ul>
-		);
-
-		// Set logged in html
-		if (session.currentUser) {
-
-			sessionHtml = (
-				<ul className="dropdown-menu" style={ styles }>
-					<li>
-						<Link to="/sporting_goods">{ I18n.t('nav.all_goods') }</Link>
-					</li>
-					<li>
-						<Link to="/owner/sporting_goods/new">{ I18n.t('nav.add_good') }</Link>
-					</li>
-					<li>
-						<Link to="/owner/sporting_goods">{  I18n.t('nav.your_goods') }</Link>
-					</li>
-					<li>
-						<Link to="/owner/schedule">{  I18n.t('nav.schedule') }</Link>
-					</li>
-					<li onClick={ clearSession }>
-						<a href="#">{ content.nav.logout }</a>
-					</li>
-					<style jsx>{`
-						.dropdown-menu {
-							width: 100%;
-							margin-top: -1px;
-							> li > a {
-								color: ${ theme.textColor };
-							}
-						}
-					`}</style>
-				</ul>
-			);
-
-		}
+		const { session, clearSession } = this.props;
+		const { isMenuVisible } = this.state;
 
 		return (
 			<nav className="navbar fixed mobile-nav visible-xs">
@@ -78,10 +80,16 @@ class MobileNav extends React.Component {
 					<img src={ 'https://s3-us-west-2.amazonaws.com/equipt-assets/logo.png' } width="55px" className="logo"/>
 				</Link>
 				<div onClick={ this.toggleMenu.bind(this) }>
-					<i className={ `fa ${ this.state.menuVisible ? 'fa-times' : 'fa-bars' } pull-right hamburger` } aria-hidden="true"></i>
+					<i className={ `fa ${ this.state.isMenuVisible ? 'fa-times' : 'fa-bars' } pull-right hamburger` } aria-hidden="true"></i>
 				</div>
-				{ sessionHtml }
+				{ isMenuVisible ? this.renderDropDown() : null }
 				<style jsx>{`
+					.mobile-nav {
+						width: 100vw !important;
+					}
+					.hamburger {
+						margin-top: 3px;
+					}
 					img {
 						float: left;
 					}
@@ -93,10 +101,7 @@ class MobileNav extends React.Component {
 				`}</style>
 			</nav>
 		)
-
-
 	}
-
 
 };
 
