@@ -1,11 +1,12 @@
 class Api::SessionController < ApiController
 
 	protect_from_forgery with: :null_session
+	skip_before_action :verify_authenticity_token
 
 	before_action :ensure_authenticated_user, only: [:fetch_user]
 
 	def create
-		user = User.find_by_email(params[:email])
+		user = User.find_by_email(params[:email].downcase)
 		if user && user.authenticate(params[:password])
 			render json: user, session_notice: true, send_api_token: true, status: 200
 		else
@@ -23,7 +24,7 @@ class Api::SessionController < ApiController
 	end
 
 	def forgot_password
-		user = User.find_by_email(params['email'])
+		user = User.find_by_email(params['email'].downcase)
 		user.send_password_reset if user
 		render json: { info: I18n.t('session.sent_password_reset') }, status: 200
 	end
