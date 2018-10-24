@@ -14,7 +14,8 @@ class SportingGoodSerializer < ApplicationSerializer
 						:images,
 						:overall_rating,
 						:total_ratings,
-						:primary_image
+						:primary_image,
+						:coordinates
 
 	has_many :rentals
 	has_many :ratings, serializer: RatingSerializer
@@ -22,6 +23,13 @@ class SportingGoodSerializer < ApplicationSerializer
 
 	def include_rentals?
 		@options[:exclude_rentals]
+	end
+
+	def coordinates
+		{
+			latitude: @object.user.address.latitude,
+			longitude: @object.user.address.longitude
+		}
 	end
 
 	def images
