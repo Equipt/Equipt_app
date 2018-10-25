@@ -2,7 +2,6 @@ class Api::RentalsController < ApiController
 
     RENTALS_LIMIT_PER_USER = 5
 
-    before_action :ensure_authenticated_user
     before_action :verified_user, only: [:create, :destroy]
     before_action :is_current_user_verified?, only: :create
 

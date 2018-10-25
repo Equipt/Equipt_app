@@ -1,8 +1,8 @@
 class ApiController < ApplicationController
 
+	before_action :ensure_authenticated_user
+	
 	protect_from_forgery with: :null_session
-
-	skip_before_action :verify_authenticity_token
 
 	serialization_scope :current_user
 
