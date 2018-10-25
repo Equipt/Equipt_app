@@ -1,7 +1,5 @@
 class Api::SportingGoodsController < ApiController
 
-	before_action :ensure_authenticated_user
-
 	def index
 		sporting_goods = SportingGood.exclude_user(current_user).search(params).paginate(pagination_params)
 		render json: { sporting_goods: ActiveModel::Serializer::CollectionSerializer.new(sporting_goods, serializer: SportingGoodsSerializer),

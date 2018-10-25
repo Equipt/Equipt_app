@@ -1,8 +1,5 @@
 class Api::Owner::SportingGoodsController < ApiController
 
-	skip_before_action :verify_authenticity_token
-
-	before_action :ensure_authenticated_user
 	before_action :is_current_user_verified?, only: :create
 
 	def index

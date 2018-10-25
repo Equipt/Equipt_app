@@ -1,7 +1,5 @@
 class Api::PhoneController < ApiController
 
-  before_action :ensure_authenticated_user
-
   def verify
     phone = current_user.phone
     if phone && phone.verify_pin(params[:pin])

@@ -1,6 +1,7 @@
 class Api::UserController < ApiController
 
-	skip_before_action :verify_authenticity_token
+	protect_from_forgery with: :null_session
+	skip_before_action :ensure_authenticated_user, only: [:create]
 
 	def create
 		user = User.new(user_params)
