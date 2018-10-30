@@ -42,7 +42,9 @@ class UserSerializer < ApplicationSerializer
   end
 
   def rentals
-  	current_user.rentals | current_user.owned_rentals if @instance_options[:include_rentals]
+		if @instance_options[:include_rentals]
+			current_user.rentals | current_user.owned_rentals
+		end
   end
 
 	def isVerified
@@ -54,7 +56,7 @@ class UserSerializer < ApplicationSerializer
 	end
 
 	def ratings
-		ActiveModel::Serializer::CollectionSerializer.new( @object.ratings | @object.owned_rentals.map(&:ratings).flatten, each_serializer: RatingSerializer )
+		ActiveModel::Serializer::CollectionSerializer.new( @object.ratings | @object.owned_rentals.map(&:ratings).flatten, each_serializer: RatingSerializer)
 	end
 
 end

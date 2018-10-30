@@ -1,9 +1,8 @@
 class ApiController < ApplicationController
 
 	before_action :ensure_authenticated_user
-	
-	protect_from_forgery with: :null_session
 
+	protect_from_forgery with: :null_session
 	serialization_scope :current_user
 
 	#returns the active user associated with the access token
