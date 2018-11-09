@@ -23,7 +23,8 @@ class RentalSerializer < ApplicationSerializer
                 :is_complete,
                 :status,
                 :owned,
-                :rating
+                :rating,
+                :time_to
 
     belongs_to :sporting_good, serializer: SportingGoodsSerializer
     belongs_to :user, serializer: OwnerSerializer
@@ -63,6 +64,10 @@ class RentalSerializer < ApplicationSerializer
     def rating
       return @object.user.ratings.find_by(author_id: current_user.id) if owned
       @object.sporting_good.ratings.find_by(author_id: current_user.id)
+    end
+
+    def time_to
+      TimeDifference.between(@object.start_date, Time.now).in_general
     end
 
 end
