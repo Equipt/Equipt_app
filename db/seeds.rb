@@ -81,7 +81,8 @@ def create_address(user)
     zip: Faker::Address.zip,
     country: Faker::Address.country,
     latitude: rand(49.28...49.88),
-    longitude: rand(-122.12...-118.49)
+    longitude: rand(-122.12...-118.49),
+    verified: true
   )
 
   address.save!(skip_geocoded_valiation: true)
@@ -138,19 +139,15 @@ end
 
 def create_ratings instance
 
-  rating = instance.ratings.create!(
+  rating = instance.ratings.new(
     rating: (1..5).to_a.sample
   )
 
-  create_comments(rating) if rating.save!
-
-end
-
-def create_comments instance
-
-  instance.comment = Comment.create!(
+  rating.comment = Comment.create!(
     comment: Faker::Lorem.sentence(2)
   )
+
+  rating.save!
 
 end
 
@@ -198,9 +195,7 @@ def create_rentals(sporting_good, user)
       rental.save(validate: false)
     end
 
-    rental.ratings.create!(
-      rating: (1..5).to_a.sample
-    )
+    create_ratings(rental)
 
 	end
 
