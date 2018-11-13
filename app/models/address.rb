@@ -11,11 +11,11 @@ class Address < ApplicationRecord
   before_save :real_address? unless :skip_geocoded_valiation
 
   geocoded_by :full_address do |address, results|
-    if results.present?
-      address.latitude = results.first.latitude
-      address.longitude = results.first.longitude
+  #   if results.present?
+  #     address.latitude = results.first.latitude
+  #     address.longitude = results.first.longitude
       address.verified = true
-    end
+  #   end
   end
 
   def real_address?
