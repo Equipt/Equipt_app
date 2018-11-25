@@ -43,7 +43,10 @@ class UserSerializer < ApplicationSerializer
 
   def rentals
 		if @instance_options[:include_rentals]
-			current_user.rentals | current_user.owned_rentals
+			rentalIds = current_user.rentals.pluck(:id)
+			ownedRentalIds = current_user.owned_rentals.pluck(:id)
+			ids = rentalIds + ownedRentalIds
+			Rental.where(id: ids).order(:start_date)
 		end
   end
 
