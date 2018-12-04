@@ -26,7 +26,7 @@ class RentalSerializer < ApplicationSerializer
                 :rating,
                 :time_to
 
-    belongs_to :sporting_good, serializer: SportingGoodsSerializer
+    belongs_to :sporting_good, serializer: SportingGoodSerializer
     belongs_to :user, serializer: OwnerSerializer
 
     def all_day
