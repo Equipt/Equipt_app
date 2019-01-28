@@ -1,18 +1,18 @@
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import { Link } from 'react-router-dom';
 import Modal from 'components/Modal';
 import StarRatings from 'react-star-rating-component';
-import DeleteSportingGood from './modals/DeleteSportingGood';
+import DeleteSportingGood from './/DeleteSportingGood';
 
-export class SportingGood extends React.Component {
+export default class SportingGood extends Component {
 
 	static propTypes = {
 		sportingGood: PropTypes.object.isRequired,
 		content: PropTypes.object.isRequired,
 		actions: PropTypes.object.isRequired,
-		isOwner: PropTypes.bool
+		owned: PropTypes.bool.isRequired
 	}
 
 	constructor(props) {
@@ -24,20 +24,19 @@ export class SportingGood extends React.Component {
 
 	getImage() {
 
-		const { sportingGood, content } = this.props;
-		const { default_image } = content.index;
+		const { sportingGood } = this.props;
 		const { primary_image } = sportingGood;
 
-		return <img src={ primary_image ? primary_image : default_image }/>;
+		return <img src={ primary_image ? primary_image : I18n.t('index.default_image') }/>;
 
 	}
 
 	sportingGoodIsOwners() {
 
-		const { content, sportingGood, isOwner, actions } = this.props;
+		const { content, sportingGood, owned, actions } = this.props;
 		const { showDeleteModal } = this.state;
 
-		if (isOwner) {
+		if (owned) {
 			return (
 				<div className="sporting-good-controls">
 					<Link to={ `/owner/sporting_goods/${ sportingGood.slug }/edit` }>
@@ -59,7 +58,7 @@ export class SportingGood extends React.Component {
 
 	render() {
 
-		const { sportingGood, isOwner } = this.props;
+		const { sportingGood, owned } = this.props;
 
 		return (
 
@@ -68,7 +67,7 @@ export class SportingGood extends React.Component {
 				<div className="sporting-good-container">
 
 		  		<Link to={{
-		  			pathname: isOwner ? `/owner/sporting_goods/${ sportingGood.slug }` : `/sporting_goods/${ sportingGood.slug }`,
+		  			pathname: owned ? `/owner/sporting_goods/${ sportingGood.slug }` : `/sporting_goods/${ sportingGood.slug }`,
 		  			state: { sportingGoodSlug: sportingGood.slug }}}>
 						<div className="sporting-good-image">
 							{ this.getImage() }

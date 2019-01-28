@@ -21,7 +21,7 @@ const config = {
       'es5-shim/es5-shim',
       'es5-shim/es5-sham',
       'babel-polyfill',
-      './app/bundles/web/startup/client',
+      './index.js',
     ],
   },
 
@@ -37,15 +37,15 @@ const config = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      actions: resolve(__dirname, './app/bundles/web/actions'),
-      components: resolve(__dirname, './app/bundles/web/components'),
-      containers: resolve(__dirname, './app/bundles/web/containers'),
-      helpers: resolve(__dirname, './app/bundles/web/helpers'),
-      reducers: resolve(__dirname, './app/bundles/web/reducers'),
-      utils: resolve(__dirname, './app/bundles/web/utils'),
-      hocs: resolve(__dirname, './app/bundles/web/hocs'),
-      assets: resolve(__dirname, './app/bundles/web/assets'),
-      theme: resolve(__dirname, './app/bundles/web/theme')
+      actions: resolve(__dirname, './actions'),
+      components: resolve(__dirname, './components'),
+      containers: resolve(__dirname, './containers'),
+      helpers: resolve(__dirname, './helpers'),
+      reducers: resolve(__dirname, './reducers'),
+      utils: resolve(__dirname, './utils'),
+      hocs: resolve(__dirname, './hocs'),
+      assets: resolve(__dirname, './assets'),
+      theme: resolve(__dirname, './theme')
     }
   },
 

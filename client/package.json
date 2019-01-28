@@ -3,10 +3,8 @@
   "private": true,
   "scripts": {
     "build:test": "NODE_ENV=test webpack --config webpack.config.js",
-    "build:production:client": "NODE_ENV=production webpack --config webpack.client.config.js",
-    "build:production:server": "NODE_ENV=production webpack --config webpack.server.config.js",
-    "build:development:client": "HOT_RELOAD=true webpack -w --config webpack.client.config.js",
-    "build:development:server": "HOT_RELOAD=true webpack -w --config webpack.server.config.js"
+    "build:production": "NODE_ENV=production webpack --config webpack.client.config.js",
+    "build:development": "HOT_RELOAD=true webpack -w --config webpack.client.config.js"
   },
   "cacheDirectories": [
     "node_modules",

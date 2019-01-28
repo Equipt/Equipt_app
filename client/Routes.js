@@ -6,6 +6,8 @@ import GlobalStyles from 'assets/global-styles.js';
 // Transition Component
 import { RouteTransition } from 'react-router-transition';
 
+import SportingGoodsIndex from './SportingGoodsIndex';
+
 // Components
 import Home from 'components/Home';
 import NotFoundPage from 'components/NotFoundPage';
@@ -22,11 +24,8 @@ import ForgotPassword from 'containers/ForgotPassword';
 import ResetPassword from 'containers/ResetPassword';
 import Profile from 'containers/Profile';
 import Alert from 'containers/Alert';
-import SportingGoodsIndex from 'containers/SportingGoodsIndex';
 import SportingGoodsShow from 'containers/SportingGoodsShow';
-import OwnersSportingGoodsIndex from 'containers/owner/OwnersSportingGoodsIndex';
 import OwnersSportingGoodsEdit from 'containers/owner/OwnersSportingGoodsEdit';
-import OwnersSportingGoodsShow from 'containers/owner/OwnersSportingGoodsShow';
 import OwnersRentalsShow from 'containers/owner/OwnersRentalsShow';
 import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
 import OwnersSchedule from 'containers/owner/OwnersSchedule';
@@ -34,10 +33,10 @@ import RentalsShow from 'containers/RentalsShow';
 import ModalContainer from 'containers/ModalContainer';
 import ReportABug from 'containers/ReportABug';
 
-export default (props, store) => {
+export default (props) => {
 
 	const isAuthenticated = () => {
-		const state = store.getState();
+		const state = props.store.getState();
 		return !!state.session && state.session.token;
 	}
 
@@ -58,7 +57,6 @@ export default (props, store) => {
 				<Alert/>
 				<ModalContainer/>
 				<Loader/>
-
 				<Route render={({ location }) => (
 					<Switch key={location.key} location={location}>
 						<Route path="(/|/home)" exact={ true } render={ () => {
@@ -87,10 +85,10 @@ export default (props, store) => {
 							return protectedRoute(SportingGoodsNew);
 						}}/>
 						<Route exact path="/owner/sporting_goods" render={ () => {
-							return protectedRoute(OwnersSportingGoodsIndex);
+							return protectedRoute(SportingGoodsIndex);
 						}}/>
 						<Route exact path="/owner/sporting_goods/:slug" render={ () => {
-							return protectedRoute(OwnersSportingGoodsShow);
+							return protectedRoute(SportingGoodsShow);
 						}}/>
 						<Route exact path="/owner/schedule" render={ () => {
 							return protectedRoute(OwnersSchedule);
@@ -110,10 +108,8 @@ export default (props, store) => {
 						<Route path="*" component={ NotFoundPage } />
 					</Switch>
 				)} />
-
 				<Footer { ...props }/>
-
-		</div>
+			</div>
 		</Route>
 	);
 };

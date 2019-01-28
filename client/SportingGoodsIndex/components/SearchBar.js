@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Paginate from 'react-js-pagination';
 import Geosuggest from 'react-geosuggest';
 
-export class SearchBar extends React.Component {
+export default class SearchBar extends Component {
 
   static propTypes = {
-    search: PropTypes.func.isRequired
+    fetchSportingGoods: PropTypes.func.isRequired
   }
 
   static DEFAULT_GEO_DISTANCE = 5000
@@ -22,65 +22,66 @@ export class SearchBar extends React.Component {
   }
 
   onChange(key) {
-    const { search } = this.props;
+    const { fetchSportingGoods } = this.props;
     this.state[key] = this.refs[key].value;
     this.setState(this.state);
-    search(this.state);
+    fetchSportingGoods(this.state);
   }
 
   clearKeyword() {
-    const { search } = this.props;
+    const { fetchSportingGoods } = this.props;
     this.state.keyword = '';
     this.setState(this.state);
-    search(this.state);
+    fetchSportingGoods(this.state);
   }
 
   setPage(page) {
-    const { search } = this.props;
+    const { fetchSportingGoods } = this.props;
     // NOTE: must start at 0
     this.state.page = page - 1;
     this.setState(this.state);
-    search(this.state);
+    fetchSportingGoods(this.state);
   }
 
   searchByLocation(suggestion) {
-    const { search } = this.props;
+    const { fetchSportingGoods } = this.props;
     if (suggestion) {
       this.state.location = suggestion.location;
     } else {
       this.state.location = {}
     }
     this.setState(this.state);
-    search(this.state);
+    fetchSportingGoods(this.state);
   }
 
   changeGeoDistance() {
-    const { search } = this.props;
+    const { fetchSportingGoods } = this.props;
     const { distanceSelect } = this.refs;
     this.state.distance = distanceSelect.value;
     this.setState(this.state);
-    search(this.state);
+    fetchSportingGoods(this.state);
   }
 
   clearGeoSearch() {
-    const { search } = this.props;
+    const { fetchSportingGoods } = this.props;
     this._geoSearch.clear();
     this.state.location = null;
     this.state.distance = this.DEFAULT_GEO_DISTANCE;
     this.setState(this.state);
-    search(this.state);
+    fetchSportingGoods(this.state);
   }
 
   clear() {
+    const { fetchSportingGoods } = this.props;
     this.setState({
       keyword: ''
     });
-    this.props.search(this.state);
+    fetchSportingGoods(this.state);
   }
 
   render() {
 
-    const { search, totalResults = 0, totalPerPage = 0  } = this.props;
+    const { totalResults = 0, totalPerPage = 0  } = this.props;
     const { page } = this.state;
 
     return (
@@ -132,7 +133,7 @@ export class SearchBar extends React.Component {
           </select>
         </div>
 
-        <div className="col-xs-2 pull-right results">
+        <div className="pull-right results">
         {
           totalResults > 20 ?
           <Paginate activePage={ page + 1 }
@@ -155,10 +156,6 @@ export class SearchBar extends React.Component {
             z-index: 1;
             .search-field:first-child {
               padding-left: 0;
-            }
-            .pagination {
-              float: right;
-              margin: 0;
             }
             .search-field {
               i {
@@ -188,12 +185,12 @@ export class SearchBar extends React.Component {
               padding: 0;
             }
           }
-          .results {
-            width: 90px;
-          }
         `}</style>
 
         <style jsx global>{`
+          .pagination {
+            margin: 0 10px 0 0;
+          }
           .geosuggest {
             position: relative;
             .geosuggest__suggests-wrapper {

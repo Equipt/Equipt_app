@@ -8,15 +8,14 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk'; // Middleware for handling async redux events
 import { createSession } from 'redux-session';
-import routes from 'utils/Router';
-
-import axios from 'axios';
 import algoliasearch from 'algoliasearch';
-import Api from 'utils/Api';
+import axios from 'axios';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 
-import reducers from '../reducers';
+import Api from './Api.js';
+import Routes from './Routes.js';
+import reducers from './reducer.js';
 import * as sessionActions from 'actions/session';
 
 // Start up big-calendar
@@ -79,7 +78,7 @@ const Root = (props, railsContext) => {
 	return (
 		<Provider store={store}>
 			<ConnectedRouter history={ history }>
-				{ routes(props, store) }
+			   <Routes { ...props } store={ store }/>
 			</ConnectedRouter>
 		</Provider>
 	)

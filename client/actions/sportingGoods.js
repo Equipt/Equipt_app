@@ -11,9 +11,7 @@ export const fetchSportingGoods = ({
 	page = 0,
 	location = {},
 	distance = 50000
-}) => {
-
-	return function(dispatch, getState, { api, algoliaClient, environment }) {
+}) => async (dispatch, getState, { api, algoliaClient, environment }) => {
 
 		dispatch(loaderActions.showLoader(true));
 
@@ -36,27 +34,25 @@ export const fetchSportingGoods = ({
 			params.aroundRadius = distance;
 		}
 
-		index.search(params)
-		.then(({
-			hits,
-			nbHits,
-			nbPages,
-			hitsPerPage
-		}) => {
+		try {
+
+			const { hits, nbHits, nbPages, hitsPerPage } = await index.search(params);
+
 			dispatch(setSportingGoods({
 				results: hits,
 				totalResults: nbHits,
 				totalPerPage: hitsPerPage,
 				page
 			}));
-			dispatch(loaderActions.showLoader(false));
-		})
-		.catch(err => {
-				dispatch(alertActions.showErrorAlert(err));
-				dispatch(loaderActions.showLoader(false));
-		});
 
-	}
+			dispatch(loaderActions.showLoader(false));
+
+		} catch(err) {
+
+			dispatch(alertActions.showErrorAlert(err));
+			dispatch(loaderActions.showLoader(false));
+
+		}
 
 }
 

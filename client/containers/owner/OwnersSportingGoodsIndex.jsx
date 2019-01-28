@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import * as sportingGoodsActions from 'actions/sportingGoods';
 import * as modalActions from 'actions/modal';
 
-import SportingGoodsList from 'components/SportingGoodsList';
+import SportingGoodsList from '/SportingGoodsList';
 import NoSportingGoods from 'components/NoSportingGoods';
 
 class OwnersSportingGoodsIndex extends React.Component {
