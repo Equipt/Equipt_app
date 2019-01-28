@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
-import Modal from 'components/Modal';
+import Modal from '../../Modal';
 import StarRatings from 'react-star-rating-component';
-import DeleteSportingGood from './/DeleteSportingGood';
+import DeleteSportingGood from './DeleteSportingGood';
 
 export default class SportingGood extends Component {
 
@@ -83,11 +83,8 @@ export default class SportingGood extends Component {
 					</Link>
 					{ this.sportingGoodIsOwners() }
 					<div className="clearfix"></div>
-
 				</div>
-
 			</div>
-
 		)
 
 	}
