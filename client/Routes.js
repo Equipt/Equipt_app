@@ -7,6 +7,7 @@ import GlobalStyles from 'assets/global-styles.js';
 import { RouteTransition } from 'react-router-transition';
 
 import SportingGoodsIndex from './SportingGoodsIndex';
+import Login from './Login';
 
 // Components
 import Home from 'components/Home';
@@ -17,7 +18,6 @@ import HowItWorks from 'components/HowItWorks';
 
 // Containers
 import Session from 'containers/Session';
-import Login from 'containers/Login';
 import Loader from 'containers/Loader';
 import Signup from 'containers/Signup';
 import ForgotPassword from 'containers/ForgotPassword';

@@ -3,12 +3,7 @@ import React, { Component } from 'react';
 
 import FacebookLogin from 'react-facebook-login';
 
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-
-import * as sessionActions from 'actions/session';
-
-export class FaceBookLogin extends Component {
+export default class FaceBook extends Component {
 
 	static contextTypes = {
   		router: PropTypes.shape({

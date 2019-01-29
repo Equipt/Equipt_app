@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-// import { UserForm } from 'components/UserForm';
-import { FaceBookLogin } from 'components/FacebookLogin';
+import FaceBook from 'components/Facebook';
 import SignupForm from 'components/forms/SignupForm';
 import Terms from './modals/Terms.jsx';
 
@@ -51,7 +50,7 @@ export default class Signup extends React.Component {
 					</span>
 				</SignupForm>
 
-				<FaceBookLogin loginWithFacebook={ actions.loginWithFacebook } facebookAppId={ facebookAppId }/>
+				<FaceBook loginWithFacebook={ actions.loginWithFacebook } facebookAppId={ facebookAppId }/>
 
 				<style jsx>{`
 					.terms {
