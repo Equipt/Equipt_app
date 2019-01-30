@@ -8,6 +8,7 @@ import { RouteTransition } from 'react-router-transition';
 
 import SportingGoodsIndex from './SportingGoodsIndex';
 import Login from './Login';
+import Alert from './Alert';
 
 // Components
 import Home from 'components/Home';
@@ -23,7 +24,7 @@ import Signup from 'containers/Signup';
 import ForgotPassword from 'containers/ForgotPassword';
 import ResetPassword from 'containers/ResetPassword';
 import Profile from 'containers/Profile';
-import Alert from 'containers/Alert';
+
 import SportingGoodsShow from 'containers/SportingGoodsShow';
 import OwnersSportingGoodsEdit from 'containers/owner/OwnersSportingGoodsEdit';
 import OwnersRentalsShow from 'containers/owner/OwnersRentalsShow';

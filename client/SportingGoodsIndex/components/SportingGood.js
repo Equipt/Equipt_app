@@ -10,7 +10,6 @@ export default class SportingGood extends Component {
 
 	static propTypes = {
 		sportingGood: PropTypes.object.isRequired,
-		content: PropTypes.object.isRequired,
 		actions: PropTypes.object.isRequired,
 		owned: PropTypes.bool.isRequired
 	}

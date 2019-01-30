@@ -8,67 +8,41 @@ import Form from './Form';
 
 import * as alertActions from 'actions/alerts';
 
-export default class Login extends Component {
+const Login = ({
+	actions,
+	facebookAppId
+}) => (
+	<section className="container login_container">
 
-	static contextTypes = {
-		router: PropTypes.shape({
-  		history: PropTypes.object.isRequired,
-		})
-	};
+		<h2 className="title">{ I18n.t('login.title') }</h2>
 
-	static propTypes = {
-		actions: PropTypes.object.isRequired,
-		facebookAppId: PropTypes.string.isRequired
-	}
+		<Form onSubmit={ loginDetails => actions.login(loginDetails) }/>
 
-	constructor(props) {
-		super(props);
-		this.submit = this.submit.bind(this);
-	}
+		<Link to="/forgot_password" className="pull-right reset_password">{ I18n.t('login.password_reset') }</Link>
 
-	submit({ email, password }) {
+		<FaceBook loginWithFacebook={ actions.loginWithFacebook } facebookAppId={ facebookAppId }/>
 
-		const { login } = this.props.actions;
-		const { history, route } = this.context.router;
-
-		// Fetch Current User
-		login({ email, password }, () => {
-			if (route.location.pathname.indexOf('/login') > -1) {
-				this.context.router.history.push('/sporting_goods');
-			} else {
-				this.context.router.history.push(route.location.pathname);
+		<style jsx>{`
+			.login_container {
+				width: 600px;
+				h2 {
+					margin-bottom: 40px;
+				}
 			}
-		});
+			.reset_password {
+				clear: both;
+			}
+			.title {
+				margin-top: 20px;
+			}
+		`}</style>
 
-	}
+	</section>
+)
 
-	render() {
-
-		const { login } = this.props.content;
-		const { facebookAppId, content, actions } = this.props;
-
-		return (
-			<section className="container">
-
-				<h2 className="title">{ I18n.t('login.title') }</h2>
-
-				<Form onSubmit={ this.submit }/>
-
-				<Link to="/forgot_password" className="pull-right reset_password">{ I18n.t('login.password_reset') }</Link>
-
-				<FaceBook loginWithFacebook={ actions.loginWithFacebook } facebookAppId={ facebookAppId }/>
-
-				<style jsx>{`
-					.reset_password {
-						clear: both;
-					}
-					.title {
-						margin-top: 20px;
-					}
-				`}</style>
-
-			</section>
-		)
-	}
-
+Login.propTypes = {
+	actions: PropTypes.object.isRequired,
+	facebookAppId: PropTypes.string.isRequired
 }
+
+export default Login;
