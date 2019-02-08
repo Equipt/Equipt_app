@@ -16,7 +16,7 @@ import moment from 'moment';
 import Api from './Api.js';
 import Routes from './Routes.js';
 import reducers from './reducer.js';
-import * as sessionActions from 'actions/session';
+import * as sessionActions from 'Session/actions.js';
 
 // Start up big-calendar
 BigCalendar.setLocalizer(

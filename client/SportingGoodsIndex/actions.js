@@ -1,7 +1,7 @@
 import types from './types';
 
-import * as alertActions from 'actions/alerts';
-import * as loaderActions from 'actions/loader';
+import * as alertActions from 'Alert/actions.js';
+import * as loaderActions from 'Loader/actions.js';
 
 const perPage = 20;
 

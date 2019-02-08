@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import * as sessionActions from 'actions/session';
-import * as alertActions from 'actions/alerts';
+import * as sessionActions from 'Session/actions.js';
+import * as alertActions from 'Alert/actions.js';
 
 export default class Api {
 

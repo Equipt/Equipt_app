@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Nav = ({
 	session,
-	clearSession,
+	actions,
 	content
 }) => {
 
@@ -46,7 +46,7 @@ const Nav = ({
 				<div className="profile-container">
 				{ profileSectionMarkup() }
 				</div>
-				<div onClick={ clearSession } className="logout-container">
+				<div onClick={ () => actions.logout() } className="logout-container">
 					<i className="fa fa-power-off power-off" aria-hidden="true"></i>
 					<p>Logout</p>
 				</div>

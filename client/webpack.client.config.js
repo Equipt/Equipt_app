@@ -45,7 +45,20 @@ const config = {
       utils: resolve(__dirname, './utils'),
       hocs: resolve(__dirname, './hocs'),
       assets: resolve(__dirname, './assets'),
-      theme: resolve(__dirname, './theme')
+      theme: resolve(__dirname, './theme'),
+      Alert: resolve(__dirname, './Alert'),
+      Session: resolve(__dirname, './Session'),
+      Modal: resolve(__dirname, './Modal'),
+      Loader: resolve(__dirname, './Loader'),
+      Login: resolve(__dirname, './Login'),
+      SportingGoodsShow: resolve(__dirname, './SportingGoodsShow'),
+      SportingGoodsIndex: resolve(__dirname, './SportingGoodsIndex'),
+      RentalsIndex: resolve(__dirname, './RentalsIndex'),
+      RentalsShow: resolve(__dirname, './RentalsShow'),
+      Signup: resolve(__dirname, './Signup'),
+      ForgotPassword: resolve(__dirname, './ForgotPassword'),
+      ResetPassword: resolve(__dirname, './ResetPassword'),
+      Profile: resolve(__dirname, './Profile')
     }
   },
 

@@ -30,7 +30,7 @@ class MobileNav extends React.Component {
 
 	renderDropDown() {
 
-		const { session, clearSession } = this.props;
+		const { session, actions } = this.props;
 		const dropDownList = session.currentUser ? I18n.t('nav.menuList') : I18n.t('nav.sessionList');
 
 		return (
@@ -42,7 +42,7 @@ class MobileNav extends React.Component {
 				}
 				{
 					session.currentUser ?
-					<li onClick={ clearSession }>Logout</li> :
+					<li onClick={ () => actions.logout() }>Logout</li> :
 					null
 				}
 				<style jsx>{`

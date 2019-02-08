@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 import { Link } from 'react-router-dom';
 
 import * as sportingGoodsActions from './actions.js';
-import * as modalActions from './../Modal/actions.js';
+import * as modalActions from 'Modal/actions.js';
 
 import SportingGoodsList from './components/SportingGoodsList';
 

@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import * as sessionActions from 'actions/session';
-import * as modalActions from 'actions/modal';
-import * as alertActions from 'actions/alerts';
+import * as sessionActions from 'Session/actions.js';
+import * as modalActions from 'Modal/actions.js';
+import * as alertActions from 'Alert/actions.js';
 
 import UserContact from 'components/UserContact';
 

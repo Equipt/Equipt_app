@@ -6,9 +6,17 @@ import GlobalStyles from 'assets/global-styles.js';
 // Transition Component
 import { RouteTransition } from 'react-router-transition';
 
-import SportingGoodsIndex from './SportingGoodsIndex';
-import Login from './Login';
-import Alert from './Alert';
+import SportingGoodsIndex from 'SportingGoodsIndex';
+import SportingGoodsShow from 'SportingGoodsShow';
+import Session from 'Session';
+import Login from 'Login';
+import Alert from 'Alert';
+import Loader from 'Loader';
+import Signup from 'Signup';
+import Modal from 'Modal';
+import ForgotPassword from 'ForgotPassword';
+import ResetPassword from 'ResetPassword';
+import Profile from 'Profile';
 
 // Components
 import Home from 'components/Home';
@@ -16,22 +24,17 @@ import NotFoundPage from 'components/NotFoundPage';
 import Footer from 'components/Footer';
 import About from 'components/About';
 import HowItWorks from 'components/HowItWorks';
+import Nav from 'components/Nav';
+import MobileNav from 'components/MobileNav';
+import SideBar from 'components/SideBar';
 
 // Containers
-import Session from 'containers/Session';
-import Loader from 'containers/Loader';
-import Signup from 'containers/Signup';
-import ForgotPassword from 'containers/ForgotPassword';
-import ResetPassword from 'containers/ResetPassword';
-import Profile from 'containers/Profile';
+// import OwnersSportingGoodsEdit from 'containers/owner/OwnersSportingGoodsEdit';
+// import OwnersRentalsShow from 'containers/owner/OwnersRentalsShow';
+// import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
+// import OwnersSchedule from 'containers/owner/OwnersSchedule';
+// import RentalsShow from 'containers/RentalsShow';
 
-import SportingGoodsShow from 'containers/SportingGoodsShow';
-import OwnersSportingGoodsEdit from 'containers/owner/OwnersSportingGoodsEdit';
-import OwnersRentalsShow from 'containers/owner/OwnersRentalsShow';
-import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
-import OwnersSchedule from 'containers/owner/OwnersSchedule';
-import RentalsShow from 'containers/RentalsShow';
-import ModalContainer from 'containers/ModalContainer';
 import ReportABug from 'containers/ReportABug';
 
 export default (props) => {
@@ -53,10 +56,14 @@ export default (props) => {
 	return (
 		<Route path="/">
 			<div className="main-wrapper" id="mainWrapper">
-				<Session { ...props }/>
+				<Session { ...props }>
+					<Nav/>
+					<MobileNav/>
+					<SideBar/>
+				</Session>
 				<GlobalStyles />
 				<Alert/>
-				<ModalContainer/>
+				<Modal/>
 				<Loader/>
 				<Route render={({ location }) => (
 					<Switch key={location.key} location={location}>
@@ -80,15 +87,15 @@ export default (props) => {
 							return protectedRoute(OwnersRentalsShow);
 						}}/>
 						<Route exact path="/owner/sporting_goods/:slug/edit" render={ () => {
-							return protectedRoute(OwnersSportingGoodsEdit);
+							// return protectedRoute(OwnersSportingGoodsEdit);
 						}}/>
 						<Route exact path="/owner/sporting_goods/new" render={ () => {
-							return protectedRoute(SportingGoodsNew);
+							// return protectedRoute(SportingGoodsNew);
 						}}/>
 						<Route exact path="/owner/sporting_goods" render={ () => {
 							return protectedRoute(SportingGoodsIndex);
 						}}/>
-						<Route exact path="/owner/sporting_goods/:slug" render={ () => {
+						<Route exact path="/owner/sporting_goods/:slug" render={ (props) => {
 							return protectedRoute(SportingGoodsShow);
 						}}/>
 						<Route exact path="/owner/schedule" render={ () => {
