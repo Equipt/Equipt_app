@@ -17,6 +17,7 @@ import Modal from 'Modal';
 import ForgotPassword from 'ForgotPassword';
 import ResetPassword from 'ResetPassword';
 import Profile from 'Profile';
+import Schedule from 'Schedule';
 
 // Components
 import Home from 'components/Home';
@@ -29,11 +30,11 @@ import MobileNav from 'components/MobileNav';
 import SideBar from 'components/SideBar';
 
 // Containers
-// import OwnersSportingGoodsEdit from 'containers/owner/OwnersSportingGoodsEdit';
-// import OwnersRentalsShow from 'containers/owner/OwnersRentalsShow';
-// import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
-// import OwnersSchedule from 'containers/owner/OwnersSchedule';
-// import RentalsShow from 'containers/RentalsShow';
+import OwnersSportingGoodsEdit from 'containers/owner/OwnersSportingGoodsEdit';
+import OwnersRentalsShow from 'containers/owner/OwnersRentalsShow';
+import SportingGoodsNew from 'containers/owner/SportingGoodsNew';
+import OwnersSchedule from 'containers/owner/OwnersSchedule';
+import RentalsShow from 'containers/RentalsShow';
 
 import ReportABug from 'containers/ReportABug';
 

@@ -51,6 +51,7 @@ const config = {
       Modal: resolve(__dirname, './Modal'),
       Loader: resolve(__dirname, './Loader'),
       Login: resolve(__dirname, './Login'),
+      Schedule: resolve(__dirname, './Schedule'),
       SportingGoodsShow: resolve(__dirname, './SportingGoodsShow'),
       SportingGoodsIndex: resolve(__dirname, './SportingGoodsIndex'),
       RentalsIndex: resolve(__dirname, './RentalsIndex'),

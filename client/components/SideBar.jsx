@@ -4,7 +4,7 @@ import theme from 'assets/theme';
 
 import { Link } from 'react-router-dom';
 
-export class SideBar extends Component {
+export default class SideBar extends Component {
 
 	static contextTypes = {
 			router: PropTypes.shape({
