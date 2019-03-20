@@ -28,7 +28,24 @@ class Api::UserController < ApiController
 		end
 	end
 
+	def basic_update
+		user = current_user
+		if user.update_attributes(basic_params)
+			render json: user, update_notice: true, send_api_token: true, status: 200
+		else
+			render json: user, send_api_token: true, status: 400
+		end
+	end
+
 	private
+
+	def basic_params
+		params.require(:user).permit(
+			:firstname,
+			:lastname,
+			:email
+		)
+	end
 
 	def user_params
 		params[:user][:address_attributes] = params[:user].delete(:address) if params[:user][:address]
@@ -48,6 +65,7 @@ class Api::UserController < ApiController
 			:api_key,
 			:notify_by_sms,
 			:notify_by_email,
+			:terms,
 			phone_attributes: [
 				:number,
 				:old_number,

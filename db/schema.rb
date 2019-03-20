@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416024232) do
+ActiveRecord::Schema.define(version: 20190219071400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 20180416024232) do
     t.string   "password_reset_sent_at"
     t.boolean  "notify_by_email",         default: true
     t.boolean  "notify_by_sms",           default: false
+    t.boolean  "terms",                   default: false
     t.index ["address_id"], name: "index_users_on_address_id", using: :btree
     t.index ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
     t.index ["hash_id"], name: "index_users_on_hash_id", using: :btree

@@ -84,6 +84,7 @@ en:
     invalid_address: "Sorry, we couldn't find the address."
     update_profile: "Please update your address details to rent."
     add_a_profile_image: "Add a profile picture here."
+    must_agree_to_terms: "Please agree to terms"
     signup:
       title: Signup
     terms:

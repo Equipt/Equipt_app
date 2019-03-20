@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 	# hashable id
 	include Friendlyable
 
-	attr_accessor :notice, :api_key, :updating_password
+	attr_accessor :notice, :api_key, :updating_password, :terms
 
 	has_many :sporting_goods, dependent: :destroy
 	has_many :rentals, -> { order("start_date desc") }, dependent: :destroy
@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 	has_many :images, :as => :imageable, dependent: :destroy
 
 	has_one :address, :dependent => :destroy
-	has_one :phone, :dependent => :destroy
+	has_one :phone, :dependent => :destroy, autosave: false
 
 	accepts_nested_attributes_for :address, allow_destroy: true
 	accepts_nested_attributes_for :phone, allow_destroy: true
@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
 	validates_confirmation_of :password, if: :should_validate_password?
 	validates :password, :length=>{ :minimum => 6 }, if: :should_validate_password?
 	validates :password_confirmation, :length=>{ :minimum => 6 }, if: :should_validate_password?
+	validate :agreed_to_terms
 
 	validates_presence_of :firstname, :lastname, :email
 	validates_email_format_of :email
@@ -42,6 +43,12 @@ class User < ActiveRecord::Base
   		api_keys.first_or_create
 	end
 
+	def agreed_to_terms
+		if !self.terms
+			errors.add(:terms, I18n.t('user.must_agree_to_terms'))
+		end
+	end
+
 	# oAuth
 	def self.from_facebook(auth)
 
@@ -58,6 +65,7 @@ class User < ActiveRecord::Base
 			user.oauth_expires_at = Time.at(auth['expires_in'])
     	user.password ||=  password
     	user.password_confirmation ||=  password
+			user.terms = true
   		user.save!
 
 			url = auth['picture']['data']['url']

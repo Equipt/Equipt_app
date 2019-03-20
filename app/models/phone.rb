@@ -4,7 +4,7 @@ class Phone < ApplicationRecord
 
   has_one :user, dependent: :destroy
 
-  before_save :send_verification_pin, :if => :new_record?
+  before_save :send_verification_pin, :if => :number_changed?
 
   validates_presence_of :number
 

@@ -4418,14 +4418,6 @@ react-big-calendar@^0.14.4:
     uncontrollable "^3.3.1 || ^4.0.0"
     warning "^2.0.0"
 
-react-code-input@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/react-code-input/-/react-code-input-1.1.5.tgz#422c487bf48e373a9b95a4ce617df6b4eaa7338b"
-  dependencies:
-    classnames "^2.2.5"
-    react "^15.5.4"
-    react-dom "^15.5.4"
-
 react-dates@^17.0.0:
   version "17.0.0"
   resolved "https://registry.yarnpkg.com/react-dates/-/react-dates-17.0.0.tgz#f3e632614f0d4ae346f3797633856e4c0d836cfa"
@@ -4448,7 +4440,7 @@ react-dom@^0.14.2:
   version "0.14.9"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-0.14.9.tgz#05064a3dcf0fb1880a3b2bfc9d58c55d8d9f6293"
 
-react-dom@^15.0.0, react-dom@^15.5.4:
+react-dom@^15.0.0:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.2.tgz#41cfadf693b757faf2708443a1d1fd5a02bef730"
   dependencies:
@@ -4547,6 +4539,10 @@ react-paginate@^5.0.0:
     classnames "^2.2.5"
     prop-types "^15.6.0"
     react-addons-create-fragment "^15.0.0"
+
+react-pin-input@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/react-pin-input/-/react-pin-input-0.7.0.tgz#c6368e79ce2e0028e8fef04a08282298ac3a21fe"
 
 react-portal@^4.1.5:
   version "4.1.5"
@@ -4686,7 +4682,7 @@ react@^0.14.2:
     envify "^3.0.0"
     fbjs "^0.6.1"
 
-react@^15.0.0, react@^15.5.4:
+react@^15.0.0:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.2.tgz#dba0434ab439cfe82f108f0f511663908179aa72"
   dependencies:

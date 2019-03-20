@@ -54,5 +54,7 @@ Rails.application.routes.draw do
     match 'api/sporting_goods/:slug/rentals/check_availability', to: 'api/rentals#check_availability', via: 'POST'
     match 'api/report_a_bug', to: 'api/utils#report_a_bug', via: 'POST'
 
+    match 'api/user/basic', to: 'api/user#basic_update', via: 'PUT'
+
 
 end
