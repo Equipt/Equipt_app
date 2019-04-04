@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 	has_many :ratings, :as => :rateable, dependent: :destroy
 	has_many :owned_rentals, -> { order("start_date desc") }, :through => :sporting_goods, source: 'rentals'
 	has_many :images, :as => :imageable, dependent: :destroy
+	has_many :payment_methods
 
 	has_one :address, :dependent => :destroy
 	has_one :phone, :dependent => :destroy, autosave: false

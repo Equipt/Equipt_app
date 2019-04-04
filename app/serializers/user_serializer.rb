@@ -18,7 +18,8 @@ class UserSerializer < ApplicationSerializer
 			:ratings,
 			:phone,
 			:address,
-			:notice
+			:notice,
+			:stripe_id
 
 	has_many :rentals
 

@@ -47,6 +47,8 @@ gem "fog-aws"
 gem 'twilio-ruby', '~> 4.1.0'
 gem 'geocoder'
 
+gem "faraday", "~> 0.13"
+
 # o-auth
 gem 'omniauth-facebook'
 
@@ -78,6 +80,8 @@ gem "i18n-js"
 gem "time_difference"
 
 gem "rack-cors"
+
+gem "stripe", "~> 4.0.2"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

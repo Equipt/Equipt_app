@@ -16,7 +16,7 @@ class Rental < ActiveRecord::Base
 
   delegate :user, to: :sporting_good, prefix: :owner, :allow_nil => true
 
-  before_save :set_total_days, :set_discount, :set_rental_cost
+  after_initialize :set_total_days, :set_discount, :set_rental_cost
   validate :dates_are_vacant?, :has_agreed_to_terms?, :dates_not_today?, :dates_not_in_past?, :not_past_days_limit?
 
   has_many :ratings, :as => :rateable, dependent: :destroy
@@ -91,7 +91,16 @@ class Rental < ActiveRecord::Base
     end
   end
 
-  private
+  def process_payment user
+    binding.pry
+    begin
+      self.payment = payment(user)
+    rescue Stripe::CardError => e
+      self.fail!(error: e.json_body[:error])
+    rescue Stripe::StripeError => e
+      self.fail!(error: e.message)
+    end
+  end
 
   # validates methods
 	def dates_are_vacant?
@@ -146,6 +155,20 @@ class Rental < ActiveRecord::Base
   def send_rating_emails_when_ends
     RateRentalJob.set(wait_until: self.end_date.tomorrow.noon).perform_later(self)
     RateSportingGoodJob.set(wait_until: self.end_date.tomorrow.noon).perform_later(self)
+  end
+
+  private
+
+  def payment user
+    Stripe::Charge.create(
+      amount: self.total,
+      currency: "cnd",
+      source: "card",
+      customer: user.stripe_id,
+      receipt_email: user.email,
+      description: "#{ self.sporting_good.title } rental for #{ user.email }",
+      statement_descriptor: "Equipt Rental Payment"
+    )
   end
 
 end
