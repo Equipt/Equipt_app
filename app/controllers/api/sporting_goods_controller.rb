@@ -2,7 +2,7 @@ class Api::SportingGoodsController < ApiController
 
 	def index
 		sporting_goods = SportingGood.exclude_user(current_user).search(params).paginate(pagination_params)
-		render json: { sporting_goods: ActiveModel::Serializer::CollectionSerializer.new(sporting_goods, serializer: SportingGoodsSerializer),
+		render json: { hits: ActiveModel::Serializer::CollectionSerializer.new(sporting_goods, serializer: SportingGoodsSerializer),
 									 total: SportingGood.count
 									}, status: 200
 	end
