@@ -26,7 +26,7 @@ class Address < ApplicationRecord
   end
 
   def full_address
-    [number, street, city, state, zip, country].join(',')
+    ["#{number} #{street}", city, state, country, zip].compact.join(', ')
   end
 
 end

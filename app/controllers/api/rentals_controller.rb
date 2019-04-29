@@ -9,7 +9,7 @@ class Api::RentalsController < ApiController
       sporting_good = SportingGood.find_by_slug(params[:sporting_good_slug])
       rental = sporting_good.rentals.new(rental_params)
       rental.user_id = current_user.id
-      current_user.update_attribute(:stripe_id, params[:payment][:id])
+      current_user.update_attribute(:stripe_id, params[:card][:id])
       rental.process_payment current_user
       if rental.save
         render json: rental, status: 200

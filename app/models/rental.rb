@@ -91,13 +91,14 @@ class Rental < ActiveRecord::Base
     end
   end
 
-  def process_payment user
-    binding.pry
+  def process_payment(current_user)
     begin
-      self.payment = payment(user)
+      self.payment = payment(current_user)
     rescue Stripe::CardError => e
+      binding.pry
       self.fail!(error: e.json_body[:error])
     rescue Stripe::StripeError => e
+      binding.pry
       self.fail!(error: e.message)
     end
   end

@@ -5,7 +5,7 @@ Geocoder.configure(
 
   # geocoding service request timeout, in seconds (default 3):
   timeout: 15,
-  :use_https => true
+  :use_https => false
 
   # set default units to kilometers:
   # units: :km,
