@@ -21,6 +21,8 @@ class Rental < ActiveRecord::Base
 
   has_many :ratings, :as => :rateable, dependent: :destroy
 
+  has_one :payment
+
   scope :between_range, -> (start_date, end_date) { where('(start_date, end_date) overlaps (timestamp :start_date, timestamp :end_date)',
     :start_date => start_date, :end_date => end_date) }
 
@@ -91,15 +93,14 @@ class Rental < ActiveRecord::Base
     end
   end
 
-  def process_payment(current_user)
+  def process_payment(current_user, card)
     begin
-      self.payment = payment(current_user)
+      stripe_payment = payment(current_user, card)
+      self.stripe_payment_id = stripe_payment.id
     rescue Stripe::CardError => e
-      binding.pry
-      self.fail!(error: e.json_body[:error])
+      errors.add(:error, e.json_body[:error])
     rescue Stripe::StripeError => e
-      binding.pry
-      self.fail!(error: e.message)
+      errors.add(:error, e.message)
     end
   end
 
@@ -160,16 +161,46 @@ class Rental < ActiveRecord::Base
 
   private
 
-  def payment user
-    Stripe::Charge.create(
-      amount: self.total,
-      currency: "cnd",
-      source: "card",
-      customer: user.stripe_id,
-      receipt_email: user.email,
-      description: "#{ self.sporting_good.title } rental for #{ user.email }",
-      statement_descriptor: "Equipt Rental Payment"
-    )
+  def payment(user, card)
+
+    begin
+
+      if user.stripe_customer_id
+
+        customer = Stripe::Customer.retrieve(user.stripe_customer_id)
+
+        customer.sources.create({source: card[:id]})
+        customer.default_source = customer.sources.retrieve(card[:id])
+
+      else
+
+        customer = Stripe::Customer.create(
+          email: user.email
+        )
+
+        customer.sources.create({ source: card[:id] })
+        user.stripe_customer_id = customer.id
+        user.save!(:validate => false)
+
+      end
+
+    rescue
+
+      binding.pry
+
+    ensure
+
+      Stripe::Charge.create(
+        amount: (100 * self.total).to_i,
+        currency: "cad",
+        customer: user.stripe_customer_id,
+        receipt_email: user.email,
+        description: "#{ self.sporting_good.title } rental for #{ user.email }",
+        statement_descriptor: "Equipt Rental Payment"
+      )
+
+    end
+
   end
 
 end

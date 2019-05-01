@@ -50,7 +50,7 @@ class RentalSerializer < ApplicationSerializer
     end
 
     def total_days
-      @object.total_days if @object.total_days
+      @object.total_days + 1 if @object.total_days
     end
 
     def destroyed_message

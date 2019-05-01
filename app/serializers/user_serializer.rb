@@ -19,7 +19,7 @@ class UserSerializer < ApplicationSerializer
 			:phone,
 			:address,
 			:notice,
-			:stripe_id
+			:stripe_customer_id
 
 	has_many :rentals
 

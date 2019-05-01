@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190329045807) do
+ActiveRecord::Schema.define(version: 20190430061659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,17 +84,18 @@ ActiveRecord::Schema.define(version: 20190329045807) do
     t.date     "start_date"
     t.date     "end_date"
     t.float    "pick_up_time"
-    t.float    "sub_total",        default: 0.0
-    t.float    "deposit",          default: 0.0
-    t.float    "total",            default: 0.0
+    t.float    "sub_total",         default: 0.0
+    t.float    "deposit",           default: 0.0
+    t.float    "total",             default: 0.0
     t.integer  "total_days"
-    t.boolean  "completed",        default: false
-    t.boolean  "confirmed",        default: false
-    t.boolean  "agreed_to_terms",  default: false
+    t.boolean  "completed",         default: false
+    t.boolean  "confirmed",         default: false
+    t.boolean  "agreed_to_terms",   default: false
     t.datetime "deleted_at"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.float    "discount",         default: 0.0
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.float    "discount",          default: 0.0
+    t.string   "stripe_payment_id"
     t.index ["deleted_at"], name: "index_rentals_on_deleted_at", using: :btree
     t.index ["hash_id"], name: "index_rentals_on_hash_id", using: :btree
     t.index ["sporting_good_id"], name: "index_rentals_on_sporting_good_id", using: :btree
@@ -143,7 +144,7 @@ ActiveRecord::Schema.define(version: 20190329045807) do
     t.boolean  "notify_by_email",         default: true
     t.boolean  "notify_by_sms",           default: false
     t.boolean  "terms",                   default: false
-    t.string   "stripe_id",               default: "f"
+    t.string   "stripe_customer_id"
     t.index ["address_id"], name: "index_users_on_address_id", using: :btree
     t.index ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
     t.index ["hash_id"], name: "index_users_on_hash_id", using: :btree
