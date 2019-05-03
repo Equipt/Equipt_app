@@ -12,6 +12,8 @@ class RentalSerializer < ApplicationSerializer
                 :end_date,
                 :pick_up_time,
                 :total_days,
+                :service_fee_percentage,
+                :service_fee,
                 :deposit,
                 :discount,
                 :sub_total,
@@ -68,6 +70,10 @@ class RentalSerializer < ApplicationSerializer
 
     def time_to
       TimeDifference.between(@object.start_date, Time.now).in_general
+    end
+
+    def service_fee_percentage
+      Rental::SERVICE_FEE_PERCENTAGE
     end
 
 end

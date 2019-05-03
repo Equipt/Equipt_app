@@ -6,6 +6,8 @@ class Rental < ActiveRecord::Base
   OWNED = 'owned'
   DAYS_LIMIT = 14
 
+  SERVICE_FEE_PERCENTAGE = 5
+
   acts_as_paranoid
 
   # hashable id
@@ -16,7 +18,7 @@ class Rental < ActiveRecord::Base
 
   delegate :user, to: :sporting_good, prefix: :owner, :allow_nil => true
 
-  after_initialize :set_total_days, :set_discount, :set_rental_cost
+  after_initialize :set_total_days, :set_rental_cost
   validate :dates_are_vacant?, :has_agreed_to_terms?, :dates_not_today?, :dates_not_in_past?, :not_past_days_limit?
 
   has_many :ratings, :as => :rateable, dependent: :destroy
@@ -43,7 +45,6 @@ class Rental < ActiveRecord::Base
 
   def get_price
     self.set_total_days
-    self.set_discount
     self.set_rental_cost
   end
 
@@ -52,20 +53,11 @@ class Rental < ActiveRecord::Base
     self.total_days = (self.start_date - self.end_date).to_i.abs + 1
   end
 
-  def set_discount
-    weeks_rented = (self.total_days - 1) / 7
-    if weeks_rented > 0
-      weeks_price = weeks_rented * self.sporting_good.price_per_week
-      weeks_days_price = (weeks_rented * 7) * self.sporting_good.price_per_day
-      return self.discount = (weeks_days_price - weeks_price).round(2)
-    end
-    self.discount = 0
-  end
-
   def set_rental_cost
     sporting_good = SportingGood.find(self.sporting_good_id)
     self.sub_total = (sporting_good.price_per_day * self.total_days).round(2)
-    self.total = (self.sub_total - self.discount).round(2)
+    self.service_fee = ((self.sub_total / 100) * SERVICE_FEE_PERCENTAGE).round(2)
+    self.total = (self.sub_total + self.service_fee).round(2)
   end
 
   def status user

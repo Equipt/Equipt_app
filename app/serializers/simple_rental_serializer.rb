@@ -8,6 +8,8 @@ class SimpleRentalSerializer < ApplicationSerializer
               :total_days,
               :discount,
               :sub_total,
+              :service_fee,
+              :service_fee_percentage,
               :total
 
   def title
@@ -15,7 +17,11 @@ class SimpleRentalSerializer < ApplicationSerializer
   end
 
   def total_days
-    @object.total_days - 1 if @object.total_days 
+    @object.total_days - 1 if @object.total_days
+  end
+
+  def service_fee_percentage
+    Rental::SERVICE_FEE_PERCENTAGE
   end
 
 end
