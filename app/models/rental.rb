@@ -6,7 +6,7 @@ class Rental < ActiveRecord::Base
   OWNED = 'owned'
   DAYS_LIMIT = 14
 
-  SERVICE_FEE_PERCENTAGE = 5
+  SERVICE_FEE_PERCENTAGE = 10
 
   acts_as_paranoid
 
@@ -36,7 +36,7 @@ class Rental < ActiveRecord::Base
   end
 
   def is_available?
-    dates_are_vacant? && dates_not_today? && dates_not_in_past?
+    self.dates_are_vacant? && self.dates_not_today? && self.dates_not_in_past? && self.not_past_days_limit?
   end
 
   def reindex_sporting_good item = nil
@@ -89,10 +89,13 @@ class Rental < ActiveRecord::Base
     begin
       stripe_payment = payment(current_user, card)
       self.stripe_payment_id = stripe_payment.id
+      self.save
     rescue Stripe::CardError => e
-      errors.add(:error, e.json_body[:error])
+      errors.add(:error, e.json_body[:error][:message])
+      return false
     rescue Stripe::StripeError => e
       errors.add(:error, e.message)
+      return false
     end
   end
 
@@ -114,8 +117,7 @@ class Rental < ActiveRecord::Base
 
   def dates_not_today?
     # Deal with rails being a day off
-    start_date = self.start_date + 1
-    return true unless start_date.today?
+    return true unless self.start_date.today?
     errors.add(:error, I18n.t('rentals.cant_be_today'))
     false
   end
@@ -155,43 +157,32 @@ class Rental < ActiveRecord::Base
 
   def payment(user, card)
 
-    begin
+    if user.stripe_customer_id
 
-      if user.stripe_customer_id
+      customer = Stripe::Customer.retrieve(user.stripe_customer_id)
+      source = customer.sources.create({source: card[:id]})
+      customer.default_source = source[:id]
 
-        customer = Stripe::Customer.retrieve(user.stripe_customer_id)
+    else
 
-        customer.sources.create({source: card[:id]})
-        customer.default_source = customer.sources.retrieve(card[:id])
-
-      else
-
-        customer = Stripe::Customer.create(
-          email: user.email
-        )
-
-        customer.sources.create({ source: card[:id] })
-        user.stripe_customer_id = customer.id
-        user.save!(:validate => false)
-
-      end
-
-    rescue
-
-      binding.pry
-
-    ensure
-
-      Stripe::Charge.create(
-        amount: (100 * self.total).to_i,
-        currency: "cad",
-        customer: user.stripe_customer_id,
-        receipt_email: user.email,
-        description: "#{ self.sporting_good.title } rental for #{ user.email }",
-        statement_descriptor: "Equipt Rental Payment"
+      customer = Stripe::Customer.create(
+        email: user.email
       )
 
+      customer.sources.create({ source: card[:id] })
+      user.stripe_customer_id = customer.id
+      user.save!(:validate => false)
+
     end
+
+    Stripe::Charge.create(
+      amount: (100 * self.total).to_i,
+      currency: "cad",
+      customer: user.stripe_customer_id,
+      receipt_email: user.email,
+      description: "#{ self.sporting_good.title } rental for #{ user.email }",
+      statement_descriptor: "Equipt Rental Payment"
+    )
 
   end
 

@@ -11,7 +11,6 @@ class Address < ApplicationRecord
   before_save :real_address? unless :skip_geocoded_valiation
 
   geocoded_by :full_address do |address, results|
-    # IMPORTANT: Address is not returning / Add error here
     if results.present?
       address.latitude = results.first.latitude
       address.longitude = results.first.longitude
@@ -26,7 +25,8 @@ class Address < ApplicationRecord
   end
 
   def full_address
-    ["#{number} #{street}", city, state, country, zip].compact.join(', ')
+    puts [number, street, city, state, country].compact.join(', ')
+    [number, street, city, state, country].compact.join(', ')
   end
 
 end

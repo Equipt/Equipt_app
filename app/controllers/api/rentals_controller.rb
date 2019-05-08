@@ -9,8 +9,7 @@ class Api::RentalsController < ApiController
       sporting_good = SportingGood.find_by_slug(params[:sporting_good_slug])
       rental = sporting_good.rentals.new(rental_params)
       rental.user_id = current_user.id
-      rental.process_payment(current_user, params[:card])
-      if rental.save
+      if rental.process_payment(current_user, params[:card])
         render json: rental, status: 200
       else
         render json: rental, status: 400
@@ -40,7 +39,7 @@ class Api::RentalsController < ApiController
       if rental.is_available? && rental.get_price
         render json: rental, serializer: SimpleRentalSerializer, status: 200
       else
-        render json: rental, serializer: SimpleRentalSerializer, status: 400
+        render json: { error: rental.errors.full_messages }, status: 400
       end
     end
 
