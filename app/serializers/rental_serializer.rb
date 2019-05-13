@@ -26,7 +26,8 @@ class RentalSerializer < ApplicationSerializer
                 :status,
                 :owned,
                 :rating,
-                :time_to
+                :time_to,
+                :cancelled
 
     belongs_to :sporting_good, serializer: SportingGoodSerializer
     belongs_to :user, serializer: OwnerSerializer

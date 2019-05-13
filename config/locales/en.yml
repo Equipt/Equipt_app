@@ -102,7 +102,7 @@ en:
     dates_in_past: "Rental Dates cannot be in the past!"
     terms_not_agreed_to: "Terms must be agree too"
     cancel_success: "Rental has been cancelled"
-    cancel_error: "Issue cancelling rental, please try again later"
+    cancel_error: There was a issue canceling this rental, please try later or contact us directly by email
     cant_be_today: Pickup date can't be today
     success: Congrats, your renting the %{item}!
     confirmed: Make sure to arrange a pickup time with %{user} and pay on pickup

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
         namespace :owner do
             resources :sporting_goods, param: :slug do
-              resources :rentals, param: :hash_id, only: [:show, :create, :destroy]
+              resources :rentals, param: :hash_id, only: [:show, :create]
 							resources :unavailabilities, only: [:create]
             end
             resources :rentals, param: :hash_id do
@@ -55,6 +55,8 @@ Rails.application.routes.draw do
     match 'api/report_a_bug', to: 'api/utils#report_a_bug', via: 'POST'
 
     match 'api/user/basic', to: 'api/user#basic_update', via: 'PUT'
+    match 'api/sporting_goods/:slug/rentals/:hash_id/cancel', to: 'api/rentals#cancel', via: 'PUT'
+
 
 
 end

@@ -99,6 +99,18 @@ class Rental < ActiveRecord::Base
     end
   end
 
+  def cancel
+    begin
+      self.cancelled = true;
+      self.save!(validate: false)
+      Stripe::Refund::create({
+        charge: self.stripe_payment_id
+      })
+    rescue
+      false
+    end
+  end
+
   # validates methods
 	def dates_are_vacant?
     rentals = self.sporting_good.rentals
