@@ -27,8 +27,9 @@ class Api::RentalsController < ApiController
 
     def cancel
       rental = current_user.rentals.find_by_hash_id(params[:hash_id])
-      binding.pry
-      if rental.cancel
+      rental.cancel_reason = params[:reason]
+      rental.cancel_message = params[:comment]
+      if rental.save(validate: false) && rental.cancel
         render json: { info: I18n.t('rentals.cancel_success') }, status: 200
       else
         render json: { error: I18n.t('rentals.cancel_error') }, status: 400
