@@ -22,6 +22,7 @@ class Rental < ActiveRecord::Base
   validate :dates_are_vacant?, :has_agreed_to_terms?, :dates_not_today?, :dates_not_in_past?, :not_past_days_limit?
 
   has_many :ratings, :as => :rateable, dependent: :destroy
+  has_many :comments, :as => :commentable, dependent: :destroy
 
   has_one :payment
 

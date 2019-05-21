@@ -25,9 +25,11 @@ class RentalSerializer < ApplicationSerializer
                 :is_complete,
                 :status,
                 :owned,
+                :renter,
                 :rating,
                 :time_to,
-                :cancelled
+                :cancelled,
+                :messages
 
     belongs_to :sporting_good, serializer: SportingGoodSerializer
     belongs_to :user, serializer: OwnerSerializer
@@ -75,6 +77,14 @@ class RentalSerializer < ApplicationSerializer
 
     def service_fee_percentage
       Rental::SERVICE_FEE_PERCENTAGE
+    end
+
+    def messages
+      ActiveModel::Serializer::CollectionSerializer.new(@object.comments, each_serializer: CommentSerializer)
+    end
+
+    def renter
+      @object.user
     end
 
 end

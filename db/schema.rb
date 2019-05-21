@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190514014240) do
+ActiveRecord::Schema.define(version: 20190520221611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20190514014240) do
     t.text     "comment"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
 
   create_table "images", force: :cascade do |t|
@@ -55,6 +57,19 @@ ActiveRecord::Schema.define(version: 20190514014240) do
     t.datetime "updated_at",     null: false
     t.string   "url"
     t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "notificationable_id"
+    t.string   "notificationable_type"
+    t.text     "message"
+    t.integer  "user_id"
+    t.boolean  "seen",                  default: false
+    t.string   "resource"
+    t.string   "resource_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id", using: :btree
   end
 
   create_table "phones", force: :cascade do |t|

@@ -45,10 +45,27 @@ class Api::RentalsController < ApiController
       end
     end
 
+    def send_message
+      rental = find_rental params[:hash_id]
+      comment = rental.comments.new({
+        comment: params[:message],
+        user_id: current_user.id
+      })
+      if comment.save
+        render json: rental, status: 200
+      else
+        render json: { error: I18n.t('rentals.error_saving_message') }, status: 400
+      end 
+    end
+
     private
 
     def rental_params
       params.require(:rental).permit(:start_date, :end_date, :pick_up_time, :agreed_to_terms)
+    end
+
+    def find_rental hash_id
+      current_user.rentals.find_by_hash_id(hash_id) || current_user.owned_rentals.find_by_hash_id(hash_id)
     end
 
 end

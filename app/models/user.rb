@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 	has_many :owned_rentals, -> { order("start_date desc") }, :through => :sporting_goods, source: 'rentals'
 	has_many :images, :as => :imageable, dependent: :destroy
 	has_many :payment_methods
+	has_many :comments
 
 	has_one :address, :dependent => :destroy
 	has_one :phone, :dependent => :destroy, autosave: false
@@ -25,7 +26,7 @@ class User < ActiveRecord::Base
 	validates_confirmation_of :password, if: :should_validate_password?
 	validates :password, :length=>{ :minimum => 6 }, if: :should_validate_password?
 	validates :password_confirmation, :length=>{ :minimum => 6 }, if: :should_validate_password?
-	validate :agreed_to_terms
+	validate :agreed_to_terms, :on => :create
 
 	validates_presence_of :firstname, :lastname, :email
 	validates_email_format_of :email
@@ -55,19 +56,19 @@ class User < ActiveRecord::Base
 
 		password = SecureRandom.hex(9)
 
-  	where(provider: 'facebook', uid: auth['user_id']).first_or_initialize.tap do |user|
+		where(provider: 'facebook', uid: auth['user_id']).first_or_initialize.tap do |user|
 
 			user.provider = 'facebook'
 			user.uid = auth['user_id']
 			user.firstname ||= auth['name']
 			user.lastname ||= auth['name']
-    	user.email ||= auth['email']
+			user.email ||= auth['email']
 			user.oauth_token = auth['access_token']
 			user.oauth_expires_at = Time.at(auth['expires_in'])
-    	user.password ||=  password
-    	user.password_confirmation ||=  password
+			user.password ||=  password
+			user.password_confirmation ||=  password
 			user.terms = true
-  		user.save!
+			user.save!
 
 			url = auth['picture']['data']['url']
 
@@ -109,6 +110,10 @@ class User < ActiveRecord::Base
 
 	def overall_rating
 		ratings.pluck(:rating).inject(&:+).to_f / ratings.size
+	end
+
+	def facebook_authenticated?
+		self.provider == 'facebook' && self.password == nil
 	end
 
 end

@@ -1,6 +1,7 @@
 class UserSerializer < ApplicationSerializer
 
 	attributes :id,
+			:hash_id,
 			:firstname,
 			:lastname,
 			:email,
@@ -19,7 +20,8 @@ class UserSerializer < ApplicationSerializer
 			:phone,
 			:address,
 			:notice,
-			:stripe_customer_id
+			:stripe_customer_id,
+			:only_facebook_authenticated
 
 	has_many :rentals
 
@@ -61,6 +63,10 @@ class UserSerializer < ApplicationSerializer
 
 	def ratings
 		ActiveModel::Serializer::CollectionSerializer.new( @object.ratings | @object.owned_rentals.map(&:ratings).flatten, each_serializer: RatingSerializer)
+	end
+
+	def only_facebook_authenticated
+		@object.provider == 'facebook' && @object.password == nil
 	end
 
 end

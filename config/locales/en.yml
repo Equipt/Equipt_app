@@ -85,6 +85,8 @@ en:
     update_profile: "Please update your address details to rent."
     add_a_profile_image: "Add a profile picture here."
     must_agree_to_terms: "Please agree to terms"
+    incorrect_password: 'Sorry, your password is not correct'
+    updated_password: 'Your password was successfully updated'
     signup:
       title: Signup
     terms:
@@ -109,6 +111,7 @@ en:
     max_out_rentals: Sorry, at this time you can only have 5 rentals active at a time
     read_rental_terms: Click to read rental terms and conditions
     exceeds_days_limit: Sorry, a single rental cannot exceed %{days} days.
+    error_saving_message: Sorry, there was an issue saving this message. Please try again later!
     terms:
       <h5>1. Scope of Equipt’s Services</h5>
       <p>1.1 The Equipts Platform is an online marketplace that allows registered users to publish Sporting Goods (Users that offer rentals of sporting goods are known as “Owners”) for rental on Equipt’s sporting good listings and to communicate and transact directly with users (An agreement made by a Owner and User for use of a particular sporting good is known as a “Rental”) seeking to rent these sporting goods (Users that are renting goods from Owners are known as “Renters”). </p>

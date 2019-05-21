@@ -37,6 +37,17 @@ class Api::UserController < ApiController
 		end
 	end
 
+	def password_update
+		user = current_user
+		if !user.authenticate(params[:password]) && !user.facebook_authenticated?
+			render json: { error: I18n.t('user.incorrect_password') }, status: 400
+		elsif user.update_attributes(password_update_params)
+			render json: { error: I18n.t('user.updated_password') }, status: 200
+		else 
+			render json: { error: user.errors.full_messages }, status: 400
+		end
+	end
+
 	private
 
 	def basic_params
@@ -84,6 +95,14 @@ class Api::UserController < ApiController
 				:_destroy
 			]
 		)
+	end
+
+	def password_update_params
+		{
+			password: params[:new_password],
+			password_confirmation: params[:new_password_confirmation],
+			terms: true
+		}
 	end
 
 end

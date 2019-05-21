@@ -21,7 +21,7 @@ class SportingGood < ActiveRecord::Base
 
 	accepts_nested_attributes_for :images
 
-  friendly_id :title, use: :slugged
+	friendly_id :title, use: :slugged
 
 	validates_presence_of :category, :title, :brand, :model, :price_per_day
 	validates :price_per_day, :price_per_week, :age, :numericality => { greater_than: 0 }

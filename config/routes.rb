@@ -55,8 +55,8 @@ Rails.application.routes.draw do
     match 'api/report_a_bug', to: 'api/utils#report_a_bug', via: 'POST'
 
     match 'api/user/basic', to: 'api/user#basic_update', via: 'PUT'
-    match 'api/sporting_goods/:slug/rentals/:hash_id/cancel', to: 'api/rentals#cancel', via: 'PUT'
-
-
+    match 'api/password_update', to: 'api/user#password_update', via: 'PUT'
+    match 'api/rentals/:hash_id/cancel', to: 'api/rentals#cancel', via: 'PUT'
+    match 'api/rentals/:hash_id/send_message', to: 'api/rentals#send_message', via: 'POST'
 
 end
